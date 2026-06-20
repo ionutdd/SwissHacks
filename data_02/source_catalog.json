@@ -1,0 +1,827 @@
+{
+  "version": 1,
+  "description": "Catalog-driven source inputs for Subtask 02 evidence collection. The collector fetches these sources, ranks evidence chunks, and emits data_02/documents.json.",
+  "api_discovery": [
+    {
+      "connector": "sec_recent_filings",
+      "enabled": true,
+      "customer_id": "demo-001",
+      "cik": "0001783879",
+      "source_name": "SEC EDGAR API",
+      "source_type": "sec_filing",
+      "source_quality": "A",
+      "allowed_forms": [
+        "8-K",
+        "10-K",
+        "10-Q"
+      ],
+      "query_terms": [
+        "Bitstamp",
+        "crypto",
+        "acquisition",
+        "institutional"
+      ],
+      "expected_signal_types": [
+        "ownership_change",
+        "business_activity_change",
+        "digital_asset_activity"
+      ],
+      "baseline_fields_targeted": [
+        "subsidiaries",
+        "business_area",
+        "known_products"
+      ],
+      "automation_potential": "high",
+      "max_documents": 1,
+      "limitations": "Discovered through the SEC submissions API. Use only if the filing text contains relevant acquisition or crypto terms."
+    },
+    {
+      "connector": "sec_recent_filings",
+      "enabled": true,
+      "customer_id": "demo-003",
+      "cik": "0001326380",
+      "source_name": "SEC EDGAR API",
+      "source_type": "sec_filing",
+      "source_quality": "A",
+      "allowed_forms": [
+        "8-K",
+        "10-K",
+        "10-Q"
+      ],
+      "query_terms": [
+        "bitcoin",
+        "treasury reserve",
+        "digital assets",
+        "crypto"
+      ],
+      "expected_signal_types": [
+        "digital_asset_activity",
+        "treasury_policy_change",
+        "risk_rating_review"
+      ],
+      "baseline_fields_targeted": [
+        "business_area",
+        "known_products",
+        "risk_rating"
+      ],
+      "automation_potential": "high",
+      "max_documents": 2,
+      "limitations": "Discovered through the SEC submissions API. The primary filing document is still fetched and evidence-ranked before output."
+    },
+    {
+      "connector": "sec_recent_filings",
+      "enabled": true,
+      "customer_id": "demo-005",
+      "cik": "0001876042",
+      "source_name": "SEC EDGAR API",
+      "source_type": "sec_filing",
+      "source_quality": "A",
+      "allowed_forms": [
+        "S-1",
+        "424B4",
+        "10-Q",
+        "8-K"
+      ],
+      "query_terms": [
+        "USDC",
+        "stablecoin",
+        "Circle Payments Network",
+        "public offering",
+        "digital assets"
+      ],
+      "expected_signal_types": [
+        "public_listing",
+        "commercial_opportunity",
+        "digital_asset_activity"
+      ],
+      "baseline_fields_targeted": [
+        "entity_type",
+        "business_area",
+        "known_products"
+      ],
+      "automation_potential": "high",
+      "max_documents": 1,
+      "limitations": "Discovered through the SEC submissions API. Use for public-company monitoring and corroboration of Circle product or IPO signals."
+    }
+  ],
+  "source_discovery": [
+    {
+      "connector": "company_site_discovery",
+      "enabled": true,
+      "customer_id": "demo-004",
+      "index_urls": [
+        "https://www.kraken.com/press"
+      ],
+      "source_name": "Kraken Press Room",
+      "source_type": "company_newsroom",
+      "source_quality": "A",
+      "query_terms": [
+        "NinjaTrader",
+        "acquire",
+        "acquisition",
+        "professional trading",
+        "$1.5 billion"
+      ],
+      "expected_signal_types": [
+        "ownership_change",
+        "business_activity_change"
+      ],
+      "baseline_fields_targeted": [
+        "subsidiaries",
+        "business_area"
+      ],
+      "automation_potential": "high",
+      "max_documents": 1,
+      "min_score": 5,
+      "limitations": "Discovered from the official Kraken press index."
+    },
+    {
+      "connector": "regulator_discovery",
+      "enabled": true,
+      "customer_id": "demo-002",
+      "candidate_urls": [
+        "https://www.cftc.gov/PressRoom/PressReleases/8478-22"
+      ],
+      "source_name": "Commodity Futures Trading Commission",
+      "source_type": "regulator",
+      "source_quality": "A",
+      "query_terms": [
+        "Blockratize",
+        "Polymarket",
+        "event-based binary options",
+        "designated contract market",
+        "swap execution facility",
+        "$1.4 million"
+      ],
+      "expected_signal_types": [
+        "regulatory_scrutiny",
+        "business_activity_change"
+      ],
+      "baseline_fields_targeted": [
+        "risk_rating",
+        "business_area"
+      ],
+      "automation_potential": "high",
+      "max_documents": 1,
+      "min_score": 5,
+      "published_at_hint": "2022-01-03",
+      "title_hint": "CFTC Orders Event-Based Binary Options Markets Operator to Pay $1.4 Million Penalty",
+      "limitations": "Historical regulator source. It should support risk context, not a fresh post-baseline alert by itself."
+    },
+    {
+      "connector": "news_event_discovery",
+      "enabled": true,
+      "customer_id": "demo-002",
+      "provider": "gdelt_doc",
+      "queries": [
+        "Polymarket Kalshi Spain gambling licence blocked",
+        "Polymarket QCEX acquisition return US regulated"
+      ],
+      "trusted_domains": [
+        "theguardian.com",
+        "elpais.com",
+        "cadenaser.com",
+        "axios.com",
+        "cnbc.com",
+        "reuters.com",
+        "bloomberg.com"
+      ],
+      "fallback_urls": [
+        "https://www.theguardian.com/world/2026/may/26/spain-blocks-access-polymarket-kalshi-gambling-licence-investigation",
+        "https://elpais.com/economia/2026-05-26/consumo-ordena-el-bloqueo-de-polymarket-y-kalshi-en-espana-por-operar-sin-licencia-de-juego.html",
+        "https://cadenaser.com/nacional/2026/05/26/el-futuro-de-polymarket-tras-el-bloqueo-del-gobierno-es-ilegal-no-tiene-licencia-y-no-hay-posibilidad-de-que-la-consiga-cadena-ser/"
+      ],
+      "source_name": "GDELT News Discovery",
+      "source_type": "reputable_news",
+      "source_quality": "B",
+      "query_terms": [
+        "Polymarket",
+        "Kalshi",
+        "Spain",
+        "blocked",
+        "gambling licence",
+        "QCEX",
+        "regulated"
+      ],
+      "expected_signal_types": [
+        "regulatory_scrutiny",
+        "jurisdiction_restriction",
+        "ownership_change",
+        "business_activity_change"
+      ],
+      "baseline_fields_targeted": [
+        "known_jurisdictions",
+        "risk_rating",
+        "subsidiaries",
+        "business_area"
+      ],
+      "automation_potential": "medium",
+      "max_documents": 3,
+      "published_at_hint": null,
+      "limitations": "Public news/event discovery. Use official regulator or company sources when available."
+    },
+    {
+      "connector": "page_diff_watch",
+      "enabled": true,
+      "customer_id": "demo-005",
+      "state_path": "page_watch_state.json",
+      "emit_unchanged": true,
+      "pages": [
+        {
+          "url": "https://www.circle.com/cpn",
+          "source_name": "Circle",
+          "source_type": "product_page",
+          "source_quality": "A",
+          "title_hint": "Circle Payments Network",
+          "query_terms": [
+            "Circle Payments Network",
+            "banks",
+            "PSPs",
+            "VASPs",
+            "stablecoins",
+            "real-time settlement"
+          ],
+          "expected_signal_types": [
+            "new_product",
+            "commercial_opportunity",
+            "digital_asset_activity"
+          ],
+          "baseline_fields_targeted": [
+            "business_area",
+            "known_products",
+            "known_jurisdictions"
+          ],
+          "automation_potential": "medium",
+          "limitations": "Product page has no publication date; page hash is monitored for changes."
+        },
+        {
+          "url": "https://www.circle.com/usdc",
+          "source_name": "Circle",
+          "source_type": "product_page",
+          "source_quality": "A",
+          "title_hint": "USDC | Powering global finance. Issued by Circle.",
+          "query_terms": [
+            "USDC",
+            "Redeemable 1:1 for US dollars",
+            "near-instant, low-cost global payments",
+            "USDC is natively issued",
+            "regulated stablecoin"
+          ],
+          "expected_signal_types": [
+            "new_product",
+            "digital_asset_activity",
+            "commercial_opportunity"
+          ],
+          "baseline_fields_targeted": [
+            "business_area",
+            "known_products",
+            "risk_rating"
+          ],
+          "automation_potential": "medium",
+          "limitations": "Product page has no publication date; page hash is monitored for changes."
+        },
+        {
+          "url": "https://www.kraken.com/legal/xstocks",
+          "customer_id": "demo-004",
+          "source_name": "Kraken Legal",
+          "source_type": "product_page",
+          "source_quality": "A",
+          "title_hint": "xStocks Risk Disclosure",
+          "query_terms": [
+            "xStocks are issued by Backed",
+            "Payward Digital Solutions Ltd.",
+            "Bermuda Monetary Authority",
+            "eligible clients"
+          ],
+          "expected_signal_types": [
+            "new_product",
+            "digital_asset_activity",
+            "jurisdiction_expansion"
+          ],
+          "baseline_fields_targeted": [
+            "business_area",
+            "known_products",
+            "known_jurisdictions",
+            "risk_rating"
+          ],
+          "automation_potential": "medium",
+          "limitations": "Legal disclosure page has no publication date; page hash is monitored for changes."
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "src-001-robinhood-bitstamp-close",
+      "customer_id": "demo-001",
+      "connector": "web_page",
+      "url": "https://robinhood.com/us/en/newsroom/robinhood-completes-acquisition-of-bitstamp/",
+      "source_type": "company_newsroom",
+      "source_name": "Robinhood Newsroom",
+      "source_quality": "A",
+      "title_hint": "Robinhood Completes Acquisition of Bitstamp",
+      "published_at_hint": "2025-06-02",
+      "query_terms": [
+        "closed its acquisition",
+        "Bitstamp",
+        "global cryptocurrency exchange",
+        "institutional crypto"
+      ],
+      "expected_signal_types": [
+        "ownership_change",
+        "new_subsidiary",
+        "business_activity_change"
+      ],
+      "baseline_fields_targeted": [
+        "subsidiaries",
+        "business_area",
+        "known_products"
+      ],
+      "automation_potential": "high",
+      "limitations": null
+    },
+    {
+      "source_id": "src-002-bitstamp-robinhood-close",
+      "customer_id": "demo-001",
+      "connector": "web_page",
+      "url": "https://blog.bitstamp.net/post/robinhood-completes-acquisition-of-bitstamp/",
+      "source_type": "company_newsroom",
+      "source_name": "Bitstamp Blog",
+      "source_quality": "A",
+      "title_hint": "Robinhood Completes Acquisition of Bitstamp",
+      "published_at_hint": "2025-06-02",
+      "query_terms": [
+        "over 50 active licenses",
+        "EU",
+        "UK",
+        "US",
+        "Asia",
+        "institutional crypto"
+      ],
+      "expected_signal_types": [
+        "new_jurisdiction",
+        "business_activity_change",
+        "digital_asset_activity"
+      ],
+      "baseline_fields_targeted": [
+        "known_jurisdictions",
+        "business_area",
+        "risk_rating"
+      ],
+      "automation_potential": "high",
+      "limitations": null
+    },
+    {
+      "source_id": "src-003-bitstamp-legal-footer",
+      "customer_id": "demo-001",
+      "connector": "web_page",
+      "url": "https://blog.bitstamp.net/post/robinhood-completes-acquisition-of-bitstamp/",
+      "source_type": "company_newsroom",
+      "source_name": "Bitstamp Legal Footer",
+      "source_quality": "A",
+      "title_hint": "Bitstamp legal entity and licensing disclosures",
+      "published_at_hint": "2025-06-02",
+      "query_terms": [
+        "Bitstamp Europe S.A.",
+        "Bitstamp UK Ltd.",
+        "Bitstamp Global Ltd.",
+        "Bitstamp Asia Pte Ltd",
+        "Bitstamp USA"
+      ],
+      "expected_signal_types": [
+        "new_jurisdiction",
+        "new_subsidiary"
+      ],
+      "baseline_fields_targeted": [
+        "known_jurisdictions",
+        "subsidiaries",
+        "risk_rating"
+      ],
+      "automation_potential": "medium",
+      "limitations": "Legal entity details may appear in the page footer rather than article body."
+    },
+    {
+      "source_id": "src-004-polymarket-cftc-order",
+      "customer_id": "demo-002",
+      "connector": "web_page",
+      "url": "https://www.cftc.gov/PressRoom/PressReleases/8478-22",
+      "source_type": "regulator",
+      "source_name": "Commodity Futures Trading Commission",
+      "source_quality": "A",
+      "title_hint": "CFTC Orders Event-Based Binary Options Markets Operator to Pay $1.4 Million Penalty",
+      "published_at_hint": "2022-01-03",
+      "query_terms": [
+        "Blockratize",
+        "Polymarket",
+        "event-based binary options",
+        "designated contract market",
+        "swap execution facility",
+        "$1.4 million"
+      ],
+      "expected_signal_types": [
+        "regulatory_scrutiny",
+        "business_activity_change"
+      ],
+      "baseline_fields_targeted": [
+        "risk_rating",
+        "business_area"
+      ],
+      "automation_potential": "high",
+      "limitations": "Historical regulator source. It should support risk context, not a fresh post-baseline alert by itself."
+    },
+    {
+      "source_id": "src-005-polymarket-qcx-acquisition",
+      "customer_id": "demo-002",
+      "connector": "web_page",
+      "url": "https://www.axios.com/2025/07/21/prediction-market-polymarket-us",
+      "source_type": "reputable_news",
+      "source_name": "Axios",
+      "source_quality": "B",
+      "title_hint": "Polymarket to return to U.S. after acquisition",
+      "published_at_hint": "2025-07-21",
+      "query_terms": [
+        "QCX",
+        "QCEX",
+        "$112 million",
+        "return to the U.S.",
+        "regulated",
+        "compliant"
+      ],
+      "expected_signal_types": [
+        "ownership_change",
+        "jurisdiction_restriction",
+        "business_activity_change"
+      ],
+      "baseline_fields_targeted": [
+        "subsidiaries",
+        "known_jurisdictions",
+        "business_area"
+      ],
+      "automation_potential": "medium",
+      "limitations": "Secondary news source; replace with Polymarket or QCEX primary announcement if found."
+    },
+    {
+      "source_id": "src-006-polymarket-spain-block",
+      "customer_id": "demo-002",
+      "connector": "web_page",
+      "url": "https://www.theguardian.com/world/2026/may/26/spain-blocks-access-polymarket-kalshi-gambling-licence-investigation",
+      "source_type": "reputable_news",
+      "source_name": "The Guardian",
+      "source_quality": "B",
+      "title_hint": "Spain blocks access to Polymarket and Kalshi as it launches gambling licence investigation",
+      "published_at_hint": "2026-05-26",
+      "query_terms": [
+        "Spain",
+        "blocked access",
+        "Polymarket",
+        "Kalshi",
+        "gambling licence",
+        "investigates"
+      ],
+      "expected_signal_types": [
+        "regulatory_scrutiny",
+        "jurisdiction_restriction"
+      ],
+      "baseline_fields_targeted": [
+        "known_jurisdictions",
+        "risk_rating"
+      ],
+      "automation_potential": "medium",
+      "limitations": "Secondary news source; an official Spanish regulator source would be stronger."
+    },
+    {
+      "source_id": "src-006b-polymarket-spain-block-elpais",
+      "customer_id": "demo-002",
+      "connector": "web_page",
+      "url": "https://elpais.com/economia/2026-05-26/consumo-ordena-el-bloqueo-de-polymarket-y-kalshi-en-espana-por-operar-sin-licencia-de-juego.html",
+      "source_type": "reputable_news",
+      "source_name": "El Pais",
+      "source_quality": "B",
+      "title_hint": "Consumo ordena el bloqueo de Polymarket y Kalshi en Espana por operar sin licencia de juego",
+      "published_at_hint": "2026-05-26",
+      "language_hint": "es",
+      "query_terms": [
+        "bloqueo",
+        "Polymarket",
+        "Kalshi",
+        "licencia de juego",
+        "expediente sancionador",
+        "Ministerio de Consumo",
+        "BOE"
+      ],
+      "expected_signal_types": [
+        "regulatory_scrutiny",
+        "jurisdiction_restriction"
+      ],
+      "baseline_fields_targeted": [
+        "known_jurisdictions",
+        "risk_rating"
+      ],
+      "automation_potential": "medium",
+      "limitations": "Spanish secondary news source; useful backup for Spain blocking evidence until an official BOE or DGOJ source is cataloged."
+    },
+    {
+      "source_id": "src-007-gamestop-bitcoin-8k",
+      "customer_id": "demo-003",
+      "connector": "sec_archive_page",
+      "url": "https://www.sec.gov/Archives/edgar/data/1326380/000132638025000026/pr-btcmay2025.htm",
+      "source_type": "sec_filing",
+      "source_name": "SEC EDGAR",
+      "source_quality": "A",
+      "title_hint": "GameStop Announces Purchase of Bitcoin",
+      "published_at_hint": "2025-05-28",
+      "query_terms": [
+        "purchased 4,710 Bitcoin",
+        "Bitcoin",
+        "GameStop Corp."
+      ],
+      "expected_signal_types": [
+        "digital_asset_activity",
+        "treasury_policy_change",
+        "commercial_opportunity"
+      ],
+      "baseline_fields_targeted": [
+        "business_area",
+        "known_products",
+        "risk_rating"
+      ],
+      "automation_potential": "high",
+      "limitations": null
+    },
+    {
+      "source_id": "src-008-gamestop-bitcoin-10k",
+      "customer_id": "demo-003",
+      "connector": "sec_archive_page",
+      "url": "https://www.sec.gov/Archives/edgar/data/1326380/000162828025014731/gme-20250201.htm",
+      "source_type": "sec_filing",
+      "source_name": "SEC EDGAR",
+      "source_quality": "A",
+      "title_hint": "GameStop Form 10-K for fiscal year 2024",
+      "published_at_hint": "2025-03-25",
+      "query_terms": [
+        "Bitcoin as a treasury reserve asset",
+        "Investment Policy",
+        "digital assets",
+        "cryptocurrencies"
+      ],
+      "expected_signal_types": [
+        "treasury_policy_change",
+        "digital_asset_activity"
+      ],
+      "baseline_fields_targeted": [
+        "business_area",
+        "known_products",
+        "risk_rating"
+      ],
+      "automation_potential": "high",
+      "limitations": null
+    },
+    {
+      "source_id": "src-009-gamestop-bitcoin-10q",
+      "customer_id": "demo-003",
+      "connector": "sec_archive_page",
+      "url": "https://www.sec.gov/Archives/edgar/data/1326380/000132638025000035/gme-20250503.htm",
+      "source_type": "sec_filing",
+      "source_name": "SEC EDGAR",
+      "source_quality": "A",
+      "title_hint": "GameStop Form 10-Q for quarter ended May 3, 2025",
+      "published_at_hint": "2025-06-10",
+      "query_terms": [
+        "Bitcoin",
+        "digital assets",
+        "volatility",
+        "custody",
+        "regulatory"
+      ],
+      "expected_signal_types": [
+        "risk_rating_review",
+        "digital_asset_activity"
+      ],
+      "baseline_fields_targeted": [
+        "risk_rating",
+        "known_products"
+      ],
+      "automation_potential": "high",
+      "limitations": null
+    },
+    {
+      "source_id": "src-010-kraken-xstocks-launch",
+      "customer_id": "demo-004",
+      "connector": "web_page",
+      "url": "https://blog.kraken.com/product/xstocks/tokenized-equities-now-available",
+      "source_type": "official_blog",
+      "source_name": "Kraken Blog",
+      "source_quality": "A",
+      "title_hint": "From Wall Street to your wallet: Tokenized equities now available on Kraken",
+      "published_at_hint": "2025-06-30",
+      "query_terms": [
+        "tokenized U.S. stocks",
+        "ETFs",
+        "eligible non-U.S. clients",
+        "xStocks",
+        "Backed"
+      ],
+      "expected_signal_types": [
+        "new_product",
+        "digital_asset_activity",
+        "jurisdiction_expansion"
+      ],
+      "baseline_fields_targeted": [
+        "business_area",
+        "known_products",
+        "known_jurisdictions"
+      ],
+      "automation_potential": "high",
+      "limitations": null
+    },
+    {
+      "source_id": "src-011-kraken-xstocks-risk",
+      "customer_id": "demo-004",
+      "connector": "web_page",
+      "url": "https://www.kraken.com/legal/xstocks",
+      "source_type": "product_page",
+      "source_name": "Kraken Legal",
+      "source_quality": "A",
+      "title_hint": "xStocks Risk Disclosure",
+      "published_at_hint": null,
+      "query_terms": [
+        "xStocks are issued by Backed",
+        "Payward Digital Solutions Ltd.",
+        "Bermuda Monetary Authority",
+        "eligible clients"
+      ],
+      "expected_signal_types": [
+        "new_product",
+        "digital_asset_activity",
+        "jurisdiction_expansion"
+      ],
+      "baseline_fields_targeted": [
+        "business_area",
+        "known_products",
+        "known_jurisdictions",
+        "risk_rating"
+      ],
+      "automation_potential": "medium",
+      "limitations": "Page may not expose a publication date."
+    },
+    {
+      "source_id": "src-012-kraken-ninjatrader-official",
+      "customer_id": "demo-004",
+      "connector": "web_page",
+      "url": "https://www.kraken.com/press/releases/kraken-to-acquire-ninjatrader-introducing-the-next-era-of-professional-trading",
+      "source_type": "company_newsroom",
+      "source_name": "Kraken Press Room",
+      "source_quality": "A",
+      "title_hint": "Kraken to Acquire NinjaTrader: Introducing the Next Era of Professional Trading",
+      "published_at_hint": null,
+      "query_terms": [
+        "Kraken",
+        "NinjaTrader",
+        "$1.5 billion",
+        "acquisition",
+        "retail futures trading",
+        "CFTC-registered Futures Commission Merchant"
+      ],
+      "expected_signal_types": [
+        "ownership_change",
+        "business_activity_change"
+      ],
+      "baseline_fields_targeted": [
+        "subsidiaries",
+        "business_area"
+      ],
+      "automation_potential": "high",
+      "limitations": "Official Kraken press page does not expose a clean machine-readable publication date in the current catalog."
+    },
+    {
+      "source_id": "src-013-circle-investor-relations",
+      "customer_id": "demo-005",
+      "connector": "web_page",
+      "url": "https://investor.circle.com/overview/default.aspx",
+      "source_type": "investor_relations",
+      "source_name": "Circle Investor Relations",
+      "source_quality": "A",
+      "title_hint": "Circle Investor Relations",
+      "published_at_hint": null,
+      "query_terms": [
+        "global financial technology firm",
+        "digital currencies",
+        "public blockchains",
+        "payments",
+        "commerce"
+      ],
+      "expected_signal_types": [
+        "public_listing",
+        "commercial_opportunity",
+        "digital_asset_activity"
+      ],
+      "baseline_fields_targeted": [
+        "entity_type",
+        "business_area",
+        "known_products"
+      ],
+      "automation_potential": "high",
+      "limitations": "Investor overview page may not expose a publication date."
+    },
+    {
+      "source_id": "src-014-circle-mint",
+      "customer_id": "demo-005",
+      "connector": "web_page",
+      "url": "https://www.circle.com/circle-mint",
+      "source_type": "product_page",
+      "source_name": "Circle",
+      "source_quality": "A",
+      "title_hint": "Circle Mint",
+      "published_at_hint": null,
+      "query_terms": [
+        "Circle Mint",
+        "USDC",
+        "EURC",
+        "redeem",
+        "distributors",
+        "institutions"
+      ],
+      "expected_signal_types": [
+        "new_product",
+        "digital_asset_activity",
+        "commercial_opportunity"
+      ],
+      "baseline_fields_targeted": [
+        "business_area",
+        "known_products"
+      ],
+      "automation_potential": "medium",
+      "limitations": "Product page may not expose a publication date."
+    },
+    {
+      "source_id": "src-015-circle-payments-network",
+      "customer_id": "demo-005",
+      "connector": "web_page",
+      "url": "https://www.circle.com/cpn",
+      "source_type": "product_page",
+      "source_name": "Circle",
+      "source_quality": "A",
+      "title_hint": "Circle Payments Network",
+      "published_at_hint": null,
+      "query_terms": [
+        "Circle Payments Network",
+        "banks",
+        "PSPs",
+        "VASPs",
+        "stablecoins",
+        "payment use cases"
+      ],
+      "expected_signal_types": [
+        "new_product",
+        "commercial_opportunity",
+        "digital_asset_activity"
+      ],
+      "baseline_fields_targeted": [
+        "business_area",
+        "known_products",
+        "known_jurisdictions"
+      ],
+      "automation_potential": "medium",
+      "limitations": "Product page may not expose a publication date."
+    },
+    {
+      "source_id": "src-016-circle-usdc",
+      "customer_id": "demo-005",
+      "connector": "web_page",
+      "url": "https://www.circle.com/usdc",
+      "source_type": "product_page",
+      "source_name": "Circle",
+      "source_quality": "A",
+      "title_hint": "USDC | Powering global finance. Issued by Circle.",
+      "published_at_hint": null,
+      "query_terms": [
+        "USDC",
+        "Redeemable 1:1 for US dollars",
+        "near-instant, low-cost global payments",
+        "USDC is natively issued",
+        "regulated stablecoin",
+        "global payments",
+        "reserve attestations",
+        "blockchain networks"
+      ],
+      "expected_signal_types": [
+        "new_product",
+        "digital_asset_activity",
+        "commercial_opportunity"
+      ],
+      "baseline_fields_targeted": [
+        "business_area",
+        "known_products",
+        "risk_rating"
+      ],
+      "automation_potential": "medium",
+      "limitations": "Product page has no publication date; use for product coverage and reserve-monitoring hints, not freshness by itself."
+    }
+  ],
+  "blocked_or_provider_only_sources": [
+    {
+      "name": "LinkedIn",
+      "reason": "Do not scrape behind login or platform controls. Use an approved LinkedIn API, a licensed people/company-data provider, or official company careers pages that expose public APIs."
+    }
+  ]
+}

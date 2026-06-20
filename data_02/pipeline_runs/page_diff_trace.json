@@ -1,0 +1,49 @@
+[
+  {
+    "stage": "discovery",
+    "connector": "page_diff_watch",
+    "customer_id": "demo-005",
+    "status": "ok",
+    "discovered_sources": 3,
+    "state_path": "data_02\\page_watch_state.json"
+  },
+  {
+    "source_id": "page-diff-demo-005-1",
+    "document_id": "doc-001",
+    "url": "https://www.circle.com/cpn",
+    "status": "ok",
+    "connector": "page_diff_watch",
+    "entity_match_score": 126,
+    "retrieval_score": 190,
+    "source_term_score": 52,
+    "clean_text_chars": 12806,
+    "page_hash": "7509212d6ba7c748ca7f4dd9de150d770707ce147a4323bcaf52312703648ce2",
+    "page_changed": true
+  },
+  {
+    "source_id": "page-diff-demo-005-2",
+    "document_id": "doc-002",
+    "url": "https://www.circle.com/usdc",
+    "status": "ok",
+    "connector": "page_diff_watch",
+    "entity_match_score": 177,
+    "retrieval_score": 82,
+    "source_term_score": 23,
+    "clean_text_chars": 15441,
+    "page_hash": "7df29bb93f738cefa78ae992b9c439dedb99c547c578f1c34cce4af70d98230e",
+    "page_changed": true
+  },
+  {
+    "source_id": "page-diff-demo-004-3",
+    "document_id": "doc-003",
+    "url": "https://www.kraken.com/legal/xstocks",
+    "status": "ok",
+    "connector": "page_diff_watch",
+    "entity_match_score": 125,
+    "retrieval_score": 127,
+    "source_term_score": 35,
+    "clean_text_chars": 14680,
+    "page_hash": "45ac1c141264651c718d995d86f516e9a339d7d6816f46d15dcda3c39d133d25",
+    "page_changed": true
+  }
+]

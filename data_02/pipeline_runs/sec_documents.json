@@ -1,0 +1,108 @@
+[
+  {
+    "document_id": "doc-001",
+    "customer_id": "demo-003",
+    "source_type": "sec_filing",
+    "source_name": "SEC EDGAR",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1326380/000132638025000026/pr-btcmay2025.htm",
+    "source_quality": "A",
+    "title": "GameStop Announces Purchase of Bitcoin",
+    "published_at": "2025-05-28",
+    "collected_at": "2026-06-19T23:50:17Z",
+    "language": "en",
+    "raw_text": "GameStop Announces Purchase of Bitcoin GRAPEVINE, Texas, May 28, 2025 (BUSINESS WIRE) —GameStop Corp. (NYSE: GME) (“GameStop” or the “Company”) today announced that it has purchased 4,710 Bitcoin.",
+    "evidence_excerpt": "GRAPEVINE, Texas, May 28, 2025 (BUSINESS WIRE) —GameStop Corp. (NYSE: GME) (“GameStop” or the “Company”) today announced that it has purchased 4,710 Bitcoin.",
+    "expected_signal_types": [
+      "digital_asset_activity",
+      "treasury_policy_change",
+      "commercial_opportunity"
+    ],
+    "baseline_fields_targeted": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "automation_potential": "high",
+    "confidence_hint": "high",
+    "limitations": null
+  },
+  {
+    "document_id": "doc-002",
+    "customer_id": "demo-003",
+    "source_type": "sec_filing",
+    "source_name": "SEC EDGAR",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1326380/000162828025014731/gme-20250201.htm",
+    "source_quality": "A",
+    "title": "GameStop Form 10-K for fiscal year 2024",
+    "published_at": "2025-03-25",
+    "collected_at": "2026-06-19T23:50:17Z",
+    "language": "en",
+    "raw_text": "Individual exceptions to the Investment Policy may only be made by the unanimous agreement of the Investment Committee or, if the Investment Committee is unable to reach unanimous agreement on such exception, by the Board. On March 25, 2025 we announced that, as part of our revisions to the Investment Policy, the Board approved the addition of Bitcoin as a treasury reserve asset, whereby a portion of our cash or future debt and equity issuances may be invested in Bitcoin. We have not set a maximum amount of Bitcoin we may accumulate, and may sell any Bitcoin we may acquire.",
+    "evidence_excerpt": "On March 25, 2025 we announced that, as part of our revisions to the Investment Policy, the Board approved the addition of Bitcoin as a treasury reserve asset, whereby a portion of our cash or future debt and equity issuances may be invested in Bitcoin.",
+    "expected_signal_types": [
+      "treasury_policy_change",
+      "digital_asset_activity"
+    ],
+    "baseline_fields_targeted": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "automation_potential": "high",
+    "confidence_hint": "high",
+    "limitations": null
+  },
+  {
+    "document_id": "doc-003",
+    "customer_id": "demo-003",
+    "source_type": "sec_filing",
+    "source_name": "SEC EDGAR",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1326380/000132638025000035/gme-20250503.htm",
+    "source_quality": "A",
+    "title": "GameStop Form 10-Q for quarter ended May 3, 2025",
+    "published_at": "2025-06-10",
+    "collected_at": "2026-06-19T23:50:17Z",
+    "language": "en",
+    "raw_text": "The broader digital assets industry may also be subject to counterparty risks, which could adversely impact the adoption rate, price, and use of Bitcoin. Bitcoin and other crypto-currencies are subject to regulatory and legal uncertainty, and governments and regulators may enact new laws and regulations, or pursue regulatory, legislative, enforcement or judicial actions that could impact the price of Bitcoin or our ability to acquire, hold or transfer Bitcoin, and may subject us to increased regulatory scrutiny. If federal or state tax authorities change Bitcoin’s classification from property, which allows for capital gains treatment but also imposes certain tax reporting requirements, to another category, such as to currency or a financial asset, the resulting tax implications could negatively affect us and our stockholders.",
+    "evidence_excerpt": "Bitcoin and other crypto-currencies are subject to regulatory and legal uncertainty, and governments and regulators may enact new laws and regulations, or pursue regulatory, legislative, enforcement or judicial actions that could impact the price of Bitcoin or our ability to acquire, hold or transfer Bitcoin, and may subject us to increased regulatory scrutiny.",
+    "expected_signal_types": [
+      "risk_rating_review",
+      "digital_asset_activity"
+    ],
+    "baseline_fields_targeted": [
+      "risk_rating",
+      "known_products",
+      "business_area"
+    ],
+    "automation_potential": "high",
+    "confidence_hint": "high",
+    "limitations": null
+  },
+  {
+    "document_id": "doc-004",
+    "customer_id": "demo-003",
+    "source_type": "sec_filing",
+    "source_name": "SEC EDGAR API",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1326380/000132638026000025/gme-20260502.htm",
+    "source_quality": "A",
+    "title": "GameStop Corp. 10-Q filed 2026-06-11",
+    "published_at": "2026-06-11",
+    "collected_at": "2026-06-19T23:50:17Z",
+    "language": "en",
+    "raw_text": "(2) Recognized in \"Digital assets and related receivables\" on our condensed consolidated balance sheets. During fiscal 2025, the Company pledged portion of its digital assets as collateral in connection with a covered‑call strategy, which resulted in the derecognition of the pledged digital assets and the corresponding recognition of a digital asset receivable. (3) Recognized in \"Derivative asset\" on our condensed consolidated balance sheets.",
+    "evidence_excerpt": "During fiscal 2025, the Company pledged portion of its digital assets as collateral in connection with a covered‑call strategy, which resulted in the derecognition of the pledged digital assets and the corresponding recognition of a digital asset receivable.",
+    "expected_signal_types": [
+      "digital_asset_activity",
+      "treasury_policy_change",
+      "risk_rating_review"
+    ],
+    "baseline_fields_targeted": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "automation_potential": "high",
+    "confidence_hint": "high",
+    "limitations": "Discovered through the SEC submissions API. The primary filing document is still fetched and evidence-ranked before output."
+  }
+]

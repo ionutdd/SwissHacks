@@ -1,0 +1,28 @@
+[
+  {
+    "document_id": "doc-001",
+    "customer_id": "demo-004",
+    "source_type": "company_newsroom",
+    "source_name": "Kraken Press Room",
+    "source_url": "https://www.kraken.com/press/releases/kraken-to-acquire-ninjatrader-introducing-the-next-era-of-professional-trading",
+    "source_quality": "A",
+    "title": "Kraken to Acquire NinjaTrader: Introducing the Next Era of Professional Trading Kraken has entered into an agreement to acquire NinjaTrader, the leading U.S. retail futures trading platform, for $1.5 billion, subject to certain purchase price adjustments.",
+    "published_at": null,
+    "collected_at": "2026-06-19T23:53:38Z",
+    "language": "en",
+    "raw_text": "Makes Kraken a leader in the U.S. futures market for both traditional and crypto trading, and accelerates its multi-asset-class ambitions — which include plans for equities trading and payments. CHEYENNE, Wyo.--Kraken, one of the longest-standing, most liquid and secure crypto platforms serving more than 15 million clients globally, has entered into an agreement to acquire NinjaTrader, the leading U.S. retail futures trading platform, for $1.5 billion, subject to certain purchase price adjustments. This acquisition strengthens Kraken’s position as a 24/7, always-on technology platform built for professional traders, making it a leader in U.S. futures for both traditional and crypto markets.",
+    "evidence_excerpt": "CHEYENNE, Wyo.--Kraken, one of the longest-standing, most liquid and secure crypto platforms serving more than 15 million clients globally, has entered into an agreement to acquire NinjaTrader, the leading U.S. retail futures trading platform, for $1.5 billion, subject to certain purchase price adjustments.",
+    "expected_signal_types": [
+      "ownership_change",
+      "business_activity_change"
+    ],
+    "baseline_fields_targeted": [
+      "subsidiaries",
+      "business_area",
+      "known_products"
+    ],
+    "automation_potential": "high",
+    "confidence_hint": "high",
+    "limitations": "Discovered from the official Kraken press index."
+  }
+]

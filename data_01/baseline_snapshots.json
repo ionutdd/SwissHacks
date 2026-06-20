@@ -1,0 +1,416 @@
+[
+  {
+    "customer_id": "demo-001",
+    "legal_name": "Robinhood Markets, Inc.",
+    "aliases": [
+      "Robinhood",
+      "Robinhood Crypto",
+      "Robinhood Markets",
+      "HOOD",
+      "Bitstamp"
+    ],
+    "entity_type": "public_company",
+    "domicile": "United States",
+    "business_area": [
+      "retail brokerage",
+      "consumer investing",
+      "US crypto trading"
+    ],
+    "risk_rating": "medium",
+    "known_jurisdictions": [
+      "United States",
+      "United Kingdom",
+      "European Union"
+    ],
+    "known_products": [
+      "prospect monitoring",
+      "crypto trading watchlist"
+    ],
+    "directors": [],
+    "executives": [
+      "Vlad Tenev",
+      "Johann Kerbrat"
+    ],
+    "investors": [],
+    "subsidiaries": [
+      "Robinhood Crypto, LLC",
+      "Robinhood Europe, UAB",
+      "Robinhood U.K. Ltd"
+    ],
+    "websites": [
+      "https://robinhood.com",
+      "https://robinhood.com/us/en/newsroom/"
+    ],
+    "social_handles": {
+      "x": [
+        "@RobinhoodApp"
+      ],
+      "linkedin": [
+        "robinhood"
+      ]
+    },
+    "known_wallets": [],
+    "last_reviewed_at": "2025-05-15",
+    "demo_story": "Robinhood closed the Bitstamp acquisition after the baseline, adding a global crypto exchange, institutional crypto services, licenses, and new jurisdiction exposure.",
+    "expected_drift_types": [
+      "ownership_change",
+      "new_subsidiary",
+      "new_jurisdiction",
+      "business_activity_change",
+      "digital_asset_activity"
+    ],
+    "suggested_sources_to_check": [
+      "Robinhood newsroom announcement for Bitstamp acquisition close",
+      "Robinhood investor relations",
+      "Bitstamp company pages",
+      "regulatory/license disclosures for Bitstamp jurisdictions",
+      "news coverage of Robinhood crypto expansion"
+    ],
+    "source_candidates": [
+      {
+        "label": "Robinhood official acquisition-close announcement",
+        "url": "https://robinhood.com/us/en/newsroom/robinhood-completes-acquisition-of-bitstamp/",
+        "source_quality": "A"
+      }
+    ],
+    "amina_relevance": [
+      "ownership/control drift",
+      "new institutional crypto activity",
+      "new jurisdiction and licensing exposure",
+      "trading, custody, staking, and lending opportunity mapping"
+    ],
+    "notes": "Synthetic baseline dated before the June 2, 2025 Bitstamp close. This is a strong ownership/control and business-activity drift case."
+  },
+  {
+    "customer_id": "demo-002",
+    "legal_name": "Blockratize, Inc. d/b/a Polymarket",
+    "aliases": [
+      "Polymarket",
+      "Blockratize",
+      "QCEX",
+      "QCX",
+      "Shayne Coplan"
+    ],
+    "entity_type": "private_company",
+    "domicile": "United States",
+    "business_area": [
+      "prediction market",
+      "event contracts",
+      "crypto settlement",
+      "USDC-based trading"
+    ],
+    "risk_rating": "high",
+    "known_jurisdictions": [
+      "United States",
+      "international online users"
+    ],
+    "known_products": [
+      "none - synthetic high-risk review"
+    ],
+    "directors": [],
+    "executives": [
+      "Shayne Coplan"
+    ],
+    "investors": [
+      "Founders Fund",
+      "Vitalik Buterin"
+    ],
+    "subsidiaries": [],
+    "websites": [
+      "https://polymarket.com"
+    ],
+    "social_handles": {
+      "x": [
+        "@Polymarket"
+      ],
+      "linkedin": [
+        "polymarket"
+      ]
+    },
+    "known_wallets": [],
+    "last_reviewed_at": "2024-10-01",
+    "demo_story": "Polymarket has post-baseline regulatory and gambling-law signals, plus a regulated-exchange acquisition path back into the US market.",
+    "expected_drift_types": [
+      "adverse_media",
+      "regulatory_scrutiny",
+      "business_activity_change",
+      "ownership_change",
+      "jurisdiction_restriction"
+    ],
+    "suggested_sources_to_check": [
+      "CFTC enforcement history",
+      "news on QCEX/QCX acquisition and US return",
+      "gaming regulator blocks or complaints",
+      "Polymarket company announcements",
+      "official blocked-domain or gambling regulator lists where accessible"
+    ],
+    "source_candidates": [
+      {
+        "label": "CFTC 2022 order against Polymarket",
+        "url": "https://www.cftc.gov/PressRoom/PressReleases/8478-22",
+        "source_quality": "A"
+      },
+      {
+        "label": "Axios coverage of QCEX acquisition and US return",
+        "url": "https://www.axios.com/2025/07/21/prediction-market-polymarket-us",
+        "source_quality": "B"
+      }
+    ],
+    "amina_relevance": [
+      "sensitive sector: gambling or betting-like event markets",
+      "adverse media and regulatory scrutiny",
+      "crypto settlement and USDC exposure",
+      "possible enhanced due diligence trigger"
+    ],
+    "notes": "Synthetic baseline dated before late-2024 and 2025 jurisdiction/regulatory changes. This is the clearest risk-demo entity."
+  },
+  {
+    "customer_id": "demo-003",
+    "legal_name": "GameStop Corp.",
+    "aliases": [
+      "GameStop",
+      "GME",
+      "GameStop Corp"
+    ],
+    "entity_type": "public_company",
+    "domicile": "United States",
+    "business_area": [
+      "video game retail",
+      "consumer electronics resale",
+      "ecommerce"
+    ],
+    "risk_rating": "low",
+    "known_jurisdictions": [
+      "United States",
+      "Canada",
+      "Australia",
+      "Europe"
+    ],
+    "known_products": [
+      "prospect monitoring",
+      "corporate treasury watchlist"
+    ],
+    "directors": [],
+    "executives": [
+      "Ryan Cohen"
+    ],
+    "investors": [],
+    "subsidiaries": [],
+    "websites": [
+      "https://www.gamestop.com",
+      "https://news.gamestop.com"
+    ],
+    "social_handles": {
+      "x": [
+        "@GameStop"
+      ],
+      "linkedin": [
+        "gamestop"
+      ]
+    },
+    "known_wallets": [],
+    "last_reviewed_at": "2025-02-28",
+    "demo_story": "GameStop moved from a non-crypto retail baseline into a bitcoin treasury strategy after the last review.",
+    "expected_drift_types": [
+      "digital_asset_activity",
+      "treasury_policy_change",
+      "commercial_opportunity",
+      "risk_rating_review"
+    ],
+    "suggested_sources_to_check": [
+      "GameStop investor relations press releases",
+      "SEC filings after March 2025",
+      "news coverage of first bitcoin purchase",
+      "annual report risk-factor changes"
+    ],
+    "source_candidates": [
+      {
+        "label": "Investopedia coverage of 4,710 BTC purchase and policy update",
+        "url": "https://www.investopedia.com/gamestop-stock-slips-on-disclosure-of-500-million-bitcoin-buy-11743013",
+        "source_quality": "B"
+      },
+      {
+        "label": "GameStop investor relations",
+        "url": "https://news.gamestop.com",
+        "source_quality": "A"
+      }
+    ],
+    "amina_relevance": [
+      "sudden crypto treasury exposure",
+      "custody opportunity",
+      "secured lending opportunity",
+      "risk review due to crypto volatility and treasury-policy change"
+    ],
+    "notes": "Synthetic baseline dated before the March 2025 investment-policy update and May 2025 bitcoin purchase. This is the best 'suddenly touches crypto' opportunity demo."
+  },
+  {
+    "customer_id": "demo-004",
+    "legal_name": "Payward, Inc. d/b/a Kraken",
+    "aliases": [
+      "Kraken",
+      "Payward",
+      "Kraken Institutional",
+      "NinjaTrader",
+      "xStocks"
+    ],
+    "entity_type": "private_company",
+    "domicile": "United States",
+    "business_area": [
+      "cryptocurrency exchange",
+      "institutional crypto services",
+      "crypto custody",
+      "spot trading"
+    ],
+    "risk_rating": "high",
+    "known_jurisdictions": [
+      "United States",
+      "European Union",
+      "United Kingdom"
+    ],
+    "known_products": [
+      "prospect monitoring",
+      "institutional crypto watchlist"
+    ],
+    "directors": [],
+    "executives": [
+      "Arjun Sethi",
+      "Dave Ripley"
+    ],
+    "investors": [],
+    "subsidiaries": [],
+    "websites": [
+      "https://www.kraken.com",
+      "https://blog.kraken.com"
+    ],
+    "social_handles": {
+      "x": [
+        "@krakenfx"
+      ],
+      "linkedin": [
+        "krakenfx"
+      ]
+    },
+    "known_wallets": [],
+    "last_reviewed_at": "2025-02-15",
+    "demo_story": "Kraken moved beyond a crypto-exchange baseline with NinjaTrader acquisition, derivatives expansion, and tokenized-equity products.",
+    "expected_drift_types": [
+      "ownership_change",
+      "business_activity_change",
+      "new_product",
+      "digital_asset_activity",
+      "jurisdiction_expansion"
+    ],
+    "suggested_sources_to_check": [
+      "Kraken blog for acquisition and product announcements",
+      "Reuters or other reputable M&A coverage",
+      "NinjaTrader company pages",
+      "xStocks/tokenized equities announcement",
+      "European derivatives licensing announcement"
+    ],
+    "source_candidates": [
+      {
+        "label": "Kraken xStocks/tokenized equities announcement",
+        "url": "https://blog.kraken.com/product/xstocks/tokenized-equities-now-available",
+        "source_quality": "A"
+      },
+      {
+        "label": "WSJ coverage of Kraken tokenized stock plan",
+        "url": "https://www.wsj.com/finance/currencies/kraken-crypto-exchange-stock-tokens-e4fc1bb9",
+        "source_quality": "B"
+      }
+    ],
+    "amina_relevance": [
+      "ownership/control drift",
+      "tokenized securities risk and opportunity",
+      "derivatives and futures activity",
+      "institutional trading and custody landscape monitoring"
+    ],
+    "notes": "Synthetic baseline dated before 2025 M&A and product expansion. Use as ownership/control and business-line drift."
+  },
+  {
+    "customer_id": "demo-005",
+    "legal_name": "Circle Internet Group, Inc.",
+    "aliases": [
+      "Circle",
+      "Circle Internet Group",
+      "USDC",
+      "EURC",
+      "USYC",
+      "CRCL",
+      "Circle Payments Network",
+      "Arc"
+    ],
+    "entity_type": "public_company",
+    "domicile": "United States",
+    "business_area": [
+      "stablecoin issuer",
+      "payments infrastructure",
+      "digital asset treasury infrastructure"
+    ],
+    "risk_rating": "medium",
+    "known_jurisdictions": [
+      "United States",
+      "European Union",
+      "Singapore"
+    ],
+    "known_products": [
+      "prospect monitoring",
+      "stablecoin infrastructure watchlist"
+    ],
+    "directors": [],
+    "executives": [
+      "Jeremy Allaire",
+      "Heath Tarbert"
+    ],
+    "investors": [],
+    "subsidiaries": [],
+    "websites": [
+      "https://www.circle.com",
+      "https://investor.circle.com"
+    ],
+    "social_handles": {
+      "x": [
+        "@circle"
+      ],
+      "linkedin": [
+        "circle-internet-financial"
+      ]
+    },
+    "known_wallets": [],
+    "last_reviewed_at": "2024-12-31",
+    "demo_story": "Circle expanded from stablecoin issuer baseline into public-company status, tokenized money-market products, payment-network expansion, and new infrastructure products.",
+    "expected_drift_types": [
+      "funding_round",
+      "public_listing",
+      "new_product",
+      "commercial_expansion",
+      "digital_asset_activity"
+    ],
+    "suggested_sources_to_check": [
+      "Circle investor relations",
+      "SEC S-1 and post-IPO filings",
+      "Circle Payments Network announcements",
+      "Arc product announcement",
+      "reputable IPO coverage"
+    ],
+    "source_candidates": [
+      {
+        "label": "Circle investor relations",
+        "url": "https://investor.circle.com",
+        "source_quality": "A"
+      },
+      {
+        "label": "Circle Mint product page",
+        "url": "https://www.circle.com/circle-mint",
+        "source_quality": "A"
+      }
+    ],
+    "amina_relevance": [
+      "stablecoin ecosystem monitoring",
+      "payments and FX opportunity",
+      "custody and tokenized asset opportunity",
+      "public filing source for scalable monitoring"
+    ],
+    "notes": "Synthetic baseline dated before the 2025 public-listing and product expansion period. Use as a clean commercial opportunity demo."
+  }
+]

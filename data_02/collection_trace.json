@@ -1,0 +1,331 @@
+[
+  {
+    "stage": "discovery",
+    "connector": "sec_catalog_sources",
+    "customer_id": "portfolio",
+    "status": "ok",
+    "discovered_sources": 3
+  },
+  {
+    "stage": "discovery",
+    "connector": "sec_recent_filings",
+    "customer_id": "demo-001",
+    "status": "ok",
+    "discovered_sources": 1,
+    "url": "https://data.sec.gov/submissions/CIK0001783879.json"
+  },
+  {
+    "stage": "discovery",
+    "connector": "sec_recent_filings",
+    "customer_id": "demo-003",
+    "status": "ok",
+    "discovered_sources": 2,
+    "url": "https://data.sec.gov/submissions/CIK0001326380.json"
+  },
+  {
+    "stage": "discovery",
+    "connector": "sec_recent_filings",
+    "customer_id": "demo-005",
+    "status": "ok",
+    "discovered_sources": 1,
+    "url": "https://data.sec.gov/submissions/CIK0001876042.json"
+  },
+  {
+    "stage": "discovery",
+    "connector": "company_site_discovery",
+    "customer_id": "demo-004",
+    "status": "ok",
+    "discovered_sources": 1
+  },
+  {
+    "stage": "discovery",
+    "connector": "regulator_discovery",
+    "customer_id": "demo-002",
+    "status": "ok",
+    "discovered_sources": 1
+  },
+  {
+    "stage": "discovery",
+    "connector": "news_event_discovery",
+    "customer_id": "demo-002",
+    "status": "skipped",
+    "discovered_sources": 0,
+    "query": "Polymarket Kalshi Spain gambling licence blocked",
+    "reason": "News API query unavailable; using configured fallbacks. URLError: <urlopen error [WinError 10060] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond>"
+  },
+  {
+    "stage": "discovery",
+    "connector": "news_event_discovery",
+    "customer_id": "demo-002",
+    "status": "skipped",
+    "discovered_sources": 0,
+    "query": "Polymarket QCEX acquisition return US regulated",
+    "reason": "News API query unavailable; using configured fallbacks. HTTPError: HTTP Error 429: Too Many Requests"
+  },
+  {
+    "stage": "discovery",
+    "connector": "news_event_discovery",
+    "customer_id": "demo-002",
+    "status": "ok",
+    "discovered_sources": 3
+  },
+  {
+    "stage": "discovery",
+    "connector": "page_diff_watch",
+    "customer_id": "demo-005",
+    "status": "ok",
+    "discovered_sources": 3,
+    "state_path": "data_02\\page_watch_state.json"
+  },
+  {
+    "stage": "discovery",
+    "connector": "direct_sources",
+    "customer_id": "portfolio",
+    "status": "ok",
+    "discovered_sources": 7
+  },
+  {
+    "source_id": "src-007-gamestop-bitcoin-8k",
+    "document_id": "doc-001",
+    "url": "https://www.sec.gov/Archives/edgar/data/1326380/000132638025000026/pr-btcmay2025.htm",
+    "status": "ok",
+    "connector": "sec_archive_page",
+    "entity_match_score": 12,
+    "retrieval_score": 84,
+    "source_term_score": 22,
+    "clean_text_chars": 309
+  },
+  {
+    "source_id": "src-008-gamestop-bitcoin-10k",
+    "document_id": "doc-002",
+    "url": "https://www.sec.gov/Archives/edgar/data/1326380/000162828025014731/gme-20250201.htm",
+    "status": "ok",
+    "connector": "sec_archive_page",
+    "entity_match_score": 410,
+    "retrieval_score": 103,
+    "source_term_score": 28,
+    "clean_text_chars": 203047
+  },
+  {
+    "source_id": "src-009-gamestop-bitcoin-10q",
+    "document_id": "doc-003",
+    "url": "https://www.sec.gov/Archives/edgar/data/1326380/000132638025000035/gme-20250503.htm",
+    "status": "ok",
+    "connector": "sec_archive_page",
+    "entity_match_score": 110,
+    "retrieval_score": 163,
+    "source_term_score": 49,
+    "clean_text_chars": 69292
+  },
+  {
+    "source_id": "api-sec-demo-001-000178387926000071",
+    "url": "https://www.sec.gov/Archives/edgar/data/1783879/000178387926000071/hood-20260616.htm",
+    "status": "skipped",
+    "connector": "sec_recent_filings",
+    "reason": "SEC API-discovered filing did not contain configured source/signal terms.",
+    "entity_match_score": 32,
+    "retrieval_score": 16,
+    "source_term_score": 0,
+    "clean_text_chars": 5643
+  },
+  {
+    "source_id": "api-sec-demo-003-000132638026000025",
+    "document_id": "doc-004",
+    "url": "https://www.sec.gov/Archives/edgar/data/1326380/000132638026000025/gme-20260502.htm",
+    "status": "ok",
+    "connector": "sec_recent_filings",
+    "entity_match_score": 134,
+    "retrieval_score": 99,
+    "source_term_score": 27,
+    "clean_text_chars": 76735
+  },
+  {
+    "source_id": "api-sec-demo-003-000132638026000020",
+    "url": "https://www.sec.gov/Archives/edgar/data/1326380/000132638026000020/gme-20260602.htm",
+    "status": "skipped",
+    "connector": "sec_recent_filings",
+    "reason": "SEC API-discovered filing did not contain configured source/signal terms.",
+    "entity_match_score": 31,
+    "retrieval_score": 9,
+    "source_term_score": 0,
+    "clean_text_chars": 4473
+  },
+  {
+    "source_id": "api-sec-demo-005-000187604226000192",
+    "url": "https://www.sec.gov/Archives/edgar/data/1876042/000187604226000192/crcl-20260612.htm",
+    "status": "skipped",
+    "connector": "sec_recent_filings",
+    "reason": "SEC API-discovered filing did not contain configured source/signal terms.",
+    "entity_match_score": 16,
+    "retrieval_score": 7,
+    "source_term_score": 1,
+    "clean_text_chars": 1858
+  },
+  {
+    "source_id": "company-demo-004-1",
+    "document_id": "doc-005",
+    "url": "https://www.kraken.com/press/releases/kraken-to-acquire-ninjatrader-introducing-the-next-era-of-professional-trading",
+    "status": "ok",
+    "connector": "company_site_discovery",
+    "entity_match_score": 122,
+    "retrieval_score": 85,
+    "source_term_score": 23,
+    "clean_text_chars": 10082
+  },
+  {
+    "source_id": "regulator-demo-002-1",
+    "document_id": "doc-006",
+    "url": "https://www.cftc.gov/PressRoom/PressReleases/8478-22",
+    "status": "ok",
+    "connector": "regulator_discovery",
+    "entity_match_score": 39,
+    "retrieval_score": 168,
+    "source_term_score": 48,
+    "clean_text_chars": 6322
+  },
+  {
+    "source_id": "news-demo-002-1",
+    "document_id": "doc-007",
+    "url": "https://www.theguardian.com/world/2026/may/26/spain-blocks-access-polymarket-kalshi-gambling-licence-investigation",
+    "status": "ok",
+    "connector": "news_event_discovery",
+    "entity_match_score": 33,
+    "retrieval_score": 106,
+    "source_term_score": 30,
+    "clean_text_chars": 6068
+  },
+  {
+    "source_id": "news-demo-002-2",
+    "document_id": "doc-008",
+    "url": "https://elpais.com/economia/2026-05-26/consumo-ordena-el-bloqueo-de-polymarket-y-kalshi-en-espana-por-operar-sin-licencia-de-juego.html",
+    "status": "ok",
+    "connector": "news_event_discovery",
+    "entity_match_score": 36,
+    "retrieval_score": 46,
+    "source_term_score": 12,
+    "clean_text_chars": 15544
+  },
+  {
+    "source_id": "news-demo-002-3",
+    "document_id": "doc-009",
+    "url": "https://cadenaser.com/nacional/2026/05/26/el-futuro-de-polymarket-tras-el-bloqueo-del-gobierno-es-ilegal-no-tiene-licencia-y-no-hay-posibilidad-de-que-la-consiga-cadena-ser/",
+    "status": "ok",
+    "connector": "news_event_discovery",
+    "entity_match_score": 18,
+    "retrieval_score": 43,
+    "source_term_score": 12,
+    "clean_text_chars": 8471
+  },
+  {
+    "source_id": "page-diff-demo-005-1",
+    "document_id": "doc-010",
+    "url": "https://www.circle.com/cpn",
+    "status": "ok",
+    "connector": "page_diff_watch",
+    "entity_match_score": 126,
+    "retrieval_score": 190,
+    "source_term_score": 52,
+    "clean_text_chars": 12806,
+    "page_hash": "7509212d6ba7c748ca7f4dd9de150d770707ce147a4323bcaf52312703648ce2",
+    "page_changed": false
+  },
+  {
+    "source_id": "page-diff-demo-005-2",
+    "document_id": "doc-011",
+    "url": "https://www.circle.com/usdc",
+    "status": "ok",
+    "connector": "page_diff_watch",
+    "entity_match_score": 177,
+    "retrieval_score": 82,
+    "source_term_score": 23,
+    "clean_text_chars": 15441,
+    "page_hash": "7df29bb93f738cefa78ae992b9c439dedb99c547c578f1c34cce4af70d98230e",
+    "page_changed": false
+  },
+  {
+    "source_id": "page-diff-demo-004-3",
+    "document_id": "doc-012",
+    "url": "https://www.kraken.com/legal/xstocks",
+    "status": "ok",
+    "connector": "page_diff_watch",
+    "entity_match_score": 125,
+    "retrieval_score": 127,
+    "source_term_score": 35,
+    "clean_text_chars": 14680,
+    "page_hash": "45ac1c141264651c718d995d86f516e9a339d7d6816f46d15dcda3c39d133d25",
+    "page_changed": false
+  },
+  {
+    "source_id": "src-001-robinhood-bitstamp-close",
+    "document_id": "doc-013",
+    "url": "https://robinhood.com/us/en/newsroom/robinhood-completes-acquisition-of-bitstamp/",
+    "status": "ok",
+    "connector": "web_page",
+    "entity_match_score": 290,
+    "retrieval_score": 127,
+    "source_term_score": 31,
+    "clean_text_chars": 7519
+  },
+  {
+    "source_id": "src-002-bitstamp-robinhood-close",
+    "document_id": "doc-014",
+    "url": "https://blog.bitstamp.net/post/robinhood-completes-acquisition-of-bitstamp/",
+    "status": "ok",
+    "connector": "web_page",
+    "entity_match_score": 158,
+    "retrieval_score": 143,
+    "source_term_score": 37,
+    "clean_text_chars": 7423
+  },
+  {
+    "source_id": "src-003-bitstamp-legal-footer",
+    "document_id": "doc-015",
+    "url": "https://blog.bitstamp.net/post/robinhood-completes-acquisition-of-bitstamp/",
+    "status": "ok",
+    "connector": "web_page",
+    "entity_match_score": 158,
+    "retrieval_score": 229,
+    "source_term_score": 61,
+    "clean_text_chars": 7423
+  },
+  {
+    "source_id": "src-005-polymarket-qcx-acquisition",
+    "url": "https://www.axios.com/2025/07/21/prediction-market-polymarket-us",
+    "status": "failed",
+    "connector": "web_page",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "source_id": "src-010-kraken-xstocks-launch",
+    "document_id": "doc-016",
+    "url": "https://blog.kraken.com/product/xstocks/tokenized-equities-now-available",
+    "status": "ok",
+    "connector": "web_page",
+    "entity_match_score": 65,
+    "retrieval_score": 119,
+    "source_term_score": 34,
+    "clean_text_chars": 7149
+  },
+  {
+    "source_id": "src-013-circle-investor-relations",
+    "document_id": "doc-017",
+    "url": "https://investor.circle.com/overview/default.aspx",
+    "status": "ok",
+    "connector": "web_page",
+    "entity_match_score": 28,
+    "retrieval_score": 123,
+    "source_term_score": 35,
+    "clean_text_chars": 2259
+  },
+  {
+    "source_id": "src-014-circle-mint",
+    "document_id": "doc-018",
+    "url": "https://www.circle.com/circle-mint",
+    "status": "ok",
+    "connector": "web_page",
+    "entity_match_score": 135,
+    "retrieval_score": 108,
+    "source_term_score": 32,
+    "clean_text_chars": 10128
+  }
+]

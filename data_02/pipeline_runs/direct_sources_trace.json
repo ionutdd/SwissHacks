@@ -1,0 +1,159 @@
+[
+  {
+    "stage": "discovery",
+    "connector": "direct_sources",
+    "customer_id": "portfolio",
+    "status": "ok",
+    "discovered_sources": 14
+  },
+  {
+    "source_id": "src-001-robinhood-bitstamp-close",
+    "document_id": "doc-001",
+    "url": "https://robinhood.com/us/en/newsroom/robinhood-completes-acquisition-of-bitstamp/",
+    "status": "ok",
+    "connector": "web_page",
+    "entity_match_score": 290,
+    "retrieval_score": 127,
+    "source_term_score": 31,
+    "clean_text_chars": 7519
+  },
+  {
+    "source_id": "src-002-bitstamp-robinhood-close",
+    "document_id": "doc-002",
+    "url": "https://blog.bitstamp.net/post/robinhood-completes-acquisition-of-bitstamp/",
+    "status": "ok",
+    "connector": "web_page",
+    "entity_match_score": 158,
+    "retrieval_score": 143,
+    "source_term_score": 37,
+    "clean_text_chars": 7423
+  },
+  {
+    "source_id": "src-003-bitstamp-legal-footer",
+    "document_id": "doc-003",
+    "url": "https://blog.bitstamp.net/post/robinhood-completes-acquisition-of-bitstamp/",
+    "status": "ok",
+    "connector": "web_page",
+    "entity_match_score": 158,
+    "retrieval_score": 229,
+    "source_term_score": 61,
+    "clean_text_chars": 7423
+  },
+  {
+    "source_id": "src-004-polymarket-cftc-order",
+    "document_id": "doc-004",
+    "url": "https://www.cftc.gov/PressRoom/PressReleases/8478-22",
+    "status": "ok",
+    "connector": "web_page",
+    "entity_match_score": 39,
+    "retrieval_score": 168,
+    "source_term_score": 48,
+    "clean_text_chars": 6322
+  },
+  {
+    "source_id": "src-005-polymarket-qcx-acquisition",
+    "url": "https://www.axios.com/2025/07/21/prediction-market-polymarket-us",
+    "status": "failed",
+    "connector": "web_page",
+    "error": "HTTPError: HTTP Error 403: Forbidden"
+  },
+  {
+    "source_id": "src-006-polymarket-spain-block",
+    "document_id": "doc-005",
+    "url": "https://www.theguardian.com/world/2026/may/26/spain-blocks-access-polymarket-kalshi-gambling-licence-investigation",
+    "status": "ok",
+    "connector": "web_page",
+    "entity_match_score": 33,
+    "retrieval_score": 154,
+    "source_term_score": 45,
+    "clean_text_chars": 6068
+  },
+  {
+    "source_id": "src-006b-polymarket-spain-block-elpais",
+    "document_id": "doc-006",
+    "url": "https://elpais.com/economia/2026-05-26/consumo-ordena-el-bloqueo-de-polymarket-y-kalshi-en-espana-por-operar-sin-licencia-de-juego.html",
+    "status": "ok",
+    "connector": "web_page",
+    "entity_match_score": 36,
+    "retrieval_score": 86,
+    "source_term_score": 24,
+    "clean_text_chars": 15544
+  },
+  {
+    "source_id": "src-010-kraken-xstocks-launch",
+    "document_id": "doc-007",
+    "url": "https://blog.kraken.com/product/xstocks/tokenized-equities-now-available",
+    "status": "ok",
+    "connector": "web_page",
+    "entity_match_score": 63,
+    "retrieval_score": 119,
+    "source_term_score": 34,
+    "clean_text_chars": 7090
+  },
+  {
+    "source_id": "src-011-kraken-xstocks-risk",
+    "document_id": "doc-008",
+    "url": "https://www.kraken.com/legal/xstocks",
+    "status": "ok",
+    "connector": "web_page",
+    "entity_match_score": 125,
+    "retrieval_score": 127,
+    "source_term_score": 35,
+    "clean_text_chars": 14680
+  },
+  {
+    "source_id": "src-012-kraken-ninjatrader-official",
+    "document_id": "doc-009",
+    "url": "https://www.kraken.com/press/releases/kraken-to-acquire-ninjatrader-introducing-the-next-era-of-professional-trading",
+    "status": "ok",
+    "connector": "web_page",
+    "entity_match_score": 122,
+    "retrieval_score": 114,
+    "source_term_score": 32,
+    "clean_text_chars": 10082
+  },
+  {
+    "source_id": "src-013-circle-investor-relations",
+    "document_id": "doc-010",
+    "url": "https://investor.circle.com/overview/default.aspx",
+    "status": "ok",
+    "connector": "web_page",
+    "entity_match_score": 28,
+    "retrieval_score": 123,
+    "source_term_score": 35,
+    "clean_text_chars": 2259
+  },
+  {
+    "source_id": "src-014-circle-mint",
+    "document_id": "doc-011",
+    "url": "https://www.circle.com/circle-mint",
+    "status": "ok",
+    "connector": "web_page",
+    "entity_match_score": 135,
+    "retrieval_score": 108,
+    "source_term_score": 32,
+    "clean_text_chars": 10128
+  },
+  {
+    "source_id": "src-015-circle-payments-network",
+    "document_id": "doc-012",
+    "url": "https://www.circle.com/cpn",
+    "status": "ok",
+    "connector": "web_page",
+    "entity_match_score": 126,
+    "retrieval_score": 160,
+    "source_term_score": 43,
+    "clean_text_chars": 12806
+  },
+  {
+    "source_id": "src-016-circle-usdc",
+    "document_id": "doc-013",
+    "url": "https://www.circle.com/usdc",
+    "status": "ok",
+    "connector": "web_page",
+    "entity_match_score": 177,
+    "retrieval_score": 112,
+    "source_term_score": 32,
+    "clean_text_chars": 15441
+  }
+]

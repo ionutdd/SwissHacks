@@ -1,0 +1,85 @@
+[
+  {
+    "document_id": "doc-001",
+    "customer_id": "demo-005",
+    "source_type": "product_page",
+    "source_name": "Circle",
+    "source_url": "https://www.circle.com/cpn",
+    "source_quality": "A",
+    "title": "Circle Payments Network",
+    "published_at": null,
+    "collected_at": "2026-06-19T23:51:11Z",
+    "language": "en",
+    "raw_text": "What is Circle Payments Network (CPN)? Circle Payments Network (CPN) is a global network of partners, including banks, payment service providers (PSPs), virtual asset service providers (VASPs), and enterprises, who enable consumer, business, and institutional payments with 24/7 real-time settlement via stablecoins like USDC and EURC. What are the benefits of CPN for network participants?",
+    "evidence_excerpt": "Circle Payments Network (CPN) is a global network of partners, including banks, payment service providers (PSPs), virtual asset service providers (VASPs), and enterprises, who enable consumer, business, and institutional payments with 24/7 real-time settlement via stablecoins like USDC and EURC.",
+    "expected_signal_types": [
+      "new_product",
+      "commercial_opportunity",
+      "digital_asset_activity"
+    ],
+    "baseline_fields_targeted": [
+      "business_area",
+      "known_products",
+      "known_jurisdictions",
+      "risk_rating"
+    ],
+    "automation_potential": "medium",
+    "confidence_hint": "high",
+    "limitations": "Product page has no publication date; page hash is monitored for changes."
+  },
+  {
+    "document_id": "doc-002",
+    "customer_id": "demo-005",
+    "source_type": "product_page",
+    "source_name": "Circle",
+    "source_url": "https://www.circle.com/usdc",
+    "source_quality": "A",
+    "title": "USDC | Powering global finance. Issued by Circle.",
+    "published_at": null,
+    "collected_at": "2026-06-19T23:51:11Z",
+    "language": "en",
+    "raw_text": "The world’s largest regulated1 stablecoin powering global finance Redeemable 1:1 for US dollars, USDC enables 24/7 liquidity for near-instant, low-cost global payments. Built for rapid global payments and 24/7 financial markets, USDC is a regulated digital currency you can redeem 1:1 for US dollars.",
+    "evidence_excerpt": "Redeemable 1:1 for US dollars, USDC enables 24/7 liquidity for near-instant, low-cost global payments.",
+    "expected_signal_types": [
+      "new_product",
+      "digital_asset_activity",
+      "commercial_opportunity"
+    ],
+    "baseline_fields_targeted": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "automation_potential": "medium",
+    "confidence_hint": "high",
+    "limitations": "Product page has no publication date; page hash is monitored for changes."
+  },
+  {
+    "document_id": "doc-003",
+    "customer_id": "demo-004",
+    "source_type": "product_page",
+    "source_name": "Kraken Legal",
+    "source_url": "https://www.kraken.com/legal/xstocks",
+    "source_quality": "A",
+    "title": "xStocks Risk Disclosure",
+    "published_at": null,
+    "collected_at": "2026-06-19T23:51:11Z",
+    "language": "en",
+    "raw_text": "Base Prospectus and related Final Terms for xStocks xStocks are issued by Backed Assets (JE) Limited (a Jersey private limited company) (the \"Issuer\"), and offered to certain Kraken clients by Payward Digital Solutions Ltd. (“PDSL”), a Bermuda exempted company licensed to conduct digital asset business by the Bermuda Monetary Authority. Holders of xStocks do not have ownership in any of the underlying stock or shares of the companies to which they are economically linked (\"underlying stock\"); instead, by purchasing xStocks investors can benefit from exposure to the performance of the underlying stock.",
+    "evidence_excerpt": "xStocks are issued by Backed Assets (JE) Limited (a Jersey private limited company) (the \"Issuer\"), and offered to certain Kraken clients by Payward Digital Solutions Ltd. (“PDSL”), a Bermuda exempted company licensed to conduct digital asset business by the Bermuda Monetary Authority.",
+    "expected_signal_types": [
+      "new_product",
+      "digital_asset_activity",
+      "jurisdiction_expansion"
+    ],
+    "baseline_fields_targeted": [
+      "business_area",
+      "known_products",
+      "known_jurisdictions",
+      "risk_rating"
+    ],
+    "automation_potential": "medium",
+    "confidence_hint": "high",
+    "limitations": "Legal disclosure page has no publication date; page hash is monitored for changes."
+  }
+]

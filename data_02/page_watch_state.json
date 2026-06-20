@@ -1,0 +1,14 @@
+{
+  "https://www.circle.com/cpn": {
+    "sha256": "7509212d6ba7c748ca7f4dd9de150d770707ce147a4323bcaf52312703648ce2",
+    "last_seen_at": "2026-06-20T00:00:42Z"
+  },
+  "https://www.circle.com/usdc": {
+    "sha256": "7df29bb93f738cefa78ae992b9c439dedb99c547c578f1c34cce4af70d98230e",
+    "last_seen_at": "2026-06-20T00:00:42Z"
+  },
+  "https://www.kraken.com/legal/xstocks": {
+    "sha256": "45ac1c141264651c718d995d86f516e9a339d7d6816f46d15dcda3c39d133d25",
+    "last_seen_at": "2026-06-20T00:00:42Z"
+  }
+}

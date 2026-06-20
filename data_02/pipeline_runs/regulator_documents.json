@@ -1,0 +1,29 @@
+[
+  {
+    "document_id": "doc-001",
+    "customer_id": "demo-002",
+    "source_type": "regulator",
+    "source_name": "Commodity Futures Trading Commission",
+    "source_url": "https://www.cftc.gov/PressRoom/PressReleases/8478-22",
+    "source_quality": "A",
+    "title": "CFTC Orders Event-Based Binary Options Markets Operator to Pay $1.4 Million Penalty",
+    "published_at": "2022-01-03",
+    "collected_at": "2026-06-19T23:50:36Z",
+    "language": "en",
+    "raw_text": "CFTC Orders Event-Based Binary Options Markets Operator to Pay $1.4 Million Penalty Washington, D.C. — The Commodity Futures Trading Commission today entered an order filing and simultaneously settling charges against Delaware-registered Blockratize, Inc. d/b/a Polymarket, based in New York City, for offering off-exchange event-based binary options contracts and failure to obtain designation as a designated contract market (DCM) or registration as a swap execution facility (SEF). The order requires that Polymarket pay a $1.4 million civil monetary penalty, facilitate the resolution (i.e. wind down) of all markets displayed on Polymarket.com that do not comply with the Commodity Exchange Act (CEA) and applicable CFTC regulations, and cease and desist from violating the CEA and CFTC regulations, as charged.",
+    "evidence_excerpt": "Washington, D.C. — The Commodity Futures Trading Commission today entered an order filing and simultaneously settling charges against Delaware-registered Blockratize, Inc. d/b/a Polymarket, based in New York City, for offering off-exchange event-based binary options contracts and failure to obtain designation as a designated contract market (DCM) or registration as a swap execution facility (SEF).",
+    "expected_signal_types": [
+      "regulatory_scrutiny",
+      "business_activity_change"
+    ],
+    "baseline_fields_targeted": [
+      "risk_rating",
+      "business_area",
+      "known_jurisdictions",
+      "known_products"
+    ],
+    "automation_potential": "high",
+    "confidence_hint": "high",
+    "limitations": "Historical regulator source. It should support risk context, not a fresh post-baseline alert by itself."
+  }
+]

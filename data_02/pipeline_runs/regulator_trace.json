@@ -1,0 +1,20 @@
+[
+  {
+    "stage": "discovery",
+    "connector": "regulator_discovery",
+    "customer_id": "demo-002",
+    "status": "ok",
+    "discovered_sources": 1
+  },
+  {
+    "source_id": "regulator-demo-002-1",
+    "document_id": "doc-001",
+    "url": "https://www.cftc.gov/PressRoom/PressReleases/8478-22",
+    "status": "ok",
+    "connector": "regulator_discovery",
+    "entity_match_score": 39,
+    "retrieval_score": 168,
+    "source_term_score": 48,
+    "clean_text_chars": 6322
+  }
+]

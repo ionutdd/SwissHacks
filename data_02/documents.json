@@ -1,0 +1,498 @@
+[
+  {
+    "document_id": "doc-001",
+    "customer_id": "demo-003",
+    "source_type": "sec_filing",
+    "source_name": "SEC EDGAR",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1326380/000132638025000026/pr-btcmay2025.htm",
+    "source_quality": "A",
+    "title": "GameStop Announces Purchase of Bitcoin",
+    "published_at": "2025-05-28",
+    "collected_at": "2026-06-20T00:00:03Z",
+    "language": "en",
+    "raw_text": "GameStop Announces Purchase of Bitcoin GRAPEVINE, Texas, May 28, 2025 (BUSINESS WIRE) —GameStop Corp. (NYSE: GME) (“GameStop” or the “Company”) today announced that it has purchased 4,710 Bitcoin.",
+    "evidence_excerpt": "GRAPEVINE, Texas, May 28, 2025 (BUSINESS WIRE) —GameStop Corp. (NYSE: GME) (“GameStop” or the “Company”) today announced that it has purchased 4,710 Bitcoin.",
+    "expected_signal_types": [
+      "digital_asset_activity",
+      "treasury_policy_change",
+      "commercial_opportunity"
+    ],
+    "baseline_fields_targeted": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "automation_potential": "high",
+    "confidence_hint": "high",
+    "limitations": null
+  },
+  {
+    "document_id": "doc-002",
+    "customer_id": "demo-003",
+    "source_type": "sec_filing",
+    "source_name": "SEC EDGAR",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1326380/000162828025014731/gme-20250201.htm",
+    "source_quality": "A",
+    "title": "GameStop Form 10-K for fiscal year 2024",
+    "published_at": "2025-03-25",
+    "collected_at": "2026-06-20T00:00:03Z",
+    "language": "en",
+    "raw_text": "Individual exceptions to the Investment Policy may only be made by the unanimous agreement of the Investment Committee or, if the Investment Committee is unable to reach unanimous agreement on such exception, by the Board. On March 25, 2025 we announced that, as part of our revisions to the Investment Policy, the Board approved the addition of Bitcoin as a treasury reserve asset, whereby a portion of our cash or future debt and equity issuances may be invested in Bitcoin. We have not set a maximum amount of Bitcoin we may accumulate, and may sell any Bitcoin we may acquire.",
+    "evidence_excerpt": "On March 25, 2025 we announced that, as part of our revisions to the Investment Policy, the Board approved the addition of Bitcoin as a treasury reserve asset, whereby a portion of our cash or future debt and equity issuances may be invested in Bitcoin.",
+    "expected_signal_types": [
+      "treasury_policy_change",
+      "digital_asset_activity"
+    ],
+    "baseline_fields_targeted": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "automation_potential": "high",
+    "confidence_hint": "high",
+    "limitations": null
+  },
+  {
+    "document_id": "doc-003",
+    "customer_id": "demo-003",
+    "source_type": "sec_filing",
+    "source_name": "SEC EDGAR",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1326380/000132638025000035/gme-20250503.htm",
+    "source_quality": "A",
+    "title": "GameStop Form 10-Q for quarter ended May 3, 2025",
+    "published_at": "2025-06-10",
+    "collected_at": "2026-06-20T00:00:03Z",
+    "language": "en",
+    "raw_text": "The broader digital assets industry may also be subject to counterparty risks, which could adversely impact the adoption rate, price, and use of Bitcoin. Bitcoin and other crypto-currencies are subject to regulatory and legal uncertainty, and governments and regulators may enact new laws and regulations, or pursue regulatory, legislative, enforcement or judicial actions that could impact the price of Bitcoin or our ability to acquire, hold or transfer Bitcoin, and may subject us to increased regulatory scrutiny. If federal or state tax authorities change Bitcoin’s classification from property, which allows for capital gains treatment but also imposes certain tax reporting requirements, to another category, such as to currency or a financial asset, the resulting tax implications could negatively affect us and our stockholders.",
+    "evidence_excerpt": "Bitcoin and other crypto-currencies are subject to regulatory and legal uncertainty, and governments and regulators may enact new laws and regulations, or pursue regulatory, legislative, enforcement or judicial actions that could impact the price of Bitcoin or our ability to acquire, hold or transfer Bitcoin, and may subject us to increased regulatory scrutiny.",
+    "expected_signal_types": [
+      "risk_rating_review",
+      "digital_asset_activity"
+    ],
+    "baseline_fields_targeted": [
+      "risk_rating",
+      "known_products",
+      "business_area"
+    ],
+    "automation_potential": "high",
+    "confidence_hint": "high",
+    "limitations": null
+  },
+  {
+    "document_id": "doc-004",
+    "customer_id": "demo-003",
+    "source_type": "sec_filing",
+    "source_name": "SEC EDGAR API",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1326380/000132638026000025/gme-20260502.htm",
+    "source_quality": "A",
+    "title": "GameStop Corp. 10-Q filed 2026-06-11",
+    "published_at": "2026-06-11",
+    "collected_at": "2026-06-20T00:00:03Z",
+    "language": "en",
+    "raw_text": "(2) Recognized in \"Digital assets and related receivables\" on our condensed consolidated balance sheets. During fiscal 2025, the Company pledged portion of its digital assets as collateral in connection with a covered‑call strategy, which resulted in the derecognition of the pledged digital assets and the corresponding recognition of a digital asset receivable. (3) Recognized in \"Derivative asset\" on our condensed consolidated balance sheets.",
+    "evidence_excerpt": "During fiscal 2025, the Company pledged portion of its digital assets as collateral in connection with a covered‑call strategy, which resulted in the derecognition of the pledged digital assets and the corresponding recognition of a digital asset receivable.",
+    "expected_signal_types": [
+      "digital_asset_activity",
+      "treasury_policy_change",
+      "risk_rating_review"
+    ],
+    "baseline_fields_targeted": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "automation_potential": "high",
+    "confidence_hint": "high",
+    "limitations": "Discovered through the SEC submissions API. The primary filing document is still fetched and evidence-ranked before output."
+  },
+  {
+    "document_id": "doc-005",
+    "customer_id": "demo-004",
+    "source_type": "company_newsroom",
+    "source_name": "Kraken Press Room",
+    "source_url": "https://www.kraken.com/press/releases/kraken-to-acquire-ninjatrader-introducing-the-next-era-of-professional-trading",
+    "source_quality": "A",
+    "title": "Kraken to Acquire NinjaTrader: Introducing the Next Era of Professional Trading Kraken has entered into an agreement to acquire NinjaTrader, the leading U.S. retail futures trading platform, for $1.5 billion, subject to certain purchase price adjustments.",
+    "published_at": null,
+    "collected_at": "2026-06-20T00:00:03Z",
+    "language": "en",
+    "raw_text": "Makes Kraken a leader in the U.S. futures market for both traditional and crypto trading, and accelerates its multi-asset-class ambitions — which include plans for equities trading and payments. CHEYENNE, Wyo.--Kraken, one of the longest-standing, most liquid and secure crypto platforms serving more than 15 million clients globally, has entered into an agreement to acquire NinjaTrader, the leading U.S. retail futures trading platform, for $1.5 billion, subject to certain purchase price adjustments. This acquisition strengthens Kraken’s position as a 24/7, always-on technology platform built for professional traders, making it a leader in U.S. futures for both traditional and crypto markets.",
+    "evidence_excerpt": "CHEYENNE, Wyo.--Kraken, one of the longest-standing, most liquid and secure crypto platforms serving more than 15 million clients globally, has entered into an agreement to acquire NinjaTrader, the leading U.S. retail futures trading platform, for $1.5 billion, subject to certain purchase price adjustments.",
+    "expected_signal_types": [
+      "ownership_change",
+      "business_activity_change"
+    ],
+    "baseline_fields_targeted": [
+      "subsidiaries",
+      "business_area",
+      "known_products"
+    ],
+    "automation_potential": "high",
+    "confidence_hint": "high",
+    "limitations": "Discovered from the official Kraken press index."
+  },
+  {
+    "document_id": "doc-006",
+    "customer_id": "demo-002",
+    "source_type": "regulator",
+    "source_name": "Commodity Futures Trading Commission",
+    "source_url": "https://www.cftc.gov/PressRoom/PressReleases/8478-22",
+    "source_quality": "A",
+    "title": "CFTC Orders Event-Based Binary Options Markets Operator to Pay $1.4 Million Penalty",
+    "published_at": "2022-01-03",
+    "collected_at": "2026-06-20T00:00:03Z",
+    "language": "en",
+    "raw_text": "CFTC Orders Event-Based Binary Options Markets Operator to Pay $1.4 Million Penalty Washington, D.C. — The Commodity Futures Trading Commission today entered an order filing and simultaneously settling charges against Delaware-registered Blockratize, Inc. d/b/a Polymarket, based in New York City, for offering off-exchange event-based binary options contracts and failure to obtain designation as a designated contract market (DCM) or registration as a swap execution facility (SEF). The order requires that Polymarket pay a $1.4 million civil monetary penalty, facilitate the resolution (i.e. wind down) of all markets displayed on Polymarket.com that do not comply with the Commodity Exchange Act (CEA) and applicable CFTC regulations, and cease and desist from violating the CEA and CFTC regulations, as charged.",
+    "evidence_excerpt": "Washington, D.C. — The Commodity Futures Trading Commission today entered an order filing and simultaneously settling charges against Delaware-registered Blockratize, Inc. d/b/a Polymarket, based in New York City, for offering off-exchange event-based binary options contracts and failure to obtain designation as a designated contract market (DCM) or registration as a swap execution facility (SEF).",
+    "expected_signal_types": [
+      "regulatory_scrutiny",
+      "business_activity_change"
+    ],
+    "baseline_fields_targeted": [
+      "risk_rating",
+      "business_area",
+      "known_jurisdictions",
+      "known_products"
+    ],
+    "automation_potential": "high",
+    "confidence_hint": "high",
+    "limitations": "Historical regulator source. It should support risk context, not a fresh post-baseline alert by itself."
+  },
+  {
+    "document_id": "doc-007",
+    "customer_id": "demo-002",
+    "source_type": "reputable_news",
+    "source_name": "theguardian.com",
+    "source_url": "https://www.theguardian.com/world/2026/may/26/spain-blocks-access-polymarket-kalshi-gambling-licence-investigation",
+    "source_quality": "B",
+    "title": "Spain blocks access to Polymarket and Kalshi as it launches gambling licence investigation | Spain | The Guardian",
+    "published_at": "2026-05-26",
+    "collected_at": "2026-06-20T00:00:03Z",
+    "language": "en",
+    "raw_text": "Tue 26 May 2026 15.46 CESTLast modified on Tue 26 May 2026 17.39 CEST Spain’s ministry of consumer rights has blocked access to Polymarket and Kalshi while it investigates whether the leading prediction market sites are violating Spanish law by operating without a gambling licence. On Tuesday the ministry said it had launched disciplinary proceedings against the two platforms, which allow users to bet on everything from the weather to political events, amid allegations that they lacked the “necessary administrative authorisation” to operate in Spain.",
+    "evidence_excerpt": "Spain’s ministry of consumer rights has blocked access to Polymarket and Kalshi while it investigates whether the leading prediction market sites are violating Spanish law by operating without a gambling licence.",
+    "expected_signal_types": [
+      "regulatory_scrutiny",
+      "jurisdiction_restriction",
+      "ownership_change",
+      "business_activity_change"
+    ],
+    "baseline_fields_targeted": [
+      "known_jurisdictions",
+      "risk_rating",
+      "subsidiaries",
+      "business_area",
+      "known_products"
+    ],
+    "automation_potential": "medium",
+    "confidence_hint": "medium",
+    "limitations": "Public news/event discovery. Use official regulator or company sources when available."
+  },
+  {
+    "document_id": "doc-008",
+    "customer_id": "demo-002",
+    "source_type": "reputable_news",
+    "source_name": "elpais.com",
+    "source_url": "https://elpais.com/economia/2026-05-26/consumo-ordena-el-bloqueo-de-polymarket-y-kalshi-en-espana-por-operar-sin-licencia-de-juego.html",
+    "source_quality": "B",
+    "title": "Consumo ordena el bloqueo de Polymarket y Kalshi en España por operar sin licencia de juego | Economía | EL PAÍS",
+    "published_at": "2026-05-26",
+    "collected_at": "2026-06-20T00:00:03Z",
+    "language": "en",
+    "raw_text": "Madrid - 26 may 2026 - 08:41CEST El Boletín Oficial del Estado (BOE) ha publicado este martes la apertura de un expediente sancionador contra los mercados de predicciones y apuestas Polymarket y Kalshi al considerarlos plataformas de juego de azar que operan en España sin la necesaria licencia administrativa. El Ministerio de Consumo ha emitido una orden para bloquear en España las páginas web de estas dos plataformas como medida cautelar hasta la resolución definitiva del expediente.",
+    "evidence_excerpt": "El Boletín Oficial del Estado (BOE) ha publicado este martes la apertura de un expediente sancionador contra los mercados de predicciones y apuestas Polymarket y Kalshi al considerarlos plataformas de juego de azar que operan en España sin la necesaria licencia administrativa.",
+    "expected_signal_types": [
+      "regulatory_scrutiny",
+      "jurisdiction_restriction",
+      "ownership_change",
+      "business_activity_change"
+    ],
+    "baseline_fields_targeted": [
+      "known_jurisdictions",
+      "risk_rating",
+      "subsidiaries",
+      "business_area",
+      "known_products"
+    ],
+    "automation_potential": "medium",
+    "confidence_hint": "medium",
+    "limitations": "Public news/event discovery. Use official regulator or company sources when available."
+  },
+  {
+    "document_id": "doc-009",
+    "customer_id": "demo-002",
+    "source_type": "reputable_news",
+    "source_name": "cadenaser.com",
+    "source_url": "https://cadenaser.com/nacional/2026/05/26/el-futuro-de-polymarket-tras-el-bloqueo-del-gobierno-es-ilegal-no-tiene-licencia-y-no-hay-posibilidad-de-que-la-consiga-cadena-ser/",
+    "source_quality": "B",
+    "title": "El futuro de Polymarket tras el bloqueo del Gobierno: \"Es ilegal, no tiene licencia y no hay posibilidad de que la consiga\" | Actualidad | Cadena SER",
+    "published_at": "2026-05-26",
+    "collected_at": "2026-06-20T00:00:03Z",
+    "language": "en",
+    "raw_text": "Cadena SER26/05/2026 - 21:27 CEST La Dirección General de Ordenación del Juego (DGOJ), dependiente del Ministerio de Derechos Sociales, Consumo y Agenda 2030, ha abierto expediente sancionador a Polymarket y Kalshi, dos plataformas de predicción en las que se realizan apuestas, por una posible infracción de la normativa de juego, ya que estarían operando en España sin contar con la obligatoria habilitación administrativa. \"Como ocurre en otras plataformas ilegales del juego, aquellas personas menores de edad o que puedan tener problemas acceden a este tipo de plataformas.",
+    "evidence_excerpt": "La Dirección General de Ordenación del Juego (DGOJ), dependiente del Ministerio de Derechos Sociales, Consumo y Agenda 2030, ha abierto expediente sancionador a Polymarket y Kalshi, dos plataformas de predicción en las que se realizan apuestas, por una posible infracción de la normativa de juego, ya que estarían operando en España sin contar con la obligatoria habilitación administrativa.",
+    "expected_signal_types": [
+      "regulatory_scrutiny",
+      "jurisdiction_restriction",
+      "ownership_change",
+      "business_activity_change"
+    ],
+    "baseline_fields_targeted": [
+      "known_jurisdictions",
+      "risk_rating",
+      "subsidiaries",
+      "business_area",
+      "known_products"
+    ],
+    "automation_potential": "medium",
+    "confidence_hint": "medium",
+    "limitations": "Public news/event discovery. Use official regulator or company sources when available."
+  },
+  {
+    "document_id": "doc-010",
+    "customer_id": "demo-005",
+    "source_type": "product_page",
+    "source_name": "Circle",
+    "source_url": "https://www.circle.com/cpn",
+    "source_quality": "A",
+    "title": "Circle Payments Network",
+    "published_at": null,
+    "collected_at": "2026-06-20T00:00:03Z",
+    "language": "en",
+    "raw_text": "What is Circle Payments Network (CPN)? Circle Payments Network (CPN) is a global network of partners, including banks, payment service providers (PSPs), virtual asset service providers (VASPs), and enterprises, who enable consumer, business, and institutional payments with 24/7 real-time settlement via stablecoins like USDC and EURC. What are the benefits of CPN for network participants?",
+    "evidence_excerpt": "Circle Payments Network (CPN) is a global network of partners, including banks, payment service providers (PSPs), virtual asset service providers (VASPs), and enterprises, who enable consumer, business, and institutional payments with 24/7 real-time settlement via stablecoins like USDC and EURC.",
+    "expected_signal_types": [
+      "new_product",
+      "commercial_opportunity",
+      "digital_asset_activity"
+    ],
+    "baseline_fields_targeted": [
+      "business_area",
+      "known_products",
+      "known_jurisdictions",
+      "risk_rating"
+    ],
+    "automation_potential": "medium",
+    "confidence_hint": "high",
+    "limitations": "Product page has no publication date; page hash is monitored for changes."
+  },
+  {
+    "document_id": "doc-011",
+    "customer_id": "demo-005",
+    "source_type": "product_page",
+    "source_name": "Circle",
+    "source_url": "https://www.circle.com/usdc",
+    "source_quality": "A",
+    "title": "USDC | Powering global finance. Issued by Circle.",
+    "published_at": null,
+    "collected_at": "2026-06-20T00:00:03Z",
+    "language": "en",
+    "raw_text": "The world’s largest regulated1 stablecoin powering global finance Redeemable 1:1 for US dollars, USDC enables 24/7 liquidity for near-instant, low-cost global payments. Built for rapid global payments and 24/7 financial markets, USDC is a regulated digital currency you can redeem 1:1 for US dollars.",
+    "evidence_excerpt": "Redeemable 1:1 for US dollars, USDC enables 24/7 liquidity for near-instant, low-cost global payments.",
+    "expected_signal_types": [
+      "new_product",
+      "digital_asset_activity",
+      "commercial_opportunity"
+    ],
+    "baseline_fields_targeted": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "automation_potential": "medium",
+    "confidence_hint": "high",
+    "limitations": "Product page has no publication date; page hash is monitored for changes."
+  },
+  {
+    "document_id": "doc-012",
+    "customer_id": "demo-004",
+    "source_type": "product_page",
+    "source_name": "Kraken Legal",
+    "source_url": "https://www.kraken.com/legal/xstocks",
+    "source_quality": "A",
+    "title": "xStocks Risk Disclosure",
+    "published_at": null,
+    "collected_at": "2026-06-20T00:00:03Z",
+    "language": "en",
+    "raw_text": "Base Prospectus and related Final Terms for xStocks xStocks are issued by Backed Assets (JE) Limited (a Jersey private limited company) (the \"Issuer\"), and offered to certain Kraken clients by Payward Digital Solutions Ltd. (“PDSL”), a Bermuda exempted company licensed to conduct digital asset business by the Bermuda Monetary Authority. Holders of xStocks do not have ownership in any of the underlying stock or shares of the companies to which they are economically linked (\"underlying stock\"); instead, by purchasing xStocks investors can benefit from exposure to the performance of the underlying stock.",
+    "evidence_excerpt": "xStocks are issued by Backed Assets (JE) Limited (a Jersey private limited company) (the \"Issuer\"), and offered to certain Kraken clients by Payward Digital Solutions Ltd. (“PDSL”), a Bermuda exempted company licensed to conduct digital asset business by the Bermuda Monetary Authority.",
+    "expected_signal_types": [
+      "new_product",
+      "digital_asset_activity",
+      "jurisdiction_expansion"
+    ],
+    "baseline_fields_targeted": [
+      "business_area",
+      "known_products",
+      "known_jurisdictions",
+      "risk_rating"
+    ],
+    "automation_potential": "medium",
+    "confidence_hint": "high",
+    "limitations": "Legal disclosure page has no publication date; page hash is monitored for changes."
+  },
+  {
+    "document_id": "doc-013",
+    "customer_id": "demo-001",
+    "source_type": "company_newsroom",
+    "source_name": "Robinhood Newsroom",
+    "source_url": "https://robinhood.com/us/en/newsroom/robinhood-completes-acquisition-of-bitstamp/",
+    "source_quality": "A",
+    "title": "Robinhood Completes Acquisition of Bitstamp",
+    "published_at": "2025-06-02",
+    "collected_at": "2026-06-20T00:00:03Z",
+    "language": "en",
+    "raw_text": "This strategic combination better positions Robinhood to expand outside of the US and brings a trusted and reputable institutional business to Robinhood. Robinhood Markets, Inc. (“Robinhood”) has closed its acquisition of Bitstamp Ltd. (“Bitstamp”), a global cryptocurrency exchange. Bitstamp was founded in 2011 and has offices in Luxembourg, the UK, Slovenia, Singapore, and the US.",
+    "evidence_excerpt": "Robinhood Markets, Inc. (“Robinhood”) has closed its acquisition of Bitstamp Ltd. (“Bitstamp”), a global cryptocurrency exchange.",
+    "expected_signal_types": [
+      "ownership_change",
+      "new_subsidiary",
+      "business_activity_change"
+    ],
+    "baseline_fields_targeted": [
+      "subsidiaries",
+      "business_area",
+      "known_products"
+    ],
+    "automation_potential": "high",
+    "confidence_hint": "high",
+    "limitations": null
+  },
+  {
+    "document_id": "doc-014",
+    "customer_id": "demo-001",
+    "source_type": "company_newsroom",
+    "source_name": "Bitstamp Blog",
+    "source_url": "https://blog.bitstamp.net/post/robinhood-completes-acquisition-of-bitstamp/",
+    "source_quality": "A",
+    "title": "Robinhood Completes Acquisition of Bitstamp",
+    "published_at": "2025-06-02",
+    "collected_at": "2026-06-20T00:00:03Z",
+    "language": "en",
+    "raw_text": "Please read the general Risk Warning, and Risk Summary for UK residents before investing in crypto-assets. Crypto-assets services are provided by the following Bitstamp legal entities depending on client residency: (1) Bitstamp Europe S.A., which is authorized by the Commission de Surveillance du Secteur Financier (CSSF) in Luxembourg as a payment institution (licence number Z00000012) and crypto-asset service provider (licence number N00000003); Registered address: 40, avenue Monterey, L-2163 Luxembourg, Grand Duchy of Luxembourg; Registration number: B196856; (2) Bitstamp UK Ltd., which is registered with the Financial Conduct Authority (FCA) in the UK for the provision of certain cryptoassets activities under the Money Laundering Regulations (Firm Reference Number 978690); Registered address: 5 New Street Square, EC4A 3TW London, United Kingdom; Registration number: 14174243; (3) Bitstamp Ltd.with its registered address at 5 New Street Square, EC4A 3TW London, United Kingdom and registration number: 8157033; (4) Bitstamp Global Ltd., which is registered as a Virtual Asset Service Provider in the British Virgin Islands and is supervised by the British Virgin Islands Financial Services Commission (FSC); Registered address: Floor 4, Banco Popular Building, Road Town, Tortola VG1110, British Virgin Islands; Registered number: 2086429; and (5) Bitstamp Asia Pte Ltd, which is authorized by the Monetary Authority of Singapore (MAS) as a major payment institution (licence number PS20200667); Registered address: 21 Collyer Quay, Level 11, Singapore 049320 (Suite 11-101); Regis...",
+    "evidence_excerpt": "Crypto-assets services are provided by the following Bitstamp legal entities depending on client residency: (1) Bitstamp Europe S.A., which is authorized by the Commission de Surveillance du Secteur Financier (CSSF) in Luxembourg as a payment institution (licence number Z00000012) and crypto-asset service provider (licence number N00000003); Registered address: 40, avenue Monterey, L-2163 Luxembourg, Grand Duchy of Luxembourg; Registration number: B196856; (2) Bitstamp UK Ltd., which is registered with the Finan...",
+    "expected_signal_types": [
+      "new_jurisdiction",
+      "business_activity_change",
+      "digital_asset_activity"
+    ],
+    "baseline_fields_targeted": [
+      "known_jurisdictions",
+      "business_area",
+      "risk_rating",
+      "known_products"
+    ],
+    "automation_potential": "high",
+    "confidence_hint": "high",
+    "limitations": null
+  },
+  {
+    "document_id": "doc-015",
+    "customer_id": "demo-001",
+    "source_type": "company_newsroom",
+    "source_name": "Bitstamp Legal Footer",
+    "source_url": "https://blog.bitstamp.net/post/robinhood-completes-acquisition-of-bitstamp/",
+    "source_quality": "A",
+    "title": "Bitstamp legal entity and licensing disclosures",
+    "published_at": "2025-06-02",
+    "collected_at": "2026-06-20T00:00:03Z",
+    "language": "en",
+    "raw_text": "Please read the general Risk Warning, and Risk Summary for UK residents before investing in crypto-assets. Crypto-assets services are provided by the following Bitstamp legal entities depending on client residency: (1) Bitstamp Europe S.A., which is authorized by the Commission de Surveillance du Secteur Financier (CSSF) in Luxembourg as a payment institution (licence number Z00000012) and crypto-asset service provider (licence number N00000003); Registered address: 40, avenue Monterey, L-2163 Luxembourg, Grand Duchy of Luxembourg; Registration number: B196856; (2) Bitstamp UK Ltd., which is registered with the Financial Conduct Authority (FCA) in the UK for the provision of certain cryptoassets activities under the Money Laundering Regulations (Firm Reference Number 978690); Registered address: 5 New Street Square, EC4A 3TW London, United Kingdom; Registration number: 14174243; (3) Bitstamp Ltd.with its registered address at 5 New Street Square, EC4A 3TW London, United Kingdom and registration number: 8157033; (4) Bitstamp Global Ltd., which is registered as a Virtual Asset Service Provider in the British Virgin Islands and is supervised by the British Virgin Islands Financial Services Commission (FSC); Registered address: Floor 4, Banco Popular Building, Road Town, Tortola VG1110, British Virgin Islands; Registered number: 2086429; and (5) Bitstamp Asia Pte Ltd, which is authorized by the Monetary Authority of Singapore (MAS) as a major payment institution (licence number PS20200667); Registered address: 21 Collyer Quay, Level 11, Singapore 049320 (Suite 11-101); Regis...",
+    "evidence_excerpt": "Crypto-assets services are provided by the following Bitstamp legal entities depending on client residency: (1) Bitstamp Europe S.A., which is authorized by the Commission de Surveillance du Secteur Financier (CSSF) in Luxembourg as a payment institution (licence number Z00000012) and crypto-asset service provider (licence number N00000003); Registered address: 40, avenue Monterey, L-2163 Luxembourg, Grand Duchy of Luxembourg; Registration number: B196856; (2) Bitstamp UK Ltd., which is registered with the Finan...",
+    "expected_signal_types": [
+      "new_jurisdiction",
+      "new_subsidiary"
+    ],
+    "baseline_fields_targeted": [
+      "known_jurisdictions",
+      "subsidiaries",
+      "risk_rating"
+    ],
+    "automation_potential": "medium",
+    "confidence_hint": "high",
+    "limitations": "Legal entity details may appear in the page footer rather than article body."
+  },
+  {
+    "document_id": "doc-016",
+    "customer_id": "demo-004",
+    "source_type": "official_blog",
+    "source_name": "Kraken Blog",
+    "source_url": "https://blog.kraken.com/product/xstocks/tokenized-equities-now-available",
+    "source_quality": "A",
+    "title": "From Wall Street to your wallet: Tokenized equities now available on Kraken",
+    "published_at": "2025-06-30",
+    "collected_at": "2026-06-20T00:00:03Z",
+    "language": "en",
+    "raw_text": "From Wall Street to your wallet: Tokenized equities now available on Kraken We’re beginning a phased rollout of tokenized U.S. stocks and ETFs – powered by Backed’s xStocks innovation – for eligible non-U.S. clients. Share on X (Opens in new window)",
+    "evidence_excerpt": "We’re beginning a phased rollout of tokenized U.S. stocks and ETFs – powered by Backed’s xStocks innovation – for eligible non-U.S. clients.",
+    "expected_signal_types": [
+      "new_product",
+      "digital_asset_activity",
+      "jurisdiction_expansion"
+    ],
+    "baseline_fields_targeted": [
+      "business_area",
+      "known_products",
+      "known_jurisdictions",
+      "risk_rating"
+    ],
+    "automation_potential": "high",
+    "confidence_hint": "high",
+    "limitations": null
+  },
+  {
+    "document_id": "doc-017",
+    "customer_id": "demo-005",
+    "source_type": "investor_relations",
+    "source_name": "Circle Investor Relations",
+    "source_url": "https://investor.circle.com/overview/default.aspx",
+    "source_quality": "A",
+    "title": "Circle Investor Relations",
+    "published_at": null,
+    "collected_at": "2026-06-20T00:00:03Z",
+    "language": "en",
+    "raw_text": "Circle Internet Group, Inc. - Investor Relations Circle is a global financial technology firm that enables businesses of all sizes to harness the power of digital currencies and public blockchains for payments, commerce, and financial applications worldwide. Circle is building the world’s largest, most-widely used, stablecoin network, and issues, through its regulated affiliates, USDC and EURC stablecoins.",
+    "evidence_excerpt": "Circle is a global financial technology firm that enables businesses of all sizes to harness the power of digital currencies and public blockchains for payments, commerce, and financial applications worldwide.",
+    "expected_signal_types": [
+      "public_listing",
+      "commercial_opportunity",
+      "digital_asset_activity"
+    ],
+    "baseline_fields_targeted": [
+      "entity_type",
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "automation_potential": "high",
+    "confidence_hint": "high",
+    "limitations": "Investor overview page may not expose a publication date."
+  },
+  {
+    "document_id": "doc-018",
+    "customer_id": "demo-005",
+    "source_type": "product_page",
+    "source_name": "Circle",
+    "source_url": "https://www.circle.com/circle-mint",
+    "source_quality": "A",
+    "title": "Circle Mint",
+    "published_at": null,
+    "collected_at": "2026-06-20T00:00:03Z",
+    "language": "en",
+    "raw_text": "Access & distribute USDC at scale Circle Mint is the fastest and most cost effective way for distributors to access and redeem USDC and EURC. Manage funds securely, and seamlessly distribute them to crypto wallets around the world, 24/7.",
+    "evidence_excerpt": "Circle Mint is the fastest and most cost effective way for distributors to access and redeem USDC and EURC.",
+    "expected_signal_types": [
+      "new_product",
+      "digital_asset_activity",
+      "commercial_opportunity"
+    ],
+    "baseline_fields_targeted": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "automation_potential": "medium",
+    "confidence_hint": "high",
+    "limitations": "Product page may not expose a publication date."
+  }
+]

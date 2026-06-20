@@ -1,0 +1,20 @@
+[
+  {
+    "stage": "discovery",
+    "connector": "company_site_discovery",
+    "customer_id": "demo-004",
+    "status": "ok",
+    "discovered_sources": 1
+  },
+  {
+    "source_id": "company-demo-004-1",
+    "document_id": "doc-001",
+    "url": "https://www.kraken.com/press/releases/kraken-to-acquire-ninjatrader-introducing-the-next-era-of-professional-trading",
+    "status": "ok",
+    "connector": "company_site_discovery",
+    "entity_match_score": 122,
+    "retrieval_score": 85,
+    "source_term_score": 23,
+    "clean_text_chars": 10082
+  }
+]

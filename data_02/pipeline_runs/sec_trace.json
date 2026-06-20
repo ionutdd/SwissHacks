@@ -1,0 +1,110 @@
+[
+  {
+    "stage": "discovery",
+    "connector": "sec_catalog_sources",
+    "customer_id": "portfolio",
+    "status": "ok",
+    "discovered_sources": 3
+  },
+  {
+    "stage": "discovery",
+    "connector": "sec_recent_filings",
+    "customer_id": "demo-001",
+    "status": "ok",
+    "discovered_sources": 1,
+    "url": "https://data.sec.gov/submissions/CIK0001783879.json"
+  },
+  {
+    "stage": "discovery",
+    "connector": "sec_recent_filings",
+    "customer_id": "demo-003",
+    "status": "ok",
+    "discovered_sources": 2,
+    "url": "https://data.sec.gov/submissions/CIK0001326380.json"
+  },
+  {
+    "stage": "discovery",
+    "connector": "sec_recent_filings",
+    "customer_id": "demo-005",
+    "status": "ok",
+    "discovered_sources": 1,
+    "url": "https://data.sec.gov/submissions/CIK0001876042.json"
+  },
+  {
+    "source_id": "src-007-gamestop-bitcoin-8k",
+    "document_id": "doc-001",
+    "url": "https://www.sec.gov/Archives/edgar/data/1326380/000132638025000026/pr-btcmay2025.htm",
+    "status": "ok",
+    "connector": "sec_archive_page",
+    "entity_match_score": 12,
+    "retrieval_score": 84,
+    "source_term_score": 22,
+    "clean_text_chars": 309
+  },
+  {
+    "source_id": "src-008-gamestop-bitcoin-10k",
+    "document_id": "doc-002",
+    "url": "https://www.sec.gov/Archives/edgar/data/1326380/000162828025014731/gme-20250201.htm",
+    "status": "ok",
+    "connector": "sec_archive_page",
+    "entity_match_score": 410,
+    "retrieval_score": 103,
+    "source_term_score": 28,
+    "clean_text_chars": 203047
+  },
+  {
+    "source_id": "src-009-gamestop-bitcoin-10q",
+    "document_id": "doc-003",
+    "url": "https://www.sec.gov/Archives/edgar/data/1326380/000132638025000035/gme-20250503.htm",
+    "status": "ok",
+    "connector": "sec_archive_page",
+    "entity_match_score": 110,
+    "retrieval_score": 163,
+    "source_term_score": 49,
+    "clean_text_chars": 69292
+  },
+  {
+    "source_id": "api-sec-demo-001-000178387926000071",
+    "url": "https://www.sec.gov/Archives/edgar/data/1783879/000178387926000071/hood-20260616.htm",
+    "status": "skipped",
+    "connector": "sec_recent_filings",
+    "reason": "SEC API-discovered filing did not contain configured source/signal terms.",
+    "entity_match_score": 32,
+    "retrieval_score": 11,
+    "source_term_score": 2,
+    "clean_text_chars": 5643
+  },
+  {
+    "source_id": "api-sec-demo-003-000132638026000025",
+    "document_id": "doc-004",
+    "url": "https://www.sec.gov/Archives/edgar/data/1326380/000132638026000025/gme-20260502.htm",
+    "status": "ok",
+    "connector": "sec_recent_filings",
+    "entity_match_score": 134,
+    "retrieval_score": 99,
+    "source_term_score": 27,
+    "clean_text_chars": 76735
+  },
+  {
+    "source_id": "api-sec-demo-003-000132638026000020",
+    "url": "https://www.sec.gov/Archives/edgar/data/1326380/000132638026000020/gme-20260602.htm",
+    "status": "skipped",
+    "connector": "sec_recent_filings",
+    "reason": "SEC API-discovered filing did not contain configured source/signal terms.",
+    "entity_match_score": 31,
+    "retrieval_score": 9,
+    "source_term_score": 0,
+    "clean_text_chars": 4473
+  },
+  {
+    "source_id": "api-sec-demo-005-000187604226000192",
+    "url": "https://www.sec.gov/Archives/edgar/data/1876042/000187604226000192/crcl-20260612.htm",
+    "status": "skipped",
+    "connector": "sec_recent_filings",
+    "reason": "SEC API-discovered filing did not contain configured source/signal terms.",
+    "entity_match_score": 16,
+    "retrieval_score": 5,
+    "source_term_score": 2,
+    "clean_text_chars": 1858
+  }
+]

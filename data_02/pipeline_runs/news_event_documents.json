@@ -1,0 +1,92 @@
+[
+  {
+    "document_id": "doc-001",
+    "customer_id": "demo-002",
+    "source_type": "reputable_news",
+    "source_name": "theguardian.com",
+    "source_url": "https://www.theguardian.com/world/2026/may/26/spain-blocks-access-polymarket-kalshi-gambling-licence-investigation",
+    "source_quality": "B",
+    "title": "Spain blocks access to Polymarket and Kalshi as it launches gambling licence investigation | Spain | The Guardian",
+    "published_at": "2026-05-26",
+    "collected_at": "2026-06-19T23:59:40Z",
+    "language": "en",
+    "raw_text": "Tue 26 May 2026 15.46 CESTLast modified on Tue 26 May 2026 17.39 CEST Spain’s ministry of consumer rights has blocked access to Polymarket and Kalshi while it investigates whether the leading prediction market sites are violating Spanish law by operating without a gambling licence. On Tuesday the ministry said it had launched disciplinary proceedings against the two platforms, which allow users to bet on everything from the weather to political events, amid allegations that they lacked the “necessary administrative authorisation” to operate in Spain.",
+    "evidence_excerpt": "Spain’s ministry of consumer rights has blocked access to Polymarket and Kalshi while it investigates whether the leading prediction market sites are violating Spanish law by operating without a gambling licence.",
+    "expected_signal_types": [
+      "regulatory_scrutiny",
+      "jurisdiction_restriction",
+      "ownership_change",
+      "business_activity_change"
+    ],
+    "baseline_fields_targeted": [
+      "known_jurisdictions",
+      "risk_rating",
+      "subsidiaries",
+      "business_area",
+      "known_products"
+    ],
+    "automation_potential": "medium",
+    "confidence_hint": "medium",
+    "limitations": "Public news/event discovery. Use official regulator or company sources when available."
+  },
+  {
+    "document_id": "doc-002",
+    "customer_id": "demo-002",
+    "source_type": "reputable_news",
+    "source_name": "elpais.com",
+    "source_url": "https://elpais.com/economia/2026-05-26/consumo-ordena-el-bloqueo-de-polymarket-y-kalshi-en-espana-por-operar-sin-licencia-de-juego.html",
+    "source_quality": "B",
+    "title": "Consumo ordena el bloqueo de Polymarket y Kalshi en España por operar sin licencia de juego | Economía | EL PAÍS",
+    "published_at": "2026-05-26",
+    "collected_at": "2026-06-19T23:59:40Z",
+    "language": "en",
+    "raw_text": "Madrid - 26 may 2026 - 08:41CEST El Boletín Oficial del Estado (BOE) ha publicado este martes la apertura de un expediente sancionador contra los mercados de predicciones y apuestas Polymarket y Kalshi al considerarlos plataformas de juego de azar que operan en España sin la necesaria licencia administrativa. El Ministerio de Consumo ha emitido una orden para bloquear en España las páginas web de estas dos plataformas como medida cautelar hasta la resolución definitiva del expediente.",
+    "evidence_excerpt": "El Boletín Oficial del Estado (BOE) ha publicado este martes la apertura de un expediente sancionador contra los mercados de predicciones y apuestas Polymarket y Kalshi al considerarlos plataformas de juego de azar que operan en España sin la necesaria licencia administrativa.",
+    "expected_signal_types": [
+      "regulatory_scrutiny",
+      "jurisdiction_restriction",
+      "ownership_change",
+      "business_activity_change"
+    ],
+    "baseline_fields_targeted": [
+      "known_jurisdictions",
+      "risk_rating",
+      "subsidiaries",
+      "business_area",
+      "known_products"
+    ],
+    "automation_potential": "medium",
+    "confidence_hint": "medium",
+    "limitations": "Public news/event discovery. Use official regulator or company sources when available."
+  },
+  {
+    "document_id": "doc-003",
+    "customer_id": "demo-002",
+    "source_type": "reputable_news",
+    "source_name": "cadenaser.com",
+    "source_url": "https://cadenaser.com/nacional/2026/05/26/el-futuro-de-polymarket-tras-el-bloqueo-del-gobierno-es-ilegal-no-tiene-licencia-y-no-hay-posibilidad-de-que-la-consiga-cadena-ser/",
+    "source_quality": "B",
+    "title": "El futuro de Polymarket tras el bloqueo del Gobierno: \"Es ilegal, no tiene licencia y no hay posibilidad de que la consiga\" | Actualidad | Cadena SER",
+    "published_at": "2026-05-26",
+    "collected_at": "2026-06-19T23:59:40Z",
+    "language": "en",
+    "raw_text": "Cadena SER26/05/2026 - 21:27 CEST La Dirección General de Ordenación del Juego (DGOJ), dependiente del Ministerio de Derechos Sociales, Consumo y Agenda 2030, ha abierto expediente sancionador a Polymarket y Kalshi, dos plataformas de predicción en las que se realizan apuestas, por una posible infracción de la normativa de juego, ya que estarían operando en España sin contar con la obligatoria habilitación administrativa. \"Como ocurre en otras plataformas ilegales del juego, aquellas personas menores de edad o que puedan tener problemas acceden a este tipo de plataformas.",
+    "evidence_excerpt": "La Dirección General de Ordenación del Juego (DGOJ), dependiente del Ministerio de Derechos Sociales, Consumo y Agenda 2030, ha abierto expediente sancionador a Polymarket y Kalshi, dos plataformas de predicción en las que se realizan apuestas, por una posible infracción de la normativa de juego, ya que estarían operando en España sin contar con la obligatoria habilitación administrativa.",
+    "expected_signal_types": [
+      "regulatory_scrutiny",
+      "jurisdiction_restriction",
+      "ownership_change",
+      "business_activity_change"
+    ],
+    "baseline_fields_targeted": [
+      "known_jurisdictions",
+      "risk_rating",
+      "subsidiaries",
+      "business_area",
+      "known_products"
+    ],
+    "automation_potential": "medium",
+    "confidence_hint": "medium",
+    "limitations": "Public news/event discovery. Use official regulator or company sources when available."
+  }
+]

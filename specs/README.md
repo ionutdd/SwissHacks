@@ -10,6 +10,8 @@ This folder turns `InitialPrompt.md` into a buildable specification package for 
 - [04 RM Workflow Spec](04-rm-workflow-spec.md): relationship manager dashboard, alert lifecycle, review/audit states.
 - [05 Hackathon Demo Spec](05-hackathon-demo-spec.md): prototype scope, demo entities, scenarios, evaluation rubric.
 - [06 Team Workstreams Spec](06-team-workstreams-spec.md): data-first four-person task split, interfaces, dependencies, and integration plan.
+- [Subtask 01 Specs](subtask-01-demo-entities-baselines/README.md): detailed specs for demo entity selection and synthetic KYC baselines.
+- [Subtask 02 Specs](subtask-02-evidence-source-collection/README.md): detailed specs for public evidence collection and normalized source documents.
 
 ## Product Thesis
 

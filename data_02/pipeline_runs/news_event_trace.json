@@ -1,0 +1,60 @@
+[
+  {
+    "stage": "discovery",
+    "connector": "news_event_discovery",
+    "customer_id": "demo-002",
+    "status": "skipped",
+    "discovered_sources": 0,
+    "query": "Polymarket Kalshi Spain gambling licence blocked",
+    "reason": "News API query unavailable; using configured fallbacks. HTTPError: HTTP Error 429: Too Many Requests"
+  },
+  {
+    "stage": "discovery",
+    "connector": "news_event_discovery",
+    "customer_id": "demo-002",
+    "status": "skipped",
+    "discovered_sources": 0,
+    "query": "Polymarket QCEX acquisition return US regulated",
+    "reason": "News API query unavailable; using configured fallbacks. HTTPError: HTTP Error 429: Too Many Requests"
+  },
+  {
+    "stage": "discovery",
+    "connector": "news_event_discovery",
+    "customer_id": "demo-002",
+    "status": "ok",
+    "discovered_sources": 3
+  },
+  {
+    "source_id": "news-demo-002-1",
+    "document_id": "doc-001",
+    "url": "https://www.theguardian.com/world/2026/may/26/spain-blocks-access-polymarket-kalshi-gambling-licence-investigation",
+    "status": "ok",
+    "connector": "news_event_discovery",
+    "entity_match_score": 33,
+    "retrieval_score": 106,
+    "source_term_score": 30,
+    "clean_text_chars": 6068
+  },
+  {
+    "source_id": "news-demo-002-2",
+    "document_id": "doc-002",
+    "url": "https://elpais.com/economia/2026-05-26/consumo-ordena-el-bloqueo-de-polymarket-y-kalshi-en-espana-por-operar-sin-licencia-de-juego.html",
+    "status": "ok",
+    "connector": "news_event_discovery",
+    "entity_match_score": 36,
+    "retrieval_score": 46,
+    "source_term_score": 12,
+    "clean_text_chars": 15544
+  },
+  {
+    "source_id": "news-demo-002-3",
+    "document_id": "doc-003",
+    "url": "https://cadenaser.com/nacional/2026/05/26/el-futuro-de-polymarket-tras-el-bloqueo-del-gobierno-es-ilegal-no-tiene-licencia-y-no-hay-posibilidad-de-que-la-consiga-cadena-ser/",
+    "status": "ok",
+    "connector": "news_event_discovery",
+    "entity_match_score": 18,
+    "retrieval_score": 43,
+    "source_term_score": 12,
+    "clean_text_chars": 8471
+  }
+]
