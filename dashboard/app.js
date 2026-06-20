@@ -32,6 +32,149 @@
   };
   const SEVERITY_RANK = { critical: 4, high: 3, medium: 2, low: 1 };
   const CATEGORY_RANK = { risk: 4, mixed: 3, ownership_control: 2, opportunity: 1 };
+  const TIMELINE_RANGES = {
+    "1d": 24 * 60 * 60 * 1000,
+    "1w": 7 * 24 * 60 * 60 * 1000,
+    "1m": 30 * 24 * 60 * 60 * 1000,
+    "3m": 90 * 24 * 60 * 60 * 1000,
+    "1y": 365 * 24 * 60 * 60 * 1000
+  };
+  const GEO_COUNTRIES = {
+    "Australia": {
+      id: "AU",
+      lat: -25.27,
+      lon: 133.78,
+      regulator: "Australian Securities & Investments Commission",
+      url: "https://asic.gov.au/regulatory-resources/"
+    },
+    "Bermuda": {
+      id: "BM",
+      lat: 32.31,
+      lon: -64.75,
+      regulator: "Bermuda Monetary Authority",
+      url: "https://www.bma.bm/regulatory-framework"
+    },
+    "Canada": {
+      id: "CA",
+      lat: 56.13,
+      lon: -106.35,
+      regulator: "FINTRAC",
+      url: "https://fintrac-canafe.canada.ca/guidance-directives/overview-apercu/Guide1/1-eng"
+    },
+    "Estonia": {
+      id: "EE",
+      lat: 58.6,
+      lon: 25.01,
+      regulator: "Estonian Financial Intelligence Unit",
+      url: "https://fiu.ee/en"
+    },
+    "European Union": {
+      allianceType: "alliance",
+      memberIds: [
+        "AT",
+        "BE",
+        "BG",
+        "HR",
+        "CY",
+        "CZ",
+        "DK",
+        "EE",
+        "FI",
+        "FR",
+        "DE",
+        "GR",
+        "HU",
+        "IE",
+        "IT",
+        "LV",
+        "LT",
+        "LU",
+        "MT",
+        "NL",
+        "PL",
+        "PT",
+        "RO",
+        "SK",
+        "SI",
+        "ES",
+        "SE"
+      ],
+      lat: 50.85,
+      lon: 4.35,
+      regulator: "European Commission financial services regulation",
+      url: "https://finance.ec.europa.eu/regulation-and-supervision_en"
+    },
+    "Japan": {
+      id: "JP",
+      lat: 36.2,
+      lon: 138.25,
+      regulator: "Financial Services Agency Japan",
+      url: "https://www.fsa.go.jp/en/"
+    },
+    "Jersey": {
+      id: "JE",
+      lat: 49.21,
+      lon: -2.13,
+      regulator: "Jersey Financial Services Commission",
+      url: "https://www.jerseyfsc.org/industry/regulated-entities/"
+    },
+    "Luxembourg": {
+      id: "LU",
+      lat: 49.82,
+      lon: 6.13,
+      regulator: "CSSF Luxembourg",
+      url: "https://www.cssf.lu/en/"
+    },
+    "North Korea": {
+      id: "KP",
+      lat: 40.34,
+      lon: 127.51,
+      regulator: "U.S. Treasury OFAC North Korea sanctions",
+      url: "https://ofac.treasury.gov/sanctions-programs-and-country-information/north-korea-sanctions"
+    },
+    "Russia": {
+      id: "RU",
+      lat: 55.75,
+      lon: 37.62,
+      regulator: "U.S. Treasury OFAC Russia sanctions",
+      url: "https://ofac.treasury.gov/sanctions-programs-and-country-information/russia-related-sanctions"
+    },
+    "Singapore": {
+      id: "SG",
+      lat: 1.35,
+      lon: 103.82,
+      regulator: "Monetary Authority of Singapore",
+      url: "https://www.mas.gov.sg/regulation"
+    },
+    "Spain": {
+      id: "ES",
+      lat: 40.42,
+      lon: -3.7,
+      regulator: "CNMV Spain",
+      url: "https://www.cnmv.es/portal/Legislacion/Legislacion/NormativaCNMV.aspx?lang=en"
+    },
+    "Taiwan": {
+      id: "TW",
+      lat: 23.7,
+      lon: 121.0,
+      regulator: "Financial Supervisory Commission Taiwan",
+      url: "https://www.fsc.gov.tw/en/"
+    },
+    "United Kingdom": {
+      id: "GB",
+      lat: 55.38,
+      lon: -3.44,
+      regulator: "Financial Conduct Authority",
+      url: "https://www.fca.org.uk/firms"
+    },
+    "United States": {
+      id: "US",
+      lat: 39.83,
+      lon: -98.58,
+      regulator: "Financial Crimes Enforcement Network",
+      url: "https://www.fincen.gov/resources/statutes-regulations"
+    }
+  };
   const ACTION_TO_STATUS = {
     acknowledged: "in_review",
     escalated: "escalated",
@@ -61,6 +204,8 @@
     founderInvestorByCustomer: new Map(),
     publicKycByCustomer: new Map(),
     actions: [],
+    timelineRange: "1y",
+    selectedGeoCountry: null,
     selectedCustomerId: null,
     selectedAlertId: null,
     viewMode: "notifications",
@@ -73,6 +218,7 @@
   };
 
   const els = {};
+  let geoChart = null;
 
   document.addEventListener("DOMContentLoaded", init);
 
@@ -173,6 +319,13 @@
       "alertQueueCount",
       "alertQueue",
       "alertDetail",
+      "timelineCustomerLabel",
+      "timelineStatus",
+      "timelineViewport",
+      "geoFootprintTitle",
+      "geoMap",
+      "geoCountryCard",
+      "geoCountryChips",
       "briefCustomerLabel",
       "copyBrief",
       "printBrief",
@@ -266,6 +419,39 @@
       recordAction(actionButton.dataset.action);
     });
 
+    document.querySelectorAll("[data-timeline-range]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.timelineRange = button.dataset.timelineRange;
+        renderTimeline();
+      });
+    });
+
+    document.querySelectorAll("[data-timeline-pan]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const direction = Number(button.dataset.timelinePan || 0);
+        els.timelineViewport.scrollBy({
+          left: direction * Math.max(320, els.timelineViewport.clientWidth * 0.78),
+          behavior: "smooth"
+        });
+      });
+    });
+
+    els.timelineViewport.addEventListener("click", (event) => {
+      const row = event.target.closest("[data-timeline-alert-id]");
+      if (!row) return;
+      state.selectedAlertId = row.dataset.timelineAlertId;
+      render();
+    });
+
+    [els.geoMap, els.geoCountryChips].forEach((container) => {
+      container.addEventListener("click", (event) => {
+        const row = event.target.closest("[data-geo-country]");
+        if (!row) return;
+        state.selectedGeoCountry = row.dataset.geoCountry;
+        renderGeographicFootprint();
+      });
+    });
+
     els.copyBrief.addEventListener("click", copyBrief);
     els.printBrief.addEventListener("click", () => window.print());
     els.resetDemoState.addEventListener("click", () => {
@@ -315,6 +501,7 @@
 
   function selectCustomer(customerId) {
     state.selectedCustomerId = customerId;
+    state.selectedGeoCountry = null;
     const firstAlert = sortedAlerts(getFilteredAlertsForCustomer(customerId))[0];
     state.selectedAlertId = firstAlert ? firstAlert.alert_id : null;
     render();
@@ -339,6 +526,8 @@
     renderWorkspaceHeader();
     renderAlertQueue();
     renderAlertDetail();
+    renderTimeline();
+    renderGeographicFootprint();
     renderBrief();
     renderDataHealth();
   }
@@ -1215,6 +1404,8 @@
     };
     state.actions.push(actionRecord);
     saveActions();
+    state.selectedCustomerId = alert.customer_id;
+    state.selectedAlertId = alert.alert_id;
     render();
   }
 
@@ -1228,6 +1419,634 @@
 
   function saveActions() {
     localStorage.setItem(ACTION_STORAGE_KEY, JSON.stringify(state.actions));
+  }
+
+  function renderTimeline() {
+    const customer = selectedCustomer();
+    if (!customer) {
+      els.timelineCustomerLabel.textContent = "Customer activity";
+      els.timelineViewport.innerHTML = `<div class="empty-state">No customer selected.</div>`;
+      return;
+    }
+
+    document.querySelectorAll("[data-timeline-range]").forEach((button) => {
+      button.classList.toggle("active", button.dataset.timelineRange === state.timelineRange);
+    });
+
+    els.timelineCustomerLabel.textContent = `${customer.legal_name} activity log`;
+    const allEvents = buildTimelineEvents(customer.customer_id);
+    const windowState = timelineWindow(allEvents);
+    const events = eventsInTimelineWindow(allEvents, windowState);
+    const ticks = buildTimelineTicks(windowState);
+    const chartWidth = timelineChartWidth();
+
+    els.timelineViewport.innerHTML = `
+      <div class="timeline-chart" style="width: ${chartWidth}px;">
+        ${timelineGridTemplate(ticks)}
+        ${timelineTodayTemplate(windowState)}
+        ${events.map((event) => timelineMarkerTemplate(event, windowState)).join("")}
+        ${events.length ? "" : `<div class="timeline-empty-note">No events in this range.</div>`}
+      </div>
+    `;
+
+    window.requestAnimationFrame(() => {
+      els.timelineViewport.scrollLeft = els.timelineViewport.scrollWidth;
+    });
+  }
+
+  function buildTimelineEvents(customerId) {
+    const events = [];
+    state.alerts
+      .filter((alert) => alert.customer_id === customerId)
+      .forEach((alert) => {
+        const time = alertTimelineDate(alert);
+        if (!time) return;
+        events.push({
+          id: `signal-${alert.alert_id}`,
+          type: "signal",
+          time,
+          alert_id: alert.alert_id,
+          title: cleanText(alert.title),
+          detail: cleanText(alert.recommended_action || alert.summary || ""),
+          meta: `${labelize(alert.signal_type)} | ${labelize(alert.severity)} | ${detectionLabel(alert.detection_method)}`,
+          severity: alert.severity
+        });
+      });
+
+    state.actions
+      .filter((action) => action.customer_id === customerId)
+      .forEach((action) => {
+        const alert = state.alerts.find((item) => item.alert_id === action.alert_id);
+        const time = parseTimelineDate(action.created_at);
+        if (!time) return;
+        events.push({
+          id: action.id,
+          type: "action",
+          time,
+          alert_id: action.alert_id,
+          title: `RM ${labelize(action.action)}`,
+          detail: cleanText(action.note || alert?.recommended_action || alert?.title || "Status updated"),
+          meta: `${formatDateTime(action.created_at)} | ${action.created_by || "demo-rm"}`,
+          severity: alert?.severity || "medium"
+        });
+      });
+
+    return events.sort((a, b) => a.time - b.time || a.title.localeCompare(b.title));
+  }
+
+  function timelineWindow(events) {
+    const rangeMs = TIMELINE_RANGES[state.timelineRange] || TIMELINE_RANGES["1y"];
+    const now = Date.now();
+    const latestEvent = events.length ? Math.max(...events.map((event) => event.time.getTime())) : now;
+    const latest = latestEvent < now - rangeMs ? latestEvent : Math.max(now, latestEvent);
+    return {
+      start: new Date(latest - rangeMs),
+      end: new Date(latest),
+      rangeMs
+    };
+  }
+
+  function eventsInTimelineWindow(events, windowState) {
+    const start = windowState.start.getTime();
+    const end = windowState.end.getTime();
+    return events.filter((event) => {
+      const time = event.time.getTime();
+      return time >= start && time <= end;
+    });
+  }
+
+  function buildTimelineTicks(windowState) {
+    const count = state.timelineRange === "1d" ? 7 : 6;
+    return Array.from({ length: count }, (_item, index) => {
+      const ratio = count === 1 ? 0 : index / (count - 1);
+      const time = new Date(windowState.start.getTime() + windowState.rangeMs * ratio);
+      return {
+        label: formatTimelineTick(time),
+        position: ratio * 100
+      };
+    });
+  }
+
+  function timelineGridTemplate(ticks) {
+    return ticks.map((tick) => `
+      <div class="timeline-grid-line" style="left: ${tick.position}%;">
+        <span>${escapeHtml(tick.label)}</span>
+      </div>
+    `).join("");
+  }
+
+  function timelineTodayTemplate(windowState) {
+    const now = new Date();
+    const nowMs = now.getTime();
+    if (nowMs < windowState.start.getTime() || nowMs > windowState.end.getTime()) return "";
+    const position = eventPercent(now, windowState);
+    return `
+      <div class="timeline-today" style="left: ${position}%;">
+        <span>Today</span>
+      </div>
+    `;
+  }
+
+  function timelineMarkerTemplate(event, windowState) {
+    const selected = event.alert_id && event.alert_id === state.selectedAlertId ? "active" : "";
+    const alertAttr = event.alert_id ? ` data-timeline-alert-id="${escapeAttr(event.alert_id)}"` : "";
+    const left = eventPercent(event.time, windowState);
+    const top = 68 + (stableIndex(event.id, 4) * 34);
+    const edgeClass = left > 78 ? "near-right" : left < 12 ? "near-left" : "";
+    const body = `
+      <span class="timeline-dot ${escapeAttr(event.type)}"></span>
+      <span class="timeline-marker-label">
+        <strong>${escapeHtml(event.title)}</strong>
+        <small>${escapeHtml(formatDateTime(event.time))}</small>
+        <em>${escapeHtml(event.detail)}</em>
+        <small>${escapeHtml(event.meta || labelize(event.type))}</small>
+      </span>
+    `;
+    return event.alert_id
+      ? `<button class="timeline-marker ${escapeAttr(event.type)} ${selected} ${edgeClass}" type="button" style="left: ${left}%; top: ${top}px;" aria-label="${escapeAttr(`${event.title}: ${event.detail}`)}"${alertAttr}>${body}</button>`
+      : `<article class="timeline-marker ${escapeAttr(event.type)} ${selected} ${edgeClass}" style="left: ${left}%; top: ${top}px;" aria-label="${escapeAttr(`${event.title}: ${event.detail}`)}">${body}</article>`;
+  }
+
+  function eventPercent(time, windowState) {
+    const elapsed = time.getTime() - windowState.start.getTime();
+    return Math.max(0, Math.min(100, (elapsed / windowState.rangeMs) * 100));
+  }
+
+  function timelineChartWidth() {
+    const widths = {
+      "1d": 940,
+      "1w": 980,
+      "1m": 1120,
+      "3m": 1260,
+      "1y": 1360
+    };
+    return widths[state.timelineRange] || 1120;
+  }
+
+  function stableIndex(value, modulo) {
+    const text = String(value || "");
+    let hash = 0;
+    for (let index = 0; index < text.length; index += 1) {
+      hash = ((hash << 5) - hash) + text.charCodeAt(index);
+      hash |= 0;
+    }
+    return Math.abs(hash) % modulo;
+  }
+
+  function formatTimelineTick(value) {
+    if (state.timelineRange === "1d") {
+      return new Intl.DateTimeFormat("en-GB", {
+        hour: "2-digit",
+        minute: "2-digit"
+      }).format(value).toUpperCase();
+    }
+    if (state.timelineRange === "1y") {
+      return new Intl.DateTimeFormat("en-GB", {
+        month: "short",
+        year: "2-digit"
+      }).format(value).toUpperCase();
+    }
+    return new Intl.DateTimeFormat("en-GB", {
+      month: "short",
+      day: "2-digit"
+    }).format(value).toUpperCase();
+  }
+
+  function alertTimelineDate(alert) {
+    const evidenceDates = (alert.evidence || []).flatMap((item) => [
+      item.published_at,
+      item.collected_at
+    ]);
+    const dates = [
+      alert.newest_published_at,
+      alert.created_at,
+      ...(alert.evidence || []).map((item) => item.published_at),
+      ...evidenceDates
+    ].map(parseTimelineDate).filter(Boolean);
+    if (!dates.length) return null;
+    return new Date(Math.max(...dates.map((date) => date.getTime())));
+  }
+
+  function parseTimelineDate(value) {
+    if (!value) return null;
+    const date = new Date(value);
+    return Number.isNaN(date.getTime()) ? null : date;
+  }
+
+  function renderGeographicFootprint() {
+    const customer = selectedCustomer();
+    if (!customer) {
+      els.geoFootprintTitle.textContent = "Customer geographic footprint";
+      els.geoMap.innerHTML = `<div class="empty-state">No customer selected.</div>`;
+      els.geoCountryChips.innerHTML = "";
+      els.geoCountryCard.hidden = true;
+      return;
+    }
+
+    const countries = geographicFootprintForCustomer(customer.customer_id);
+    const selected = countries.find((item) => item.country === state.selectedGeoCountry);
+    if (state.selectedGeoCountry && !selected) {
+      state.selectedGeoCountry = null;
+    }
+
+    els.geoFootprintTitle.textContent = `${customer.legal_name} geographic footprint`;
+    renderAmChartsGeographicMap(countries);
+    els.geoCountryChips.innerHTML = countries.length
+      ? countries.map(geoChipTemplate).join("")
+      : `<span class="source-link-muted">No mapped countries available.</span>`;
+
+    if (selected) {
+      els.geoCountryCard.hidden = false;
+      els.geoCountryCard.innerHTML = geoCountryCardTemplate(selected);
+    } else {
+      els.geoCountryCard.hidden = true;
+      els.geoCountryCard.innerHTML = "";
+    }
+  }
+
+  function geographicFootprintForCustomer(customerId) {
+    const customer = state.customersById.get(customerId) || {};
+    const publicKyc = publicKycForCustomer(customerId) || {};
+    const identity = publicKyc.identity || {};
+    const domicile = normalizeCountry(identity.primary_domicile || customer.domicile);
+    const known = new Set();
+    const risk = new Set();
+
+    [
+      ...(identity.operating_regions || []),
+      ...(customer.known_jurisdictions || [])
+    ].forEach((value) => addCountrySet(known, value));
+
+    const profileText = [
+      ...(publicKyc.sanctions_adverse_media || []),
+      ...(publicKyc.regulatory_and_licensing || []),
+      ...(publicKyc.risk_rationale || []),
+      ...(publicKyc.open_kyc_questions || [])
+    ].join(" ").toLowerCase();
+    Object.keys(GEO_COUNTRIES).forEach((country) => {
+      const lower = country.toLowerCase();
+      if (!profileText.includes(lower)) return;
+      if (/(sanction|blocked|restriction|restricted|dprk|north korea|russia|illicit|prohibited|exit|aml|cft|license loss)/i.test(profileText)) {
+        risk.add(country);
+      } else {
+        known.add(country);
+      }
+    });
+
+    state.alerts
+      .filter((alert) => alert.customer_id === customerId)
+      .forEach((alert) => {
+        const text = [alert.title, alert.summary, alert.recommended_action, ...(alert.material_reasons || [])].join(" ").toLowerCase();
+        Object.keys(GEO_COUNTRIES).forEach((country) => {
+          if (!text.includes(country.toLowerCase())) return;
+          if (/(sanction|blocked|restriction|restricted|illegal|investigation|critical|risk|prohibited|aml|north korea|russia)/i.test(text)) {
+            risk.add(country);
+          } else {
+            known.add(country);
+          }
+        });
+      });
+
+    if (domicile) {
+      known.add(domicile);
+    }
+
+    const countries = Array.from(new Set([...known, ...risk]))
+      .filter((country) => GEO_COUNTRIES[country])
+      .map((country) => {
+        const type = risk.has(country) ? "risk" : country === domicile ? "domicile" : "known";
+        return {
+          country,
+          type,
+          id: GEO_COUNTRIES[country].id || null,
+          allianceType: GEO_COUNTRIES[country].allianceType || null,
+          memberIds: GEO_COUNTRIES[country].memberIds || [],
+          regulator: GEO_COUNTRIES[country].regulator,
+          url: GEO_COUNTRIES[country].url,
+          lat: GEO_COUNTRIES[country].lat,
+          lon: GEO_COUNTRIES[country].lon,
+          note: geoCountryNote(country, type, customer, publicKyc)
+        };
+      })
+      .sort((a, b) => geoTypeRank(a.type) - geoTypeRank(b.type) || a.country.localeCompare(b.country));
+
+    return countries;
+  }
+
+  function renderAmChartsGeographicMap(countries) {
+    if (!countries.length) {
+      disposeGeoChart();
+      els.geoMap.innerHTML = `<div class="empty-state">No mapped countries available.</div>`;
+      return;
+    }
+
+    if (!window.am5 || !window.am5map || !window.am5geodata_worldLow) {
+      disposeGeoChart();
+      els.geoMap.innerHTML = `
+        ${worldMapTemplate()}
+        ${countries.map(geoMarkerTemplate).join("")}
+      `;
+      return;
+    }
+
+    try {
+      const chartParts = ensureGeoChart();
+      chartParts.countryNames = new Set(countries.map((item) => item.country));
+      chartParts.polygonSeries.data.setAll(geoPolygonData(countries));
+      chartParts.pointSeries.data.setAll(countries.map((item) => ({
+        ...item,
+        geometry: {
+          type: "Point",
+          coordinates: [item.lon, item.lat]
+        }
+      })));
+    } catch (error) {
+      console.error("Could not render amCharts geographic map", error);
+      disposeGeoChart();
+      els.geoMap.innerHTML = `
+        ${worldMapTemplate()}
+        ${countries.map(geoMarkerTemplate).join("")}
+      `;
+    }
+  }
+
+  function ensureGeoChart() {
+    if (geoChart) return geoChart;
+
+    els.geoMap.innerHTML = "";
+
+    const root = am5.Root.new("geoMap");
+    if (window.am5themes_Animated) {
+      root.setThemes([am5themes_Animated.new(root)]);
+    }
+
+    const chart = root.container.children.push(am5map.MapChart.new(root, {
+      panX: "translateX",
+      panY: "translateY",
+      projection: am5map.geoMercator(),
+      wheelY: "zoom",
+      pinchZoom: true,
+      maxZoomLevel: 8
+    }));
+
+    chart.set("zoomControl", am5map.ZoomControl.new(root, {
+      x: am5.p100,
+      centerX: am5.p100,
+      y: am5.p100,
+      centerY: am5.p100
+    }));
+
+    const polygonSeries = chart.series.push(am5map.MapPolygonSeries.new(root, {
+      geoJSON: am5geodata_worldLow,
+      exclude: ["AQ"]
+    }));
+
+    polygonSeries.mapPolygons.template.setAll({
+      fill: am5.color(0xd4dee3),
+      stroke: am5.color(0xc1ced4),
+      strokeWidth: 0.7,
+      tooltipText: "{name}",
+      interactive: true,
+      templateField: "polygonSettings"
+    });
+
+    polygonSeries.mapPolygons.template.states.create("hover", {
+      fill: am5.color(0xc6d4da)
+    });
+
+    polygonSeries.mapPolygons.template.events.on("click", (event) => {
+      const context = event.target.dataItem?.dataContext || {};
+      const country = context.geoCountry || normalizeCountry(context.name);
+      if (!country || !geoChart?.countryNames?.has(country)) return;
+      state.selectedGeoCountry = country;
+      renderGeographicFootprint();
+    });
+
+    const pointSeries = chart.series.push(am5map.MapPointSeries.new(root, {}));
+    pointSeries.bullets.push((bulletRoot, _series, dataItem) => {
+      const item = dataItem.dataContext;
+      const active = item.country === state.selectedGeoCountry;
+      const color = am5.color(geoColorValue(item.type));
+      const container = am5.Container.new(bulletRoot, {
+        cursorOverStyle: "pointer",
+        tooltipText: `${item.country}\n${geoTypeLabel(item.type)}`
+      });
+
+      container.children.push(am5.Circle.new(bulletRoot, {
+        radius: active ? 15 : 12,
+        fill: color,
+        fillOpacity: 0.18,
+        strokeOpacity: 0
+      }));
+
+      container.children.push(am5.Circle.new(bulletRoot, {
+        radius: active ? 7 : 5,
+        fill: color,
+        stroke: am5.color(0xffffff),
+        strokeWidth: 2
+      }));
+
+      container.events.on("click", () => {
+        state.selectedGeoCountry = item.country;
+        renderGeographicFootprint();
+      });
+
+      return am5.Bullet.new(bulletRoot, {
+        sprite: container
+      });
+    });
+
+    geoChart = {
+      root,
+      chart,
+      polygonSeries,
+      pointSeries,
+      countryNames: new Set()
+    };
+    return geoChart;
+  }
+
+  function disposeGeoChart() {
+    if (geoChart?.root) {
+      geoChart.root.dispose();
+    }
+    geoChart = null;
+  }
+
+  function geoPolygonData(countries) {
+    const polygonsById = new Map();
+
+    countries.forEach((item) => {
+      addGeoPolygon(polygonsById, item, item.id, false);
+      (item.memberIds || []).forEach((memberId) => {
+        addGeoPolygon(polygonsById, item, memberId, true);
+      });
+    });
+
+    return Array.from(polygonsById.values()).map((entry) => geoPolygonEntry(entry));
+  }
+
+  function addGeoPolygon(polygonsById, item, id, isAllianceMember) {
+    if (!id) return;
+    const entry = { item, id, isAllianceMember };
+    const current = polygonsById.get(id);
+    if (!current || geoPolygonPriority(entry) > geoPolygonPriority(current)) {
+      polygonsById.set(id, entry);
+    }
+  }
+
+  function geoPolygonEntry(entry) {
+    const { item, id, isAllianceMember } = entry;
+    const active = item.country === state.selectedGeoCountry;
+    const tooltipLabel = isAllianceMember
+      ? `${item.country}\n${geoTypeLabel(item.type)} alliance member`
+      : `${item.country}\n${geoTypeLabel(item.type)}`;
+
+    return {
+      id,
+      name: isAllianceMember ? `${item.country} member country` : item.country,
+      geoCountry: item.country,
+      geoType: item.type,
+      geoLabel: geoTypeLabel(item.type),
+      allianceMember: isAllianceMember,
+      polygonSettings: {
+        fill: am5.color(active ? geoColorValue(item.type) : geoFillValue(item.type)),
+        stroke: am5.color(geoColorValue(item.type)),
+        strokeWidth: active ? 1.8 : 0.9,
+        tooltipText: tooltipLabel
+      }
+    };
+  }
+
+  function geoPolygonPriority(entry) {
+    const typeWeight = { risk: 100, domicile: 80, known: 60 }[entry.item.type] || 0;
+    const selectedWeight = entry.item.country === state.selectedGeoCountry ? 20 : 0;
+    const directCountryWeight = entry.isAllianceMember ? 0 : 10;
+    return typeWeight + selectedWeight + directCountryWeight;
+  }
+
+  function addCountrySet(target, value) {
+    const country = normalizeCountry(value);
+    if (country && GEO_COUNTRIES[country]) {
+      target.add(country);
+    }
+  }
+
+  function normalizeCountry(value) {
+    const text = cleanText(value || "");
+    if (!text) return null;
+    const replacements = {
+      "Australia review": "Australia",
+      "Europe": "European Union",
+      "European Union": "European Union",
+      "EU": "European Union",
+      "United States of America": "United States",
+      "USA": "United States",
+      "US": "United States",
+      "UK": "United Kingdom",
+      "DPRK": "North Korea",
+      "North Korea": "North Korea",
+      "Russia-linked exchange activity": "Russia",
+      "global blockchain networks": null,
+      "global technology markets": null,
+      "global tobacco markets": null,
+      "international online users": null
+    };
+    return Object.prototype.hasOwnProperty.call(replacements, text) ? replacements[text] : text;
+  }
+
+  function geoTypeRank(type) {
+    return { domicile: 1, known: 2, risk: 3 }[type] || 4;
+  }
+
+  function geoColorValue(type) {
+    if (type === "risk") return 0xa82218;
+    if (type === "known") return 0x4fd37a;
+    return 0x0f766e;
+  }
+
+  function geoFillValue(type) {
+    if (type === "risk") return 0xf7d6d2;
+    if (type === "known") return 0xd7f6df;
+    return 0xb9dfdd;
+  }
+
+  function geoCountryNote(country, type, customer, publicKyc) {
+    if (GEO_COUNTRIES[country]?.memberIds?.length) {
+      return "Regional or alliance-level footprint. Member countries are highlighted on the map and link to the regional regulatory source.";
+    }
+    if (type === "domicile") return "Primary domicile from public KYC or baseline profile.";
+    if (type === "risk") return "Risk or sanctioned-country context found in KYC, sanctions, or alert evidence.";
+    const regions = publicKyc.identity?.operating_regions || customer.known_jurisdictions || [];
+    return regions.includes(country) ? "Known operating jurisdiction from public KYC." : "Known jurisdiction from baseline or alert evidence.";
+  }
+
+  function lonToX(lon) {
+    return ((lon + 180) / 360) * 100;
+  }
+
+  function latToY(lat) {
+    return ((90 - lat) / 180) * 100;
+  }
+
+  function geoMarkerTemplate(item) {
+    return `
+      <button
+        class="geo-marker ${escapeAttr(item.type)} ${item.country === state.selectedGeoCountry ? "active" : ""}"
+        type="button"
+        data-geo-country="${escapeAttr(item.country)}"
+        style="left: ${lonToX(item.lon)}%; top: ${latToY(item.lat)}%;"
+        aria-label="${escapeAttr(`${item.country}: ${geoTypeLabel(item.type)}`)}"
+      >
+        <span></span>
+      </button>
+    `;
+  }
+
+  function geoChipTemplate(item) {
+    return `
+      <button class="geo-chip ${escapeAttr(item.type)} ${item.memberIds?.length ? "alliance" : ""} ${item.country === state.selectedGeoCountry ? "active" : ""}" type="button" data-geo-country="${escapeAttr(item.country)}">
+        <span></span>
+        ${escapeHtml(item.country)}
+        <em>${escapeHtml(item.memberIds?.length ? `${geoTypeLabel(item.type)} alliance` : geoTypeLabel(item.type))}</em>
+      </button>
+    `;
+  }
+
+  function geoCountryCardTemplate(item) {
+    return `
+      <div class="geo-card-head">
+        <strong>${escapeHtml(item.country)}</strong>
+        <span class="pill ${item.type === "risk" ? "risk" : item.type === "known" ? "opportunity" : "mixed"}">${escapeHtml(geoTypeLabel(item.type))}</span>
+      </div>
+      <p>${escapeHtml(item.note)}</p>
+      ${item.memberIds?.length ? `<p class="geo-member-note">${escapeHtml(item.memberIds.length)} member countries highlighted.</p>` : ""}
+      <a class="source-link" href="${escapeAttr(item.url)}" target="_blank" rel="noreferrer">
+        <span>Open site</span>
+        <strong>${escapeHtml(item.regulator)}</strong>
+        <small>Official regulation / supervision source</small>
+      </a>
+    `;
+  }
+
+  function geoTypeLabel(type) {
+    if (type === "domicile") return "domicile";
+    if (type === "risk") return "risk / sanctioned";
+    return "known jurisdiction";
+  }
+
+  function worldMapTemplate() {
+    return `
+      <svg class="geo-world" viewBox="0 0 1000 460" role="img" aria-label="World map background">
+        <path d="M95 142 C130 95 214 82 281 112 C328 133 338 178 307 208 C267 245 215 228 178 258 C138 290 91 248 77 207 C68 181 72 159 95 142 Z" />
+        <path d="M279 248 C323 270 338 323 314 365 C298 394 285 421 255 428 C235 407 230 372 217 339 C202 302 231 263 279 248 Z" />
+        <path d="M444 133 C482 111 533 116 559 147 C533 176 486 172 451 166 C423 160 420 145 444 133 Z" />
+        <path d="M488 187 C537 170 594 196 611 247 C630 305 590 372 531 382 C488 355 466 291 472 237 C474 217 479 201 488 187 Z" />
+        <path d="M584 136 C664 79 802 100 890 169 C918 191 926 238 893 264 C841 306 768 262 710 278 C662 291 612 251 590 204 C579 181 568 153 584 136 Z" />
+        <path d="M779 326 C820 305 877 322 899 354 C879 388 817 391 779 373 C755 361 755 339 779 326 Z" />
+        <path d="M472 103 C504 87 547 91 574 113 C542 125 502 126 472 103 Z" />
+      </svg>
+    `;
   }
 
   function currentStatus(alert) {

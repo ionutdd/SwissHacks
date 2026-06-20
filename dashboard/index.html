@@ -143,15 +143,50 @@
             <div id="selectedCustomerStats" class="customer-stat-strip"></div>
           </div>
 
-          <section class="queue-panel">
-            <div class="section-heading">
-              <h2 id="alertQueueTitle">Customer alerts</h2>
-              <span id="alertQueueCount">0 alerts</span>
+          <section id="alertDetail" class="detail-panel" aria-label="Alert detail"></section>
+
+          <section class="timeline-panel" aria-label="Customer timeline">
+            <div class="timeline-header">
+              <div>
+                <p class="eyebrow">Activity log</p>
+                <h2 id="timelineCustomerLabel">Customer activity</h2>
+              </div>
+              <div class="timeline-controls" aria-label="Timeline controls">
+                <div class="timeline-ranges" role="group" aria-label="Timeline range">
+                  <button class="range-chip" type="button" data-timeline-range="1d">1D</button>
+                  <button class="range-chip" type="button" data-timeline-range="1w">1W</button>
+                  <button class="range-chip" type="button" data-timeline-range="1m">1M</button>
+                  <button class="range-chip" type="button" data-timeline-range="3m">3M</button>
+                  <button class="range-chip active" type="button" data-timeline-range="1y">1Y</button>
+                </div>
+              </div>
             </div>
-            <div id="alertQueue" class="alert-queue" role="list"></div>
+            <div id="timelineStatus" class="brief-status" aria-live="polite"></div>
+            <div class="timeline-viewport-wrap">
+              <button class="timeline-pan-button left" type="button" data-timeline-pan="-1" title="Earlier" aria-label="Earlier">&lsaquo;</button>
+              <div id="timelineViewport" class="timeline-viewport" tabindex="0" aria-label="Timeline events"></div>
+              <button class="timeline-pan-button right" type="button" data-timeline-pan="1" title="Later" aria-label="Later">&rsaquo;</button>
+            </div>
           </section>
 
-          <section id="alertDetail" class="detail-panel" aria-label="Alert detail"></section>
+          <section class="geo-panel" aria-label="Geographic footprint">
+            <div class="geo-header">
+              <div>
+                <p class="eyebrow">Geographic footprint</p>
+                <h2 id="geoFootprintTitle">Customer geographic footprint</h2>
+              </div>
+              <div class="geo-legend" aria-label="Map legend">
+                <span><i class="geo-key domicile"></i>Domicile</span>
+                <span><i class="geo-key known"></i>Known jurisdiction</span>
+                <span><i class="geo-key risk"></i>Risk / sanctioned</span>
+              </div>
+            </div>
+            <div class="geo-map-wrap">
+              <div id="geoMap" class="geo-map" aria-label="Operating countries map"></div>
+              <div id="geoCountryCard" class="geo-country-card" hidden></div>
+            </div>
+            <div id="geoCountryChips" class="geo-country-chips" aria-label="Operating country list"></div>
+          </section>
         </section>
 
         <aside class="brief-panel" aria-label="RM call brief">
@@ -164,11 +199,22 @@
             <button id="printBrief" class="secondary-button" type="button">Print</button>
           </div>
           <div id="briefStatus" class="brief-status" aria-live="polite"></div>
+          <details class="queue-panel alert-accordion" open>
+            <summary class="accordion-summary">
+              <span id="alertQueueTitle">Customer alerts</span>
+              <span id="alertQueueCount">0 alerts</span>
+            </summary>
+            <div id="alertQueue" class="alert-queue" role="list"></div>
+          </details>
           <div id="briefContent" class="brief-content"></div>
         </aside>
       </main>
     </div>
 
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
