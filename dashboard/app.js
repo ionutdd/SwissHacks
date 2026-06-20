@@ -16,7 +16,8 @@
     "demo-004": "Nina Schmid",
     "demo-005": "Rafael Costa",
     "demo-006": "Lea Baumann",
-    "demo-007": "Sofia Weber"
+    "demo-007": "Sofia Weber",
+    "demo-008": "Daniel Roth"
   };
   const SEVERITY_RANK = { critical: 4, high: 3, medium: 2, low: 1 };
   const CATEGORY_RANK = { risk: 4, mixed: 3, ownership_control: 2, opportunity: 1 };
@@ -585,6 +586,9 @@
       }
       if (alert.signal_type === "new_jurisdiction" || alert.signal_type === "jurisdiction_restriction") {
         questions.push("Which operating jurisdictions and client eligibility restrictions should AMINA update in KYC?");
+      }
+      if (alert.signal_type === "domain_registration") {
+        questions.push("Does the country-code domain reflect defensive registration, pre-launch planning, or active local business activity?");
       }
       if (alert.category === "risk" || alert.signal_type === "regulatory_scrutiny") {
         questions.push("Are there active licensing, regulatory, or market-access issues AMINA should document?");

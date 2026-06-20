@@ -2467,5 +2467,245 @@
     "comparison_reason": "risk_rating requires review due to North Korea sanctions and WMD-proliferator risk. North Korea sanctions and WMD-proliferator risk is not listed in baseline known_products. North Korea sanctions and WMD-proliferator risk is not listed in baseline business_area.",
     "status": "new",
     "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-042",
+    "customer_id": "demo-008",
+    "category": "mixed",
+    "signal_type": "business_activity_change",
+    "title": "Coinbase Global, Inc. business activity changed: Australia country-code domain monitoring signal",
+    "summary": "1 evidence document support business_activity_change for Australia country-code domain monitoring signal. Australia country-code domain monitoring signal is not listed in baseline business_area. Australia country-code domain monitoring signal is not listed in baseline known_products. risk_rating requires review due to Australia country-code domain monitoring signal.",
+    "changed_fields": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "business_area": [
+        "cryptocurrency exchange",
+        "digital asset custody",
+        "institutional crypto services"
+      ],
+      "known_products": [
+        "prospect monitoring",
+        "crypto exchange monitoring",
+        "custody watchlist"
+      ],
+      "risk_rating": "medium"
+    },
+    "new_value": {
+      "business_area": [
+        "Australia country-code domain monitoring signal"
+      ],
+      "known_products": [
+        "Australia country-code domain monitoring signal"
+      ],
+      "risk_rating": [
+        "Review due to Australia country-code domain monitoring signal"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.94,
+    "recommended_action": "Review the updated business activity and determine whether the current KYC risk rating still fits.",
+    "evidence_document_ids": [
+      "doc-021"
+    ],
+    "fact_ids": [
+      "fact-054"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-021",
+        "source_name": ".au RDAP / auDA",
+        "source_url": "https://rdap.cctld.au/rdap/domain/coinbase.au",
+        "published_at": "2026-02-09",
+        "collected_at": "2026-06-20T05:31:12Z",
+        "source_type": "domain_rdap",
+        "source_quality": "A",
+        "title": "RDAP record for coinbase.au",
+        "excerpt": "RDAP for coinbase.au lists registrant name Coinbase, Inc., eligibility type Trademark Owner, eligibility name COINBASE, eligibility id TM 1647712, and last changed 2026-02-09T01:44:15.302Z."
+      }
+    ],
+    "comparison_reason": "Australia country-code domain monitoring signal is not listed in baseline business_area. Australia country-code domain monitoring signal is not listed in baseline known_products. risk_rating requires review due to Australia country-code domain monitoring signal.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-043",
+    "customer_id": "demo-008",
+    "category": "mixed",
+    "signal_type": "domain_registration",
+    "title": "Coinbase Global, Inc. has country-domain registration signal: https://coinbase.au",
+    "summary": "1 evidence document support domain_registration for https://coinbase.au. https://coinbase.au is not listed in baseline websites. Australia is not listed in baseline known_jurisdictions. risk_rating requires review due to https://coinbase.au.",
+    "changed_fields": [
+      "known_jurisdictions",
+      "risk_rating",
+      "websites"
+    ],
+    "baseline_value": {
+      "websites": [
+        "https://www.coinbase.com"
+      ],
+      "known_jurisdictions": [
+        "United States",
+        "European Union",
+        "United Kingdom",
+        "Singapore"
+      ],
+      "risk_rating": "medium"
+    },
+    "new_value": {
+      "websites": [
+        "https://coinbase.au"
+      ],
+      "known_jurisdictions": [
+        "Australia"
+      ],
+      "risk_rating": [
+        "Review due to https://coinbase.au"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.94,
+    "recommended_action": "Ask the RM to confirm whether the country-code domain is defensive, pre-launch, or tied to active local market activity.",
+    "evidence_document_ids": [
+      "doc-021"
+    ],
+    "fact_ids": [
+      "fact-055"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-021",
+        "source_name": ".au RDAP / auDA",
+        "source_url": "https://rdap.cctld.au/rdap/domain/coinbase.au",
+        "published_at": "2026-02-09",
+        "collected_at": "2026-06-20T05:31:12Z",
+        "source_type": "domain_rdap",
+        "source_quality": "A",
+        "title": "RDAP record for coinbase.au",
+        "excerpt": "RDAP for coinbase.au lists registrant name Coinbase, Inc., eligibility type Trademark Owner, eligibility name COINBASE, eligibility id TM 1647712, and last changed 2026-02-09T01:44:15.302Z."
+      }
+    ],
+    "comparison_reason": "https://coinbase.au is not listed in baseline websites. Australia is not listed in baseline known_jurisdictions. risk_rating requires review due to https://coinbase.au.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-044",
+    "customer_id": "demo-008",
+    "category": "mixed",
+    "signal_type": "new_jurisdiction",
+    "title": "Coinbase Global, Inc. has new jurisdiction exposure: Australia",
+    "summary": "1 evidence document support new_jurisdiction for Australia. Australia is not listed in baseline known_jurisdictions. risk_rating requires review due to Australia.",
+    "changed_fields": [
+      "known_jurisdictions",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "known_jurisdictions": [
+        "United States",
+        "European Union",
+        "United Kingdom",
+        "Singapore"
+      ],
+      "risk_rating": "medium"
+    },
+    "new_value": {
+      "known_jurisdictions": [
+        "Australia"
+      ],
+      "risk_rating": [
+        "Review due to Australia"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.94,
+    "recommended_action": "Request customer confirmation and update KYC jurisdiction and entity structure fields.",
+    "evidence_document_ids": [
+      "doc-021"
+    ],
+    "fact_ids": [
+      "fact-053"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-021",
+        "source_name": ".au RDAP / auDA",
+        "source_url": "https://rdap.cctld.au/rdap/domain/coinbase.au",
+        "published_at": "2026-02-09",
+        "collected_at": "2026-06-20T05:31:12Z",
+        "source_type": "domain_rdap",
+        "source_quality": "A",
+        "title": "RDAP record for coinbase.au",
+        "excerpt": "RDAP for coinbase.au lists registrant name Coinbase, Inc., eligibility type Trademark Owner, eligibility name COINBASE, eligibility id TM 1647712, and last changed 2026-02-09T01:44:15.302Z."
+      }
+    ],
+    "comparison_reason": "Australia is not listed in baseline known_jurisdictions. risk_rating requires review due to Australia.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-045",
+    "customer_id": "demo-008",
+    "category": "risk",
+    "signal_type": "risk_rating_review",
+    "title": "Coinbase Global, Inc. risk rating should be reviewed",
+    "summary": "1 evidence document support risk_rating_review for country-code domain expansion review. risk_rating requires review due to country-code domain expansion review. Australia is not listed in baseline known_jurisdictions. country-code domain expansion review is not listed in baseline business_area.",
+    "changed_fields": [
+      "business_area",
+      "known_jurisdictions",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "risk_rating": "medium",
+      "known_jurisdictions": [
+        "United States",
+        "European Union",
+        "United Kingdom",
+        "Singapore"
+      ],
+      "business_area": [
+        "cryptocurrency exchange",
+        "digital asset custody",
+        "institutional crypto services"
+      ]
+    },
+    "new_value": {
+      "risk_rating": [
+        "Review due to country-code domain expansion review"
+      ],
+      "known_jurisdictions": [
+        "Australia"
+      ],
+      "business_area": [
+        "country-code domain expansion review"
+      ]
+    },
+    "severity": "high",
+    "confidence": 0.94,
+    "recommended_action": "Route to compliance for risk-rating review and document whether the baseline should be updated.",
+    "evidence_document_ids": [
+      "doc-021"
+    ],
+    "fact_ids": [
+      "fact-056"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-021",
+        "source_name": ".au RDAP / auDA",
+        "source_url": "https://rdap.cctld.au/rdap/domain/coinbase.au",
+        "published_at": "2026-02-09",
+        "collected_at": "2026-06-20T05:31:12Z",
+        "source_type": "domain_rdap",
+        "source_quality": "A",
+        "title": "RDAP record for coinbase.au",
+        "excerpt": "RDAP for coinbase.au lists registrant name Coinbase, Inc., eligibility type Trademark Owner, eligibility name COINBASE, eligibility id TM 1647712, and last changed 2026-02-09T01:44:15.302Z."
+      }
+    ],
+    "comparison_reason": "risk_rating requires review due to country-code domain expansion review. Australia is not listed in baseline known_jurisdictions. country-code domain expansion review is not listed in baseline business_area.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
   }
 ]

@@ -308,6 +308,36 @@
           "limitations": "Legal disclosure page has no publication date; page hash is monitored for changes."
         }
       ]
+    },
+    {
+      "connector": "domain_rdap_watch",
+      "enabled": true,
+      "customer_id": "demo-008",
+      "source_name": ".au RDAP / auDA",
+      "source_type": "domain_rdap",
+      "source_quality": "A",
+      "jurisdiction": "Australia",
+      "domains": [
+        {
+          "domain": "coinbase.au",
+          "rdap_url": "https://rdap.org/domain/coinbase.au",
+          "title_hint": "RDAP record for coinbase.au"
+        }
+      ],
+      "expected_signal_types": [
+        "domain_registration",
+        "new_jurisdiction",
+        "business_activity_change",
+        "risk_rating_review"
+      ],
+      "baseline_fields_targeted": [
+        "websites",
+        "known_jurisdictions",
+        "business_area",
+        "risk_rating"
+      ],
+      "automation_potential": "high",
+      "limitations": ".au RDAP redacts the original registration date. Treat this as domain-control and country-code expansion evidence requiring RM confirmation, not proof of active local launch."
     }
   ],
   "sources": [

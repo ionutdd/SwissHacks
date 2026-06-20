@@ -64,6 +64,10 @@ SIGNAL_RULES: dict[str, dict[str, list[str]]] = {
         "terms": ["risk", "volatility", "regulatory", "custody", "security", "counterparty"],
         "fields": ["risk_rating"],
     },
+    "domain_registration": {
+        "terms": ["rdap", "registrant", "trademark owner", "nameserver", "country-code domain"],
+        "fields": ["websites", "known_jurisdictions", "risk_rating"],
+    },
     "jurisdiction_expansion": {
         "terms": ["eligible", "non-u.s.", "bermuda", "licensed", "jurisdiction", "clients"],
         "fields": ["known_jurisdictions", "business_area"],
@@ -794,7 +798,8 @@ def generate_source_map(
         "3. `collect_evidence_regulator.py`: regulator candidate matching.",
         "4. `collect_evidence_news_event.py`: GDELT/news-event discovery with public fallbacks.",
         "5. `collect_evidence_page_diff.py`: product/legal page hash monitoring.",
-        "6. `collect_evidence_direct_sources.py`: explicitly cataloged public URLs.",
+        "6. `collect_evidence_domain_rdap.py`: RDAP lookup, ccTLD jurisdiction inference, and registrant/trademark identity matching.",
+        "7. `collect_evidence_direct_sources.py`: explicitly cataloged public URLs.",
         "",
         "Every pipeline emits the same source schema, then the shared core fetches pages, cleans text, ranks evidence sentences, and writes normalized documents.",
         "",
@@ -869,7 +874,7 @@ def generate_source_map(
             "## Notes For Teammate 4",
             "",
             "- Show source quality badges and direct source links.",
-            "- Use Robinhood/Bitstamp, Polymarket/CFTC, and GameStop/Bitcoin as the clearest demo cards.",
+            "- Use Robinhood/Bitstamp, Polymarket/CFTC, GameStop/Bitcoin, and Coinbase/coinbase.au as the clearest demo cards.",
             "- Keep the algorithm slide simple: split source collectors, shared RAG ranking, evidence-backed alert.",
             "",
         ]

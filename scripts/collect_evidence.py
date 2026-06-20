@@ -8,6 +8,7 @@ from typing import Any
 import collect_evidence_SEC
 import collect_evidence_company_site
 import collect_evidence_direct_sources
+import collect_evidence_domain_rdap
 import collect_evidence_news_event
 import collect_evidence_page_diff
 import collect_evidence_regulator
@@ -27,6 +28,7 @@ PIPELINE_MODULES = {
     "regulator": collect_evidence_regulator,
     "news_event": collect_evidence_news_event,
     "page_diff": collect_evidence_page_diff,
+    "domain_rdap": collect_evidence_domain_rdap,
     "direct_sources": collect_evidence_direct_sources,
 }
 
@@ -36,6 +38,7 @@ DEFAULT_PIPELINES = [
     "regulator",
     "news_event",
     "page_diff",
+    "domain_rdap",
     "direct_sources",
 ]
 
@@ -58,17 +61,22 @@ def collect(args: argparse.Namespace) -> int:
     selected_pipelines = args.pipelines or DEFAULT_PIPELINES
 
     candidate_sources: list[dict[str, Any]] = []
+    domain_rdap_sources: list[dict[str, Any]] = []
     discovery_traces: list[dict[str, Any]] = []
 
     for pipeline in selected_pipelines:
         if pipeline not in PIPELINE_MODULES:
             raise ValueError(f"Unknown pipeline: {pipeline}")
-        if pipeline == "direct_sources":
+        if pipeline == "domain_rdap":
+            sources, traces = collect_evidence_domain_rdap.discover_sources(catalog, baselines)
+            domain_rdap_sources.extend(sources)
+        elif pipeline == "direct_sources":
             existing_urls = {source["url"] for source in candidate_sources}
             sources, traces = collect_evidence_direct_sources.discover_sources(catalog, baselines, existing_urls)
+            candidate_sources.extend(sources)
         else:
             sources, traces = discover_pipeline_sources(pipeline, catalog, baselines, args.output_dir)
-        candidate_sources.extend(sources)
+            candidate_sources.extend(sources)
         discovery_traces.extend(traces)
 
     sources = dedupe_sources(candidate_sources)
@@ -78,11 +86,19 @@ def collect(args: argparse.Namespace) -> int:
         collected_at,
         polite_delay_seconds=args.polite_delay_seconds,
     )
+    domain_documents, domain_traces = collect_evidence_domain_rdap.collect_rdap_sources(
+        domain_rdap_sources,
+        baselines,
+        collected_at,
+        start_number=len(documents) + 1,
+    )
+    documents.extend(domain_documents)
     traces = discovery_traces + collect_traces
+    traces.extend(domain_traces)
 
     output_dir = Path(args.output_dir)
-    write_json(output_dir / "pipeline_runs" / "all_candidate_sources.json", candidate_sources)
-    write_json(output_dir / "pipeline_runs" / "merged_sources.json", sources)
+    write_json(output_dir / "pipeline_runs" / "all_candidate_sources.json", candidate_sources + domain_rdap_sources)
+    write_json(output_dir / "pipeline_runs" / "merged_sources.json", sources + domain_rdap_sources)
     write_final_outputs(output_dir, documents, traces, baselines, collected_at)
 
     print(f"Wrote {len(documents)} document(s) to {output_dir / 'documents.json'}")
@@ -99,7 +115,7 @@ def parse_args() -> argparse.Namespace:
         "--pipelines",
         nargs="*",
         choices=sorted(PIPELINE_MODULES),
-        help="Optional subset: sec company_site regulator news_event page_diff direct_sources",
+        help="Optional subset: sec company_site regulator news_event page_diff domain_rdap direct_sources",
     )
     return parser.parse_args()
 

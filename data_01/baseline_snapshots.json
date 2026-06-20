@@ -542,5 +542,78 @@
       "enhanced due diligence trigger"
     ],
     "notes": "Synthetic baseline dated before the April 2023 OFAC settlement. Use as the sanctioned-country business example for subtask 5."
+  },
+  {
+    "customer_id": "demo-008",
+    "legal_name": "Coinbase Global, Inc.",
+    "aliases": [
+      "Coinbase",
+      "Coinbase Global",
+      "Coinbase, Inc.",
+      "COINBASE"
+    ],
+    "entity_type": "public_company",
+    "domicile": "United States",
+    "business_area": [
+      "cryptocurrency exchange",
+      "digital asset custody",
+      "institutional crypto services"
+    ],
+    "risk_rating": "medium",
+    "known_jurisdictions": [
+      "United States",
+      "European Union",
+      "United Kingdom",
+      "Singapore"
+    ],
+    "known_products": [
+      "prospect monitoring",
+      "crypto exchange monitoring",
+      "custody watchlist"
+    ],
+    "directors": [],
+    "executives": [],
+    "investors": [],
+    "subsidiaries": [],
+    "websites": [
+      "https://www.coinbase.com"
+    ],
+    "social_handles": {
+      "x": [
+        "@coinbase"
+      ],
+      "linkedin": [
+        "coinbase"
+      ]
+    },
+    "known_wallets": [],
+    "last_reviewed_at": "2025-12-31",
+    "demo_story": "Coinbase has a post-baseline country-code domain signal: RDAP ties coinbase.au to Coinbase, Inc. through the COINBASE trademark, creating an Australia market-entry review item.",
+    "expected_drift_types": [
+      "domain_registration",
+      "new_jurisdiction",
+      "business_activity_change",
+      "risk_rating_review"
+    ],
+    "suggested_sources_to_check": [
+      "RDAP for coinbase.au",
+      "auDA domain eligibility records",
+      "Coinbase official country pages and regulatory disclosures",
+      "local Australia app, terms, or licensing disclosures"
+    ],
+    "source_candidates": [
+      {
+        "label": "RDAP record for coinbase.au",
+        "url": "https://rdap.cctld.au/rdap/domain/coinbase.au",
+        "source_quality": "A"
+      }
+    ],
+    "amina_relevance": [
+      "country-code domain monitoring",
+      "new jurisdiction review",
+      "crypto exchange market-entry signal",
+      "RM confirmation workflow for defensive versus active launch domains"
+    ],
+    "notes": "Synthetic baseline dated before the 2026 RDAP last-changed event. .au RDAP redacts the original registration date, so this is a domain-control signal requiring confirmation rather than proof of active Australian operations."
   }
 ]

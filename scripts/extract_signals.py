@@ -23,6 +23,7 @@ FACT_FIELD_MAP = {
     "new_product": ["known_products", "business_area"],
     "public_listing": ["entity_type", "known_products"],
     "commercial_opportunity": ["known_products", "business_area"],
+    "domain_registration": ["websites", "known_jurisdictions", "risk_rating"],
     "risk_rating_review": ["risk_rating", "known_products", "business_area"],
 }
 
@@ -47,6 +48,7 @@ SOURCE_TYPES_OFFICIAL = {
     "investor_relations",
     "regulator",
     "sec_filing",
+    "domain_rdap",
 }
 
 SCALAR_FIELDS = {"risk_rating", "entity_type", "domicile"}
@@ -75,6 +77,7 @@ JURISDICTION_PATTERNS = [
     ("Singapore", [r"\bSingapore\b"]),
     ("Bermuda", [r"\bBermuda\b"]),
     ("Jersey", [r"\bJersey\b"]),
+    ("Australia", [r"\bAustralia\b", r"\b\.au\b", r"\bauDA\b"]),
     ("Spain", [r"\bSpain\b", r"\bEspa(?:n|ñ)a\b"]),
     ("Russia", [r"\bRussia\b", r"\bRussian Federation\b", r"\bMoscow\b", r"\bSt\. Petersburg\b"]),
     ("North Korea", [r"\bNorth Korea\b", r"\bDPRK\b", r"\bDemocratic People's Republic of Korea\b"]),
@@ -124,6 +127,10 @@ RECOMMENDED_ACTIONS = {
     "commercial_opportunity": (
         "Add to RM call brief for custody, payments, FX, lending, or treasury "
         "discussion."
+    ),
+    "domain_registration": (
+        "Ask the RM to confirm whether the country-code domain is defensive, "
+        "pre-launch, or tied to active local market activity."
     ),
     "public_listing": (
         "Refresh the company profile and add public filing monitoring to the "
@@ -432,6 +439,23 @@ def extract_new_jurisdiction(document, baseline):
             )
         ]
 
+    if (
+        document.get("source_type") == "domain_rdap"
+        and "coinbase.au" in lower_text
+        and has_any(lower_text, ["registrant name coinbase", "eligibility name coinbase", "trademark owner"])
+    ):
+        return [
+            make_fact(
+                document,
+                baseline,
+                "new_jurisdiction",
+                "Australia",
+                "RDAP evidence ties the coinbase.au country-code domain to Coinbase identity data.",
+                jurisdiction="Australia",
+                fields=["known_jurisdictions", "risk_rating"],
+            )
+        ]
+
     return []
 
 
@@ -488,6 +512,18 @@ def extract_business_activity_change(document, baseline):
                 "North Korea tobacco joint-venture and export exposure",
                 "OFAC evidence describes BAT-related North Korea joint-venture profits and tobacco exports involving U.S. financial institutions.",
                 jurisdiction="North Korea",
+            )
+        )
+    elif document.get("source_type") == "domain_rdap" and "coinbase.au" in text and "trademark owner" in text:
+        facts.append(
+            make_fact(
+                document,
+                baseline,
+                "business_activity_change",
+                "Australia country-code domain monitoring signal",
+                "RDAP evidence links coinbase.au to Coinbase identity data, creating a market-entry or defensive-domain review item.",
+                jurisdiction="Australia",
+                fields=["business_area", "known_products", "risk_rating"],
             )
         )
     return facts
@@ -840,8 +876,42 @@ def extract_commercial_opportunity(document, baseline):
     return []
 
 
+def extract_domain_registration(document, baseline):
+    text = lower_document_text(document)
+    if document.get("source_type") != "domain_rdap":
+        return []
+    if "coinbase.au" not in text:
+        return []
+    if not has_any(text, ["registrant name coinbase", "eligibility name coinbase", "trademark owner"]):
+        return []
+
+    return [
+        make_fact(
+            document,
+            baseline,
+            "domain_registration",
+            "https://coinbase.au",
+            "RDAP ties coinbase.au to Coinbase, Inc. through registrant and COINBASE trademark-owner eligibility data.",
+            jurisdiction="Australia",
+            fields=["websites", "known_jurisdictions", "risk_rating"],
+        )
+    ]
+
+
 def extract_risk_rating_review(document, baseline):
     text = lower_document_text(document)
+    if document.get("source_type") == "domain_rdap" and "coinbase.au" in text and "trademark owner" in text:
+        return [
+            make_fact(
+                document,
+                baseline,
+                "risk_rating_review",
+                "country-code domain expansion review",
+                "The coinbase.au RDAP record should be reviewed to confirm whether the domain is defensive, pre-launch, or active local market evidence.",
+                jurisdiction="Australia",
+                fields=["risk_rating", "known_jurisdictions", "business_area"],
+            )
+        ]
     if "garantex" in text and has_any(text, ["illicit actors", "darknet markets", "ransomware", "aml/cft deficiencies"]):
         return [
             make_fact(
@@ -900,6 +970,7 @@ EXTRACTORS = {
     "new_product": extract_new_product,
     "public_listing": extract_public_listing,
     "commercial_opportunity": extract_commercial_opportunity,
+    "domain_registration": extract_domain_registration,
     "risk_rating_review": extract_risk_rating_review,
 }
 
@@ -956,6 +1027,8 @@ def materiality_for_fact(fact):
         return "high"
     if fact_type == "risk_rating_review":
         return "high"
+    if fact_type == "domain_registration":
+        return "medium"
     if fact_type in {"new_subsidiary", "new_jurisdiction", "business_activity_change", "digital_asset_activity", "new_product"}:
         return "medium"
     if fact_type in {"commercial_opportunity", "public_listing"}:
@@ -1044,7 +1117,7 @@ def category_for_alert(facts):
         return "opportunity"
     if fact_type == "public_listing":
         return "opportunity"
-    if fact_type in {"treasury_policy_change", "digital_asset_activity", "business_activity_change", "new_jurisdiction"}:
+    if fact_type in {"treasury_policy_change", "digital_asset_activity", "business_activity_change", "new_jurisdiction", "domain_registration"}:
         return "mixed"
     return "mixed"
 
@@ -1106,6 +1179,7 @@ def title_for_alert(customer_name, fact_type, object_value):
         "jurisdiction_restriction": f"{customer_name} has jurisdiction restriction signal: {object_value}",
         "new_product": f"{customer_name} product signal: {object_value}",
         "commercial_opportunity": f"{customer_name} commercial opportunity: {object_value}",
+        "domain_registration": f"{customer_name} has country-domain registration signal: {object_value}",
         "risk_rating_review": f"{customer_name} risk rating should be reviewed",
         "public_listing": f"{customer_name} public-company profile should be refreshed",
     }
@@ -1122,6 +1196,7 @@ def display_object_for_alert(fact_type, fallback_object, comparison):
         "digital_asset_activity": "known_products",
         "treasury_policy_change": "known_products",
         "business_activity_change": "business_area",
+        "domain_registration": "websites",
     }
     field = field_priority.get(fact_type)
     if not field:

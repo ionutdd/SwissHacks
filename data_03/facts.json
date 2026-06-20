@@ -1168,5 +1168,96 @@
     "source_url": "https://home.treasury.gov/news/press-releases/jy1441",
     "extraction_method": "rule",
     "extraction_confidence": 0.95
+  },
+  {
+    "fact_id": "fact-053",
+    "customer_id": "demo-008",
+    "document_id": "doc-021",
+    "fact_type": "new_jurisdiction",
+    "subject": "Coinbase Global, Inc.",
+    "object": "Australia",
+    "value": "RDAP evidence ties the coinbase.au country-code domain to Coinbase identity data.",
+    "jurisdiction": "Australia",
+    "effective_date": "2026-02-09",
+    "baseline_fields_targeted": [
+      "known_jurisdictions",
+      "risk_rating"
+    ],
+    "evidence_excerpt": "RDAP for coinbase.au lists registrant name Coinbase, Inc., eligibility type Trademark Owner, eligibility name COINBASE, eligibility id TM 1647712, and last changed 2026-02-09T01:44:15.302Z.",
+    "source_quality": "A",
+    "source_type": "domain_rdap",
+    "source_name": ".au RDAP / auDA",
+    "source_url": "https://rdap.cctld.au/rdap/domain/coinbase.au",
+    "extraction_method": "rule",
+    "extraction_confidence": 0.95
+  },
+  {
+    "fact_id": "fact-054",
+    "customer_id": "demo-008",
+    "document_id": "doc-021",
+    "fact_type": "business_activity_change",
+    "subject": "Coinbase Global, Inc.",
+    "object": "Australia country-code domain monitoring signal",
+    "value": "RDAP evidence links coinbase.au to Coinbase identity data, creating a market-entry or defensive-domain review item.",
+    "jurisdiction": "Australia",
+    "effective_date": "2026-02-09",
+    "baseline_fields_targeted": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "evidence_excerpt": "RDAP for coinbase.au lists registrant name Coinbase, Inc., eligibility type Trademark Owner, eligibility name COINBASE, eligibility id TM 1647712, and last changed 2026-02-09T01:44:15.302Z.",
+    "source_quality": "A",
+    "source_type": "domain_rdap",
+    "source_name": ".au RDAP / auDA",
+    "source_url": "https://rdap.cctld.au/rdap/domain/coinbase.au",
+    "extraction_method": "rule",
+    "extraction_confidence": 0.95
+  },
+  {
+    "fact_id": "fact-055",
+    "customer_id": "demo-008",
+    "document_id": "doc-021",
+    "fact_type": "domain_registration",
+    "subject": "Coinbase Global, Inc.",
+    "object": "https://coinbase.au",
+    "value": "RDAP ties coinbase.au to Coinbase, Inc. through registrant and COINBASE trademark-owner eligibility data.",
+    "jurisdiction": "Australia",
+    "effective_date": "2026-02-09",
+    "baseline_fields_targeted": [
+      "websites",
+      "known_jurisdictions",
+      "risk_rating"
+    ],
+    "evidence_excerpt": "RDAP for coinbase.au lists registrant name Coinbase, Inc., eligibility type Trademark Owner, eligibility name COINBASE, eligibility id TM 1647712, and last changed 2026-02-09T01:44:15.302Z.",
+    "source_quality": "A",
+    "source_type": "domain_rdap",
+    "source_name": ".au RDAP / auDA",
+    "source_url": "https://rdap.cctld.au/rdap/domain/coinbase.au",
+    "extraction_method": "rule",
+    "extraction_confidence": 0.95
+  },
+  {
+    "fact_id": "fact-056",
+    "customer_id": "demo-008",
+    "document_id": "doc-021",
+    "fact_type": "risk_rating_review",
+    "subject": "Coinbase Global, Inc.",
+    "object": "country-code domain expansion review",
+    "value": "The coinbase.au RDAP record should be reviewed to confirm whether the domain is defensive, pre-launch, or active local market evidence.",
+    "jurisdiction": "Australia",
+    "effective_date": "2026-02-09",
+    "baseline_fields_targeted": [
+      "risk_rating",
+      "known_jurisdictions",
+      "business_area"
+    ],
+    "evidence_excerpt": "RDAP for coinbase.au lists registrant name Coinbase, Inc., eligibility type Trademark Owner, eligibility name COINBASE, eligibility id TM 1647712, and last changed 2026-02-09T01:44:15.302Z.",
+    "source_quality": "A",
+    "source_type": "domain_rdap",
+    "source_name": ".au RDAP / auDA",
+    "source_url": "https://rdap.cctld.au/rdap/domain/coinbase.au",
+    "extraction_method": "rule",
+    "extraction_confidence": 0.95
   }
 ]

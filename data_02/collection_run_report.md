@@ -1,10 +1,10 @@
 # Collection Run Report
 
-- Generated at: 2026-06-20T00:00:03Z
-- Output documents: 20
+- Generated at: 2026-06-20T05:31:39Z
+- Output documents: 21
 - Failed fetches: 1
 - Skipped low-signal candidates: 5
-- Discovery traces: 11
+- Discovery traces: 12
 
 ## Algorithm
 
@@ -44,3 +44,4 @@ The run used split collector scripts. Each pipeline discovered candidate sources
 - `doc-018` `demo-005` A product_page: Circle Mint
 - `doc-019` `demo-006` A regulator: Treasury Sanctions Russia-Based Hydra and Ransomware-Enabling Virtual Currency Exchange Garantex
 - `doc-020` `demo-007` A regulator: Treasury Announces $508 Million Settlement with British American Tobacco
+- `doc-021` `demo-008` A domain_rdap: RDAP record for coinbase.au

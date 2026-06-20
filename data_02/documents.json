@@ -554,5 +554,34 @@
     "automation_potential": "high",
     "confidence_hint": "high",
     "limitations": "Official sanctions settlement source. The demo treats the settlement as a KYC drift trigger, not as a final customer-risk decision."
+  },
+  {
+    "document_id": "doc-021",
+    "customer_id": "demo-008",
+    "source_type": "domain_rdap",
+    "source_name": ".au RDAP / auDA",
+    "source_url": "https://rdap.cctld.au/rdap/domain/coinbase.au",
+    "source_quality": "A",
+    "title": "RDAP record for coinbase.au",
+    "published_at": "2026-02-09",
+    "collected_at": "2026-06-20T05:31:12Z",
+    "language": "en",
+    "raw_text": "RDAP record for coinbase.au lists registrant name Coinbase, Inc.; eligibility type Trademark Owner; eligibility name COINBASE; eligibility id TM 1647712; inferred country-code jurisdiction Australia; nameservers ns1.markmonitor.com, ns2.markmonitor.com, ns3.markmonitor.com, ns4.markmonitor.com, ns5.markmonitor.com, ns6.markmonitor.com, ns7.markmonitor.com; last changed 2026-02-09T01:44:15.302Z; RDAP database updated 2026-06-20T05:31:12.765Z. The registry redacts the original registration date. Treat the domain as a country-code domain monitoring signal requiring RM confirmation, not as proof of an active local launch.",
+    "evidence_excerpt": "RDAP for coinbase.au lists registrant name Coinbase, Inc., eligibility type Trademark Owner, eligibility name COINBASE, eligibility id TM 1647712, and last changed 2026-02-09T01:44:15.302Z.",
+    "expected_signal_types": [
+      "domain_registration",
+      "new_jurisdiction",
+      "business_activity_change",
+      "risk_rating_review"
+    ],
+    "baseline_fields_targeted": [
+      "websites",
+      "known_jurisdictions",
+      "business_area",
+      "risk_rating"
+    ],
+    "automation_potential": "high",
+    "confidence_hint": "high",
+    "limitations": ".au RDAP redacts the original registration date. Treat this as domain-control and country-code expansion evidence requiring RM confirmation, not proof of active local launch."
   }
 ]

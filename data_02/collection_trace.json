@@ -327,5 +327,28 @@
     "retrieval_score": 108,
     "source_term_score": 32,
     "clean_text_chars": 10128
+  },
+  {
+    "stage": "discovery",
+    "connector": "domain_rdap",
+    "customer_id": "demo-008",
+    "status": "ok",
+    "discovered_sources": 1
+  },
+  {
+    "source_id": "domain-rdap-demo-008-1",
+    "document_id": "doc-021",
+    "url": "https://rdap.cctld.au/rdap/domain/coinbase.au",
+    "status": "ok",
+    "connector": "domain_rdap",
+    "domain": "coinbase.au",
+    "jurisdiction": "Australia",
+    "matched_identity_fields": [
+      "registrant name",
+      "eligibility name"
+    ],
+    "last_changed": "2026-02-09T01:44:15.302Z",
+    "registration_date_redacted": true,
+    "nameserver_count": 7
   }
 ]
