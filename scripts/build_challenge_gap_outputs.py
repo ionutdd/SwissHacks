@@ -421,6 +421,341 @@ def entity_resolution_review() -> list[dict[str, Any]]:
     ]
 
 
+def layer2_signal_playbook() -> list[dict[str, Any]]:
+    return [
+        {
+            "signal_id": "playbook-001",
+            "signal": "Sudden spike in negative news about a corporate client",
+            "expected_flag": "High Reputational Risk",
+            "recommended_action": "Trigger enhanced due diligence; escalate to compliance review.",
+            "layer_2_detection_logic": "Count adverse-media items over the last 24 hours and compare with the customer's prior 30-day media baseline. Escalate when the spike is material and source quality is B or better.",
+            "alphabet_demo_mapping": {
+                "status": "not_observed",
+                "context": "The current Alphabet example is a business-model and scale signal, not adverse media.",
+            },
+            "expected_outcome": "Risk alert only when negative-news volume and severity are both above threshold.",
+        },
+        {
+            "signal_id": "playbook-002",
+            "signal": "High-value cross-border transfers inconsistent with historical behaviour",
+            "expected_flag": "Behavioural Anomaly - Potential Money Mule",
+            "recommended_action": "Monitor transactions; flag for AML analyst review.",
+            "layer_2_detection_logic": "Compare payment size, rail, counterparty country, and payment purpose against the onboarded activity profile and transaction-monitoring thresholds.",
+            "alphabet_demo_mapping": {
+                "status": "observed",
+                "context": "Synthetic Alphabet transactions include AI infrastructure payments, including a Taiwan supply-chain payment, inside the same window as the public AI chip signal.",
+                "supporting_internal_signal_ids": ["internal-001"],
+            },
+            "expected_outcome": "RM review plus AML analyst handoff if payments are unexplained or cross into higher-risk regions.",
+        },
+        {
+            "signal_id": "playbook-003",
+            "signal": "Multiple linked entities, low activity, sudden large flows",
+            "expected_flag": "Structuring / Layering Risk",
+            "recommended_action": "Trigger AML investigation.",
+            "layer_2_detection_logic": "Detect clusters of related entities with shared counterparties, common payment references, or synchronized transfers after a low-activity baseline.",
+            "alphabet_demo_mapping": {
+                "status": "not_observed",
+                "context": "No linked-entity layering pattern is simulated for Alphabet; Robinhood/Bitstamp is the current linked-entity demo case.",
+            },
+            "expected_outcome": "Compliance investigation queue, not automatic customer reclassification.",
+        },
+        {
+            "signal_id": "playbook-004",
+            "signal": "Legal entity name change",
+            "expected_flag": "Entity Identity Change - Re-KYC Required",
+            "recommended_action": "Trigger KYC refresh; re-evaluate risk category.",
+            "layer_2_detection_logic": "Compare registry, LEI, SEC, Companies House, or ZEFIX legal-name fields with the onboarded KYC record.",
+            "alphabet_demo_mapping": {
+                "status": "not_observed",
+                "context": "No Alphabet legal-name change is present in the current public evidence.",
+            },
+            "expected_outcome": "KYC refresh task with registry source attached.",
+        },
+        {
+            "signal_id": "playbook-005",
+            "signal": "Domain switch or significant website content change",
+            "expected_flag": "Business Activity Change Signal",
+            "recommended_action": "Re-analyse website content; compare vs. original onboarding data.",
+            "layer_2_detection_logic": "Diff known domains, product pages, terms, and country pages against stored onboarding snapshots. Rank changes mentioning regulated products, digital assets, payment rails, or jurisdictions.",
+            "alphabet_demo_mapping": {
+                "status": "watch",
+                "context": "Alphabet is not a domain-switch case, but Google Cloud TPU product language should be monitored against the onboarded technology-treasury profile.",
+            },
+            "expected_outcome": "RM confirmation on whether the change is cosmetic, defensive, or a material business activity change.",
+        },
+        {
+            "signal_id": "playbook-006",
+            "signal": "Public pivot (e.g. SaaS startup -> crypto trading)",
+            "expected_flag": "Material Business Model Change",
+            "recommended_action": "Update risk classification; escalate for compliance review.",
+            "layer_2_detection_logic": "Classify public evidence into business areas and compare it with the baseline business model, known products, and expected counterparties.",
+            "alphabet_demo_mapping": {
+                "status": "observed_partial",
+                "context": "Alphabet is not pivoting into crypto, but the public AI chip/commercial silicon signal extends the onboarded cloud and advertising profile into a more infrastructure-intensive activity area.",
+                "supporting_alert_ids": ["alert-046", "alert-048"],
+            },
+            "expected_outcome": "Update the KYC activity narrative and ask whether treasury, FX, data-center, or supply-chain needs are changing.",
+        },
+        {
+            "signal_id": "playbook-007",
+            "signal": "Jurisdiction move or change of legal form (e.g. GmbH -> offshore)",
+            "expected_flag": "Structural Risk Change",
+            "recommended_action": "Trigger enhanced due diligence; re-check beneficial ownership.",
+            "layer_2_detection_logic": "Compare registry domicile, legal form, branch records, and tax-residence indicators with the current KYC profile.",
+            "alphabet_demo_mapping": {
+                "status": "not_observed",
+                "context": "No Alphabet jurisdiction move or legal-form change is present in the current evidence.",
+            },
+            "expected_outcome": "Enhanced due diligence if the new structure increases opacity or jurisdictional risk.",
+        },
+        {
+            "signal_id": "playbook-008",
+            "signal": "New shareholders or beneficial owners appear",
+            "expected_flag": "Ownership Change - KYC Drift",
+            "recommended_action": "Full ownership verification; re-screen against sanctions/PEP lists.",
+            "layer_2_detection_logic": "Monitor registry filings, beneficial-owner registers where available, SEC ownership disclosures, and credible transaction announcements.",
+            "alphabet_demo_mapping": {
+                "status": "not_observed",
+                "context": "No new Alphabet beneficial-owner signal is present in the current evidence.",
+            },
+            "expected_outcome": "Ownership verification task and screening refresh.",
+        },
+        {
+            "signal_id": "playbook-009",
+            "signal": "Large funding round or rapid geographic expansion",
+            "expected_flag": "Scale Risk Change",
+            "recommended_action": "Reassess transaction monitoring thresholds; update activity profile.",
+            "layer_2_detection_logic": "Detect funding, capital expenditure, partnership, hiring, product availability, and region-expansion signals; compare expected volume thresholds with observed internal activity.",
+            "alphabet_demo_mapping": {
+                "status": "observed",
+                "context": "The Alphabet case combines public AI infrastructure expansion coverage with synthetic high-value AI infrastructure-linked treasury activity.",
+                "supporting_alert_ids": ["alert-046", "alert-047", "alert-048"],
+                "supporting_internal_signal_ids": ["internal-001"],
+            },
+            "expected_outcome": "Reassess monthly-volume expectations and route commercial opportunities to the RM while keeping compliance review available.",
+        },
+        {
+            "signal_id": "playbook-010",
+            "signal": "Previously dormant company begins high transaction volume",
+            "expected_flag": "Dormancy Break - Suspicious Activation",
+            "recommended_action": "Trigger AML review; validate business legitimacy.",
+            "layer_2_detection_logic": "Compare recent transaction count and value against the dormant or low-volume baseline, then require a business-purpose explanation before changing the baseline.",
+            "alphabet_demo_mapping": {
+                "status": "not_observed",
+                "context": "Alphabet is a high-activity public company, not a dormant-company activation case.",
+            },
+            "expected_outcome": "AML review if activation cannot be explained by public, customer-provided, or internal business context.",
+        },
+    ]
+
+
+def expanded_kyc_profiles(
+    generated_at: str,
+    internal_signals: list[dict[str, Any]],
+    fused_alerts: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    alphabet_signals = [signal for signal in internal_signals if signal["customer_id"] == "demo-009"]
+    alphabet_fused = [alert for alert in fused_alerts if alert["customer_id"] == "demo-009"]
+    return [
+        {
+            "profile_id": "kyc-demo-009-layer2",
+            "customer_id": "demo-009",
+            "legal_name": "Alphabet Inc.",
+            "profile_type": "simulated_internal_bank_kyc",
+            "generated_at": generated_at,
+            "important_demo_notice": "This is a synthetic bank-side profile for the hackathon demo. It uses public sources for context and simulated internal activity for Layer 2; it is not AMINA customer data.",
+            "onboarding_assumption": {
+                "relationship_start_date": "2026-06-01",
+                "relationship_manager": "Mara Keller",
+                "relationship_scope": "Corporate treasury, FX, operating account, and strategic technology-sector relationship monitoring.",
+                "bank_products": ["corporate banking", "FX", "treasury", "cash management"],
+            },
+            "research_sources": [
+                {
+                    "source_name": "Alphabet Investor Relations",
+                    "source_url": "https://abc.xyz/investor/",
+                    "how_used": "Confirms Alphabet is a public company with investor reporting, SEC filings, governance, and financial disclosures available for ongoing monitoring.",
+                },
+                {
+                    "source_name": "Google Cloud TPU documentation",
+                    "source_url": "https://docs.cloud.google.com/tpu/docs/intro-to-tpu",
+                    "how_used": "Contextualizes TPUs as Google-designed machine-learning accelerators that can be consumed through Google Cloud services.",
+                },
+                {
+                    "source_name": "The Times / Wall Street Journal syndicated article",
+                    "source_url": "https://www.thetimes.com/business/wsj/article/google-is-using-nvidias-playbook-to-build-a-rival-ai-chip-business-rkbzvb9jn",
+                    "how_used": "Layer 1 public signal for AI infrastructure, custom silicon, and possible commercial expansion beyond the original treasury baseline.",
+                },
+            ],
+            "baseline_kyc_profile": {
+                "expected_business_model": [
+                    "Public large-cap technology holding company.",
+                    "Core activity expected around search, advertising, software, cloud services, subscriptions, devices, and technology investments.",
+                    "Bank relationship expected to support treasury, operating flows, vendor payments, and FX rather than regulated financial intermediation.",
+                ],
+                "expected_activity_description": "Large-cap technology treasury and operating flows with mostly predictable high-quality counterparties.",
+                "expected_transaction_profile": {
+                    "expected_monthly_volume_chf": 15_000_000,
+                    "expected_transaction_count_monthly": 80,
+                    "typical_single_payment_chf": {
+                        "p50": 150_000,
+                        "p95": 2_500_000,
+                        "review_threshold": 5_000_000,
+                    },
+                    "expected_counterparty_regions": ["United States", "European Union", "United Kingdom"],
+                    "expected_payment_rails": ["SWIFT", "ACH", "SEPA", "wire"],
+                    "expected_products": ["corporate banking", "FX", "treasury"],
+                },
+                "initial_risk_rating": "low_to_medium",
+                "risk_rating_rationale": [
+                    "Public company with strong public reporting and governance visibility.",
+                    "Technology sector creates strategic scale and cyber concentration risks, but not inherently high AML risk under the baseline.",
+                    "Cross-border treasury flows are expected, but new regions or new activity classes should be reviewed.",
+                ],
+            },
+            "layer_1_public_signal_context": [
+                {
+                    "alert_id": "alert-046",
+                    "signal_type": "business_activity_change",
+                    "why_it_matters_against_kyc": "AI infrastructure and custom silicon activity is adjacent to the baseline cloud profile but may change counterparty regions, capex intensity, and strategic banking needs.",
+                },
+                {
+                    "alert_id": "alert-047",
+                    "signal_type": "commercial_opportunity",
+                    "why_it_matters_against_kyc": "A credible AI infrastructure buildout may create treasury, FX, liquidity, or financing conversations for the RM.",
+                },
+                {
+                    "alert_id": "alert-048",
+                    "signal_type": "new_product",
+                    "why_it_matters_against_kyc": "Google Cloud TPUs and AI chips should be recorded as part of the current activity narrative if confirmed by the client.",
+                },
+            ],
+            "layer_2_internal_context": {
+                "internal_signal_ids": [signal["internal_signal_id"] for signal in alphabet_signals],
+                "fused_alert_ids": [alert["fused_alert_id"] for alert in alphabet_fused],
+                "monitoring_observation": "Synthetic AI infrastructure-linked transactions total CHF 16.5m in the demo window, slightly above the expected monthly activity baseline of CHF 15.0m.",
+                "contextual_decision": "Do not auto-escalate as AML solely from public news. Use Layer 2 to focus RM questions on volume expectations, new counterparties, and whether AI infrastructure activity should be added to KYC.",
+            },
+            "layer_2_highlight_flags": [
+                {
+                    "signal": "High-value cross-border transfers inconsistent with historical behaviour",
+                    "expected_flag": "Behavioural Anomaly - Potential Money Mule",
+                    "current_status": "observed_as_review_trigger",
+                    "evidence": "Synthetic payments include CHF 6.2m to a US data-center counterparty and CHF 3.1m to a Taiwan AI chip supply-chain counterparty.",
+                    "recommended_action": "Monitor transactions; ask RM to confirm business purpose and route to AML analyst review if unexplained.",
+                },
+                {
+                    "signal": "Public pivot or material business-model expansion",
+                    "expected_flag": "Material Business Model Change",
+                    "current_status": "observed_partial",
+                    "evidence": "Public AI chip and TPU signal expands the baseline cloud/technology profile toward more infrastructure and silicon activity.",
+                    "recommended_action": "Update activity narrative after client confirmation; reassess risk rating only if products, counterparties, or jurisdictions materially change.",
+                },
+                {
+                    "signal": "Large funding round or rapid geographic expansion",
+                    "expected_flag": "Scale Risk Change",
+                    "current_status": "observed_as_scale_signal",
+                    "evidence": "Layer 1 public signal plus Layer 2 synthetic treasury activity imply higher infrastructure scale, even without a funding round.",
+                    "recommended_action": "Reassess transaction monitoring thresholds and prepare a commercial RM follow-up.",
+                },
+                {
+                    "signal": "Domain switch or significant website content change",
+                    "expected_flag": "Business Activity Change Signal",
+                    "current_status": "watch",
+                    "evidence": "No domain switch is detected for Alphabet, but Google Cloud TPU product pages should be monitored for changes in product availability and commercial positioning.",
+                    "recommended_action": "Keep page-diff monitoring active; compare future product language against onboarding data.",
+                },
+            ],
+            "expected_outcome": {
+                "rm_tldr": "Alphabet is still a low-to-medium-risk public technology client, but fresh AI infrastructure evidence plus synthetic treasury activity makes the KYC activity narrative and monitoring thresholds worth reviewing.",
+                "recommended_next_step": "Add to RM call brief, validate whether AI infrastructure activity changes expected transaction volume, and update KYC only after human confirmation.",
+                "compliance_position": "Assistive triage only. No final AML, sanctions, or legal conclusion is made by the system.",
+            },
+        }
+    ]
+
+
+def alphabet_layer2_case_study(profile: dict[str, Any], playbook: list[dict[str, Any]]) -> str:
+    baseline = profile["baseline_kyc_profile"]
+    tx_profile = baseline["expected_transaction_profile"]
+    lines = [
+        "# Alphabet Layer 2 KYC Case Study",
+        "",
+        "## Demo Notice",
+        "",
+        profile["important_demo_notice"],
+        "",
+        "## Simulated Internal Bank Intelligence",
+        "",
+        f"- Customer: {profile['legal_name']} ({profile['customer_id']})",
+        f"- Relationship start: {profile['onboarding_assumption']['relationship_start_date']}",
+        f"- RM: {profile['onboarding_assumption']['relationship_manager']}",
+        f"- Initial risk rating: {baseline['initial_risk_rating']}",
+        f"- Expected monthly volume: CHF {tx_profile['expected_monthly_volume_chf']:,}",
+        f"- Expected monthly transaction count: {tx_profile['expected_transaction_count_monthly']}",
+        f"- Expected regions: {', '.join(tx_profile['expected_counterparty_regions'])}",
+        f"- Review threshold: CHF {tx_profile['typical_single_payment_chf']['review_threshold']:,} single payment",
+        "",
+        "## Expected Business Model",
+        "",
+    ]
+    lines.extend(f"- {item}" for item in baseline["expected_business_model"])
+    lines.extend(
+        [
+            "",
+            "## Layer 1 Narrowing Logic",
+            "",
+        ]
+    )
+    for item in profile["layer_1_public_signal_context"]:
+        lines.append(f"- {item['alert_id']} ({item['signal_type']}): {item['why_it_matters_against_kyc']}")
+    lines.extend(
+        [
+            "",
+            "## Layer 2 Highlight Flags",
+            "",
+            "| Signal | Expected Flag | Current Status | Recommended Action |",
+            "| --- | --- | --- | --- |",
+        ]
+    )
+    for item in profile["layer_2_highlight_flags"]:
+        lines.append(
+            f"| {item['signal']} | {item['expected_flag']} | {item['current_status']} | {item['recommended_action']} |"
+        )
+    lines.extend(
+        [
+            "",
+            "## Full Signal Playbook",
+            "",
+            "| Signal | Expected Flag | Recommended Action | Alphabet Status |",
+            "| --- | --- | --- | --- |",
+        ]
+    )
+    for item in playbook:
+        mapping = item["alphabet_demo_mapping"]
+        lines.append(
+            f"| {item['signal']} | {item['expected_flag']} | {item['recommended_action']} | {mapping['status']}: {mapping['context']} |"
+        )
+    lines.extend(
+        [
+            "",
+            "## Expected Outcome",
+            "",
+            f"- RM TLDR: {profile['expected_outcome']['rm_tldr']}",
+            f"- Next step: {profile['expected_outcome']['recommended_next_step']}",
+            f"- Compliance position: {profile['expected_outcome']['compliance_position']}",
+            "",
+            "## Public Research Sources",
+            "",
+        ]
+    )
+    for source in profile["research_sources"]:
+        lines.append(f"- {source['source_name']}: {source['source_url']}")
+    lines.append("")
+    return "\n".join(lines)
+
+
 def cost_trace(
     baselines: list[dict[str, Any]],
     documents: list[dict[str, Any]],
@@ -592,6 +927,8 @@ def report_text(
     entity_reviews: list[dict[str, Any]],
     cost_rows: list[dict[str, Any]],
     eval_cases: list[dict[str, Any]],
+    kyc_profiles: list[dict[str, Any]],
+    playbook: list[dict[str, Any]],
 ) -> str:
     signal_counts = Counter(signal["signal_type"] for signal in internal_signals)
     review_counts = Counter(item["match_status"] for item in entity_reviews)
@@ -599,6 +936,9 @@ def report_text(
     public_plus_internal = [item for item in fused_alerts if item["fusion_type"] == "public_plus_internal"]
     true_cases = sum(1 for item in eval_cases if item["should_alert"])
     suppress_cases = len(eval_cases) - true_cases
+    observed_playbook_items = sum(
+        1 for item in playbook if item["alphabet_demo_mapping"]["status"] in {"observed", "observed_partial"}
+    )
 
     lines = [
         "# Challenge Readiness Report",
@@ -610,12 +950,16 @@ def report_text(
         f"- Public + internal fused alerts: {len(public_plus_internal)}",
         f"- Entity-resolution reviews: {len(entity_reviews)}",
         f"- Evaluation cases: {len(eval_cases)}",
+        f"- Expanded Layer 2 KYC profiles: {len(kyc_profiles)}",
+        f"- Layer 2 signal playbook items: {len(playbook)}",
         f"- Estimated AI cost for this run: USD {total_cost:.2f}",
         "",
         "## What Is Now Covered",
         "",
         "- Layer 1 public intelligence remains in `data_02`, `data_03`, and `data_06`.",
         "- Layer 2 simulated bank intelligence now lives in `data_07`.",
+        "- Alphabet now has an expanded simulated KYC profile with expected business model, transaction volumes, regions, thresholds, and RM outcomes.",
+        "- The bank-side playbook maps each challenge signal to an expected flag, detection logic, and recommended action.",
         "- Transaction anomalies, new counterparty regions, screening review triggers, and linked-entity flows are represented.",
         "- Public alerts can be fused with synthetic internal monitoring signals.",
         "- Entity-resolution review includes accepted, review-required, and rejected-too-weak examples.",
@@ -626,6 +970,17 @@ def report_text(
     ]
     for signal_type, count in sorted(signal_counts.items()):
         lines.append(f"- {signal_type}: {count}")
+
+    lines.extend(
+        [
+            "",
+            "## Expanded Alphabet KYC Case",
+            "",
+            f"- Signal playbook items mapped to Alphabet as observed or partially observed: {observed_playbook_items}",
+            "- The demo uses public AI infrastructure evidence to narrow the RM question, then Layer 2 synthetic transactions to decide what should be checked internally.",
+            "- Outcome: update the activity narrative and monitoring thresholds only after RM/client confirmation.",
+        ]
+    )
 
     lines.extend(["", "## Entity Resolution Outcomes", ""])
     for status, count in sorted(review_counts.items()):
@@ -671,6 +1026,8 @@ def main() -> int:
     internal_signals = build_internal_signals(activity_baselines, transactions, generated_at)
     fused_alerts = build_fused_alerts(alerts, material_alerts, internal_signals)
     entity_reviews = entity_resolution_review()
+    playbook = layer2_signal_playbook()
+    kyc_profiles = expanded_kyc_profiles(generated_at, internal_signals, fused_alerts)
     costs = cost_trace(baselines, documents, facts, alerts, internal_signals, generated_at)
     eval_cases = evaluation_cases()
 
@@ -680,8 +1037,15 @@ def main() -> int:
     write_json(OUTPUT_DIR / "internal_monitoring_signals.json", internal_signals)
     write_json(OUTPUT_DIR / "public_internal_fused_alerts.json", fused_alerts)
     write_json(OUTPUT_DIR / "entity_resolution_review.json", entity_reviews)
+    write_json(OUTPUT_DIR / "layer2_signal_playbook.json", playbook)
+    write_json(OUTPUT_DIR / "expanded_kyc_profiles.json", kyc_profiles)
     write_json(OUTPUT_DIR / "cost_trace.json", costs)
     write_json(OUTPUT_DIR / "evaluation_cases.json", eval_cases)
+    (OUTPUT_DIR / "alphabet_layer2_case_study.md").write_text(
+        alphabet_layer2_case_study(kyc_profiles[0], playbook),
+        encoding="utf-8",
+        newline="\n",
+    )
     (OUTPUT_DIR / "challenge_readiness_report.md").write_text(
         report_text(
             generated_at,
@@ -692,6 +1056,8 @@ def main() -> int:
             entity_reviews,
             costs,
             eval_cases,
+            kyc_profiles,
+            playbook,
         ),
         encoding="utf-8",
         newline="\n",
@@ -703,6 +1069,7 @@ def main() -> int:
         f"{len(transactions)} transactions, "
         f"{len(internal_signals)} internal signals, "
         f"{len(fused_alerts)} fused alerts, "
+        f"{len(kyc_profiles)} expanded KYC profiles, "
         f"{len(eval_cases)} evaluation cases."
     )
     return 0

@@ -9,7 +9,9 @@
     materialAlerts: "../data_06/material_alerts.json",
     refreshSummary: "../data_06/refresh_summary.json",
     internalSignals: "../data_07/internal_monitoring_signals.json",
-    fusedAlerts: "../data_07/public_internal_fused_alerts.json"
+    fusedAlerts: "../data_07/public_internal_fused_alerts.json",
+    expandedKycProfiles: "../data_07/expanded_kyc_profiles.json",
+    layer2SignalPlaybook: "../data_07/layer2_signal_playbook.json"
   };
 
   const ACTION_STORAGE_KEY = "signalwatch.reviewActions.v1";
@@ -43,6 +45,8 @@
     refreshSummary: {},
     internalSignals: [],
     fusedAlerts: [],
+    expandedKycProfiles: [],
+    layer2SignalPlaybook: [],
     customersById: new Map(),
     documentsById: new Map(),
     factsById: new Map(),
@@ -67,7 +71,18 @@
     bindEvents();
 
     try {
-      const [customers, documents, facts, alerts, materialAlerts, refreshSummary, internalSignals, fusedAlerts] = await Promise.all([
+      const [
+        customers,
+        documents,
+        facts,
+        alerts,
+        materialAlerts,
+        refreshSummary,
+        internalSignals,
+        fusedAlerts,
+        expandedKycProfiles,
+        layer2SignalPlaybook
+      ] = await Promise.all([
         fetchJson(DATA_URLS.customers),
         fetchJson(DATA_URLS.documents),
         fetchJson(DATA_URLS.facts),
@@ -75,7 +90,9 @@
         fetchJsonOptional(DATA_URLS.materialAlerts, []),
         fetchJsonOptional(DATA_URLS.refreshSummary, {}),
         fetchJsonOptional(DATA_URLS.internalSignals, []),
-        fetchJsonOptional(DATA_URLS.fusedAlerts, [])
+        fetchJsonOptional(DATA_URLS.fusedAlerts, []),
+        fetchJsonOptional(DATA_URLS.expandedKycProfiles, []),
+        fetchJsonOptional(DATA_URLS.layer2SignalPlaybook, [])
       ]);
 
       state.customers = customers;
@@ -86,6 +103,8 @@
       state.refreshSummary = refreshSummary;
       state.internalSignals = internalSignals;
       state.fusedAlerts = fusedAlerts;
+      state.expandedKycProfiles = expandedKycProfiles;
+      state.layer2SignalPlaybook = layer2SignalPlaybook;
       state.customersById = new Map(customers.map((customer) => [customer.customer_id, customer]));
       state.documentsById = new Map(documents.map((documentItem) => [documentItem.document_id, documentItem]));
       state.factsById = new Map(facts.map((fact) => [fact.fact_id, fact]));
@@ -355,6 +374,7 @@
     const customer = state.customersById.get(alert.customer_id);
     const publishedAt = alert.newest_published_at || alert.evidence?.[0]?.published_at;
     const fusion = fusedForAlert(alert.alert_id);
+    const profile = kycProfileForCustomer(alert.customer_id);
     return `
       <article class="notification-card" role="listitem">
         <button class="notification-main" type="button" data-notification-alert-id="${escapeAttr(alert.alert_id)}">
@@ -370,6 +390,7 @@
             <span class="pill">${Math.round(alert.confidence * 100)}% confidence</span>
             ${alert.review_lane ? `<span class="pill">${escapeHtml(alert.review_lane)}</span>` : ""}
             ${fusion ? `<span class="pill material">Internal context</span>` : ""}
+            ${profile ? `<span class="pill mixed">Layer 2 KYC</span>` : ""}
             <span class="pill">${formatDate(publishedAt) || "Undated"}</span>
           </div>
         </button>
@@ -455,6 +476,7 @@
             <span class="pill">${Math.round(alert.confidence * 100)}% confidence</span>
             ${alert.material_score ? `<span class="pill material">Score ${escapeHtml(alert.material_score)}</span>` : ""}
             ${alert.review_lane ? `<span class="pill">${escapeHtml(alert.review_lane)}</span>` : ""}
+            ${kycProfileForCustomer(alert.customer_id) ? `<span class="pill mixed">Layer 2 KYC</span>` : ""}
             <span class="pill">${labelize(currentStatus(alert))}</span>
             <span class="pill">${alert.evidence_document_ids.length} evidence</span>
           </div>
@@ -488,6 +510,7 @@
           <h2>${escapeHtml(cleanText(alert.title))}</h2>
           <p class="summary">${escapeHtml(cleanText(alert.summary))}</p>
           ${materialityTemplate(alert)}
+          ${layer2ProfileTemplate(alert)}
           ${internalContextTemplate(alert)}
           <div class="detail-source-strip">
             ${sourceLinksTemplate(alert)}
@@ -582,6 +605,78 @@
             </li>
           `).join("")}
         </ul>
+      </div>
+    `;
+  }
+
+  function layer2ProfileTemplate(alert) {
+    const profile = kycProfileForCustomer(alert.customer_id);
+    if (!profile) return "";
+
+    const baseline = profile.baseline_kyc_profile || {};
+    const transactionProfile = baseline.expected_transaction_profile || {};
+    const expectedModel = (baseline.expected_business_model || []).slice(0, 3);
+    const flags = (profile.layer_2_highlight_flags || []).slice(0, 4);
+    const outcome = profile.expected_outcome || {};
+
+    return `
+      <div class="materiality-box layer2-box">
+        <div class="materiality-head">
+          <strong>Layer 2 KYC baseline</strong>
+          <span class="pill mixed">Simulated internal bank profile</span>
+          <span class="pill">Risk ${escapeHtml(baseline.initial_risk_rating || "unknown")}</span>
+        </div>
+        <div class="kyc-baseline-grid">
+          <div>
+            <span class="field-label">Expected model</span>
+            <ul class="value-list">
+              ${expectedModel.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
+            </ul>
+          </div>
+          <div>
+            <span class="field-label">Expected activity</span>
+            <div class="kyc-stat-row">
+              <span><strong>${formatChf(transactionProfile.expected_monthly_volume_chf)}</strong> monthly volume</span>
+              <span><strong>${escapeHtml(transactionProfile.expected_transaction_count_monthly || "N/A")}</strong> tx/month</span>
+              <span><strong>${formatChf(transactionProfile.typical_single_payment_chf?.review_threshold)}</strong> review threshold</span>
+            </div>
+            <div class="alert-tags kyc-tags">
+              ${(transactionProfile.expected_counterparty_regions || []).map((region) => `<span class="pill">${escapeHtml(region)}</span>`).join("")}
+              ${(transactionProfile.expected_products || []).map((product) => `<span class="pill">${escapeHtml(product)}</span>`).join("")}
+            </div>
+          </div>
+        </div>
+        ${outcome.rm_tldr ? `<p class="summary"><strong>RM TLDR:</strong> ${escapeHtml(outcome.rm_tldr)}</p>` : ""}
+        ${flags.length ? `
+          <ul class="layer2-flag-list">
+            ${flags.map((flag) => `
+              <li>
+                <strong>${escapeHtml(flag.expected_flag)}</strong>
+                <span class="pill">${escapeHtml(labelize(flag.current_status))}</span>
+                <p>${escapeHtml(flag.evidence)}</p>
+                <span class="muted">${escapeHtml(flag.recommended_action)}</span>
+              </li>
+            `).join("")}
+          </ul>
+        ` : ""}
+        ${kycSourceLinksTemplate(profile)}
+        <p class="layer2-demo-note">${escapeHtml(profile.important_demo_notice || "")}</p>
+      </div>
+    `;
+  }
+
+  function kycSourceLinksTemplate(profile) {
+    const sources = (profile.research_sources || []).filter((source) => source.source_url);
+    if (!sources.length) return "";
+    return `
+      <div class="detail-source-strip layer2-source-strip">
+        ${sources.map((source) => `
+          <a class="source-link" href="${escapeAttr(source.source_url)}" target="_blank" rel="noreferrer">
+            <span>Open source</span>
+            <strong>${escapeHtml(source.source_name)}</strong>
+            <small>${escapeHtml(source.how_used || "")}</small>
+          </a>
+        `).join("")}
       </div>
     `;
   }
@@ -993,6 +1088,10 @@
     return state.internalSignals.filter((signal) => ids.has(signal.internal_signal_id));
   }
 
+  function kycProfileForCustomer(customerId) {
+    return state.expandedKycProfiles.find((profile) => profile.customer_id === customerId) || null;
+  }
+
   function customerAggregate(customerId) {
     const alerts = state.alerts.filter((alert) => alert.customer_id === customerId && currentStatus(alert) !== "dismissed");
     const severity = alerts.reduce((highest, alert) => {
@@ -1057,6 +1156,15 @@
       hour: "2-digit",
       minute: "2-digit"
     }).format(date);
+  }
+
+  function formatChf(value) {
+    if (typeof value !== "number" || Number.isNaN(value)) return "CHF N/A";
+    return new Intl.NumberFormat("en-CH", {
+      style: "currency",
+      currency: "CHF",
+      maximumFractionDigits: 0
+    }).format(value);
   }
 
   function maxDate(values) {

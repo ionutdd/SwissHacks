@@ -1,0 +1,137 @@
+[
+  {
+    "signal_id": "playbook-001",
+    "signal": "Sudden spike in negative news about a corporate client",
+    "expected_flag": "High Reputational Risk",
+    "recommended_action": "Trigger enhanced due diligence; escalate to compliance review.",
+    "layer_2_detection_logic": "Count adverse-media items over the last 24 hours and compare with the customer's prior 30-day media baseline. Escalate when the spike is material and source quality is B or better.",
+    "alphabet_demo_mapping": {
+      "status": "not_observed",
+      "context": "The current Alphabet example is a business-model and scale signal, not adverse media."
+    },
+    "expected_outcome": "Risk alert only when negative-news volume and severity are both above threshold."
+  },
+  {
+    "signal_id": "playbook-002",
+    "signal": "High-value cross-border transfers inconsistent with historical behaviour",
+    "expected_flag": "Behavioural Anomaly - Potential Money Mule",
+    "recommended_action": "Monitor transactions; flag for AML analyst review.",
+    "layer_2_detection_logic": "Compare payment size, rail, counterparty country, and payment purpose against the onboarded activity profile and transaction-monitoring thresholds.",
+    "alphabet_demo_mapping": {
+      "status": "observed",
+      "context": "Synthetic Alphabet transactions include AI infrastructure payments, including a Taiwan supply-chain payment, inside the same window as the public AI chip signal.",
+      "supporting_internal_signal_ids": [
+        "internal-001"
+      ]
+    },
+    "expected_outcome": "RM review plus AML analyst handoff if payments are unexplained or cross into higher-risk regions."
+  },
+  {
+    "signal_id": "playbook-003",
+    "signal": "Multiple linked entities, low activity, sudden large flows",
+    "expected_flag": "Structuring / Layering Risk",
+    "recommended_action": "Trigger AML investigation.",
+    "layer_2_detection_logic": "Detect clusters of related entities with shared counterparties, common payment references, or synchronized transfers after a low-activity baseline.",
+    "alphabet_demo_mapping": {
+      "status": "not_observed",
+      "context": "No linked-entity layering pattern is simulated for Alphabet; Robinhood/Bitstamp is the current linked-entity demo case."
+    },
+    "expected_outcome": "Compliance investigation queue, not automatic customer reclassification."
+  },
+  {
+    "signal_id": "playbook-004",
+    "signal": "Legal entity name change",
+    "expected_flag": "Entity Identity Change - Re-KYC Required",
+    "recommended_action": "Trigger KYC refresh; re-evaluate risk category.",
+    "layer_2_detection_logic": "Compare registry, LEI, SEC, Companies House, or ZEFIX legal-name fields with the onboarded KYC record.",
+    "alphabet_demo_mapping": {
+      "status": "not_observed",
+      "context": "No Alphabet legal-name change is present in the current public evidence."
+    },
+    "expected_outcome": "KYC refresh task with registry source attached."
+  },
+  {
+    "signal_id": "playbook-005",
+    "signal": "Domain switch or significant website content change",
+    "expected_flag": "Business Activity Change Signal",
+    "recommended_action": "Re-analyse website content; compare vs. original onboarding data.",
+    "layer_2_detection_logic": "Diff known domains, product pages, terms, and country pages against stored onboarding snapshots. Rank changes mentioning regulated products, digital assets, payment rails, or jurisdictions.",
+    "alphabet_demo_mapping": {
+      "status": "watch",
+      "context": "Alphabet is not a domain-switch case, but Google Cloud TPU product language should be monitored against the onboarded technology-treasury profile."
+    },
+    "expected_outcome": "RM confirmation on whether the change is cosmetic, defensive, or a material business activity change."
+  },
+  {
+    "signal_id": "playbook-006",
+    "signal": "Public pivot (e.g. SaaS startup -> crypto trading)",
+    "expected_flag": "Material Business Model Change",
+    "recommended_action": "Update risk classification; escalate for compliance review.",
+    "layer_2_detection_logic": "Classify public evidence into business areas and compare it with the baseline business model, known products, and expected counterparties.",
+    "alphabet_demo_mapping": {
+      "status": "observed_partial",
+      "context": "Alphabet is not pivoting into crypto, but the public AI chip/commercial silicon signal extends the onboarded cloud and advertising profile into a more infrastructure-intensive activity area.",
+      "supporting_alert_ids": [
+        "alert-046",
+        "alert-048"
+      ]
+    },
+    "expected_outcome": "Update the KYC activity narrative and ask whether treasury, FX, data-center, or supply-chain needs are changing."
+  },
+  {
+    "signal_id": "playbook-007",
+    "signal": "Jurisdiction move or change of legal form (e.g. GmbH -> offshore)",
+    "expected_flag": "Structural Risk Change",
+    "recommended_action": "Trigger enhanced due diligence; re-check beneficial ownership.",
+    "layer_2_detection_logic": "Compare registry domicile, legal form, branch records, and tax-residence indicators with the current KYC profile.",
+    "alphabet_demo_mapping": {
+      "status": "not_observed",
+      "context": "No Alphabet jurisdiction move or legal-form change is present in the current evidence."
+    },
+    "expected_outcome": "Enhanced due diligence if the new structure increases opacity or jurisdictional risk."
+  },
+  {
+    "signal_id": "playbook-008",
+    "signal": "New shareholders or beneficial owners appear",
+    "expected_flag": "Ownership Change - KYC Drift",
+    "recommended_action": "Full ownership verification; re-screen against sanctions/PEP lists.",
+    "layer_2_detection_logic": "Monitor registry filings, beneficial-owner registers where available, SEC ownership disclosures, and credible transaction announcements.",
+    "alphabet_demo_mapping": {
+      "status": "not_observed",
+      "context": "No new Alphabet beneficial-owner signal is present in the current evidence."
+    },
+    "expected_outcome": "Ownership verification task and screening refresh."
+  },
+  {
+    "signal_id": "playbook-009",
+    "signal": "Large funding round or rapid geographic expansion",
+    "expected_flag": "Scale Risk Change",
+    "recommended_action": "Reassess transaction monitoring thresholds; update activity profile.",
+    "layer_2_detection_logic": "Detect funding, capital expenditure, partnership, hiring, product availability, and region-expansion signals; compare expected volume thresholds with observed internal activity.",
+    "alphabet_demo_mapping": {
+      "status": "observed",
+      "context": "The Alphabet case combines public AI infrastructure expansion coverage with synthetic high-value AI infrastructure-linked treasury activity.",
+      "supporting_alert_ids": [
+        "alert-046",
+        "alert-047",
+        "alert-048"
+      ],
+      "supporting_internal_signal_ids": [
+        "internal-001"
+      ]
+    },
+    "expected_outcome": "Reassess monthly-volume expectations and route commercial opportunities to the RM while keeping compliance review available."
+  },
+  {
+    "signal_id": "playbook-010",
+    "signal": "Previously dormant company begins high transaction volume",
+    "expected_flag": "Dormancy Break - Suspicious Activation",
+    "recommended_action": "Trigger AML review; validate business legitimacy.",
+    "layer_2_detection_logic": "Compare recent transaction count and value against the dormant or low-volume baseline, then require a business-purpose explanation before changing the baseline.",
+    "alphabet_demo_mapping": {
+      "status": "not_observed",
+      "context": "Alphabet is a high-activity public company, not a dormant-company activation case."
+    },
+    "expected_outcome": "AML review if activation cannot be explained by public, customer-provided, or internal business context."
+  }
+]

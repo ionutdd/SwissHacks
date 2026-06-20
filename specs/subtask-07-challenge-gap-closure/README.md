@@ -14,6 +14,7 @@ The prototype is already strong on public evidence collection, KYC drift alerts,
 - `04-source-coverage-hardening-spec.md`: sanctions, registries, adverse media, and source reliability gaps.
 - `05-governance-cost-evaluation-spec.md`: guardrails, auditability, cost tracking, and evaluation.
 - `06-output-checklist.md`: acceptance checklist for challenge-readiness.
+- `07-expanded-layer2-kyc-playbook-spec.md`: expanded company KYC profile and signal/action playbook for the Layer 2 demo.
 
 ## Output Targets
 
@@ -22,6 +23,9 @@ The prototype is already strong on public evidence collection, KYC drift alerts,
 - `data_07/internal_monitoring_signals.json`
 - `data_07/public_internal_fused_alerts.json`
 - `data_07/entity_resolution_review.json`
+- `data_07/expanded_kyc_profiles.json`
+- `data_07/layer2_signal_playbook.json`
+- `data_07/alphabet_layer2_case_study.md`
 - `data_07/cost_trace.json`
 - `data_07/evaluation_cases.json`
 - `data_07/challenge_readiness_report.md`
@@ -29,6 +33,7 @@ The prototype is already strong on public evidence collection, KYC drift alerts,
 ## Definition Of Done
 
 - The demo can show both public intelligence and simulated internal-bank context.
+- The Alphabet example shows a researched public signal narrowed by a simulated bank-side KYC baseline.
 - Every high-risk alert has source evidence, baseline drift, and a recommended human workflow.
 - The team can explain security, guardrails, auditability, and cost efficiency in the pitch.
 - The system has a small evaluation set showing true positives, false positives, and known limitations.

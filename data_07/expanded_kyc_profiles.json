@@ -1,0 +1,141 @@
+[
+  {
+    "profile_id": "kyc-demo-009-layer2",
+    "customer_id": "demo-009",
+    "legal_name": "Alphabet Inc.",
+    "profile_type": "simulated_internal_bank_kyc",
+    "generated_at": "2026-06-20T09:28:14Z",
+    "important_demo_notice": "This is a synthetic bank-side profile for the hackathon demo. It uses public sources for context and simulated internal activity for Layer 2; it is not AMINA customer data.",
+    "onboarding_assumption": {
+      "relationship_start_date": "2026-06-01",
+      "relationship_manager": "Mara Keller",
+      "relationship_scope": "Corporate treasury, FX, operating account, and strategic technology-sector relationship monitoring.",
+      "bank_products": [
+        "corporate banking",
+        "FX",
+        "treasury",
+        "cash management"
+      ]
+    },
+    "research_sources": [
+      {
+        "source_name": "Alphabet Investor Relations",
+        "source_url": "https://abc.xyz/investor/",
+        "how_used": "Confirms Alphabet is a public company with investor reporting, SEC filings, governance, and financial disclosures available for ongoing monitoring."
+      },
+      {
+        "source_name": "Google Cloud TPU documentation",
+        "source_url": "https://docs.cloud.google.com/tpu/docs/intro-to-tpu",
+        "how_used": "Contextualizes TPUs as Google-designed machine-learning accelerators that can be consumed through Google Cloud services."
+      },
+      {
+        "source_name": "The Times / Wall Street Journal syndicated article",
+        "source_url": "https://www.thetimes.com/business/wsj/article/google-is-using-nvidias-playbook-to-build-a-rival-ai-chip-business-rkbzvb9jn",
+        "how_used": "Layer 1 public signal for AI infrastructure, custom silicon, and possible commercial expansion beyond the original treasury baseline."
+      }
+    ],
+    "baseline_kyc_profile": {
+      "expected_business_model": [
+        "Public large-cap technology holding company.",
+        "Core activity expected around search, advertising, software, cloud services, subscriptions, devices, and technology investments.",
+        "Bank relationship expected to support treasury, operating flows, vendor payments, and FX rather than regulated financial intermediation."
+      ],
+      "expected_activity_description": "Large-cap technology treasury and operating flows with mostly predictable high-quality counterparties.",
+      "expected_transaction_profile": {
+        "expected_monthly_volume_chf": 15000000,
+        "expected_transaction_count_monthly": 80,
+        "typical_single_payment_chf": {
+          "p50": 150000,
+          "p95": 2500000,
+          "review_threshold": 5000000
+        },
+        "expected_counterparty_regions": [
+          "United States",
+          "European Union",
+          "United Kingdom"
+        ],
+        "expected_payment_rails": [
+          "SWIFT",
+          "ACH",
+          "SEPA",
+          "wire"
+        ],
+        "expected_products": [
+          "corporate banking",
+          "FX",
+          "treasury"
+        ]
+      },
+      "initial_risk_rating": "low_to_medium",
+      "risk_rating_rationale": [
+        "Public company with strong public reporting and governance visibility.",
+        "Technology sector creates strategic scale and cyber concentration risks, but not inherently high AML risk under the baseline.",
+        "Cross-border treasury flows are expected, but new regions or new activity classes should be reviewed."
+      ]
+    },
+    "layer_1_public_signal_context": [
+      {
+        "alert_id": "alert-046",
+        "signal_type": "business_activity_change",
+        "why_it_matters_against_kyc": "AI infrastructure and custom silicon activity is adjacent to the baseline cloud profile but may change counterparty regions, capex intensity, and strategic banking needs."
+      },
+      {
+        "alert_id": "alert-047",
+        "signal_type": "commercial_opportunity",
+        "why_it_matters_against_kyc": "A credible AI infrastructure buildout may create treasury, FX, liquidity, or financing conversations for the RM."
+      },
+      {
+        "alert_id": "alert-048",
+        "signal_type": "new_product",
+        "why_it_matters_against_kyc": "Google Cloud TPUs and AI chips should be recorded as part of the current activity narrative if confirmed by the client."
+      }
+    ],
+    "layer_2_internal_context": {
+      "internal_signal_ids": [
+        "internal-001"
+      ],
+      "fused_alert_ids": [
+        "fused-001",
+        "fused-002",
+        "fused-003"
+      ],
+      "monitoring_observation": "Synthetic AI infrastructure-linked transactions total CHF 16.5m in the demo window, slightly above the expected monthly activity baseline of CHF 15.0m.",
+      "contextual_decision": "Do not auto-escalate as AML solely from public news. Use Layer 2 to focus RM questions on volume expectations, new counterparties, and whether AI infrastructure activity should be added to KYC."
+    },
+    "layer_2_highlight_flags": [
+      {
+        "signal": "High-value cross-border transfers inconsistent with historical behaviour",
+        "expected_flag": "Behavioural Anomaly - Potential Money Mule",
+        "current_status": "observed_as_review_trigger",
+        "evidence": "Synthetic payments include CHF 6.2m to a US data-center counterparty and CHF 3.1m to a Taiwan AI chip supply-chain counterparty.",
+        "recommended_action": "Monitor transactions; ask RM to confirm business purpose and route to AML analyst review if unexplained."
+      },
+      {
+        "signal": "Public pivot or material business-model expansion",
+        "expected_flag": "Material Business Model Change",
+        "current_status": "observed_partial",
+        "evidence": "Public AI chip and TPU signal expands the baseline cloud/technology profile toward more infrastructure and silicon activity.",
+        "recommended_action": "Update activity narrative after client confirmation; reassess risk rating only if products, counterparties, or jurisdictions materially change."
+      },
+      {
+        "signal": "Large funding round or rapid geographic expansion",
+        "expected_flag": "Scale Risk Change",
+        "current_status": "observed_as_scale_signal",
+        "evidence": "Layer 1 public signal plus Layer 2 synthetic treasury activity imply higher infrastructure scale, even without a funding round.",
+        "recommended_action": "Reassess transaction monitoring thresholds and prepare a commercial RM follow-up."
+      },
+      {
+        "signal": "Domain switch or significant website content change",
+        "expected_flag": "Business Activity Change Signal",
+        "current_status": "watch",
+        "evidence": "No domain switch is detected for Alphabet, but Google Cloud TPU product pages should be monitored for changes in product availability and commercial positioning.",
+        "recommended_action": "Keep page-diff monitoring active; compare future product language against onboarding data."
+      }
+    ],
+    "expected_outcome": {
+      "rm_tldr": "Alphabet is still a low-to-medium-risk public technology client, but fresh AI infrastructure evidence plus synthetic treasury activity makes the KYC activity narrative and monitoring thresholds worth reviewing.",
+      "recommended_next_step": "Add to RM call brief, validate whether AI infrastructure activity changes expected transaction volume, and update KYC only after human confirmation.",
+      "compliance_position": "Assistive triage only. No final AML, sanctions, or legal conclusion is made by the system."
+    }
+  }
+]

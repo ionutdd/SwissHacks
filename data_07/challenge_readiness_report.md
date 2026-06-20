@@ -1,18 +1,22 @@
 # Challenge Readiness Report
 
-- Generated at: 2026-06-20T09:09:38Z
+- Generated at: 2026-06-20T09:28:14Z
 - Internal activity baselines: 6
 - Synthetic transactions: 24
 - Internal monitoring signals: 7
 - Public + internal fused alerts: 14
 - Entity-resolution reviews: 5
 - Evaluation cases: 12
+- Expanded Layer 2 KYC profiles: 1
+- Layer 2 signal playbook items: 10
 - Estimated AI cost for this run: USD 0.00
 
 ## What Is Now Covered
 
 - Layer 1 public intelligence remains in `data_02`, `data_03`, and `data_06`.
 - Layer 2 simulated bank intelligence now lives in `data_07`.
+- Alphabet now has an expanded simulated KYC profile with expected business model, transaction volumes, regions, thresholds, and RM outcomes.
+- The bank-side playbook maps each challenge signal to an expected flag, detection logic, and recommended action.
 - Transaction anomalies, new counterparty regions, screening review triggers, and linked-entity flows are represented.
 - Public alerts can be fused with synthetic internal monitoring signals.
 - Entity-resolution review includes accepted, review-required, and rejected-too-weak examples.
@@ -25,6 +29,12 @@
 - new_counterparty_region: 2
 - screening_review_required: 2
 - transaction_volume_spike: 1
+
+## Expanded Alphabet KYC Case
+
+- Signal playbook items mapped to Alphabet as observed or partially observed: 3
+- The demo uses public AI infrastructure evidence to narrow the RM question, then Layer 2 synthetic transactions to decide what should be checked internally.
+- Outcome: update the activity narrative and monitoring thresholds only after RM/client confirmation.
 
 ## Entity Resolution Outcomes
 

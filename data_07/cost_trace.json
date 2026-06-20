@@ -1,7 +1,7 @@
 [
   {
-    "run_id": "cost-20260620T090938",
-    "generated_at": "2026-06-20T09:09:38Z",
+    "run_id": "cost-20260620T092814",
+    "generated_at": "2026-06-20T09:28:14Z",
     "stage": "source_discovery",
     "customer_count": 9,
     "document_count": 22,
@@ -13,8 +13,8 @@
     "cost_per_1000_customers_usd": 0.0
   },
   {
-    "run_id": "cost-20260620T090938",
-    "generated_at": "2026-06-20T09:09:38Z",
+    "run_id": "cost-20260620T092814",
+    "generated_at": "2026-06-20T09:28:14Z",
     "stage": "evidence_ranking",
     "customer_count": 9,
     "document_count": 22,
@@ -26,8 +26,8 @@
     "cost_per_1000_customers_usd": 0.0
   },
   {
-    "run_id": "cost-20260620T090938",
-    "generated_at": "2026-06-20T09:09:38Z",
+    "run_id": "cost-20260620T092814",
+    "generated_at": "2026-06-20T09:28:14Z",
     "stage": "fact_extraction",
     "customer_count": 9,
     "document_count": 22,
@@ -39,8 +39,8 @@
     "cost_per_1000_customers_usd": 0.0
   },
   {
-    "run_id": "cost-20260620T090938",
-    "generated_at": "2026-06-20T09:09:38Z",
+    "run_id": "cost-20260620T092814",
+    "generated_at": "2026-06-20T09:28:14Z",
     "stage": "material_filtering",
     "customer_count": 9,
     "document_count": 22,
@@ -52,8 +52,8 @@
     "cost_per_1000_customers_usd": 0.0
   },
   {
-    "run_id": "cost-20260620T090938",
-    "generated_at": "2026-06-20T09:09:38Z",
+    "run_id": "cost-20260620T092814",
+    "generated_at": "2026-06-20T09:28:14Z",
     "stage": "internal_monitoring",
     "customer_count": 9,
     "document_count": 22,
@@ -65,8 +65,8 @@
     "cost_per_1000_customers_usd": 0.0
   },
   {
-    "run_id": "cost-20260620T090938",
-    "generated_at": "2026-06-20T09:09:38Z",
+    "run_id": "cost-20260620T092814",
+    "generated_at": "2026-06-20T09:28:14Z",
     "stage": "human_review_summary",
     "customer_count": 9,
     "document_count": 22,
