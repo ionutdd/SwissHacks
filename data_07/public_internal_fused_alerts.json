@@ -1,0 +1,240 @@
+[
+  {
+    "fused_alert_id": "fused-001",
+    "alert_id": "alert-046",
+    "customer_id": "demo-009",
+    "fusion_type": "public_plus_internal",
+    "public_signal_type": "business_activity_change",
+    "public_title": "Alphabet Inc. business activity changed: AI infrastructure and custom silicon expansion",
+    "internal_signal_ids": [
+      "internal-001"
+    ],
+    "internal_signal_summaries": [
+      "Alphabet has several large AI infrastructure-related treasury movements inside the same window as fresh public AI chip coverage."
+    ],
+    "fusion_rationale": "Public evidence created the KYC drift alert; synthetic internal-bank activity adds behavioral context for RM/compliance triage.",
+    "fused_score": 160,
+    "recommended_workflow": "Human review required before KYC update, escalation, or customer outreach."
+  },
+  {
+    "fused_alert_id": "fused-002",
+    "alert_id": "alert-047",
+    "customer_id": "demo-009",
+    "fusion_type": "public_plus_internal",
+    "public_signal_type": "commercial_opportunity",
+    "public_title": "Alphabet Inc. commercial opportunity: AI infrastructure and cloud banking opportunity",
+    "internal_signal_ids": [
+      "internal-001"
+    ],
+    "internal_signal_summaries": [
+      "Alphabet has several large AI infrastructure-related treasury movements inside the same window as fresh public AI chip coverage."
+    ],
+    "fusion_rationale": "Public evidence created the KYC drift alert; synthetic internal-bank activity adds behavioral context for RM/compliance triage.",
+    "fused_score": 131,
+    "recommended_workflow": "Human review required before KYC update, escalation, or customer outreach."
+  },
+  {
+    "fused_alert_id": "fused-003",
+    "alert_id": "alert-048",
+    "customer_id": "demo-009",
+    "fusion_type": "public_plus_internal",
+    "public_signal_type": "new_product",
+    "public_title": "Alphabet Inc. product signal: Google Cloud TPUs and AI chips",
+    "internal_signal_ids": [
+      "internal-001"
+    ],
+    "internal_signal_summaries": [
+      "Alphabet has several large AI infrastructure-related treasury movements inside the same window as fresh public AI chip coverage."
+    ],
+    "fusion_rationale": "Public evidence created the KYC drift alert; synthetic internal-bank activity adds behavioral context for RM/compliance triage.",
+    "fused_score": 136,
+    "recommended_workflow": "Human review required before KYC update, escalation, or customer outreach."
+  },
+  {
+    "fused_alert_id": "fused-004",
+    "alert_id": "alert-013",
+    "customer_id": "demo-003",
+    "fusion_type": "public_plus_internal",
+    "public_signal_type": "risk_rating_review",
+    "public_title": "GameStop Corp. risk rating should be reviewed",
+    "internal_signal_ids": [
+      "internal-002"
+    ],
+    "internal_signal_summaries": [
+      "GameStop has treasury movements to digital-asset and collateral counterparties after a baseline that expected retail operating flows."
+    ],
+    "fusion_rationale": "Public evidence created the KYC drift alert; synthetic internal-bank activity adds behavioral context for RM/compliance triage.",
+    "fused_score": 113,
+    "recommended_workflow": "Human review required before KYC update, escalation, or customer outreach."
+  },
+  {
+    "fused_alert_id": "fused-005",
+    "alert_id": "alert-014",
+    "customer_id": "demo-003",
+    "fusion_type": "public_plus_internal",
+    "public_signal_type": "treasury_policy_change",
+    "public_title": "GameStop Corp. treasury activity changed: 4,710 Bitcoin purchase",
+    "internal_signal_ids": [
+      "internal-002"
+    ],
+    "internal_signal_summaries": [
+      "GameStop has treasury movements to digital-asset and collateral counterparties after a baseline that expected retail operating flows."
+    ],
+    "fusion_rationale": "Public evidence created the KYC drift alert; synthetic internal-bank activity adds behavioral context for RM/compliance triage.",
+    "fused_score": 113,
+    "recommended_workflow": "Human review required before KYC update, escalation, or customer outreach."
+  },
+  {
+    "fused_alert_id": "fused-006",
+    "alert_id": "alert-043",
+    "customer_id": "demo-008",
+    "fusion_type": "public_plus_internal",
+    "public_signal_type": "domain_registration",
+    "public_title": "Coinbase Global, Inc. has country-domain registration signal: https://coinbase.au",
+    "internal_signal_ids": [
+      "internal-003"
+    ],
+    "internal_signal_summaries": [
+      "Coinbase has synthetic Australia-linked counterparties after the coinbase.au domain signal."
+    ],
+    "fusion_rationale": "Public evidence created the KYC drift alert; synthetic internal-bank activity adds behavioral context for RM/compliance triage.",
+    "fused_score": 112,
+    "recommended_workflow": "Human review required before KYC update, escalation, or customer outreach."
+  },
+  {
+    "fused_alert_id": "fused-007",
+    "alert_id": "alert-045",
+    "customer_id": "demo-008",
+    "fusion_type": "public_plus_internal",
+    "public_signal_type": "risk_rating_review",
+    "public_title": "Coinbase Global, Inc. risk rating should be reviewed",
+    "internal_signal_ids": [
+      "internal-003"
+    ],
+    "internal_signal_summaries": [
+      "Coinbase has synthetic Australia-linked counterparties after the coinbase.au domain signal."
+    ],
+    "fusion_rationale": "Public evidence created the KYC drift alert; synthetic internal-bank activity adds behavioral context for RM/compliance triage.",
+    "fused_score": 112,
+    "recommended_workflow": "Human review required before KYC update, escalation, or customer outreach."
+  },
+  {
+    "fused_alert_id": "fused-008",
+    "alert_id": "alert-034",
+    "customer_id": "demo-006",
+    "fusion_type": "public_plus_internal",
+    "public_signal_type": "jurisdiction_restriction",
+    "public_title": "Garantex Europe OU has jurisdiction restriction signal: Russia sanctions and virtual-currency evasion exposure",
+    "internal_signal_ids": [
+      "internal-004"
+    ],
+    "internal_signal_summaries": [
+      "Garantex has post-sanctions synthetic Russia/VASP-linked payments requiring enhanced review."
+    ],
+    "fusion_rationale": "Public evidence created the KYC drift alert; synthetic internal-bank activity adds behavioral context for RM/compliance triage.",
+    "fused_score": 113,
+    "recommended_workflow": "Human review required before KYC update, escalation, or customer outreach."
+  },
+  {
+    "fused_alert_id": "fused-009",
+    "alert_id": "alert-036",
+    "customer_id": "demo-006",
+    "fusion_type": "public_plus_internal",
+    "public_signal_type": "risk_rating_review",
+    "public_title": "Garantex Europe OU risk rating should be reviewed",
+    "internal_signal_ids": [
+      "internal-004"
+    ],
+    "internal_signal_summaries": [
+      "Garantex has post-sanctions synthetic Russia/VASP-linked payments requiring enhanced review."
+    ],
+    "fusion_rationale": "Public evidence created the KYC drift alert; synthetic internal-bank activity adds behavioral context for RM/compliance triage.",
+    "fused_score": 113,
+    "recommended_workflow": "Human review required before KYC update, escalation, or customer outreach."
+  },
+  {
+    "fused_alert_id": "fused-010",
+    "alert_id": "alert-038",
+    "customer_id": "demo-007",
+    "fusion_type": "public_plus_internal",
+    "public_signal_type": "jurisdiction_restriction",
+    "public_title": "British American Tobacco p.l.c. has jurisdiction restriction signal: North Korea sanctions exposure",
+    "internal_signal_ids": [
+      "internal-005"
+    ],
+    "internal_signal_summaries": [
+      "BAT has a synthetic North Korea exposure review placeholder following public OFAC settlement evidence."
+    ],
+    "fusion_rationale": "Public evidence created the KYC drift alert; synthetic internal-bank activity adds behavioral context for RM/compliance triage.",
+    "fused_score": 113,
+    "recommended_workflow": "Human review required before KYC update, escalation, or customer outreach."
+  },
+  {
+    "fused_alert_id": "fused-011",
+    "alert_id": "alert-040",
+    "customer_id": "demo-007",
+    "fusion_type": "public_plus_internal",
+    "public_signal_type": "regulatory_scrutiny",
+    "public_title": "British American Tobacco p.l.c. faces regulatory scrutiny: $508 million OFAC settlement for North Korea sanctions violations",
+    "internal_signal_ids": [
+      "internal-005"
+    ],
+    "internal_signal_summaries": [
+      "BAT has a synthetic North Korea exposure review placeholder following public OFAC settlement evidence."
+    ],
+    "fusion_rationale": "Public evidence created the KYC drift alert; synthetic internal-bank activity adds behavioral context for RM/compliance triage.",
+    "fused_score": 113,
+    "recommended_workflow": "Human review required before KYC update, escalation, or customer outreach."
+  },
+  {
+    "fused_alert_id": "fused-012",
+    "alert_id": "alert-007",
+    "customer_id": "demo-002",
+    "fusion_type": "public_plus_internal",
+    "public_signal_type": "jurisdiction_restriction",
+    "public_title": "Blockratize, Inc. d/b/a Polymarket has jurisdiction restriction signal: Spain market-access block",
+    "internal_signal_ids": [
+      "internal-006"
+    ],
+    "internal_signal_summaries": [
+      "Polymarket has Spain-linked payments after public reporting of market-access blocking and gambling-license review."
+    ],
+    "fusion_rationale": "Public evidence created the KYC drift alert; synthetic internal-bank activity adds behavioral context for RM/compliance triage.",
+    "fused_score": 112,
+    "recommended_workflow": "Human review required before KYC update, escalation, or customer outreach."
+  },
+  {
+    "fused_alert_id": "fused-013",
+    "alert_id": "alert-008",
+    "customer_id": "demo-002",
+    "fusion_type": "public_plus_internal",
+    "public_signal_type": "regulatory_scrutiny",
+    "public_title": "Blockratize, Inc. d/b/a Polymarket faces regulatory scrutiny: Spanish gambling-license investigation",
+    "internal_signal_ids": [
+      "internal-006"
+    ],
+    "internal_signal_summaries": [
+      "Polymarket has Spain-linked payments after public reporting of market-access blocking and gambling-license review."
+    ],
+    "fusion_rationale": "Public evidence created the KYC drift alert; synthetic internal-bank activity adds behavioral context for RM/compliance triage.",
+    "fused_score": 112,
+    "recommended_workflow": "Human review required before KYC update, escalation, or customer outreach."
+  },
+  {
+    "fused_alert_id": "fused-014",
+    "alert_id": "alert-005",
+    "customer_id": "demo-001",
+    "fusion_type": "public_plus_internal",
+    "public_signal_type": "ownership_change",
+    "public_title": "Robinhood Markets, Inc. has ownership/control drift involving Bitstamp Ltd.",
+    "internal_signal_ids": [
+      "internal-007"
+    ],
+    "internal_signal_summaries": [
+      "Robinhood has post-acquisition flows to Bitstamp entities that align with the public ownership/control alert."
+    ],
+    "fusion_rationale": "Public evidence created the KYC drift alert; synthetic internal-bank activity adds behavioral context for RM/compliance triage.",
+    "fused_score": 112,
+    "recommended_workflow": "Human review required before KYC update, escalation, or customer outreach."
+  }
+]

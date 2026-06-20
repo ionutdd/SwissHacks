@@ -875,6 +875,11 @@ textarea {
   margin: 3px 0;
 }
 
+.internal-box {
+  border-color: #b8d9f2;
+  background: #f3f9fd;
+}
+
 .action-stack {
   display: grid;
   gap: 10px;

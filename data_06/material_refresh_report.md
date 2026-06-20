@@ -1,7 +1,7 @@
 # Material Signal Refresh Report
 
-- Generated at: 2026-06-20T08:47:03Z
-- Refresh window: last 24 hour(s), cutoff 2026-06-19T08:47:03Z
+- Generated at: 2026-06-20T09:09:38Z
+- Refresh window: last 24 hour(s), cutoff 2026-06-19T09:09:38Z
 - Freshness policy: published_at_only
 - Total alerts reviewed: 48
 - Alerts inside refresh window: 3

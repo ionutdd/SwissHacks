@@ -1,0 +1,80 @@
+[
+  {
+    "run_id": "cost-20260620T090938",
+    "generated_at": "2026-06-20T09:09:38Z",
+    "stage": "source_discovery",
+    "customer_count": 9,
+    "document_count": 22,
+    "model_used": "rule_and_http",
+    "estimated_tokens_in": 0,
+    "estimated_tokens_out": 0,
+    "estimated_cost_usd": 0.0,
+    "notes": "Catalog, API, and page discovery; no LLM reasoning required.",
+    "cost_per_1000_customers_usd": 0.0
+  },
+  {
+    "run_id": "cost-20260620T090938",
+    "generated_at": "2026-06-20T09:09:38Z",
+    "stage": "evidence_ranking",
+    "customer_count": 9,
+    "document_count": 22,
+    "model_used": "deterministic_rules",
+    "estimated_tokens_in": 0,
+    "estimated_tokens_out": 0,
+    "estimated_cost_usd": 0.0,
+    "notes": "Visible-text extraction and sentence scoring are deterministic.",
+    "cost_per_1000_customers_usd": 0.0
+  },
+  {
+    "run_id": "cost-20260620T090938",
+    "generated_at": "2026-06-20T09:09:38Z",
+    "stage": "fact_extraction",
+    "customer_count": 9,
+    "document_count": 22,
+    "model_used": "deterministic_rules",
+    "estimated_tokens_in": 0,
+    "estimated_tokens_out": 0,
+    "estimated_cost_usd": 0.0,
+    "notes": "Generated 59 facts using typed rule extractors.",
+    "cost_per_1000_customers_usd": 0.0
+  },
+  {
+    "run_id": "cost-20260620T090938",
+    "generated_at": "2026-06-20T09:09:38Z",
+    "stage": "material_filtering",
+    "customer_count": 9,
+    "document_count": 22,
+    "model_used": "deterministic_rules",
+    "estimated_tokens_in": 0,
+    "estimated_tokens_out": 0,
+    "estimated_cost_usd": 0.0,
+    "notes": "Scored 48 alerts using source quality, freshness, severity, and keywords.",
+    "cost_per_1000_customers_usd": 0.0
+  },
+  {
+    "run_id": "cost-20260620T090938",
+    "generated_at": "2026-06-20T09:09:38Z",
+    "stage": "internal_monitoring",
+    "customer_count": 9,
+    "document_count": 22,
+    "model_used": "deterministic_rules",
+    "estimated_tokens_in": 0,
+    "estimated_tokens_out": 0,
+    "estimated_cost_usd": 0.0,
+    "notes": "Generated 7 synthetic internal monitoring signals.",
+    "cost_per_1000_customers_usd": 0.0
+  },
+  {
+    "run_id": "cost-20260620T090938",
+    "generated_at": "2026-06-20T09:09:38Z",
+    "stage": "human_review_summary",
+    "customer_count": 9,
+    "document_count": 22,
+    "model_used": "not_invoked",
+    "estimated_tokens_in": 0,
+    "estimated_tokens_out": 0,
+    "estimated_cost_usd": 0.0,
+    "notes": "LLM escalation layer is documented but not invoked in this demo run.",
+    "cost_per_1000_customers_usd": 0.0
+  }
+]

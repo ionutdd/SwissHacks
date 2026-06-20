@@ -1,0 +1,135 @@
+[
+  {
+    "customer_id": "demo-002",
+    "expected_monthly_volume_chf": 2000000,
+    "expected_transaction_count_monthly": 18,
+    "expected_counterparty_regions": [
+      "United States",
+      "European Union"
+    ],
+    "expected_products": [
+      "corporate account",
+      "USDC settlement monitoring"
+    ],
+    "expected_activity_description": "Prediction-market operating flows with limited fiat treasury movement.",
+    "allowed_risk_band": "high",
+    "last_kyc_refresh_at": "2024-10-01",
+    "transaction_monitoring_thresholds": {
+      "single_payment_chf": 500000,
+      "new_region_monthly_count": 2,
+      "volume_spike_multiplier": 2.0
+    }
+  },
+  {
+    "customer_id": "demo-003",
+    "expected_monthly_volume_chf": 12000000,
+    "expected_transaction_count_monthly": 55,
+    "expected_counterparty_regions": [
+      "United States",
+      "Canada",
+      "European Union"
+    ],
+    "expected_products": [
+      "corporate account",
+      "FX",
+      "cash management"
+    ],
+    "expected_activity_description": "Retail treasury, vendor payments, and inventory-related flows.",
+    "allowed_risk_band": "low_to_medium",
+    "last_kyc_refresh_at": "2025-02-28",
+    "transaction_monitoring_thresholds": {
+      "single_payment_chf": 3000000,
+      "new_region_monthly_count": 2,
+      "volume_spike_multiplier": 2.5
+    }
+  },
+  {
+    "customer_id": "demo-006",
+    "expected_monthly_volume_chf": 500000,
+    "expected_transaction_count_monthly": 8,
+    "expected_counterparty_regions": [
+      "Estonia"
+    ],
+    "expected_products": [
+      "VASP relationship monitoring"
+    ],
+    "expected_activity_description": "Legacy low-volume exchange monitoring profile pending enhanced due diligence.",
+    "allowed_risk_band": "medium_to_high",
+    "last_kyc_refresh_at": "2022-02-01",
+    "transaction_monitoring_thresholds": {
+      "single_payment_chf": 100000,
+      "new_region_monthly_count": 1,
+      "volume_spike_multiplier": 1.5
+    }
+  },
+  {
+    "customer_id": "demo-007",
+    "expected_monthly_volume_chf": 25000000,
+    "expected_transaction_count_monthly": 120,
+    "expected_counterparty_regions": [
+      "United Kingdom",
+      "Singapore",
+      "European Union"
+    ],
+    "expected_products": [
+      "corporate account",
+      "trade finance",
+      "FX"
+    ],
+    "expected_activity_description": "Large multinational operating and trade-finance flows.",
+    "allowed_risk_band": "medium",
+    "last_kyc_refresh_at": "2023-01-31",
+    "transaction_monitoring_thresholds": {
+      "single_payment_chf": 8000000,
+      "new_region_monthly_count": 2,
+      "volume_spike_multiplier": 2.0
+    }
+  },
+  {
+    "customer_id": "demo-008",
+    "expected_monthly_volume_chf": 10000000,
+    "expected_transaction_count_monthly": 65,
+    "expected_counterparty_regions": [
+      "United States",
+      "European Union",
+      "United Kingdom",
+      "Singapore"
+    ],
+    "expected_products": [
+      "crypto exchange monitoring",
+      "custody",
+      "FX"
+    ],
+    "expected_activity_description": "Crypto exchange operating, custody, and institutional settlement flows.",
+    "allowed_risk_band": "medium_to_high",
+    "last_kyc_refresh_at": "2025-12-31",
+    "transaction_monitoring_thresholds": {
+      "single_payment_chf": 2500000,
+      "new_region_monthly_count": 2,
+      "volume_spike_multiplier": 2.0
+    }
+  },
+  {
+    "customer_id": "demo-009",
+    "expected_monthly_volume_chf": 15000000,
+    "expected_transaction_count_monthly": 80,
+    "expected_counterparty_regions": [
+      "United States",
+      "European Union",
+      "United Kingdom"
+    ],
+    "expected_products": [
+      "corporate banking",
+      "FX",
+      "treasury"
+    ],
+    "expected_activity_description": "Large-cap technology treasury and operating flows.",
+    "allowed_risk_band": "low_to_medium",
+    "last_kyc_refresh_at": "2026-06-01",
+    "transaction_monitoring_thresholds": {
+      "single_payment_chf": 5000000,
+      "new_region_monthly_count": 3,
+      "volume_spike_multiplier": 2.5
+    }
+  }
+]

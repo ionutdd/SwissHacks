@@ -1,0 +1,73 @@
+[
+  {
+    "review_id": "entity-review-001",
+    "customer_id": "demo-006",
+    "source_family": "OpenSanctions candidate",
+    "candidate_name": "Garantex Europe OU",
+    "candidate_identifiers": [
+      "OFAC program: RUSSIA-EO14024",
+      "jurisdiction: Estonia/Russia"
+    ],
+    "match_score": 0.94,
+    "match_status": "review_required_high_confidence",
+    "match_reason": "Legal name and OFAC regulator source align with the synthetic baseline entity and aliases.",
+    "recommended_action": "Escalate as candidate sanctions-screening review. Do not treat as final legal determination without compliance validation."
+  },
+  {
+    "review_id": "entity-review-002",
+    "customer_id": "demo-007",
+    "source_family": "OFAC / sanctions settlement candidate",
+    "candidate_name": "British American Tobacco p.l.c.",
+    "candidate_identifiers": [
+      "OFAC settlement",
+      "North Korea / DPRK exposure"
+    ],
+    "match_score": 0.9,
+    "match_status": "review_required_high_confidence",
+    "match_reason": "Official Treasury source names BAT and related subsidiary activity.",
+    "recommended_action": "Escalate for sanctioned-country business exposure review and update customer risk memo."
+  },
+  {
+    "review_id": "entity-review-003",
+    "customer_id": "demo-008",
+    "source_family": "RDAP / registry candidate",
+    "candidate_name": "coinbase.au",
+    "candidate_identifiers": [
+      "domain: coinbase.au",
+      "eligibility: COINBASE trademark owner"
+    ],
+    "match_score": 0.78,
+    "match_status": "review_required_medium_confidence",
+    "match_reason": "RDAP links the country-code domain to Coinbase identity data, but active local operations are not proven.",
+    "recommended_action": "Ask RM whether the domain is defensive, pre-launch, or active Australia market activity."
+  },
+  {
+    "review_id": "entity-review-004",
+    "customer_id": "demo-009",
+    "source_family": "GLEIF/registry placeholder",
+    "candidate_name": "Alphabet Inc.",
+    "candidate_identifiers": [
+      "ticker: GOOGL",
+      "ticker: GOOG",
+      "US public company"
+    ],
+    "match_score": 0.86,
+    "match_status": "accepted_for_demo_registry_context",
+    "match_reason": "Public company identity is strong; LEI or SEC CIK connector should replace this placeholder in production.",
+    "recommended_action": "Use as registry-hardening placeholder and add GLEIF/SEC identifier enrichment later."
+  },
+  {
+    "review_id": "entity-review-005",
+    "customer_id": "demo-002",
+    "source_family": "weak-name-collision test",
+    "candidate_name": "Poly Market Services Ltd",
+    "candidate_identifiers": [
+      "name-only",
+      "unknown jurisdiction"
+    ],
+    "match_score": 0.41,
+    "match_status": "rejected_too_weak",
+    "match_reason": "Name similarity is insufficient without jurisdiction, URL, management, or identifier overlap.",
+    "recommended_action": "Suppress as false-positive entity match and retain for evaluation."
+  }
+]

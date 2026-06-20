@@ -94,6 +94,24 @@ Supported signal types:
 - `activity_profile_mismatch`
 - `screening_review_required`
 
+### `data_07/public_internal_fused_alerts.json`
+
+Links public alerts from `data_03` or `data_06` to internal monitoring signals.
+
+Required fields:
+
+- `fused_alert_id`
+- `alert_id`
+- `customer_id`
+- `fusion_type`
+- `public_signal_type`
+- `public_title`
+- `internal_signal_ids`
+- `internal_signal_summaries`
+- `fusion_rationale`
+- `fused_score`
+- `recommended_workflow`
+
 ## Public Plus Internal Fusion
 
 The alert engine should combine public and internal signals when both point to the same customer drift.

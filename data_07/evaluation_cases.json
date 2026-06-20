@@ -1,0 +1,150 @@
+[
+  {
+    "case_id": "eval-001",
+    "customer_id": "demo-009",
+    "expected_signal_type": "business_activity_change",
+    "expected_category": "mixed",
+    "expected_outcome": "true_positive_public_plus_internal",
+    "evidence_document_ids": [
+      "doc-010"
+    ],
+    "should_alert": true,
+    "reason": "Fresh Google AI chip coverage plus internal AI infrastructure payments should create a notification."
+  },
+  {
+    "case_id": "eval-002",
+    "customer_id": "demo-003",
+    "expected_signal_type": "treasury_policy_change",
+    "expected_category": "mixed",
+    "expected_outcome": "true_positive_stale_but_auditable",
+    "evidence_document_ids": [
+      "doc-001",
+      "doc-002"
+    ],
+    "should_alert": true,
+    "reason": "GameStop Bitcoin treasury evidence should remain in full workspace, but not in the 24-hour TLDR queue."
+  },
+  {
+    "case_id": "eval-003",
+    "customer_id": "demo-008",
+    "expected_signal_type": "domain_registration",
+    "expected_category": "mixed",
+    "expected_outcome": "true_positive_requires_confirmation",
+    "evidence_document_ids": [
+      "doc-022"
+    ],
+    "should_alert": true,
+    "reason": "coinbase.au is a country-code domain signal requiring RM confirmation."
+  },
+  {
+    "case_id": "eval-004",
+    "customer_id": "demo-006",
+    "expected_signal_type": "jurisdiction_restriction",
+    "expected_category": "risk",
+    "expected_outcome": "true_positive_high_risk_context",
+    "evidence_document_ids": [
+      "doc-020"
+    ],
+    "should_alert": true,
+    "reason": "Official OFAC source should produce high-risk review signal."
+  },
+  {
+    "case_id": "eval-005",
+    "customer_id": "demo-007",
+    "expected_signal_type": "regulatory_scrutiny",
+    "expected_category": "risk",
+    "expected_outcome": "true_positive_sanctioned_country_business",
+    "evidence_document_ids": [
+      "doc-021"
+    ],
+    "should_alert": true,
+    "reason": "Official Treasury source should trigger sanctioned-country business review."
+  },
+  {
+    "case_id": "eval-006",
+    "customer_id": "demo-002",
+    "expected_signal_type": "entity_resolution",
+    "expected_category": "suppression",
+    "expected_outcome": "false_positive_rejected",
+    "evidence_document_ids": [],
+    "should_alert": false,
+    "reason": "Weak Poly Market Services Ltd name-only match should be rejected."
+  },
+  {
+    "case_id": "eval-007",
+    "customer_id": "demo-005",
+    "expected_signal_type": "new_product",
+    "expected_category": "suppression",
+    "expected_outcome": "undated_product_page_suppressed_from_tldr",
+    "evidence_document_ids": [
+      "doc-011",
+      "doc-012",
+      "doc-019"
+    ],
+    "should_alert": false,
+    "reason": "Undated Circle product pages should stay out of strict 24-hour notification feed."
+  },
+  {
+    "case_id": "eval-008",
+    "customer_id": "demo-004",
+    "expected_signal_type": "new_product",
+    "expected_category": "opportunity",
+    "expected_outcome": "stale_signal_not_in_tldr",
+    "evidence_document_ids": [
+      "doc-017"
+    ],
+    "should_alert": true,
+    "reason": "Kraken xStocks is a valid workspace alert but stale for today's TLDR feed."
+  },
+  {
+    "case_id": "eval-009",
+    "customer_id": "demo-008",
+    "expected_signal_type": "new_counterparty_region",
+    "expected_category": "internal_context",
+    "expected_outcome": "public_internal_fusion",
+    "evidence_document_ids": [
+      "doc-022"
+    ],
+    "should_alert": true,
+    "reason": "Australia RDAP plus Australia counterparties should strengthen KYC update workflow."
+  },
+  {
+    "case_id": "eval-010",
+    "customer_id": "demo-001",
+    "expected_signal_type": "ownership_change",
+    "expected_category": "ownership_control",
+    "expected_outcome": "true_positive_ownership_drift",
+    "evidence_document_ids": [
+      "doc-014",
+      "doc-015"
+    ],
+    "should_alert": true,
+    "reason": "Robinhood/Bitstamp acquisition should create ownership/control drift."
+  },
+  {
+    "case_id": "eval-011",
+    "customer_id": "demo-009",
+    "expected_signal_type": "regulatory_scrutiny",
+    "expected_category": "risk",
+    "expected_outcome": "not_triggered_without_regulatory_terms",
+    "evidence_document_ids": [
+      "doc-010"
+    ],
+    "should_alert": false,
+    "reason": "Google AI chip story should not become a regulatory alert without regulator, penalty, or investigation terms."
+  },
+  {
+    "case_id": "eval-012",
+    "customer_id": "demo-002",
+    "expected_signal_type": "jurisdiction_restriction",
+    "expected_category": "risk",
+    "expected_outcome": "stale_risk_workspace_only",
+    "evidence_document_ids": [
+      "doc-007",
+      "doc-008",
+      "doc-009"
+    ],
+    "should_alert": true,
+    "reason": "Polymarket Spain blocking should remain a workspace risk signal and not appear as same-day news."
+  }
+]

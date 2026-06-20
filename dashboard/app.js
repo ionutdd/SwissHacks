@@ -7,7 +7,9 @@
     facts: "../data_03/facts.json",
     alerts: "../data_03/alerts.json",
     materialAlerts: "../data_06/material_alerts.json",
-    refreshSummary: "../data_06/refresh_summary.json"
+    refreshSummary: "../data_06/refresh_summary.json",
+    internalSignals: "../data_07/internal_monitoring_signals.json",
+    fusedAlerts: "../data_07/public_internal_fused_alerts.json"
   };
 
   const ACTION_STORAGE_KEY = "signalwatch.reviewActions.v1";
@@ -39,6 +41,8 @@
     alerts: [],
     materialAlerts: [],
     refreshSummary: {},
+    internalSignals: [],
+    fusedAlerts: [],
     customersById: new Map(),
     documentsById: new Map(),
     factsById: new Map(),
@@ -63,13 +67,15 @@
     bindEvents();
 
     try {
-      const [customers, documents, facts, alerts, materialAlerts, refreshSummary] = await Promise.all([
+      const [customers, documents, facts, alerts, materialAlerts, refreshSummary, internalSignals, fusedAlerts] = await Promise.all([
         fetchJson(DATA_URLS.customers),
         fetchJson(DATA_URLS.documents),
         fetchJson(DATA_URLS.facts),
         fetchJson(DATA_URLS.alerts),
         fetchJsonOptional(DATA_URLS.materialAlerts, []),
-        fetchJsonOptional(DATA_URLS.refreshSummary, {})
+        fetchJsonOptional(DATA_URLS.refreshSummary, {}),
+        fetchJsonOptional(DATA_URLS.internalSignals, []),
+        fetchJsonOptional(DATA_URLS.fusedAlerts, [])
       ]);
 
       state.customers = customers;
@@ -78,6 +84,8 @@
       state.alerts = alerts;
       state.materialAlerts = materialAlerts;
       state.refreshSummary = refreshSummary;
+      state.internalSignals = internalSignals;
+      state.fusedAlerts = fusedAlerts;
       state.customersById = new Map(customers.map((customer) => [customer.customer_id, customer]));
       state.documentsById = new Map(documents.map((documentItem) => [documentItem.document_id, documentItem]));
       state.factsById = new Map(facts.map((fact) => [fact.fact_id, fact]));
@@ -346,6 +354,7 @@
   function notificationTemplate(alert) {
     const customer = state.customersById.get(alert.customer_id);
     const publishedAt = alert.newest_published_at || alert.evidence?.[0]?.published_at;
+    const fusion = fusedForAlert(alert.alert_id);
     return `
       <article class="notification-card" role="listitem">
         <button class="notification-main" type="button" data-notification-alert-id="${escapeAttr(alert.alert_id)}">
@@ -360,6 +369,7 @@
             <span class="pill material">Score ${escapeHtml(alert.material_score || "N/A")}</span>
             <span class="pill">${Math.round(alert.confidence * 100)}% confidence</span>
             ${alert.review_lane ? `<span class="pill">${escapeHtml(alert.review_lane)}</span>` : ""}
+            ${fusion ? `<span class="pill material">Internal context</span>` : ""}
             <span class="pill">${formatDate(publishedAt) || "Undated"}</span>
           </div>
         </button>
@@ -478,6 +488,7 @@
           <h2>${escapeHtml(cleanText(alert.title))}</h2>
           <p class="summary">${escapeHtml(cleanText(alert.summary))}</p>
           ${materialityTemplate(alert)}
+          ${internalContextTemplate(alert)}
           <div class="detail-source-strip">
             ${sourceLinksTemplate(alert)}
           </div>
@@ -536,6 +547,41 @@
           ${alert.review_lane ? `<span class="pill">${escapeHtml(alert.review_lane)}</span>` : ""}
         </div>
         ${reasons.length ? `<ul>${reasons.map((reason) => `<li>${escapeHtml(reason)}</li>`).join("")}</ul>` : ""}
+      </div>
+    `;
+  }
+
+  function internalContextTemplate(alert) {
+    const fusion = fusedForAlert(alert.alert_id);
+    const signals = internalSignalsForAlert(alert.alert_id);
+    if (!fusion && !signals.length) return "";
+
+    const visibleSignals = signals.length ? signals : (fusion?.internal_signal_summaries || []).map((summary, index) => ({
+      internal_signal_id: fusion.internal_signal_ids?.[index] || `internal-${index + 1}`,
+      signal_type: "internal_context",
+      severity: "medium",
+      confidence: 0,
+      summary,
+      recommended_action: fusion.recommended_workflow || "Human review required."
+    }));
+
+    return `
+      <div class="materiality-box internal-box">
+        <div class="materiality-head">
+          <strong>Internal bank context</strong>
+          ${fusion ? `<span class="pill material">Fused score ${escapeHtml(fusion.fused_score)}</span>` : ""}
+          <span class="pill">${escapeHtml(visibleSignals.length)} signal(s)</span>
+        </div>
+        ${fusion ? `<p class="summary">${escapeHtml(fusion.fusion_rationale)}</p>` : ""}
+        <ul>
+          ${visibleSignals.map((signal) => `
+            <li>
+              <strong>${escapeHtml(labelize(signal.signal_type))}</strong>:
+              ${escapeHtml(cleanText(signal.summary))}
+              <span class="muted"> ${escapeHtml(cleanText(signal.recommended_action || ""))}</span>
+            </li>
+          `).join("")}
+        </ul>
       </div>
     `;
   }
@@ -934,6 +980,17 @@
     return state.materialAlerts.find((alert) => alert.alert_id === state.selectedAlertId)
       || state.alerts.find((alert) => alert.alert_id === state.selectedAlertId)
       || null;
+  }
+
+  function fusedForAlert(alertId) {
+    return state.fusedAlerts.find((item) => item.alert_id === alertId) || null;
+  }
+
+  function internalSignalsForAlert(alertId) {
+    const fusion = fusedForAlert(alertId);
+    if (!fusion) return [];
+    const ids = new Set(fusion.internal_signal_ids || []);
+    return state.internalSignals.filter((signal) => ids.has(signal.internal_signal_id));
   }
 
   function customerAggregate(customerId) {

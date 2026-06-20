@@ -60,7 +60,7 @@
     "status": "skipped",
     "discovered_sources": 0,
     "query": "Polymarket QCEX acquisition return US regulated",
-    "reason": "News API query unavailable; using configured fallbacks. HTTPError: HTTP Error 429: Too Many Requests"
+    "reason": "News API query unavailable; using configured fallbacks. JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
   },
   {
     "stage": "discovery",
@@ -244,7 +244,7 @@
     "entity_match_score": 36,
     "retrieval_score": 46,
     "source_term_score": 12,
-    "clean_text_chars": 15586
+    "clean_text_chars": 15581
   },
   {
     "source_id": "news-demo-002-3",
@@ -353,10 +353,10 @@
     "url": "https://blog.kraken.com/product/xstocks/tokenized-equities-now-available",
     "status": "ok",
     "connector": "web_page",
-    "entity_match_score": 64,
+    "entity_match_score": 65,
     "retrieval_score": 119,
     "source_term_score": 34,
-    "clean_text_chars": 7156
+    "clean_text_chars": 7133
   },
   {
     "source_id": "src-013-circle-investor-relations",

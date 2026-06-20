@@ -20,6 +20,7 @@ The prototype is already strong on public evidence collection, KYC drift alerts,
 - `data_07/customer_activity_baselines.json`
 - `data_07/simulated_transactions.json`
 - `data_07/internal_monitoring_signals.json`
+- `data_07/public_internal_fused_alerts.json`
 - `data_07/entity_resolution_review.json`
 - `data_07/cost_trace.json`
 - `data_07/evaluation_cases.json`

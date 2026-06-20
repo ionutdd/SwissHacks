@@ -1,0 +1,110 @@
+[
+  {
+    "internal_signal_id": "internal-001",
+    "customer_id": "demo-009",
+    "signal_type": "transaction_volume_spike",
+    "severity": "medium",
+    "confidence": 0.82,
+    "summary": "Alphabet has several large AI infrastructure-related treasury movements inside the same window as fresh public AI chip coverage.",
+    "supporting_transaction_ids": [
+      "tx-001",
+      "tx-002",
+      "tx-003",
+      "tx-004"
+    ],
+    "baseline_comparison": "Observed CHF 16,500,000 in AI infrastructure-linked payments versus CHF 15,000,000 expected monthly volume.",
+    "recommended_action": "Add to RM call brief and ask whether treasury, FX, operating-account, or financing needs are changing with the AI infrastructure buildout.",
+    "created_at": "2026-06-20T09:09:38Z"
+  },
+  {
+    "internal_signal_id": "internal-002",
+    "customer_id": "demo-003",
+    "signal_type": "activity_profile_mismatch",
+    "severity": "high",
+    "confidence": 0.86,
+    "summary": "GameStop has treasury movements to digital-asset and collateral counterparties after a baseline that expected retail operating flows.",
+    "supporting_transaction_ids": [
+      "tx-005",
+      "tx-006",
+      "tx-008"
+    ],
+    "baseline_comparison": "Digital-asset counterparties are outside the prior retail treasury activity description.",
+    "recommended_action": "Route to KYC refresh and document whether crypto treasury activity changes the risk profile or service opportunity.",
+    "created_at": "2026-06-20T09:09:38Z"
+  },
+  {
+    "internal_signal_id": "internal-003",
+    "customer_id": "demo-008",
+    "signal_type": "new_counterparty_region",
+    "severity": "medium",
+    "confidence": 0.81,
+    "summary": "Coinbase has synthetic Australia-linked counterparties after the coinbase.au domain signal.",
+    "supporting_transaction_ids": [
+      "tx-009",
+      "tx-010",
+      "tx-011"
+    ],
+    "baseline_comparison": "Australia was not in expected counterparty regions for the activity baseline.",
+    "recommended_action": "Ask RM to confirm whether Australia is active launch activity, pre-launch planning, or defensive registration.",
+    "created_at": "2026-06-20T09:09:38Z"
+  },
+  {
+    "internal_signal_id": "internal-004",
+    "customer_id": "demo-006",
+    "signal_type": "screening_review_required",
+    "severity": "high",
+    "confidence": 0.88,
+    "summary": "Garantex has post-sanctions synthetic Russia/VASP-linked payments requiring enhanced review.",
+    "supporting_transaction_ids": [
+      "tx-015",
+      "tx-016"
+    ],
+    "baseline_comparison": "Russia-linked counterparties and VASP cluster activity exceed the expected Estonia-only activity baseline.",
+    "recommended_action": "Escalate to compliance for sanctions and AML review. Treat as a review trigger, not a final determination.",
+    "created_at": "2026-06-20T09:09:38Z"
+  },
+  {
+    "internal_signal_id": "internal-005",
+    "customer_id": "demo-007",
+    "signal_type": "screening_review_required",
+    "severity": "high",
+    "confidence": 0.84,
+    "summary": "BAT has a synthetic North Korea exposure review placeholder following public OFAC settlement evidence.",
+    "supporting_transaction_ids": [
+      "tx-019"
+    ],
+    "baseline_comparison": "North Korea is outside the expected regions and should be treated as a sanctions-review scenario.",
+    "recommended_action": "Escalate to compliance and document that this is synthetic internal context for the demo.",
+    "created_at": "2026-06-20T09:09:38Z"
+  },
+  {
+    "internal_signal_id": "internal-006",
+    "customer_id": "demo-002",
+    "signal_type": "new_counterparty_region",
+    "severity": "medium",
+    "confidence": 0.79,
+    "summary": "Polymarket has Spain-linked payments after public reporting of market-access blocking and gambling-license review.",
+    "supporting_transaction_ids": [
+      "tx-012",
+      "tx-013"
+    ],
+    "baseline_comparison": "Spain is outside the expected counterparty regions in the activity baseline.",
+    "recommended_action": "Ask RM to confirm whether Spanish exposure has been halted, remediated, or requires KYC update.",
+    "created_at": "2026-06-20T09:09:38Z"
+  },
+  {
+    "internal_signal_id": "internal-007",
+    "customer_id": "demo-001",
+    "signal_type": "linked_entity_flow",
+    "severity": "medium",
+    "confidence": 0.78,
+    "summary": "Robinhood has post-acquisition flows to Bitstamp entities that align with the public ownership/control alert.",
+    "supporting_transaction_ids": [
+      "tx-021",
+      "tx-022"
+    ],
+    "baseline_comparison": "Bitstamp entity flows were not part of the pre-acquisition activity profile.",
+    "recommended_action": "Request updated corporate structure and operating-account map for the newly acquired entities.",
+    "created_at": "2026-06-20T09:09:38Z"
+  }
+]

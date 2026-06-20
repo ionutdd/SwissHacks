@@ -1,0 +1,347 @@
+[
+  {
+    "transaction_id": "tx-001",
+    "customer_id": "demo-009",
+    "booked_at": "2026-06-19T10:12:00Z",
+    "amount_chf": 4800000,
+    "direction": "outbound",
+    "counterparty_name": "Anthropic PBC",
+    "counterparty_country": "United States",
+    "payment_rail": "SWIFT",
+    "purpose": "AI infrastructure partnership settlement",
+    "related_public_signal_ids": [
+      "alert-046",
+      "alert-047"
+    ]
+  },
+  {
+    "transaction_id": "tx-002",
+    "customer_id": "demo-009",
+    "booked_at": "2026-06-19T11:44:00Z",
+    "amount_chf": 6200000,
+    "direction": "outbound",
+    "counterparty_name": "Blackstone Data Center Partners",
+    "counterparty_country": "United States",
+    "payment_rail": "SWIFT",
+    "purpose": "Data-center capacity prepayment",
+    "related_public_signal_ids": [
+      "alert-046",
+      "alert-048"
+    ]
+  },
+  {
+    "transaction_id": "tx-003",
+    "customer_id": "demo-009",
+    "booked_at": "2026-06-19T14:05:00Z",
+    "amount_chf": 3100000,
+    "direction": "outbound",
+    "counterparty_name": "Cloud TPU Hardware Vendor",
+    "counterparty_country": "Taiwan",
+    "payment_rail": "SWIFT",
+    "purpose": "AI chip supply-chain payment",
+    "related_public_signal_ids": [
+      "alert-046",
+      "alert-048"
+    ]
+  },
+  {
+    "transaction_id": "tx-004",
+    "customer_id": "demo-009",
+    "booked_at": "2026-06-20T07:15:00Z",
+    "amount_chf": 2400000,
+    "direction": "inbound",
+    "counterparty_name": "Enterprise Cloud Customer",
+    "counterparty_country": "United Kingdom",
+    "payment_rail": "SWIFT",
+    "purpose": "Cloud-services receivable",
+    "related_public_signal_ids": [
+      "alert-047"
+    ]
+  },
+  {
+    "transaction_id": "tx-005",
+    "customer_id": "demo-003",
+    "booked_at": "2025-05-28T15:22:00Z",
+    "amount_chf": 2750000,
+    "direction": "outbound",
+    "counterparty_name": "Digital Asset Custody Provider",
+    "counterparty_country": "United States",
+    "payment_rail": "WIRE",
+    "purpose": "Custody onboarding reserve transfer",
+    "related_public_signal_ids": [
+      "alert-010",
+      "alert-014"
+    ]
+  },
+  {
+    "transaction_id": "tx-006",
+    "customer_id": "demo-003",
+    "booked_at": "2025-05-29T09:20:00Z",
+    "amount_chf": 1950000,
+    "direction": "outbound",
+    "counterparty_name": "Crypto Treasury Execution Desk",
+    "counterparty_country": "United States",
+    "payment_rail": "WIRE",
+    "purpose": "Bitcoin treasury execution support",
+    "related_public_signal_ids": [
+      "alert-009",
+      "alert-015"
+    ]
+  },
+  {
+    "transaction_id": "tx-007",
+    "customer_id": "demo-003",
+    "booked_at": "2025-06-03T16:40:00Z",
+    "amount_chf": 980000,
+    "direction": "inbound",
+    "counterparty_name": "Retail Operations Account",
+    "counterparty_country": "Canada",
+    "payment_rail": "SWIFT",
+    "purpose": "Inventory treasury sweep",
+    "related_public_signal_ids": []
+  },
+  {
+    "transaction_id": "tx-008",
+    "customer_id": "demo-003",
+    "booked_at": "2025-06-10T12:11:00Z",
+    "amount_chf": 1250000,
+    "direction": "outbound",
+    "counterparty_name": "Collateral Management Agent",
+    "counterparty_country": "United States",
+    "payment_rail": "WIRE",
+    "purpose": "Digital asset collateral operations",
+    "related_public_signal_ids": [
+      "alert-013"
+    ]
+  },
+  {
+    "transaction_id": "tx-009",
+    "customer_id": "demo-008",
+    "booked_at": "2026-02-09T08:31:00Z",
+    "amount_chf": 750000,
+    "direction": "outbound",
+    "counterparty_name": "AU Launch Vendor Pty Ltd",
+    "counterparty_country": "Australia",
+    "payment_rail": "SWIFT",
+    "purpose": "Country-domain launch support",
+    "related_public_signal_ids": [
+      "alert-043",
+      "alert-044"
+    ]
+  },
+  {
+    "transaction_id": "tx-010",
+    "customer_id": "demo-008",
+    "booked_at": "2026-02-10T10:35:00Z",
+    "amount_chf": 520000,
+    "direction": "outbound",
+    "counterparty_name": "Australian Compliance Counsel",
+    "counterparty_country": "Australia",
+    "payment_rail": "SWIFT",
+    "purpose": "Market-entry legal review",
+    "related_public_signal_ids": [
+      "alert-044",
+      "alert-045"
+    ]
+  },
+  {
+    "transaction_id": "tx-011",
+    "customer_id": "demo-008",
+    "booked_at": "2026-02-12T13:01:00Z",
+    "amount_chf": 460000,
+    "direction": "inbound",
+    "counterparty_name": "Institutional Client AU",
+    "counterparty_country": "Australia",
+    "payment_rail": "SWIFT",
+    "purpose": "Pilot exchange settlement",
+    "related_public_signal_ids": [
+      "alert-042"
+    ]
+  },
+  {
+    "transaction_id": "tx-012",
+    "customer_id": "demo-002",
+    "booked_at": "2026-05-26T08:05:00Z",
+    "amount_chf": 240000,
+    "direction": "outbound",
+    "counterparty_name": "Spain Marketing Vendor",
+    "counterparty_country": "Spain",
+    "payment_rail": "SEPA",
+    "purpose": "Campaign pause and regulatory communications",
+    "related_public_signal_ids": [
+      "alert-007",
+      "alert-008"
+    ]
+  },
+  {
+    "transaction_id": "tx-013",
+    "customer_id": "demo-002",
+    "booked_at": "2026-05-26T12:42:00Z",
+    "amount_chf": 310000,
+    "direction": "outbound",
+    "counterparty_name": "EU Legal Counsel",
+    "counterparty_country": "Spain",
+    "payment_rail": "SEPA",
+    "purpose": "Market-access legal advice",
+    "related_public_signal_ids": [
+      "alert-007",
+      "alert-008"
+    ]
+  },
+  {
+    "transaction_id": "tx-014",
+    "customer_id": "demo-002",
+    "booked_at": "2026-05-27T09:09:00Z",
+    "amount_chf": 95000,
+    "direction": "inbound",
+    "counterparty_name": "Event Market Liquidity Partner",
+    "counterparty_country": "United States",
+    "payment_rail": "ACH",
+    "purpose": "Liquidity adjustment",
+    "related_public_signal_ids": [
+      "alert-006"
+    ]
+  },
+  {
+    "transaction_id": "tx-015",
+    "customer_id": "demo-006",
+    "booked_at": "2022-04-06T09:00:00Z",
+    "amount_chf": 85000,
+    "direction": "outbound",
+    "counterparty_name": "Moscow OTC Broker",
+    "counterparty_country": "Russia",
+    "payment_rail": "SWIFT",
+    "purpose": "Post-sanctions attempted settlement",
+    "related_public_signal_ids": [
+      "alert-034",
+      "alert-036"
+    ]
+  },
+  {
+    "transaction_id": "tx-016",
+    "customer_id": "demo-006",
+    "booked_at": "2022-04-06T10:30:00Z",
+    "amount_chf": 120000,
+    "direction": "outbound",
+    "counterparty_name": "High Risk VASP Cluster",
+    "counterparty_country": "Russia",
+    "payment_rail": "SWIFT",
+    "purpose": "Exchange liquidity movement",
+    "related_public_signal_ids": [
+      "alert-033"
+    ]
+  },
+  {
+    "transaction_id": "tx-017",
+    "customer_id": "demo-006",
+    "booked_at": "2022-04-07T11:45:00Z",
+    "amount_chf": 42000,
+    "direction": "inbound",
+    "counterparty_name": "Baltic Payment Processor",
+    "counterparty_country": "Estonia",
+    "payment_rail": "SEPA",
+    "purpose": "Legacy exchange settlement",
+    "related_public_signal_ids": []
+  },
+  {
+    "transaction_id": "tx-018",
+    "customer_id": "demo-007",
+    "booked_at": "2023-04-25T13:17:00Z",
+    "amount_chf": 6500000,
+    "direction": "outbound",
+    "counterparty_name": "Singapore Tobacco Distributor",
+    "counterparty_country": "Singapore",
+    "payment_rail": "SWIFT",
+    "purpose": "Trade settlement",
+    "related_public_signal_ids": [
+      "alert-037"
+    ]
+  },
+  {
+    "transaction_id": "tx-019",
+    "customer_id": "demo-007",
+    "booked_at": "2023-04-26T09:55:00Z",
+    "amount_chf": 1800000,
+    "direction": "outbound",
+    "counterparty_name": "DPRK Exposure Review Escrow",
+    "counterparty_country": "North Korea",
+    "payment_rail": "SWIFT",
+    "purpose": "Synthetic sanctions-review placeholder",
+    "related_public_signal_ids": [
+      "alert-038",
+      "alert-040"
+    ]
+  },
+  {
+    "transaction_id": "tx-020",
+    "customer_id": "demo-007",
+    "booked_at": "2023-04-27T15:08:00Z",
+    "amount_chf": 3200000,
+    "direction": "inbound",
+    "counterparty_name": "UK Operating Entity",
+    "counterparty_country": "United Kingdom",
+    "payment_rail": "SWIFT",
+    "purpose": "Intercompany treasury movement",
+    "related_public_signal_ids": []
+  },
+  {
+    "transaction_id": "tx-021",
+    "customer_id": "demo-001",
+    "booked_at": "2025-06-02T09:18:00Z",
+    "amount_chf": 4400000,
+    "direction": "outbound",
+    "counterparty_name": "Bitstamp Europe SA",
+    "counterparty_country": "Luxembourg",
+    "payment_rail": "SWIFT",
+    "purpose": "Acquisition-close treasury support",
+    "related_public_signal_ids": [
+      "alert-001",
+      "alert-005"
+    ]
+  },
+  {
+    "transaction_id": "tx-022",
+    "customer_id": "demo-001",
+    "booked_at": "2025-06-04T15:33:00Z",
+    "amount_chf": 1350000,
+    "direction": "outbound",
+    "counterparty_name": "Bitstamp UK Ltd",
+    "counterparty_country": "United Kingdom",
+    "payment_rail": "SWIFT",
+    "purpose": "Integration operating account funding",
+    "related_public_signal_ids": [
+      "alert-003",
+      "alert-004"
+    ]
+  },
+  {
+    "transaction_id": "tx-023",
+    "customer_id": "demo-004",
+    "booked_at": "2025-06-30T10:04:00Z",
+    "amount_chf": 890000,
+    "direction": "outbound",
+    "counterparty_name": "Backed Assets Issuance",
+    "counterparty_country": "Bermuda",
+    "payment_rail": "SWIFT",
+    "purpose": "Tokenized equities program settlement",
+    "related_public_signal_ids": [
+      "alert-017",
+      "alert-018"
+    ]
+  },
+  {
+    "transaction_id": "tx-024",
+    "customer_id": "demo-005",
+    "booked_at": "2026-06-18T11:27:00Z",
+    "amount_chf": 620000,
+    "direction": "inbound",
+    "counterparty_name": "Stablecoin Payment Network Participant",
+    "counterparty_country": "Singapore",
+    "payment_rail": "SWIFT",
+    "purpose": "Circle Payments Network pilot settlement",
+    "related_public_signal_ids": [
+      "alert-022",
+      "alert-025"
+    ]
+  }
+]

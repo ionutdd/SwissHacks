@@ -30,6 +30,15 @@ Write-RefreshLog "[$startedAt] Starting SignalWatch material refresh. LookbackHo
 }
 
 $exitCode = $LASTEXITCODE
+if ($exitCode -eq 0) {
+  & python "scripts\build_challenge_gap_outputs.py" *>&1 | ForEach-Object {
+    $line = $_.ToString()
+    Write-Output $line
+    Write-RefreshLog $line
+  }
+  $exitCode = $LASTEXITCODE
+}
+
 $finishedAt = Get-Date -Format "yyyy-MM-dd HH:mm:ss K"
 Write-RefreshLog "[$finishedAt] Finished SignalWatch material refresh. ExitCode=$exitCode"
 
