@@ -1929,5 +1929,543 @@
     "comparison_reason": "entity_type requires review due to Circle Investor Relations profile. Circle Investor Relations profile is not listed in baseline known_products. The source is undated, but source quality is high enough for a review alert.",
     "status": "new",
     "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-032",
+    "customer_id": "demo-006",
+    "category": "mixed",
+    "signal_type": "business_activity_change",
+    "title": "Garantex Europe OU business activity changed: Russia-linked virtual currency exchange with AML/CFT deficiencies",
+    "summary": "1 evidence document support business_activity_change for Russia-linked virtual currency exchange with AML/CFT deficiencies. Russia-linked virtual currency exchange with AML/CFT deficiencies is not listed in baseline known_products. risk_rating requires review due to Russia-linked virtual currency exchange with AML/CFT deficiencies.",
+    "changed_fields": [
+      "known_products",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "known_products": [
+        "crypto exchange monitoring"
+      ],
+      "risk_rating": "medium"
+    },
+    "new_value": {
+      "known_products": [
+        "Russia-linked virtual currency exchange with AML/CFT deficiencies"
+      ],
+      "risk_rating": [
+        "Review due to Russia-linked virtual currency exchange with AML/CFT deficiencies"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.94,
+    "recommended_action": "Review the updated business activity and determine whether the current KYC risk rating still fits.",
+    "evidence_document_ids": [
+      "doc-019"
+    ],
+    "fact_ids": [
+      "fact-043"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-019",
+        "source_name": "U.S. Department of the Treasury",
+        "source_url": "https://home.treasury.gov/news/press-releases/jy0701",
+        "published_at": "2022-04-05",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "regulator",
+        "source_quality": "A",
+        "title": "Treasury Sanctions Russia-Based Hydra and Ransomware-Enabling Virtual Currency Exchange Garantex",
+        "excerpt": "Garantex is a virtual currency exchange founded in late 2019 and originally registered in Estonia. The majority of Garantex's operations are carried out in Moscow, including at Federation Tower, and St. Petersburg, Russia, where other sanctioned virtual currency exchanges have also operated."
+      }
+    ],
+    "comparison_reason": "Russia-linked virtual currency exchange with AML/CFT deficiencies is not listed in baseline known_products. risk_rating requires review due to Russia-linked virtual currency exchange with AML/CFT deficiencies.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-033",
+    "customer_id": "demo-006",
+    "category": "mixed",
+    "signal_type": "digital_asset_activity",
+    "title": "Garantex Europe OU has new digital-asset activity: sanctioned Russia-linked virtual currency exchange",
+    "summary": "1 evidence document support digital_asset_activity for sanctioned Russia-linked virtual currency exchange. sanctioned Russia-linked virtual currency exchange is not listed in baseline known_products. risk_rating requires review due to sanctioned Russia-linked virtual currency exchange.",
+    "changed_fields": [
+      "known_products",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "known_products": [
+        "crypto exchange monitoring"
+      ],
+      "risk_rating": "medium"
+    },
+    "new_value": {
+      "known_products": [
+        "sanctioned Russia-linked virtual currency exchange"
+      ],
+      "risk_rating": [
+        "Review due to sanctioned Russia-linked virtual currency exchange"
+      ]
+    },
+    "severity": "high",
+    "confidence": 0.94,
+    "recommended_action": "Review custody, trading, and lending suitability; assess digital-asset risk impact.",
+    "evidence_document_ids": [
+      "doc-019"
+    ],
+    "fact_ids": [
+      "fact-044"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-019",
+        "source_name": "U.S. Department of the Treasury",
+        "source_url": "https://home.treasury.gov/news/press-releases/jy0701",
+        "published_at": "2022-04-05",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "regulator",
+        "source_quality": "A",
+        "title": "Treasury Sanctions Russia-Based Hydra and Ransomware-Enabling Virtual Currency Exchange Garantex",
+        "excerpt": "Garantex is a virtual currency exchange founded in late 2019 and originally registered in Estonia. The majority of Garantex's operations are carried out in Moscow, including at Federation Tower, and St. Petersburg, Russia, where other sanctioned virtual currency exchanges have also operated."
+      }
+    ],
+    "comparison_reason": "sanctioned Russia-linked virtual currency exchange is not listed in baseline known_products. risk_rating requires review due to sanctioned Russia-linked virtual currency exchange.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-034",
+    "customer_id": "demo-006",
+    "category": "risk",
+    "signal_type": "jurisdiction_restriction",
+    "title": "Garantex Europe OU has jurisdiction restriction signal: Russia sanctions and virtual-currency evasion exposure",
+    "summary": "1 evidence document support jurisdiction_restriction for Russia sanctions and virtual-currency evasion exposure. Russia is not listed in baseline known_jurisdictions. risk_rating requires review due to Russia sanctions and virtual-currency evasion exposure.",
+    "changed_fields": [
+      "known_jurisdictions",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "known_jurisdictions": [
+        "Estonia"
+      ],
+      "risk_rating": "medium"
+    },
+    "new_value": {
+      "known_jurisdictions": [
+        "Russia"
+      ],
+      "risk_rating": [
+        "Review due to Russia sanctions and virtual-currency evasion exposure"
+      ]
+    },
+    "severity": "high",
+    "confidence": 0.94,
+    "recommended_action": "Ask RM to confirm operating jurisdictions and route to compliance if customer activity includes restricted markets.",
+    "evidence_document_ids": [
+      "doc-019"
+    ],
+    "fact_ids": [
+      "fact-046"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-019",
+        "source_name": "U.S. Department of the Treasury",
+        "source_url": "https://home.treasury.gov/news/press-releases/jy0701",
+        "published_at": "2022-04-05",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "regulator",
+        "source_quality": "A",
+        "title": "Treasury Sanctions Russia-Based Hydra and Ransomware-Enabling Virtual Currency Exchange Garantex",
+        "excerpt": "Garantex is a virtual currency exchange founded in late 2019 and originally registered in Estonia. The majority of Garantex's operations are carried out in Moscow, including at Federation Tower, and St. Petersburg, Russia, where other sanctioned virtual currency exchanges have also operated."
+      }
+    ],
+    "comparison_reason": "Russia is not listed in baseline known_jurisdictions. risk_rating requires review due to Russia sanctions and virtual-currency evasion exposure.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-035",
+    "customer_id": "demo-006",
+    "category": "risk",
+    "signal_type": "regulatory_scrutiny",
+    "title": "Garantex Europe OU faces regulatory scrutiny: OFAC sanctions on Garantex",
+    "summary": "1 evidence document support regulatory_scrutiny for OFAC sanctions on Garantex. risk_rating requires review due to OFAC sanctions on Garantex. OFAC sanctions on Garantex is not listed in baseline business_area.",
+    "changed_fields": [
+      "business_area",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "risk_rating": "medium",
+      "business_area": [
+        "virtual currency exchange",
+        "fiat-to-crypto trading"
+      ]
+    },
+    "new_value": {
+      "risk_rating": [
+        "Review due to OFAC sanctions on Garantex"
+      ],
+      "business_area": [
+        "OFAC sanctions on Garantex"
+      ]
+    },
+    "severity": "high",
+    "confidence": 0.94,
+    "recommended_action": "Escalate to compliance for enhanced due diligence and confirm whether the customer has licensing or market-access changes.",
+    "evidence_document_ids": [
+      "doc-019"
+    ],
+    "fact_ids": [
+      "fact-045"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-019",
+        "source_name": "U.S. Department of the Treasury",
+        "source_url": "https://home.treasury.gov/news/press-releases/jy0701",
+        "published_at": "2022-04-05",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "regulator",
+        "source_quality": "A",
+        "title": "Treasury Sanctions Russia-Based Hydra and Ransomware-Enabling Virtual Currency Exchange Garantex",
+        "excerpt": "Garantex is a virtual currency exchange founded in late 2019 and originally registered in Estonia. The majority of Garantex's operations are carried out in Moscow, including at Federation Tower, and St. Petersburg, Russia, where other sanctioned virtual currency exchanges have also operated."
+      }
+    ],
+    "comparison_reason": "risk_rating requires review due to OFAC sanctions on Garantex. OFAC sanctions on Garantex is not listed in baseline business_area.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-036",
+    "customer_id": "demo-006",
+    "category": "risk",
+    "signal_type": "risk_rating_review",
+    "title": "Garantex Europe OU risk rating should be reviewed",
+    "summary": "1 evidence document support risk_rating_review for Garantex illicit finance and AML/CFT risk. risk_rating requires review due to Garantex illicit finance and AML/CFT risk. Garantex illicit finance and AML/CFT risk is not listed in baseline known_products. Garantex illicit finance and AML/CFT risk is not listed in baseline business_area.",
+    "changed_fields": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "risk_rating": "medium",
+      "known_products": [
+        "crypto exchange monitoring"
+      ],
+      "business_area": [
+        "virtual currency exchange",
+        "fiat-to-crypto trading"
+      ]
+    },
+    "new_value": {
+      "risk_rating": [
+        "Review due to Garantex illicit finance and AML/CFT risk"
+      ],
+      "known_products": [
+        "Garantex illicit finance and AML/CFT risk"
+      ],
+      "business_area": [
+        "Garantex illicit finance and AML/CFT risk"
+      ]
+    },
+    "severity": "high",
+    "confidence": 0.94,
+    "recommended_action": "Route to compliance for risk-rating review and document whether the baseline should be updated.",
+    "evidence_document_ids": [
+      "doc-019"
+    ],
+    "fact_ids": [
+      "fact-047"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-019",
+        "source_name": "U.S. Department of the Treasury",
+        "source_url": "https://home.treasury.gov/news/press-releases/jy0701",
+        "published_at": "2022-04-05",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "regulator",
+        "source_quality": "A",
+        "title": "Treasury Sanctions Russia-Based Hydra and Ransomware-Enabling Virtual Currency Exchange Garantex",
+        "excerpt": "Garantex is a virtual currency exchange founded in late 2019 and originally registered in Estonia. The majority of Garantex's operations are carried out in Moscow, including at Federation Tower, and St. Petersburg, Russia, where other sanctioned virtual currency exchanges have also operated."
+      }
+    ],
+    "comparison_reason": "risk_rating requires review due to Garantex illicit finance and AML/CFT risk. Garantex illicit finance and AML/CFT risk is not listed in baseline known_products. Garantex illicit finance and AML/CFT risk is not listed in baseline business_area.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-037",
+    "customer_id": "demo-007",
+    "category": "mixed",
+    "signal_type": "business_activity_change",
+    "title": "British American Tobacco p.l.c. business activity changed: North Korea tobacco joint-venture and export exposure",
+    "summary": "1 evidence document support business_activity_change for North Korea tobacco joint-venture and export exposure. North Korea tobacco joint-venture and export exposure is not listed in baseline business_area. North Korea tobacco joint-venture and export exposure is not listed in baseline known_products. risk_rating requires review due to North Korea tobacco joint-venture and export exposure.",
+    "changed_fields": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "business_area": [
+        "tobacco products",
+        "consumer goods"
+      ],
+      "known_products": [
+        "corporate relationship monitoring"
+      ],
+      "risk_rating": "medium"
+    },
+    "new_value": {
+      "business_area": [
+        "North Korea tobacco joint-venture and export exposure"
+      ],
+      "known_products": [
+        "North Korea tobacco joint-venture and export exposure"
+      ],
+      "risk_rating": [
+        "Review due to North Korea tobacco joint-venture and export exposure"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.94,
+    "recommended_action": "Review the updated business activity and determine whether the current KYC risk rating still fits.",
+    "evidence_document_ids": [
+      "doc-020"
+    ],
+    "fact_ids": [
+      "fact-049"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-020",
+        "source_name": "U.S. Department of the Treasury",
+        "source_url": "https://home.treasury.gov/news/press-releases/jy1441",
+        "published_at": "2023-04-25",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "regulator",
+        "source_quality": "A",
+        "title": "Treasury Announces $508 Million Settlement with British American Tobacco",
+        "excerpt": "OFAC announced a $508 million settlement agreement with London-headquartered British American Tobacco p.l.c. to resolve its apparent violations of U.S. sanctions on the Democratic People's Republic of Korea (DPRK) and proliferators of weapons of mass destruction."
+      }
+    ],
+    "comparison_reason": "North Korea tobacco joint-venture and export exposure is not listed in baseline business_area. North Korea tobacco joint-venture and export exposure is not listed in baseline known_products. risk_rating requires review due to North Korea tobacco joint-venture and export exposure.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-038",
+    "customer_id": "demo-007",
+    "category": "risk",
+    "signal_type": "jurisdiction_restriction",
+    "title": "British American Tobacco p.l.c. has jurisdiction restriction signal: North Korea sanctions exposure",
+    "summary": "1 evidence document support jurisdiction_restriction for North Korea sanctions exposure. North Korea is not listed in baseline known_jurisdictions. risk_rating requires review due to North Korea sanctions exposure.",
+    "changed_fields": [
+      "known_jurisdictions",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "known_jurisdictions": [
+        "United Kingdom",
+        "Singapore"
+      ],
+      "risk_rating": "medium"
+    },
+    "new_value": {
+      "known_jurisdictions": [
+        "North Korea"
+      ],
+      "risk_rating": [
+        "Review due to North Korea sanctions exposure"
+      ]
+    },
+    "severity": "high",
+    "confidence": 0.94,
+    "recommended_action": "Ask RM to confirm operating jurisdictions and route to compliance if customer activity includes restricted markets.",
+    "evidence_document_ids": [
+      "doc-020"
+    ],
+    "fact_ids": [
+      "fact-051"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-020",
+        "source_name": "U.S. Department of the Treasury",
+        "source_url": "https://home.treasury.gov/news/press-releases/jy1441",
+        "published_at": "2023-04-25",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "regulator",
+        "source_quality": "A",
+        "title": "Treasury Announces $508 Million Settlement with British American Tobacco",
+        "excerpt": "OFAC announced a $508 million settlement agreement with London-headquartered British American Tobacco p.l.c. to resolve its apparent violations of U.S. sanctions on the Democratic People's Republic of Korea (DPRK) and proliferators of weapons of mass destruction."
+      }
+    ],
+    "comparison_reason": "North Korea is not listed in baseline known_jurisdictions. risk_rating requires review due to North Korea sanctions exposure.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-039",
+    "customer_id": "demo-007",
+    "category": "mixed",
+    "signal_type": "new_jurisdiction",
+    "title": "British American Tobacco p.l.c. has new jurisdiction exposure: North Korea",
+    "summary": "1 evidence document support new_jurisdiction for North Korea. North Korea is not listed in baseline known_jurisdictions. risk_rating requires review due to North Korea.",
+    "changed_fields": [
+      "known_jurisdictions",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "known_jurisdictions": [
+        "United Kingdom",
+        "Singapore"
+      ],
+      "risk_rating": "medium"
+    },
+    "new_value": {
+      "known_jurisdictions": [
+        "North Korea"
+      ],
+      "risk_rating": [
+        "Review due to North Korea"
+      ]
+    },
+    "severity": "high",
+    "confidence": 0.94,
+    "recommended_action": "Request customer confirmation and update KYC jurisdiction and entity structure fields.",
+    "evidence_document_ids": [
+      "doc-020"
+    ],
+    "fact_ids": [
+      "fact-048"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-020",
+        "source_name": "U.S. Department of the Treasury",
+        "source_url": "https://home.treasury.gov/news/press-releases/jy1441",
+        "published_at": "2023-04-25",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "regulator",
+        "source_quality": "A",
+        "title": "Treasury Announces $508 Million Settlement with British American Tobacco",
+        "excerpt": "OFAC announced a $508 million settlement agreement with London-headquartered British American Tobacco p.l.c. to resolve its apparent violations of U.S. sanctions on the Democratic People's Republic of Korea (DPRK) and proliferators of weapons of mass destruction."
+      }
+    ],
+    "comparison_reason": "North Korea is not listed in baseline known_jurisdictions. risk_rating requires review due to North Korea.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-040",
+    "customer_id": "demo-007",
+    "category": "risk",
+    "signal_type": "regulatory_scrutiny",
+    "title": "British American Tobacco p.l.c. faces regulatory scrutiny: $508 million OFAC settlement for North Korea sanctions violations",
+    "summary": "1 evidence document support regulatory_scrutiny for $508 million OFAC settlement for North Korea sanctions violations. risk_rating requires review due to $508 million OFAC settlement for North Korea sanctions violations. $508 million OFAC settlement for North Korea sanctions violations is not listed in baseline business_area.",
+    "changed_fields": [
+      "business_area",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "risk_rating": "medium",
+      "business_area": [
+        "tobacco products",
+        "consumer goods"
+      ]
+    },
+    "new_value": {
+      "risk_rating": [
+        "Review due to $508 million OFAC settlement for North Korea sanctions violations"
+      ],
+      "business_area": [
+        "$508 million OFAC settlement for North Korea sanctions violations"
+      ]
+    },
+    "severity": "high",
+    "confidence": 0.94,
+    "recommended_action": "Escalate to compliance for enhanced due diligence and confirm whether the customer has licensing or market-access changes.",
+    "evidence_document_ids": [
+      "doc-020"
+    ],
+    "fact_ids": [
+      "fact-050"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-020",
+        "source_name": "U.S. Department of the Treasury",
+        "source_url": "https://home.treasury.gov/news/press-releases/jy1441",
+        "published_at": "2023-04-25",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "regulator",
+        "source_quality": "A",
+        "title": "Treasury Announces $508 Million Settlement with British American Tobacco",
+        "excerpt": "OFAC announced a $508 million settlement agreement with London-headquartered British American Tobacco p.l.c. to resolve its apparent violations of U.S. sanctions on the Democratic People's Republic of Korea (DPRK) and proliferators of weapons of mass destruction."
+      }
+    ],
+    "comparison_reason": "risk_rating requires review due to $508 million OFAC settlement for North Korea sanctions violations. $508 million OFAC settlement for North Korea sanctions violations is not listed in baseline business_area.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-041",
+    "customer_id": "demo-007",
+    "category": "risk",
+    "signal_type": "risk_rating_review",
+    "title": "British American Tobacco p.l.c. risk rating should be reviewed",
+    "summary": "1 evidence document support risk_rating_review for North Korea sanctions and WMD-proliferator risk. risk_rating requires review due to North Korea sanctions and WMD-proliferator risk. North Korea sanctions and WMD-proliferator risk is not listed in baseline known_products. North Korea sanctions and WMD-proliferator risk is not listed in baseline business_area.",
+    "changed_fields": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "risk_rating": "medium",
+      "known_products": [
+        "corporate relationship monitoring"
+      ],
+      "business_area": [
+        "tobacco products",
+        "consumer goods"
+      ]
+    },
+    "new_value": {
+      "risk_rating": [
+        "Review due to North Korea sanctions and WMD-proliferator risk"
+      ],
+      "known_products": [
+        "North Korea sanctions and WMD-proliferator risk"
+      ],
+      "business_area": [
+        "North Korea sanctions and WMD-proliferator risk"
+      ]
+    },
+    "severity": "high",
+    "confidence": 0.94,
+    "recommended_action": "Route to compliance for risk-rating review and document whether the baseline should be updated.",
+    "evidence_document_ids": [
+      "doc-020"
+    ],
+    "fact_ids": [
+      "fact-052"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-020",
+        "source_name": "U.S. Department of the Treasury",
+        "source_url": "https://home.treasury.gov/news/press-releases/jy1441",
+        "published_at": "2023-04-25",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "regulator",
+        "source_quality": "A",
+        "title": "Treasury Announces $508 Million Settlement with British American Tobacco",
+        "excerpt": "OFAC announced a $508 million settlement agreement with London-headquartered British American Tobacco p.l.c. to resolve its apparent violations of U.S. sanctions on the Democratic People's Republic of Korea (DPRK) and proliferators of weapons of mass destruction."
+      }
+    ],
+    "comparison_reason": "risk_rating requires review due to North Korea sanctions and WMD-proliferator risk. North Korea sanctions and WMD-proliferator risk is not listed in baseline known_products. North Korea sanctions and WMD-proliferator risk is not listed in baseline business_area.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
   }
 ]

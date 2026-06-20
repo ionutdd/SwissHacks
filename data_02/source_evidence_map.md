@@ -102,6 +102,30 @@ Baseline fields: `business_area`, `entity_type`, `known_jurisdictions`, `known_p
 
 Demo value: Circle expanded from stablecoin issuer baseline into public-company status, tokenized money-market products, payment-network expansion, and new infrastructure products.
 
+### demo-006: Garantex Europe OU
+
+Documents:
+
+- `doc-019`: Treasury Sanctions Russia-Based Hydra and Ransomware-Enabling Virtual Currency Exchange Garantex (A, regulator).
+
+Supported drift: `business_activity_change`, `digital_asset_activity`, `jurisdiction_restriction`, `regulatory_scrutiny`, `risk_rating_review`
+
+Baseline fields: `business_area`, `known_jurisdictions`, `known_products`, `risk_rating`
+
+Demo value: Garantex moved from a VASP baseline into sanctioned Russia-linked crypto exchange risk, with AML/CFT deficiencies and illicit transaction exposure.
+
+### demo-007: British American Tobacco p.l.c.
+
+Documents:
+
+- `doc-020`: Treasury Announces $508 Million Settlement with British American Tobacco (A, regulator).
+
+Supported drift: `business_activity_change`, `jurisdiction_restriction`, `new_jurisdiction`, `regulatory_scrutiny`, `risk_rating_review`
+
+Baseline fields: `business_area`, `known_jurisdictions`, `known_products`, `risk_rating`
+
+Demo value: BAT moved from a mainstream public-company baseline into sanctioned-country business risk tied to North Korea and U.S. financial-system exposure.
+
 ## Connector Trace
 
 - DISCOVERY `sec_catalog_sources` for `portfolio`: 3 source(s).
@@ -137,6 +161,8 @@ Demo value: Circle expanded from stablecoin issuer baseline into public-company 
 - `doc-016` from `web_page`: entity score 65, retrieval score 119, source-term score 34, text chars 7149.
 - `doc-017` from `web_page`: entity score 28, retrieval score 123, source-term score 35, text chars 2259.
 - `doc-018` from `web_page`: entity score 135, retrieval score 108, source-term score 32, text chars 10128.
+- `doc-019` from `manual_regulator_source`: A-quality OFAC/Treasury source for Garantex sanctions and crypto AML/CFT risk.
+- `doc-020` from `manual_regulator_source`: A-quality OFAC/Treasury source for BAT North Korea sanctions settlement.
 
 ## Weak Or Replacement Needed
 

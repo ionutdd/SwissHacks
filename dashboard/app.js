@@ -14,7 +14,9 @@
     "demo-002": "Alex Meier",
     "demo-003": "Jonas Frei",
     "demo-004": "Nina Schmid",
-    "demo-005": "Rafael Costa"
+    "demo-005": "Rafael Costa",
+    "demo-006": "Lea Baumann",
+    "demo-007": "Sofia Weber"
   };
   const SEVERITY_RANK = { critical: 4, high: 3, medium: 2, low: 1 };
   const CATEGORY_RANK = { risk: 4, mixed: 3, ownership_control: 2, opportunity: 1 };
@@ -297,19 +299,24 @@
   function alertRowTemplate(alert) {
     const active = alert.alert_id === state.selectedAlertId ? "active" : "";
     return `
-      <button class="alert-row ${active}" type="button" data-alert-id="${escapeAttr(alert.alert_id)}" role="listitem">
-        <div class="alert-topline">
-          <span class="alert-title">${escapeHtml(cleanText(alert.title))}</span>
-          <span class="severity-mark ${alert.severity}">${escapeHtml(alert.severity)}</span>
+      <article class="alert-row ${active}" role="listitem">
+        <button class="alert-row-main" type="button" data-alert-id="${escapeAttr(alert.alert_id)}">
+          <div class="alert-topline">
+            <span class="alert-title">${escapeHtml(cleanText(alert.title))}</span>
+            <span class="severity-mark ${alert.severity}">${escapeHtml(alert.severity)}</span>
+          </div>
+          <div class="alert-subline">${escapeHtml(cleanText(alert.summary))}</div>
+          <div class="alert-tags">
+            <span class="pill ${alert.category}">${labelize(alert.category)}</span>
+            <span class="pill">${Math.round(alert.confidence * 100)}% confidence</span>
+            <span class="pill">${labelize(currentStatus(alert))}</span>
+            <span class="pill">${alert.evidence_document_ids.length} evidence</span>
+          </div>
+        </button>
+        <div class="alert-source-strip">
+          ${sourceLinksTemplate(alert, 2)}
         </div>
-        <div class="alert-subline">${escapeHtml(cleanText(alert.summary))}</div>
-        <div class="alert-tags">
-          <span class="pill ${alert.category}">${labelize(alert.category)}</span>
-          <span class="pill">${Math.round(alert.confidence * 100)}% confidence</span>
-          <span class="pill">${labelize(currentStatus(alert))}</span>
-          <span class="pill">${alert.evidence_document_ids.length} evidence</span>
-        </div>
-      </button>
+      </article>
     `;
   }
 
@@ -332,6 +339,9 @@
           </div>
           <h2>${escapeHtml(cleanText(alert.title))}</h2>
           <p class="summary">${escapeHtml(cleanText(alert.summary))}</p>
+          <div class="detail-source-strip">
+            ${sourceLinksTemplate(alert)}
+          </div>
         </div>
         <div class="confidence-ring" style="--score: ${score}%;" aria-label="${score}% confidence">
           <span>${score}%</span>
@@ -425,6 +435,32 @@
     return evidenceItems.length
       ? `<ul class="evidence-list">${evidenceItems.join("")}</ul>`
       : `<div class="empty-state">No evidence attached.</div>`;
+  }
+
+  function sourceLinksTemplate(alert, limit = Infinity) {
+    const evidence = uniqueEvidence([alert]).filter((item) => item.source_url);
+    if (!evidence.length) {
+      return `<span class="source-link-muted">No source URL</span>`;
+    }
+
+    const visible = evidence.slice(0, limit);
+    const extraCount = evidence.length - visible.length;
+    const links = visible.map((item) => {
+      const label = cleanText(item.source_name || item.title || item.document_id || "Source");
+      const meta = item.source_type ? ` ${labelize(item.source_type)}` : "";
+      return `
+        <a class="source-link" href="${escapeAttr(item.source_url)}" target="_blank" rel="noreferrer">
+          <span>Open source</span>
+          <strong>${escapeHtml(label)}</strong>
+          <small>${escapeHtml(item.document_id || "")}${escapeHtml(meta)}</small>
+        </a>
+      `;
+    });
+
+    if (extraCount > 0) {
+      links.push(`<span class="source-link-more">+${extraCount} more in detail</span>`);
+    }
+    return links.join("");
   }
 
   function actionLogTemplate(alert) {

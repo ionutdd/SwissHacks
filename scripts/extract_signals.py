@@ -76,6 +76,8 @@ JURISDICTION_PATTERNS = [
     ("Bermuda", [r"\bBermuda\b"]),
     ("Jersey", [r"\bJersey\b"]),
     ("Spain", [r"\bSpain\b", r"\bEspa(?:n|ñ)a\b"]),
+    ("Russia", [r"\bRussia\b", r"\bRussian Federation\b", r"\bMoscow\b", r"\bSt\. Petersburg\b"]),
+    ("North Korea", [r"\bNorth Korea\b", r"\bDPRK\b", r"\bDemocratic People's Republic of Korea\b"]),
 ]
 
 RECOMMENDED_ACTIONS = {
@@ -406,6 +408,30 @@ def extract_new_jurisdiction(document, baseline):
                 )
             ]
 
+    if "garantex" in lower_text and "russia" in lower_text:
+        return [
+            make_fact(
+                document,
+                baseline,
+                "new_jurisdiction",
+                "Russia",
+                "Treasury evidence says the majority of Garantex operations are carried out in Moscow and St. Petersburg, Russia.",
+                jurisdiction="Russia",
+            )
+        ]
+
+    if "british american tobacco" in lower_text and ("north korea" in lower_text or "dprk" in lower_text):
+        return [
+            make_fact(
+                document,
+                baseline,
+                "new_jurisdiction",
+                "North Korea",
+                "OFAC evidence describes North Korea joint-venture profits and exports to the North Korean Embassy in Singapore.",
+                jurisdiction="North Korea",
+            )
+        ]
+
     return []
 
 
@@ -440,6 +466,28 @@ def extract_business_activity_change(document, baseline):
                 "business_activity_change",
                 "U.S. futures and multi-asset professional trading",
                 "The NinjaTrader acquisition expands Kraken toward U.S. futures and multi-asset professional trading.",
+            )
+        )
+    elif "garantex" in text and "virtual currency exchange" in text:
+        facts.append(
+            make_fact(
+                document,
+                baseline,
+                "business_activity_change",
+                "Russia-linked virtual currency exchange with AML/CFT deficiencies",
+                "Treasury evidence describes Garantex as a Russia-linked virtual currency exchange with AML/CFT deficiencies and illicit transaction exposure.",
+                jurisdiction="Russia",
+            )
+        )
+    elif "british american tobacco" in text and "north korea" in text:
+        facts.append(
+            make_fact(
+                document,
+                baseline,
+                "business_activity_change",
+                "North Korea tobacco joint-venture and export exposure",
+                "OFAC evidence describes BAT-related North Korea joint-venture profits and tobacco exports involving U.S. financial institutions.",
+                jurisdiction="North Korea",
             )
         )
     return facts
@@ -539,6 +587,17 @@ def extract_digital_asset_activity(document, baseline):
                 "Bitstamp legal entities provide crypto-asset services based on client residency.",
             )
         ]
+    if "garantex" in text and ("virtual currency exchange" in text or "virtual currencies" in text):
+        return [
+            make_fact(
+                document,
+                baseline,
+                "digital_asset_activity",
+                "sanctioned Russia-linked virtual currency exchange",
+                "Treasury evidence links Garantex virtual currency exchange activity to illicit actors, darknet markets, ransomware, and Russian financial-services sanctions exposure.",
+                jurisdiction="Russia",
+            )
+        ]
     return []
 
 
@@ -580,6 +639,28 @@ def extract_treasury_policy_change(document, baseline):
 
 def extract_regulatory_scrutiny(document, baseline):
     text = lower_document_text(document)
+    if "garantex" in text and ("ofac" in text or "sanctioned" in text):
+        return [
+            make_fact(
+                document,
+                baseline,
+                "regulatory_scrutiny",
+                "OFAC sanctions on Garantex",
+                "Treasury sanctioned Garantex and described illicit transaction exposure, AML/CFT deficiencies, and Russia financial-services sanctions risk.",
+                jurisdiction="Russia",
+            )
+        ]
+    if "british american tobacco" in text and ("ofac" in text or "settlement" in text) and "north korea" in text:
+        return [
+            make_fact(
+                document,
+                baseline,
+                "regulatory_scrutiny",
+                "$508 million OFAC settlement for North Korea sanctions violations",
+                "OFAC announced a $508 million settlement with British American Tobacco for apparent violations of U.S. sanctions on North Korea and WMD proliferators.",
+                jurisdiction="North Korea",
+            )
+        ]
     if "cftc" in text and ("penalty" in text or "order" in text):
         return [
             make_fact(
@@ -607,6 +688,28 @@ def extract_regulatory_scrutiny(document, baseline):
 
 def extract_jurisdiction_restriction(document, baseline):
     text = lower_document_text(document)
+    if "garantex" in text and ("russia" in text or "russian federation" in text) and ("sanction" in text or "e.o. 14024" in text):
+        return [
+            make_fact(
+                document,
+                baseline,
+                "jurisdiction_restriction",
+                "Russia sanctions and virtual-currency evasion exposure",
+                "Treasury designated Garantex for operating in the Russian Federation financial-services sector and highlighted virtual-currency sanctions-evasion risk.",
+                jurisdiction="Russia",
+            )
+        ]
+    if "british american tobacco" in text and ("north korea" in text or "dprk" in text):
+        return [
+            make_fact(
+                document,
+                baseline,
+                "jurisdiction_restriction",
+                "North Korea sanctions exposure",
+                "OFAC evidence describes North Korea-related business and payments touching the U.S. financial system.",
+                jurisdiction="North Korea",
+            )
+        ]
     if has_any(text, ["blocked access", "bloqueo", "sin licencia", "without a gambling licence"]):
         return [
             make_fact(
@@ -739,6 +842,28 @@ def extract_commercial_opportunity(document, baseline):
 
 def extract_risk_rating_review(document, baseline):
     text = lower_document_text(document)
+    if "garantex" in text and has_any(text, ["illicit actors", "darknet markets", "ransomware", "aml/cft deficiencies"]):
+        return [
+            make_fact(
+                document,
+                baseline,
+                "risk_rating_review",
+                "Garantex illicit finance and AML/CFT risk",
+                "Treasury evidence associates Garantex with illicit actors, darknet markets, ransomware proceeds, and AML/CFT deficiencies.",
+                jurisdiction="Russia",
+            )
+        ]
+    if "british american tobacco" in text and has_any(text, ["north korea", "dprk", "wmd", "designated north korean banks"]):
+        return [
+            make_fact(
+                document,
+                baseline,
+                "risk_rating_review",
+                "North Korea sanctions and WMD-proliferator risk",
+                "OFAC evidence describes apparent North Korea and WMD sanctions violations involving BAT, intermediaries, and U.S. financial institutions.",
+                jurisdiction="North Korea",
+            )
+        ]
     if "regulatory uncertainty" in text or "increased regulatory scrutiny" in text:
         return [
             make_fact(
@@ -928,7 +1053,9 @@ def severity_for_alert(fact_type, materiality, category, object_value):
     object_value = (object_value or "").lower()
     if materiality == "high":
         return "high"
-    if fact_type == "new_jurisdiction" and has_any(object_value, ["bermuda", "british virgin islands"]):
+    if fact_type == "new_jurisdiction" and has_any(object_value, ["bermuda", "british virgin islands", "russia", "north korea"]):
+        return "high"
+    if fact_type == "digital_asset_activity" and has_any(object_value, ["sanctioned", "ransomware", "darknet"]):
         return "high"
     if fact_type == "digital_asset_activity" and has_any(object_value, ["bitcoin", "collateral"]):
         return "medium"

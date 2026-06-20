@@ -494,5 +494,65 @@
     "automation_potential": "medium",
     "confidence_hint": "high",
     "limitations": "Product page may not expose a publication date."
+  },
+  {
+    "document_id": "doc-019",
+    "customer_id": "demo-006",
+    "source_type": "regulator",
+    "source_name": "U.S. Department of the Treasury",
+    "source_url": "https://home.treasury.gov/news/press-releases/jy0701",
+    "source_quality": "A",
+    "title": "Treasury Sanctions Russia-Based Hydra and Ransomware-Enabling Virtual Currency Exchange Garantex",
+    "published_at": "2022-04-05",
+    "collected_at": "2026-06-20T00:00:03Z",
+    "language": "en",
+    "raw_text": "Treasury sanctioned Garantex, a virtual currency exchange founded in late 2019 and originally registered in Estonia. The majority of Garantex operations are carried out in Moscow and St. Petersburg, Russia. Treasury stated that over $100 million in known Garantex transactions were associated with illicit actors and darknet markets, including Russian ransomware-as-a-service gang Conti and Hydra. Estonia's Financial Intelligence Unit had found AML/CFT deficiencies and connections between Garantex and wallets used for criminal activity. OFAC designated Garantex pursuant to E.O. 14024 for operating or having operated in the financial services sector of the Russian Federation economy.",
+    "evidence_excerpt": "Garantex is a virtual currency exchange founded in late 2019 and originally registered in Estonia. The majority of Garantex's operations are carried out in Moscow, including at Federation Tower, and St. Petersburg, Russia, where other sanctioned virtual currency exchanges have also operated.",
+    "expected_signal_types": [
+      "regulatory_scrutiny",
+      "jurisdiction_restriction",
+      "business_activity_change",
+      "digital_asset_activity",
+      "risk_rating_review"
+    ],
+    "baseline_fields_targeted": [
+      "known_jurisdictions",
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "automation_potential": "high",
+    "confidence_hint": "high",
+    "limitations": "Official enforcement source. For production, wallet-level exposure should be verified with a licensed blockchain analytics provider."
+  },
+  {
+    "document_id": "doc-020",
+    "customer_id": "demo-007",
+    "source_type": "regulator",
+    "source_name": "U.S. Department of the Treasury",
+    "source_url": "https://home.treasury.gov/news/press-releases/jy1441",
+    "source_quality": "A",
+    "title": "Treasury Announces $508 Million Settlement with British American Tobacco",
+    "published_at": "2023-04-25",
+    "collected_at": "2026-06-20T00:00:03Z",
+    "language": "en",
+    "raw_text": "OFAC announced a $508 million settlement with London-headquartered British American Tobacco p.l.c. to resolve apparent violations of U.S. sanctions on North Korea and WMD proliferators. OFAC stated that BAT engaged in a seven-year conspiracy from 2009 to 2016 to send profits from a North Korean joint venture through U.S. financial institutions using designated North Korean banks and intermediaries. BAT's Singaporean subsidiary also exported tobacco to the North Korean Embassy in Singapore until 2017, using unwitting U.S. banks to receive or process payments.",
+    "evidence_excerpt": "OFAC announced a $508 million settlement agreement with London-headquartered British American Tobacco p.l.c. to resolve its apparent violations of U.S. sanctions on the Democratic People's Republic of Korea (DPRK) and proliferators of weapons of mass destruction.",
+    "expected_signal_types": [
+      "regulatory_scrutiny",
+      "jurisdiction_restriction",
+      "business_activity_change",
+      "new_jurisdiction",
+      "risk_rating_review"
+    ],
+    "baseline_fields_targeted": [
+      "known_jurisdictions",
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "automation_potential": "high",
+    "confidence_hint": "high",
+    "limitations": "Official sanctions settlement source. The demo treats the settlement as a KYC drift trigger, not as a final customer-risk decision."
   }
 ]

@@ -412,5 +412,135 @@
       "public filing source for scalable monitoring"
     ],
     "notes": "Synthetic baseline dated before the 2025 public-listing and product expansion period. Use as a clean commercial opportunity demo."
+  },
+  {
+    "customer_id": "demo-006",
+    "legal_name": "Garantex Europe OU",
+    "aliases": [
+      "Garantex",
+      "Garantex Europe",
+      "Garantex Europe OÜ",
+      "Garantex Europe OU"
+    ],
+    "entity_type": "virtual_asset_service_provider",
+    "domicile": "Estonia",
+    "business_area": [
+      "virtual currency exchange",
+      "fiat-to-crypto trading"
+    ],
+    "risk_rating": "medium",
+    "known_jurisdictions": [
+      "Estonia"
+    ],
+    "known_products": [
+      "crypto exchange monitoring"
+    ],
+    "directors": [],
+    "executives": [],
+    "investors": [],
+    "subsidiaries": [],
+    "websites": [
+      "https://garantex.io"
+    ],
+    "social_handles": {
+      "x": [],
+      "linkedin": []
+    },
+    "known_wallets": [],
+    "last_reviewed_at": "2022-02-01",
+    "demo_story": "Garantex moved from a baseline VASP profile into OFAC-sanctioned Russia-linked exchange risk, with evidence of AML/CFT deficiencies and illicit transaction exposure.",
+    "expected_drift_types": [
+      "regulatory_scrutiny",
+      "jurisdiction_restriction",
+      "business_activity_change",
+      "digital_asset_activity",
+      "risk_rating_review"
+    ],
+    "suggested_sources_to_check": [
+      "U.S. Treasury OFAC press release on Garantex",
+      "OFAC SDN identifying information",
+      "Estonian FIU license action",
+      "DOJ or law-enforcement follow-up actions"
+    ],
+    "source_candidates": [
+      {
+        "label": "Treasury sanctions Garantex",
+        "url": "https://home.treasury.gov/news/press-releases/jy0701",
+        "source_quality": "A"
+      }
+    ],
+    "amina_relevance": [
+      "crypto AML/CFT risk",
+      "sanctions evasion monitoring",
+      "Russia jurisdiction exposure",
+      "VASP licensing drift"
+    ],
+    "notes": "Synthetic baseline dated before the April 2022 OFAC action. Use as the crypto-risk example for subtask 5."
+  },
+  {
+    "customer_id": "demo-007",
+    "legal_name": "British American Tobacco p.l.c.",
+    "aliases": [
+      "BAT",
+      "British American Tobacco",
+      "British-American Tobacco Marketing Singapore",
+      "BATM"
+    ],
+    "entity_type": "public_company",
+    "domicile": "United Kingdom",
+    "business_area": [
+      "tobacco products",
+      "consumer goods"
+    ],
+    "risk_rating": "medium",
+    "known_jurisdictions": [
+      "United Kingdom",
+      "Singapore"
+    ],
+    "known_products": [
+      "corporate relationship monitoring"
+    ],
+    "directors": [],
+    "executives": [],
+    "investors": [],
+    "subsidiaries": [
+      "British-American Tobacco Marketing (Singapore) Pte Ltd"
+    ],
+    "websites": [
+      "https://www.bat.com"
+    ],
+    "social_handles": {
+      "x": [],
+      "linkedin": []
+    },
+    "known_wallets": [],
+    "last_reviewed_at": "2023-01-31",
+    "demo_story": "BAT moved from a mainstream public-company baseline into sanctioned-country business risk after OFAC described North Korea joint-venture profits and tobacco exports involving U.S. financial institutions.",
+    "expected_drift_types": [
+      "regulatory_scrutiny",
+      "jurisdiction_restriction",
+      "business_activity_change",
+      "new_jurisdiction",
+      "risk_rating_review"
+    ],
+    "suggested_sources_to_check": [
+      "U.S. Treasury OFAC BAT North Korea settlement",
+      "DOJ deferred prosecution announcement",
+      "BAT public compliance statements"
+    ],
+    "source_candidates": [
+      {
+        "label": "Treasury BAT North Korea settlement",
+        "url": "https://home.treasury.gov/news/press-releases/jy1441",
+        "source_quality": "A"
+      }
+    ],
+    "amina_relevance": [
+      "sanctioned-country exposure",
+      "U.S. financial-system sanctions risk",
+      "subsidiary and intermediary risk",
+      "enhanced due diligence trigger"
+    ],
+    "notes": "Synthetic baseline dated before the April 2023 OFAC settlement. Use as the sanctioned-country business example for subtask 5."
   }
 ]

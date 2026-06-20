@@ -1,7 +1,7 @@
 # Collection Run Report
 
 - Generated at: 2026-06-20T00:00:03Z
-- Output documents: 18
+- Output documents: 20
 - Failed fetches: 1
 - Skipped low-signal candidates: 5
 - Discovery traces: 11
@@ -42,3 +42,5 @@ The run used split collector scripts. Each pipeline discovered candidate sources
 - `doc-016` `demo-004` A official_blog: From Wall Street to your wallet: Tokenized equities now available on Kraken
 - `doc-017` `demo-005` A investor_relations: Circle Investor Relations
 - `doc-018` `demo-005` A product_page: Circle Mint
+- `doc-019` `demo-006` A regulator: Treasury Sanctions Russia-Based Hydra and Ransomware-Enabling Virtual Currency Exchange Garantex
+- `doc-020` `demo-007` A regulator: Treasury Announces $508 Million Settlement with British American Tobacco
