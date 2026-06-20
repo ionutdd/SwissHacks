@@ -12,6 +12,8 @@ This folder turns `InitialPrompt.md` into a buildable specification package for 
 - [06 Team Workstreams Spec](06-team-workstreams-spec.md): data-first four-person task split, interfaces, dependencies, and integration plan.
 - [Subtask 01 Specs](subtask-01-demo-entities-baselines/README.md): detailed specs for demo entity selection and synthetic KYC baselines.
 - [Subtask 02 Specs](subtask-02-evidence-source-collection/README.md): detailed specs for public evidence collection and normalized source documents.
+- [Subtask 03 Specs](subtask-03-signal-extraction-scoring/README.md): detailed specs for fact extraction, baseline comparison, scoring, and alert generation.
+- [Subtask 04 Specs](subtask-04-rm-dashboard/README.md): detailed specs for the RM dashboard, review actions, evidence view, and call brief.
 
 ## Product Thesis
 

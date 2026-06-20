@@ -1,0 +1,1933 @@
+[
+  {
+    "alert_id": "alert-001",
+    "customer_id": "demo-001",
+    "category": "mixed",
+    "signal_type": "business_activity_change",
+    "title": "Robinhood Markets, Inc. business activity changed: global cryptocurrency exchange",
+    "summary": "1 evidence document support business_activity_change for global cryptocurrency exchange. global cryptocurrency exchange is not listed in baseline business_area. global cryptocurrency exchange is not listed in baseline known_products. risk_rating requires review due to global cryptocurrency exchange.",
+    "changed_fields": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "business_area": [
+        "retail brokerage",
+        "consumer investing",
+        "US crypto trading"
+      ],
+      "known_products": [
+        "prospect monitoring",
+        "crypto trading watchlist"
+      ],
+      "risk_rating": "medium"
+    },
+    "new_value": {
+      "business_area": [
+        "global cryptocurrency exchange"
+      ],
+      "known_products": [
+        "global cryptocurrency exchange"
+      ],
+      "risk_rating": [
+        "Review due to global cryptocurrency exchange"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.94,
+    "recommended_action": "Review the updated business activity and determine whether the current KYC risk rating still fits.",
+    "evidence_document_ids": [
+      "doc-013"
+    ],
+    "fact_ids": [
+      "fact-031"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-013",
+        "source_name": "Robinhood Newsroom",
+        "source_url": "https://robinhood.com/us/en/newsroom/robinhood-completes-acquisition-of-bitstamp/",
+        "published_at": "2025-06-02",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "company_newsroom",
+        "source_quality": "A",
+        "title": "Robinhood Completes Acquisition of Bitstamp",
+        "excerpt": "Robinhood Markets, Inc. (“Robinhood”) has closed its acquisition of Bitstamp Ltd. (“Bitstamp”), a global cryptocurrency exchange."
+      }
+    ],
+    "comparison_reason": "global cryptocurrency exchange is not listed in baseline business_area. global cryptocurrency exchange is not listed in baseline known_products. risk_rating requires review due to global cryptocurrency exchange.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-002",
+    "customer_id": "demo-001",
+    "category": "mixed",
+    "signal_type": "digital_asset_activity",
+    "title": "Robinhood Markets, Inc. has new digital-asset activity: crypto-asset services",
+    "summary": "1 evidence document support digital_asset_activity for crypto-asset services. crypto-asset services is not listed in baseline business_area. crypto-asset services is not listed in baseline known_products. risk_rating requires review due to crypto-asset services.",
+    "changed_fields": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "business_area": [
+        "retail brokerage",
+        "consumer investing",
+        "US crypto trading"
+      ],
+      "known_products": [
+        "prospect monitoring",
+        "crypto trading watchlist"
+      ],
+      "risk_rating": "medium"
+    },
+    "new_value": {
+      "business_area": [
+        "crypto-asset services"
+      ],
+      "known_products": [
+        "crypto-asset services"
+      ],
+      "risk_rating": [
+        "Review due to crypto-asset services"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.94,
+    "recommended_action": "Review custody, trading, and lending suitability; assess digital-asset risk impact.",
+    "evidence_document_ids": [
+      "doc-014"
+    ],
+    "fact_ids": [
+      "fact-033"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-014",
+        "source_name": "Bitstamp Blog",
+        "source_url": "https://blog.bitstamp.net/post/robinhood-completes-acquisition-of-bitstamp/",
+        "published_at": "2025-06-02",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "company_newsroom",
+        "source_quality": "A",
+        "title": "Robinhood Completes Acquisition of Bitstamp",
+        "excerpt": "Crypto-assets services are provided by the following Bitstamp legal entities depending on client residency: (1) Bitstamp Europe S.A., which is authorized by the Commission de Surveillance du Secteur Financier (CSSF) in Luxembourg as a payment institution (licence number Z00000012) and crypto-asset service provider (licence number N00000003); Registered address: 40, avenue Monterey, L-2163 Luxembourg, Grand Duchy of Luxembourg; Registration number: B196856; (2) Bitstamp UK Ltd., which is registered with the Finan..."
+      }
+    ],
+    "comparison_reason": "crypto-asset services is not listed in baseline business_area. crypto-asset services is not listed in baseline known_products. risk_rating requires review due to crypto-asset services.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-003",
+    "customer_id": "demo-001",
+    "category": "mixed",
+    "signal_type": "new_jurisdiction",
+    "title": "Robinhood Markets, Inc. has new jurisdiction exposure: Luxembourg; British Virgin Islands; Singapore",
+    "summary": "2 evidence documents support new_jurisdiction for United Kingdom; Luxembourg; British Virgin Islands; Singapore. Luxembourg, British Virgin Islands, Singapore is not listed in baseline known_jurisdictions. risk_rating requires review due to United Kingdom; Luxembourg; British Virgin Islands; Singapore.",
+    "changed_fields": [
+      "known_jurisdictions",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "known_jurisdictions": [
+        "United States",
+        "United Kingdom",
+        "European Union"
+      ],
+      "risk_rating": "medium"
+    },
+    "new_value": {
+      "known_jurisdictions": [
+        "Luxembourg",
+        "British Virgin Islands",
+        "Singapore"
+      ],
+      "risk_rating": [
+        "Review due to United Kingdom; Luxembourg; British Virgin Islands; Singapore"
+      ]
+    },
+    "severity": "high",
+    "confidence": 0.95,
+    "recommended_action": "Request customer confirmation and update KYC jurisdiction and entity structure fields.",
+    "evidence_document_ids": [
+      "doc-014",
+      "doc-015"
+    ],
+    "fact_ids": [
+      "fact-032",
+      "fact-035"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-014",
+        "source_name": "Bitstamp Blog",
+        "source_url": "https://blog.bitstamp.net/post/robinhood-completes-acquisition-of-bitstamp/",
+        "published_at": "2025-06-02",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "company_newsroom",
+        "source_quality": "A",
+        "title": "Robinhood Completes Acquisition of Bitstamp",
+        "excerpt": "Crypto-assets services are provided by the following Bitstamp legal entities depending on client residency: (1) Bitstamp Europe S.A., which is authorized by the Commission de Surveillance du Secteur Financier (CSSF) in Luxembourg as a payment institution (licence number Z00000012) and crypto-asset service provider (licence number N00000003); Registered address: 40, avenue Monterey, L-2163 Luxembourg, Grand Duchy of Luxembourg; Registration number: B196856; (2) Bitstamp UK Ltd., which is registered with the Finan..."
+      },
+      {
+        "document_id": "doc-015",
+        "source_name": "Bitstamp Legal Footer",
+        "source_url": "https://blog.bitstamp.net/post/robinhood-completes-acquisition-of-bitstamp/",
+        "published_at": "2025-06-02",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "company_newsroom",
+        "source_quality": "A",
+        "title": "Bitstamp legal entity and licensing disclosures",
+        "excerpt": "Crypto-assets services are provided by the following Bitstamp legal entities depending on client residency: (1) Bitstamp Europe S.A., which is authorized by the Commission de Surveillance du Secteur Financier (CSSF) in Luxembourg as a payment institution (licence number Z00000012) and crypto-asset service provider (licence number N00000003); Registered address: 40, avenue Monterey, L-2163 Luxembourg, Grand Duchy of Luxembourg; Registration number: B196856; (2) Bitstamp UK Ltd., which is registered with the Finan..."
+      }
+    ],
+    "comparison_reason": "Luxembourg, British Virgin Islands, Singapore is not listed in baseline known_jurisdictions. risk_rating requires review due to United Kingdom; Luxembourg; British Virgin Islands; Singapore.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-004",
+    "customer_id": "demo-001",
+    "category": "ownership_control",
+    "signal_type": "new_subsidiary",
+    "title": "Robinhood Markets, Inc. has new legal entities to review",
+    "summary": "1 evidence document support new_subsidiary for Bitstamp Europe S.A.; Bitstamp UK Ltd.; Bitstamp Ltd.; Bitstamp Global Ltd.; Bitstamp Asia Pte Ltd. Bitstamp Europe S.A., Bitstamp UK Ltd., Bitstamp Ltd., Bitstamp Global Ltd., Bitstamp Asia Pte Ltd is not listed in baseline subsidiaries. Luxembourg, British Virgin Islands, Singapore is not listed in baseline known_jurisdictions. risk_rating requires review due to Bitstamp Europe S.A.; Bitstamp UK Ltd.; Bitstamp Ltd.; Bitstamp Global Ltd.; Bitstamp Asia Pte Ltd.",
+    "changed_fields": [
+      "known_jurisdictions",
+      "risk_rating",
+      "subsidiaries"
+    ],
+    "baseline_value": {
+      "subsidiaries": [
+        "Robinhood Crypto, LLC",
+        "Robinhood Europe, UAB",
+        "Robinhood U.K. Ltd"
+      ],
+      "known_jurisdictions": [
+        "United States",
+        "United Kingdom",
+        "European Union"
+      ],
+      "risk_rating": "medium"
+    },
+    "new_value": {
+      "subsidiaries": [
+        "Bitstamp Europe S.A.",
+        "Bitstamp UK Ltd.",
+        "Bitstamp Ltd.",
+        "Bitstamp Global Ltd.",
+        "Bitstamp Asia Pte Ltd"
+      ],
+      "known_jurisdictions": [
+        "Luxembourg",
+        "British Virgin Islands",
+        "Singapore"
+      ],
+      "risk_rating": [
+        "Review due to Bitstamp Europe S.A.; Bitstamp UK Ltd.; Bitstamp Ltd.; Bitstamp Global Ltd.; Bitstamp Asia Pte Ltd"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.94,
+    "recommended_action": "Request customer confirmation and update KYC jurisdiction and entity structure fields.",
+    "evidence_document_ids": [
+      "doc-015"
+    ],
+    "fact_ids": [
+      "fact-034"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-015",
+        "source_name": "Bitstamp Legal Footer",
+        "source_url": "https://blog.bitstamp.net/post/robinhood-completes-acquisition-of-bitstamp/",
+        "published_at": "2025-06-02",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "company_newsroom",
+        "source_quality": "A",
+        "title": "Bitstamp legal entity and licensing disclosures",
+        "excerpt": "Crypto-assets services are provided by the following Bitstamp legal entities depending on client residency: (1) Bitstamp Europe S.A., which is authorized by the Commission de Surveillance du Secteur Financier (CSSF) in Luxembourg as a payment institution (licence number Z00000012) and crypto-asset service provider (licence number N00000003); Registered address: 40, avenue Monterey, L-2163 Luxembourg, Grand Duchy of Luxembourg; Registration number: B196856; (2) Bitstamp UK Ltd., which is registered with the Finan..."
+      }
+    ],
+    "comparison_reason": "Bitstamp Europe S.A., Bitstamp UK Ltd., Bitstamp Ltd., Bitstamp Global Ltd., Bitstamp Asia Pte Ltd is not listed in baseline subsidiaries. Luxembourg, British Virgin Islands, Singapore is not listed in baseline known_jurisdictions. risk_rating requires review due to Bitstamp Europe S.A.; Bitstamp UK Ltd.; Bitstamp Ltd.; Bitstamp Global Ltd.; Bitstamp Asia Pte Ltd.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-005",
+    "customer_id": "demo-001",
+    "category": "ownership_control",
+    "signal_type": "ownership_change",
+    "title": "Robinhood Markets, Inc. has ownership/control drift involving Bitstamp Ltd.",
+    "summary": "1 evidence document support ownership_change for Bitstamp Ltd.. Bitstamp Ltd. is not listed in baseline subsidiaries. Bitstamp Ltd. is not listed in baseline business_area. risk_rating requires review due to Bitstamp Ltd..",
+    "changed_fields": [
+      "business_area",
+      "risk_rating",
+      "subsidiaries"
+    ],
+    "baseline_value": {
+      "subsidiaries": [
+        "Robinhood Crypto, LLC",
+        "Robinhood Europe, UAB",
+        "Robinhood U.K. Ltd"
+      ],
+      "business_area": [
+        "retail brokerage",
+        "consumer investing",
+        "US crypto trading"
+      ],
+      "risk_rating": "medium"
+    },
+    "new_value": {
+      "subsidiaries": [
+        "Bitstamp Ltd."
+      ],
+      "business_area": [
+        "Bitstamp Ltd."
+      ],
+      "risk_rating": [
+        "Review due to Bitstamp Ltd."
+      ]
+    },
+    "severity": "high",
+    "confidence": 0.94,
+    "recommended_action": "Request updated corporate structure and beneficial ownership information before the next review.",
+    "evidence_document_ids": [
+      "doc-013"
+    ],
+    "fact_ids": [
+      "fact-030"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-013",
+        "source_name": "Robinhood Newsroom",
+        "source_url": "https://robinhood.com/us/en/newsroom/robinhood-completes-acquisition-of-bitstamp/",
+        "published_at": "2025-06-02",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "company_newsroom",
+        "source_quality": "A",
+        "title": "Robinhood Completes Acquisition of Bitstamp",
+        "excerpt": "Robinhood Markets, Inc. (“Robinhood”) has closed its acquisition of Bitstamp Ltd. (“Bitstamp”), a global cryptocurrency exchange."
+      }
+    ],
+    "comparison_reason": "Bitstamp Ltd. is not listed in baseline subsidiaries. Bitstamp Ltd. is not listed in baseline business_area. risk_rating requires review due to Bitstamp Ltd..",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-006",
+    "customer_id": "demo-002",
+    "category": "mixed",
+    "signal_type": "business_activity_change",
+    "title": "Blockratize, Inc. d/b/a Polymarket business activity changed: event-based binary options and gambling-market exposure",
+    "summary": "3 evidence documents support business_activity_change for event-based binary options and gambling-market exposure. event-based binary options and gambling-market exposure is not listed in baseline business_area. event-based binary options and gambling-market exposure is not listed in baseline known_products. risk_rating requires review due to event-based binary options and gambling-market exposure.",
+    "changed_fields": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "business_area": [
+        "prediction market",
+        "event contracts",
+        "crypto settlement",
+        "USDC-based trading"
+      ],
+      "known_products": [
+        "none - synthetic high-risk review"
+      ],
+      "risk_rating": "high"
+    },
+    "new_value": {
+      "business_area": [
+        "event-based binary options and gambling-market exposure"
+      ],
+      "known_products": [
+        "event-based binary options and gambling-market exposure"
+      ],
+      "risk_rating": [
+        "Review due to event-based binary options and gambling-market exposure"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.81,
+    "recommended_action": "Review the updated business activity and determine whether the current KYC risk rating still fits.",
+    "evidence_document_ids": [
+      "doc-007",
+      "doc-008",
+      "doc-009"
+    ],
+    "fact_ids": [
+      "fact-012",
+      "fact-015",
+      "fact-018"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-007",
+        "source_name": "theguardian.com",
+        "source_url": "https://www.theguardian.com/world/2026/may/26/spain-blocks-access-polymarket-kalshi-gambling-licence-investigation",
+        "published_at": "2026-05-26",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "reputable_news",
+        "source_quality": "B",
+        "title": "Spain blocks access to Polymarket and Kalshi as it launches gambling licence investigation | Spain | The Guardian",
+        "excerpt": "Spain’s ministry of consumer rights has blocked access to Polymarket and Kalshi while it investigates whether the leading prediction market sites are violating Spanish law by operating without a gambling licence."
+      },
+      {
+        "document_id": "doc-008",
+        "source_name": "elpais.com",
+        "source_url": "https://elpais.com/economia/2026-05-26/consumo-ordena-el-bloqueo-de-polymarket-y-kalshi-en-espana-por-operar-sin-licencia-de-juego.html",
+        "published_at": "2026-05-26",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "reputable_news",
+        "source_quality": "B",
+        "title": "Consumo ordena el bloqueo de Polymarket y Kalshi en España por operar sin licencia de juego | Economía | EL PAÍS",
+        "excerpt": "El Boletín Oficial del Estado (BOE) ha publicado este martes la apertura de un expediente sancionador contra los mercados de predicciones y apuestas Polymarket y Kalshi al considerarlos plataformas de juego de azar que operan en España sin la necesaria licencia administrativa."
+      },
+      {
+        "document_id": "doc-009",
+        "source_name": "cadenaser.com",
+        "source_url": "https://cadenaser.com/nacional/2026/05/26/el-futuro-de-polymarket-tras-el-bloqueo-del-gobierno-es-ilegal-no-tiene-licencia-y-no-hay-posibilidad-de-que-la-consiga-cadena-ser/",
+        "published_at": "2026-05-26",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "reputable_news",
+        "source_quality": "B",
+        "title": "El futuro de Polymarket tras el bloqueo del Gobierno: \"Es ilegal, no tiene licencia y no hay posibilidad de que la consiga\" | Actualidad | Cadena SER",
+        "excerpt": "La Dirección General de Ordenación del Juego (DGOJ), dependiente del Ministerio de Derechos Sociales, Consumo y Agenda 2030, ha abierto expediente sancionador a Polymarket y Kalshi, dos plataformas de predicción en las que se realizan apuestas, por una posible infracción de la normativa de juego, ya que estarían operando en España sin contar con la obligatoria habilitación administrativa."
+      }
+    ],
+    "comparison_reason": "event-based binary options and gambling-market exposure is not listed in baseline business_area. event-based binary options and gambling-market exposure is not listed in baseline known_products. risk_rating requires review due to event-based binary options and gambling-market exposure.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-007",
+    "customer_id": "demo-002",
+    "category": "risk",
+    "signal_type": "jurisdiction_restriction",
+    "title": "Blockratize, Inc. d/b/a Polymarket has jurisdiction restriction signal: Spain market-access block",
+    "summary": "3 evidence documents support jurisdiction_restriction for Spain market-access block. Spain is not listed in baseline known_jurisdictions. risk_rating requires review due to Spain market-access block.",
+    "changed_fields": [
+      "known_jurisdictions",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "known_jurisdictions": [
+        "United States",
+        "international online users"
+      ],
+      "risk_rating": "high"
+    },
+    "new_value": {
+      "known_jurisdictions": [
+        "Spain"
+      ],
+      "risk_rating": [
+        "Review due to Spain market-access block"
+      ]
+    },
+    "severity": "high",
+    "confidence": 0.81,
+    "recommended_action": "Ask RM to confirm operating jurisdictions and route to compliance if customer activity includes restricted markets.",
+    "evidence_document_ids": [
+      "doc-007",
+      "doc-008",
+      "doc-009"
+    ],
+    "fact_ids": [
+      "fact-014",
+      "fact-017",
+      "fact-020"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-007",
+        "source_name": "theguardian.com",
+        "source_url": "https://www.theguardian.com/world/2026/may/26/spain-blocks-access-polymarket-kalshi-gambling-licence-investigation",
+        "published_at": "2026-05-26",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "reputable_news",
+        "source_quality": "B",
+        "title": "Spain blocks access to Polymarket and Kalshi as it launches gambling licence investigation | Spain | The Guardian",
+        "excerpt": "Spain’s ministry of consumer rights has blocked access to Polymarket and Kalshi while it investigates whether the leading prediction market sites are violating Spanish law by operating without a gambling licence."
+      },
+      {
+        "document_id": "doc-008",
+        "source_name": "elpais.com",
+        "source_url": "https://elpais.com/economia/2026-05-26/consumo-ordena-el-bloqueo-de-polymarket-y-kalshi-en-espana-por-operar-sin-licencia-de-juego.html",
+        "published_at": "2026-05-26",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "reputable_news",
+        "source_quality": "B",
+        "title": "Consumo ordena el bloqueo de Polymarket y Kalshi en España por operar sin licencia de juego | Economía | EL PAÍS",
+        "excerpt": "El Boletín Oficial del Estado (BOE) ha publicado este martes la apertura de un expediente sancionador contra los mercados de predicciones y apuestas Polymarket y Kalshi al considerarlos plataformas de juego de azar que operan en España sin la necesaria licencia administrativa."
+      },
+      {
+        "document_id": "doc-009",
+        "source_name": "cadenaser.com",
+        "source_url": "https://cadenaser.com/nacional/2026/05/26/el-futuro-de-polymarket-tras-el-bloqueo-del-gobierno-es-ilegal-no-tiene-licencia-y-no-hay-posibilidad-de-que-la-consiga-cadena-ser/",
+        "published_at": "2026-05-26",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "reputable_news",
+        "source_quality": "B",
+        "title": "El futuro de Polymarket tras el bloqueo del Gobierno: \"Es ilegal, no tiene licencia y no hay posibilidad de que la consiga\" | Actualidad | Cadena SER",
+        "excerpt": "La Dirección General de Ordenación del Juego (DGOJ), dependiente del Ministerio de Derechos Sociales, Consumo y Agenda 2030, ha abierto expediente sancionador a Polymarket y Kalshi, dos plataformas de predicción en las que se realizan apuestas, por una posible infracción de la normativa de juego, ya que estarían operando en España sin contar con la obligatoria habilitación administrativa."
+      }
+    ],
+    "comparison_reason": "Spain is not listed in baseline known_jurisdictions. risk_rating requires review due to Spain market-access block.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-008",
+    "customer_id": "demo-002",
+    "category": "risk",
+    "signal_type": "regulatory_scrutiny",
+    "title": "Blockratize, Inc. d/b/a Polymarket faces regulatory scrutiny: Spanish gambling-license investigation",
+    "summary": "3 evidence documents support regulatory_scrutiny for Spanish gambling-license investigation. risk_rating requires review due to Spanish gambling-license investigation. Spanish gambling-license investigation is not listed in baseline business_area.",
+    "changed_fields": [
+      "business_area",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "risk_rating": "high",
+      "business_area": [
+        "prediction market",
+        "event contracts",
+        "crypto settlement",
+        "USDC-based trading"
+      ]
+    },
+    "new_value": {
+      "risk_rating": [
+        "Review due to Spanish gambling-license investigation"
+      ],
+      "business_area": [
+        "Spanish gambling-license investigation"
+      ]
+    },
+    "severity": "high",
+    "confidence": 0.81,
+    "recommended_action": "Escalate to compliance for enhanced due diligence and confirm whether the customer has licensing or market-access changes.",
+    "evidence_document_ids": [
+      "doc-007",
+      "doc-008",
+      "doc-009"
+    ],
+    "fact_ids": [
+      "fact-013",
+      "fact-016",
+      "fact-019"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-007",
+        "source_name": "theguardian.com",
+        "source_url": "https://www.theguardian.com/world/2026/may/26/spain-blocks-access-polymarket-kalshi-gambling-licence-investigation",
+        "published_at": "2026-05-26",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "reputable_news",
+        "source_quality": "B",
+        "title": "Spain blocks access to Polymarket and Kalshi as it launches gambling licence investigation | Spain | The Guardian",
+        "excerpt": "Spain’s ministry of consumer rights has blocked access to Polymarket and Kalshi while it investigates whether the leading prediction market sites are violating Spanish law by operating without a gambling licence."
+      },
+      {
+        "document_id": "doc-008",
+        "source_name": "elpais.com",
+        "source_url": "https://elpais.com/economia/2026-05-26/consumo-ordena-el-bloqueo-de-polymarket-y-kalshi-en-espana-por-operar-sin-licencia-de-juego.html",
+        "published_at": "2026-05-26",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "reputable_news",
+        "source_quality": "B",
+        "title": "Consumo ordena el bloqueo de Polymarket y Kalshi en España por operar sin licencia de juego | Economía | EL PAÍS",
+        "excerpt": "El Boletín Oficial del Estado (BOE) ha publicado este martes la apertura de un expediente sancionador contra los mercados de predicciones y apuestas Polymarket y Kalshi al considerarlos plataformas de juego de azar que operan en España sin la necesaria licencia administrativa."
+      },
+      {
+        "document_id": "doc-009",
+        "source_name": "cadenaser.com",
+        "source_url": "https://cadenaser.com/nacional/2026/05/26/el-futuro-de-polymarket-tras-el-bloqueo-del-gobierno-es-ilegal-no-tiene-licencia-y-no-hay-posibilidad-de-que-la-consiga-cadena-ser/",
+        "published_at": "2026-05-26",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "reputable_news",
+        "source_quality": "B",
+        "title": "El futuro de Polymarket tras el bloqueo del Gobierno: \"Es ilegal, no tiene licencia y no hay posibilidad de que la consiga\" | Actualidad | Cadena SER",
+        "excerpt": "La Dirección General de Ordenación del Juego (DGOJ), dependiente del Ministerio de Derechos Sociales, Consumo y Agenda 2030, ha abierto expediente sancionador a Polymarket y Kalshi, dos plataformas de predicción en las que se realizan apuestas, por una posible infracción de la normativa de juego, ya que estarían operando en España sin contar con la obligatoria habilitación administrativa."
+      }
+    ],
+    "comparison_reason": "risk_rating requires review due to Spanish gambling-license investigation. Spanish gambling-license investigation is not listed in baseline business_area.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-009",
+    "customer_id": "demo-003",
+    "category": "opportunity",
+    "signal_type": "commercial_opportunity",
+    "title": "GameStop Corp. commercial opportunity: Bitcoin custody and treasury services opportunity",
+    "summary": "1 evidence document support commercial_opportunity for Bitcoin custody and treasury services opportunity. Bitcoin custody and treasury services opportunity is not listed in baseline known_products. Bitcoin custody and treasury services opportunity is not listed in baseline business_area.",
+    "changed_fields": [
+      "business_area",
+      "known_products"
+    ],
+    "baseline_value": {
+      "known_products": [
+        "prospect monitoring",
+        "corporate treasury watchlist"
+      ],
+      "business_area": [
+        "video game retail",
+        "consumer electronics resale",
+        "ecommerce"
+      ]
+    },
+    "new_value": {
+      "known_products": [
+        "Bitcoin custody and treasury services opportunity"
+      ],
+      "business_area": [
+        "Bitcoin custody and treasury services opportunity"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.91,
+    "recommended_action": "Add to RM call brief for custody, payments, FX, lending, or treasury discussion.",
+    "evidence_document_ids": [
+      "doc-001"
+    ],
+    "fact_ids": [
+      "fact-003"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-001",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1326380/000132638025000026/pr-btcmay2025.htm",
+        "published_at": "2025-05-28",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "sec_filing",
+        "source_quality": "A",
+        "title": "GameStop Announces Purchase of Bitcoin",
+        "excerpt": "GRAPEVINE, Texas, May 28, 2025 (BUSINESS WIRE) —GameStop Corp. (NYSE: GME) (“GameStop” or the “Company”) today announced that it has purchased 4,710 Bitcoin."
+      }
+    ],
+    "comparison_reason": "Bitcoin custody and treasury services opportunity is not listed in baseline known_products. Bitcoin custody and treasury services opportunity is not listed in baseline business_area.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-010",
+    "customer_id": "demo-003",
+    "category": "mixed",
+    "signal_type": "digital_asset_activity",
+    "title": "GameStop Corp. has new digital-asset activity: 4,710 Bitcoin purchase",
+    "summary": "1 evidence document support digital_asset_activity for 4,710 Bitcoin purchase. 4,710 Bitcoin purchase is not listed in baseline business_area. 4,710 Bitcoin purchase is not listed in baseline known_products. risk_rating requires review due to 4,710 Bitcoin purchase.",
+    "changed_fields": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "business_area": [
+        "video game retail",
+        "consumer electronics resale",
+        "ecommerce"
+      ],
+      "known_products": [
+        "prospect monitoring",
+        "corporate treasury watchlist"
+      ],
+      "risk_rating": "low"
+    },
+    "new_value": {
+      "business_area": [
+        "4,710 Bitcoin purchase"
+      ],
+      "known_products": [
+        "4,710 Bitcoin purchase"
+      ],
+      "risk_rating": [
+        "Review due to 4,710 Bitcoin purchase"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.94,
+    "recommended_action": "Review custody, trading, and lending suitability; assess digital-asset risk impact.",
+    "evidence_document_ids": [
+      "doc-001"
+    ],
+    "fact_ids": [
+      "fact-001"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-001",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1326380/000132638025000026/pr-btcmay2025.htm",
+        "published_at": "2025-05-28",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "sec_filing",
+        "source_quality": "A",
+        "title": "GameStop Announces Purchase of Bitcoin",
+        "excerpt": "GRAPEVINE, Texas, May 28, 2025 (BUSINESS WIRE) —GameStop Corp. (NYSE: GME) (“GameStop” or the “Company”) today announced that it has purchased 4,710 Bitcoin."
+      }
+    ],
+    "comparison_reason": "4,710 Bitcoin purchase is not listed in baseline business_area. 4,710 Bitcoin purchase is not listed in baseline known_products. risk_rating requires review due to 4,710 Bitcoin purchase.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-011",
+    "customer_id": "demo-003",
+    "category": "mixed",
+    "signal_type": "digital_asset_activity",
+    "title": "GameStop Corp. has new digital-asset activity: Bitcoin treasury reserve asset",
+    "summary": "1 evidence document support digital_asset_activity for Bitcoin treasury reserve asset. Bitcoin treasury reserve asset is not listed in baseline business_area. Bitcoin treasury reserve asset is not listed in baseline known_products. risk_rating requires review due to Bitcoin treasury reserve asset.",
+    "changed_fields": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "business_area": [
+        "video game retail",
+        "consumer electronics resale",
+        "ecommerce"
+      ],
+      "known_products": [
+        "prospect monitoring",
+        "corporate treasury watchlist"
+      ],
+      "risk_rating": "low"
+    },
+    "new_value": {
+      "business_area": [
+        "Bitcoin treasury reserve asset"
+      ],
+      "known_products": [
+        "Bitcoin treasury reserve asset"
+      ],
+      "risk_rating": [
+        "Review due to Bitcoin treasury reserve asset"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.92,
+    "recommended_action": "Review custody, trading, and lending suitability; assess digital-asset risk impact.",
+    "evidence_document_ids": [
+      "doc-002"
+    ],
+    "fact_ids": [
+      "fact-004"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-002",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1326380/000162828025014731/gme-20250201.htm",
+        "published_at": "2025-03-25",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "sec_filing",
+        "source_quality": "A",
+        "title": "GameStop Form 10-K for fiscal year 2024",
+        "excerpt": "On March 25, 2025 we announced that, as part of our revisions to the Investment Policy, the Board approved the addition of Bitcoin as a treasury reserve asset, whereby a portion of our cash or future debt and equity issuances may be invested in Bitcoin."
+      }
+    ],
+    "comparison_reason": "Bitcoin treasury reserve asset is not listed in baseline business_area. Bitcoin treasury reserve asset is not listed in baseline known_products. risk_rating requires review due to Bitcoin treasury reserve asset.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-012",
+    "customer_id": "demo-003",
+    "category": "mixed",
+    "signal_type": "digital_asset_activity",
+    "title": "GameStop Corp. has new digital-asset activity: digital assets pledged as collateral",
+    "summary": "1 evidence document support digital_asset_activity for digital assets pledged as collateral. digital assets pledged as collateral is not listed in baseline business_area. digital assets pledged as collateral is not listed in baseline known_products. risk_rating requires review due to digital assets pledged as collateral.",
+    "changed_fields": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "business_area": [
+        "video game retail",
+        "consumer electronics resale",
+        "ecommerce"
+      ],
+      "known_products": [
+        "prospect monitoring",
+        "corporate treasury watchlist"
+      ],
+      "risk_rating": "low"
+    },
+    "new_value": {
+      "business_area": [
+        "digital assets pledged as collateral"
+      ],
+      "known_products": [
+        "digital assets pledged as collateral"
+      ],
+      "risk_rating": [
+        "Review due to digital assets pledged as collateral"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.92,
+    "recommended_action": "Review custody, trading, and lending suitability; assess digital-asset risk impact.",
+    "evidence_document_ids": [
+      "doc-004"
+    ],
+    "fact_ids": [
+      "fact-007"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-004",
+        "source_name": "SEC EDGAR API",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1326380/000132638026000025/gme-20260502.htm",
+        "published_at": "2026-06-11",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "sec_filing",
+        "source_quality": "A",
+        "title": "GameStop Corp. 10-Q filed 2026-06-11",
+        "excerpt": "During fiscal 2025, the Company pledged portion of its digital assets as collateral in connection with a covered‑call strategy, which resulted in the derecognition of the pledged digital assets and the corresponding recognition of a digital asset receivable."
+      }
+    ],
+    "comparison_reason": "digital assets pledged as collateral is not listed in baseline business_area. digital assets pledged as collateral is not listed in baseline known_products. risk_rating requires review due to digital assets pledged as collateral.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-013",
+    "customer_id": "demo-003",
+    "category": "risk",
+    "signal_type": "risk_rating_review",
+    "title": "GameStop Corp. risk rating should be reviewed",
+    "summary": "1 evidence document support risk_rating_review for digital-asset regulatory uncertainty. risk_rating requires review due to digital-asset regulatory uncertainty. digital-asset regulatory uncertainty is not listed in baseline known_products. digital-asset regulatory uncertainty is not listed in baseline business_area.",
+    "changed_fields": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "risk_rating": "low",
+      "known_products": [
+        "prospect monitoring",
+        "corporate treasury watchlist"
+      ],
+      "business_area": [
+        "video game retail",
+        "consumer electronics resale",
+        "ecommerce"
+      ]
+    },
+    "new_value": {
+      "risk_rating": [
+        "Review due to digital-asset regulatory uncertainty"
+      ],
+      "known_products": [
+        "digital-asset regulatory uncertainty"
+      ],
+      "business_area": [
+        "digital-asset regulatory uncertainty"
+      ]
+    },
+    "severity": "high",
+    "confidence": 0.92,
+    "recommended_action": "Route to compliance for risk-rating review and document whether the baseline should be updated.",
+    "evidence_document_ids": [
+      "doc-003"
+    ],
+    "fact_ids": [
+      "fact-006"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-003",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1326380/000132638025000035/gme-20250503.htm",
+        "published_at": "2025-06-10",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "sec_filing",
+        "source_quality": "A",
+        "title": "GameStop Form 10-Q for quarter ended May 3, 2025",
+        "excerpt": "Bitcoin and other crypto-currencies are subject to regulatory and legal uncertainty, and governments and regulators may enact new laws and regulations, or pursue regulatory, legislative, enforcement or judicial actions that could impact the price of Bitcoin or our ability to acquire, hold or transfer Bitcoin, and may subject us to increased regulatory scrutiny."
+      }
+    ],
+    "comparison_reason": "risk_rating requires review due to digital-asset regulatory uncertainty. digital-asset regulatory uncertainty is not listed in baseline known_products. digital-asset regulatory uncertainty is not listed in baseline business_area.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-014",
+    "customer_id": "demo-003",
+    "category": "mixed",
+    "signal_type": "treasury_policy_change",
+    "title": "GameStop Corp. treasury activity changed: 4,710 Bitcoin purchase",
+    "summary": "1 evidence document support treasury_policy_change for 4,710 Bitcoin purchase. 4,710 Bitcoin purchase is not listed in baseline business_area. 4,710 Bitcoin purchase is not listed in baseline known_products. risk_rating requires review due to 4,710 Bitcoin purchase.",
+    "changed_fields": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "business_area": [
+        "video game retail",
+        "consumer electronics resale",
+        "ecommerce"
+      ],
+      "known_products": [
+        "prospect monitoring",
+        "corporate treasury watchlist"
+      ],
+      "risk_rating": "low"
+    },
+    "new_value": {
+      "business_area": [
+        "4,710 Bitcoin purchase"
+      ],
+      "known_products": [
+        "4,710 Bitcoin purchase"
+      ],
+      "risk_rating": [
+        "Review due to 4,710 Bitcoin purchase"
+      ]
+    },
+    "severity": "high",
+    "confidence": 0.94,
+    "recommended_action": "Review custody, trading, and lending suitability; assess digital-asset risk impact.",
+    "evidence_document_ids": [
+      "doc-001"
+    ],
+    "fact_ids": [
+      "fact-002"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-001",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1326380/000132638025000026/pr-btcmay2025.htm",
+        "published_at": "2025-05-28",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "sec_filing",
+        "source_quality": "A",
+        "title": "GameStop Announces Purchase of Bitcoin",
+        "excerpt": "GRAPEVINE, Texas, May 28, 2025 (BUSINESS WIRE) —GameStop Corp. (NYSE: GME) (“GameStop” or the “Company”) today announced that it has purchased 4,710 Bitcoin."
+      }
+    ],
+    "comparison_reason": "4,710 Bitcoin purchase is not listed in baseline business_area. 4,710 Bitcoin purchase is not listed in baseline known_products. risk_rating requires review due to 4,710 Bitcoin purchase.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-015",
+    "customer_id": "demo-003",
+    "category": "mixed",
+    "signal_type": "treasury_policy_change",
+    "title": "GameStop Corp. treasury activity changed: Bitcoin treasury reserve asset",
+    "summary": "1 evidence document support treasury_policy_change for Bitcoin treasury reserve asset. Bitcoin treasury reserve asset is not listed in baseline business_area. Bitcoin treasury reserve asset is not listed in baseline known_products. risk_rating requires review due to Bitcoin treasury reserve asset.",
+    "changed_fields": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "business_area": [
+        "video game retail",
+        "consumer electronics resale",
+        "ecommerce"
+      ],
+      "known_products": [
+        "prospect monitoring",
+        "corporate treasury watchlist"
+      ],
+      "risk_rating": "low"
+    },
+    "new_value": {
+      "business_area": [
+        "Bitcoin treasury reserve asset"
+      ],
+      "known_products": [
+        "Bitcoin treasury reserve asset"
+      ],
+      "risk_rating": [
+        "Review due to Bitcoin treasury reserve asset"
+      ]
+    },
+    "severity": "high",
+    "confidence": 0.92,
+    "recommended_action": "Review custody, trading, and lending suitability; assess digital-asset risk impact.",
+    "evidence_document_ids": [
+      "doc-002"
+    ],
+    "fact_ids": [
+      "fact-005"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-002",
+        "source_name": "SEC EDGAR",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1326380/000162828025014731/gme-20250201.htm",
+        "published_at": "2025-03-25",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "sec_filing",
+        "source_quality": "A",
+        "title": "GameStop Form 10-K for fiscal year 2024",
+        "excerpt": "On March 25, 2025 we announced that, as part of our revisions to the Investment Policy, the Board approved the addition of Bitcoin as a treasury reserve asset, whereby a portion of our cash or future debt and equity issuances may be invested in Bitcoin."
+      }
+    ],
+    "comparison_reason": "Bitcoin treasury reserve asset is not listed in baseline business_area. Bitcoin treasury reserve asset is not listed in baseline known_products. risk_rating requires review due to Bitcoin treasury reserve asset.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-016",
+    "customer_id": "demo-004",
+    "category": "mixed",
+    "signal_type": "business_activity_change",
+    "title": "Payward, Inc. d/b/a Kraken business activity changed: U.S. futures and multi-asset professional trading",
+    "summary": "1 evidence document support business_activity_change for U.S. futures and multi-asset professional trading. U.S. futures and multi-asset professional trading is not listed in baseline business_area. U.S. futures and multi-asset professional trading is not listed in baseline known_products. risk_rating requires review due to U.S. futures and multi-asset professional trading. The source is undated, but source quality is high enough for a review alert.",
+    "changed_fields": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "business_area": [
+        "cryptocurrency exchange",
+        "institutional crypto services",
+        "crypto custody",
+        "spot trading"
+      ],
+      "known_products": [
+        "prospect monitoring",
+        "institutional crypto watchlist"
+      ],
+      "risk_rating": "high"
+    },
+    "new_value": {
+      "business_area": [
+        "U.S. futures and multi-asset professional trading"
+      ],
+      "known_products": [
+        "U.S. futures and multi-asset professional trading"
+      ],
+      "risk_rating": [
+        "Review due to U.S. futures and multi-asset professional trading"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.93,
+    "recommended_action": "Review the updated business activity and determine whether the current KYC risk rating still fits.",
+    "evidence_document_ids": [
+      "doc-005"
+    ],
+    "fact_ids": [
+      "fact-009"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-005",
+        "source_name": "Kraken Press Room",
+        "source_url": "https://www.kraken.com/press/releases/kraken-to-acquire-ninjatrader-introducing-the-next-era-of-professional-trading",
+        "published_at": null,
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "company_newsroom",
+        "source_quality": "A",
+        "title": "Kraken to Acquire NinjaTrader: Introducing the Next Era of Professional Trading Kraken has entered into an agreement to acquire NinjaTrader, the leading U.S. retail futures trading platform, for $1.5 billion, subject to certain purchase price adjustments.",
+        "excerpt": "CHEYENNE, Wyo.--Kraken, one of the longest-standing, most liquid and secure crypto platforms serving more than 15 million clients globally, has entered into an agreement to acquire NinjaTrader, the leading U.S. retail futures trading platform, for $1.5 billion, subject to certain purchase price adjustments."
+      }
+    ],
+    "comparison_reason": "U.S. futures and multi-asset professional trading is not listed in baseline business_area. U.S. futures and multi-asset professional trading is not listed in baseline known_products. risk_rating requires review due to U.S. futures and multi-asset professional trading. The source is undated, but source quality is high enough for a review alert.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-017",
+    "customer_id": "demo-004",
+    "category": "mixed",
+    "signal_type": "digital_asset_activity",
+    "title": "Payward, Inc. d/b/a Kraken has new digital-asset activity: tokenized U.S. stocks and ETFs",
+    "summary": "2 evidence documents support digital_asset_activity for tokenized U.S. stocks and ETFs. tokenized U.S. stocks and ETFs is not listed in baseline business_area. tokenized U.S. stocks and ETFs is not listed in baseline known_products. risk_rating requires review due to tokenized U.S. stocks and ETFs. The source is undated, but source quality is high enough for a review alert. tokenized U.S. stocks and ETFs is not listed in baseline business_area. tokenized U.S. stocks and ETFs is not listed in baseline known_products. risk_rating requires review due to tokenized U.S. stocks and ETFs.",
+    "changed_fields": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "business_area": [
+        "cryptocurrency exchange",
+        "institutional crypto services",
+        "crypto custody",
+        "spot trading"
+      ],
+      "known_products": [
+        "prospect monitoring",
+        "institutional crypto watchlist"
+      ],
+      "risk_rating": "high"
+    },
+    "new_value": {
+      "business_area": [
+        "tokenized U.S. stocks and ETFs"
+      ],
+      "known_products": [
+        "tokenized U.S. stocks and ETFs"
+      ],
+      "risk_rating": [
+        "Review due to tokenized U.S. stocks and ETFs"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.95,
+    "recommended_action": "Review custody, trading, and lending suitability; assess digital-asset risk impact.",
+    "evidence_document_ids": [
+      "doc-012",
+      "doc-016"
+    ],
+    "fact_ids": [
+      "fact-028",
+      "fact-037"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-012",
+        "source_name": "Kraken Legal",
+        "source_url": "https://www.kraken.com/legal/xstocks",
+        "published_at": null,
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "product_page",
+        "source_quality": "A",
+        "title": "xStocks Risk Disclosure",
+        "excerpt": "xStocks are issued by Backed Assets (JE) Limited (a Jersey private limited company) (the \"Issuer\"), and offered to certain Kraken clients by Payward Digital Solutions Ltd. (“PDSL”), a Bermuda exempted company licensed to conduct digital asset business by the Bermuda Monetary Authority."
+      },
+      {
+        "document_id": "doc-016",
+        "source_name": "Kraken Blog",
+        "source_url": "https://blog.kraken.com/product/xstocks/tokenized-equities-now-available",
+        "published_at": "2025-06-30",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "official_blog",
+        "source_quality": "A",
+        "title": "From Wall Street to your wallet: Tokenized equities now available on Kraken",
+        "excerpt": "We’re beginning a phased rollout of tokenized U.S. stocks and ETFs – powered by Backed’s xStocks innovation – for eligible non-U.S. clients."
+      }
+    ],
+    "comparison_reason": "tokenized U.S. stocks and ETFs is not listed in baseline business_area. tokenized U.S. stocks and ETFs is not listed in baseline known_products. risk_rating requires review due to tokenized U.S. stocks and ETFs. The source is undated, but source quality is high enough for a review alert. tokenized U.S. stocks and ETFs is not listed in baseline business_area. tokenized U.S. stocks and ETFs is not listed in baseline known_products. risk_rating requires review due to tokenized U.S. stocks and ETFs.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-018",
+    "customer_id": "demo-004",
+    "category": "mixed",
+    "signal_type": "new_jurisdiction",
+    "title": "Payward, Inc. d/b/a Kraken has new jurisdiction exposure: Bermuda; Jersey",
+    "summary": "1 evidence document support new_jurisdiction for Bermuda; Jersey. Bermuda, Jersey is not listed in baseline known_jurisdictions. risk_rating requires review due to Bermuda; Jersey. The source is undated, but source quality is high enough for a review alert.",
+    "changed_fields": [
+      "known_jurisdictions",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "known_jurisdictions": [
+        "United States",
+        "European Union",
+        "United Kingdom"
+      ],
+      "risk_rating": "high"
+    },
+    "new_value": {
+      "known_jurisdictions": [
+        "Bermuda",
+        "Jersey"
+      ],
+      "risk_rating": [
+        "Review due to Bermuda; Jersey"
+      ]
+    },
+    "severity": "high",
+    "confidence": 0.93,
+    "recommended_action": "Request customer confirmation and update KYC jurisdiction and entity structure fields.",
+    "evidence_document_ids": [
+      "doc-012"
+    ],
+    "fact_ids": [
+      "fact-027"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-012",
+        "source_name": "Kraken Legal",
+        "source_url": "https://www.kraken.com/legal/xstocks",
+        "published_at": null,
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "product_page",
+        "source_quality": "A",
+        "title": "xStocks Risk Disclosure",
+        "excerpt": "xStocks are issued by Backed Assets (JE) Limited (a Jersey private limited company) (the \"Issuer\"), and offered to certain Kraken clients by Payward Digital Solutions Ltd. (“PDSL”), a Bermuda exempted company licensed to conduct digital asset business by the Bermuda Monetary Authority."
+      }
+    ],
+    "comparison_reason": "Bermuda, Jersey is not listed in baseline known_jurisdictions. risk_rating requires review due to Bermuda; Jersey. The source is undated, but source quality is high enough for a review alert.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-019",
+    "customer_id": "demo-004",
+    "category": "mixed",
+    "signal_type": "new_jurisdiction",
+    "title": "Payward, Inc. d/b/a Kraken has new jurisdiction exposure: non-U.S. clients",
+    "summary": "1 evidence document support new_jurisdiction for non-U.S. clients. non-U.S. clients is not listed in baseline known_jurisdictions. risk_rating requires review due to non-U.S. clients.",
+    "changed_fields": [
+      "known_jurisdictions",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "known_jurisdictions": [
+        "United States",
+        "European Union",
+        "United Kingdom"
+      ],
+      "risk_rating": "high"
+    },
+    "new_value": {
+      "known_jurisdictions": [
+        "non-U.S. clients"
+      ],
+      "risk_rating": [
+        "Review due to non-U.S. clients"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.94,
+    "recommended_action": "Request customer confirmation and update KYC jurisdiction and entity structure fields.",
+    "evidence_document_ids": [
+      "doc-016"
+    ],
+    "fact_ids": [
+      "fact-036"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-016",
+        "source_name": "Kraken Blog",
+        "source_url": "https://blog.kraken.com/product/xstocks/tokenized-equities-now-available",
+        "published_at": "2025-06-30",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "official_blog",
+        "source_quality": "A",
+        "title": "From Wall Street to your wallet: Tokenized equities now available on Kraken",
+        "excerpt": "We’re beginning a phased rollout of tokenized U.S. stocks and ETFs – powered by Backed’s xStocks innovation – for eligible non-U.S. clients."
+      }
+    ],
+    "comparison_reason": "non-U.S. clients is not listed in baseline known_jurisdictions. risk_rating requires review due to non-U.S. clients.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-020",
+    "customer_id": "demo-004",
+    "category": "opportunity",
+    "signal_type": "new_product",
+    "title": "Payward, Inc. d/b/a Kraken product signal: xStocks tokenized equities",
+    "summary": "2 evidence documents support new_product for xStocks tokenized equities. xStocks tokenized equities is not listed in baseline known_products. xStocks tokenized equities is not listed in baseline business_area. The source is undated, but source quality is high enough for a review alert. xStocks tokenized equities is not listed in baseline known_products. xStocks tokenized equities is not listed in baseline business_area.",
+    "changed_fields": [
+      "business_area",
+      "known_products"
+    ],
+    "baseline_value": {
+      "known_products": [
+        "prospect monitoring",
+        "institutional crypto watchlist"
+      ],
+      "business_area": [
+        "cryptocurrency exchange",
+        "institutional crypto services",
+        "crypto custody",
+        "spot trading"
+      ]
+    },
+    "new_value": {
+      "known_products": [
+        "xStocks tokenized equities"
+      ],
+      "business_area": [
+        "xStocks tokenized equities"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.95,
+    "recommended_action": "Add to RM call brief for custody, payments, FX, lending, or treasury discussion.",
+    "evidence_document_ids": [
+      "doc-012",
+      "doc-016"
+    ],
+    "fact_ids": [
+      "fact-029",
+      "fact-038"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-012",
+        "source_name": "Kraken Legal",
+        "source_url": "https://www.kraken.com/legal/xstocks",
+        "published_at": null,
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "product_page",
+        "source_quality": "A",
+        "title": "xStocks Risk Disclosure",
+        "excerpt": "xStocks are issued by Backed Assets (JE) Limited (a Jersey private limited company) (the \"Issuer\"), and offered to certain Kraken clients by Payward Digital Solutions Ltd. (“PDSL”), a Bermuda exempted company licensed to conduct digital asset business by the Bermuda Monetary Authority."
+      },
+      {
+        "document_id": "doc-016",
+        "source_name": "Kraken Blog",
+        "source_url": "https://blog.kraken.com/product/xstocks/tokenized-equities-now-available",
+        "published_at": "2025-06-30",
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "official_blog",
+        "source_quality": "A",
+        "title": "From Wall Street to your wallet: Tokenized equities now available on Kraken",
+        "excerpt": "We’re beginning a phased rollout of tokenized U.S. stocks and ETFs – powered by Backed’s xStocks innovation – for eligible non-U.S. clients."
+      }
+    ],
+    "comparison_reason": "xStocks tokenized equities is not listed in baseline known_products. xStocks tokenized equities is not listed in baseline business_area. The source is undated, but source quality is high enough for a review alert. xStocks tokenized equities is not listed in baseline known_products. xStocks tokenized equities is not listed in baseline business_area.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-021",
+    "customer_id": "demo-004",
+    "category": "ownership_control",
+    "signal_type": "ownership_change",
+    "title": "Payward, Inc. d/b/a Kraken has ownership/control drift involving NinjaTrader",
+    "summary": "1 evidence document support ownership_change for NinjaTrader. NinjaTrader is not listed in baseline subsidiaries. NinjaTrader is not listed in baseline business_area. risk_rating requires review due to NinjaTrader. The source is undated, but source quality is high enough for a review alert.",
+    "changed_fields": [
+      "business_area",
+      "risk_rating",
+      "subsidiaries"
+    ],
+    "baseline_value": {
+      "subsidiaries": [],
+      "business_area": [
+        "cryptocurrency exchange",
+        "institutional crypto services",
+        "crypto custody",
+        "spot trading"
+      ],
+      "risk_rating": "high"
+    },
+    "new_value": {
+      "subsidiaries": [
+        "NinjaTrader"
+      ],
+      "business_area": [
+        "NinjaTrader"
+      ],
+      "risk_rating": [
+        "Review due to NinjaTrader"
+      ]
+    },
+    "severity": "high",
+    "confidence": 0.93,
+    "recommended_action": "Request updated corporate structure and beneficial ownership information before the next review.",
+    "evidence_document_ids": [
+      "doc-005"
+    ],
+    "fact_ids": [
+      "fact-008"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-005",
+        "source_name": "Kraken Press Room",
+        "source_url": "https://www.kraken.com/press/releases/kraken-to-acquire-ninjatrader-introducing-the-next-era-of-professional-trading",
+        "published_at": null,
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "company_newsroom",
+        "source_quality": "A",
+        "title": "Kraken to Acquire NinjaTrader: Introducing the Next Era of Professional Trading Kraken has entered into an agreement to acquire NinjaTrader, the leading U.S. retail futures trading platform, for $1.5 billion, subject to certain purchase price adjustments.",
+        "excerpt": "CHEYENNE, Wyo.--Kraken, one of the longest-standing, most liquid and secure crypto platforms serving more than 15 million clients globally, has entered into an agreement to acquire NinjaTrader, the leading U.S. retail futures trading platform, for $1.5 billion, subject to certain purchase price adjustments."
+      }
+    ],
+    "comparison_reason": "NinjaTrader is not listed in baseline subsidiaries. NinjaTrader is not listed in baseline business_area. risk_rating requires review due to NinjaTrader. The source is undated, but source quality is high enough for a review alert.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-022",
+    "customer_id": "demo-005",
+    "category": "opportunity",
+    "signal_type": "commercial_opportunity",
+    "title": "Circle Internet Group, Inc. commercial opportunity: Circle Payments Network payments opportunity",
+    "summary": "1 evidence document support commercial_opportunity for Circle Payments Network payments opportunity. Circle Payments Network payments opportunity is not listed in baseline known_products. Circle Payments Network payments opportunity is not listed in baseline business_area. The source is undated, but source quality is high enough for a review alert.",
+    "changed_fields": [
+      "business_area",
+      "known_products"
+    ],
+    "baseline_value": {
+      "known_products": [
+        "prospect monitoring",
+        "stablecoin infrastructure watchlist"
+      ],
+      "business_area": [
+        "stablecoin issuer",
+        "payments infrastructure",
+        "digital asset treasury infrastructure"
+      ]
+    },
+    "new_value": {
+      "known_products": [
+        "Circle Payments Network payments opportunity"
+      ],
+      "business_area": [
+        "Circle Payments Network payments opportunity"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.9,
+    "recommended_action": "Add to RM call brief for custody, payments, FX, lending, or treasury discussion.",
+    "evidence_document_ids": [
+      "doc-010"
+    ],
+    "fact_ids": [
+      "fact-023"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-010",
+        "source_name": "Circle",
+        "source_url": "https://www.circle.com/cpn",
+        "published_at": null,
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "product_page",
+        "source_quality": "A",
+        "title": "Circle Payments Network",
+        "excerpt": "Circle Payments Network (CPN) is a global network of partners, including banks, payment service providers (PSPs), virtual asset service providers (VASPs), and enterprises, who enable consumer, business, and institutional payments with 24/7 real-time settlement via stablecoins like USDC and EURC."
+      }
+    ],
+    "comparison_reason": "Circle Payments Network payments opportunity is not listed in baseline known_products. Circle Payments Network payments opportunity is not listed in baseline business_area. The source is undated, but source quality is high enough for a review alert.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-023",
+    "customer_id": "demo-005",
+    "category": "opportunity",
+    "signal_type": "commercial_opportunity",
+    "title": "Circle Internet Group, Inc. commercial opportunity: USDC liquidity and payments opportunity",
+    "summary": "1 evidence document support commercial_opportunity for USDC liquidity and payments opportunity. USDC liquidity and payments opportunity is not listed in baseline known_products. USDC liquidity and payments opportunity is not listed in baseline business_area. The source is undated, but source quality is high enough for a review alert.",
+    "changed_fields": [
+      "business_area",
+      "known_products"
+    ],
+    "baseline_value": {
+      "known_products": [
+        "prospect monitoring",
+        "stablecoin infrastructure watchlist"
+      ],
+      "business_area": [
+        "stablecoin issuer",
+        "payments infrastructure",
+        "digital asset treasury infrastructure"
+      ]
+    },
+    "new_value": {
+      "known_products": [
+        "USDC liquidity and payments opportunity"
+      ],
+      "business_area": [
+        "USDC liquidity and payments opportunity"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.9,
+    "recommended_action": "Add to RM call brief for custody, payments, FX, lending, or treasury discussion.",
+    "evidence_document_ids": [
+      "doc-011"
+    ],
+    "fact_ids": [
+      "fact-026"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-011",
+        "source_name": "Circle",
+        "source_url": "https://www.circle.com/usdc",
+        "published_at": null,
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "product_page",
+        "source_quality": "A",
+        "title": "USDC | Powering global finance. Issued by Circle.",
+        "excerpt": "Redeemable 1:1 for US dollars, USDC enables 24/7 liquidity for near-instant, low-cost global payments."
+      }
+    ],
+    "comparison_reason": "USDC liquidity and payments opportunity is not listed in baseline known_products. USDC liquidity and payments opportunity is not listed in baseline business_area. The source is undated, but source quality is high enough for a review alert.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-024",
+    "customer_id": "demo-005",
+    "category": "opportunity",
+    "signal_type": "commercial_opportunity",
+    "title": "Circle Internet Group, Inc. commercial opportunity: Circle Mint distribution opportunity",
+    "summary": "1 evidence document support commercial_opportunity for Circle Mint distribution opportunity. Circle Mint distribution opportunity is not listed in baseline known_products. Circle Mint distribution opportunity is not listed in baseline business_area. The source is undated, but source quality is high enough for a review alert.",
+    "changed_fields": [
+      "business_area",
+      "known_products"
+    ],
+    "baseline_value": {
+      "known_products": [
+        "prospect monitoring",
+        "stablecoin infrastructure watchlist"
+      ],
+      "business_area": [
+        "stablecoin issuer",
+        "payments infrastructure",
+        "digital asset treasury infrastructure"
+      ]
+    },
+    "new_value": {
+      "known_products": [
+        "Circle Mint distribution opportunity"
+      ],
+      "business_area": [
+        "Circle Mint distribution opportunity"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.9,
+    "recommended_action": "Add to RM call brief for custody, payments, FX, lending, or treasury discussion.",
+    "evidence_document_ids": [
+      "doc-018"
+    ],
+    "fact_ids": [
+      "fact-042"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-018",
+        "source_name": "Circle",
+        "source_url": "https://www.circle.com/circle-mint",
+        "published_at": null,
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "product_page",
+        "source_quality": "A",
+        "title": "Circle Mint",
+        "excerpt": "Circle Mint is the fastest and most cost effective way for distributors to access and redeem USDC and EURC."
+      }
+    ],
+    "comparison_reason": "Circle Mint distribution opportunity is not listed in baseline known_products. Circle Mint distribution opportunity is not listed in baseline business_area. The source is undated, but source quality is high enough for a review alert.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-025",
+    "customer_id": "demo-005",
+    "category": "mixed",
+    "signal_type": "digital_asset_activity",
+    "title": "Circle Internet Group, Inc. has new digital-asset activity: USDC/EURC stablecoin payments",
+    "summary": "1 evidence document support digital_asset_activity for USDC/EURC stablecoin payments. USDC/EURC stablecoin payments is not listed in baseline business_area. USDC/EURC stablecoin payments is not listed in baseline known_products. risk_rating requires review due to USDC/EURC stablecoin payments. The source is undated, but source quality is high enough for a review alert.",
+    "changed_fields": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "business_area": [
+        "stablecoin issuer",
+        "payments infrastructure",
+        "digital asset treasury infrastructure"
+      ],
+      "known_products": [
+        "prospect monitoring",
+        "stablecoin infrastructure watchlist"
+      ],
+      "risk_rating": "medium"
+    },
+    "new_value": {
+      "business_area": [
+        "USDC/EURC stablecoin payments"
+      ],
+      "known_products": [
+        "USDC/EURC stablecoin payments"
+      ],
+      "risk_rating": [
+        "Review due to USDC/EURC stablecoin payments"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.93,
+    "recommended_action": "Review custody, trading, and lending suitability; assess digital-asset risk impact.",
+    "evidence_document_ids": [
+      "doc-010"
+    ],
+    "fact_ids": [
+      "fact-021"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-010",
+        "source_name": "Circle",
+        "source_url": "https://www.circle.com/cpn",
+        "published_at": null,
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "product_page",
+        "source_quality": "A",
+        "title": "Circle Payments Network",
+        "excerpt": "Circle Payments Network (CPN) is a global network of partners, including banks, payment service providers (PSPs), virtual asset service providers (VASPs), and enterprises, who enable consumer, business, and institutional payments with 24/7 real-time settlement via stablecoins like USDC and EURC."
+      }
+    ],
+    "comparison_reason": "USDC/EURC stablecoin payments is not listed in baseline business_area. USDC/EURC stablecoin payments is not listed in baseline known_products. risk_rating requires review due to USDC/EURC stablecoin payments. The source is undated, but source quality is high enough for a review alert.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-026",
+    "customer_id": "demo-005",
+    "category": "mixed",
+    "signal_type": "digital_asset_activity",
+    "title": "Circle Internet Group, Inc. has new digital-asset activity: USDC global payments",
+    "summary": "1 evidence document support digital_asset_activity for USDC global payments. USDC global payments is not listed in baseline business_area. USDC global payments is not listed in baseline known_products. risk_rating requires review due to USDC global payments. The source is undated, but source quality is high enough for a review alert.",
+    "changed_fields": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "business_area": [
+        "stablecoin issuer",
+        "payments infrastructure",
+        "digital asset treasury infrastructure"
+      ],
+      "known_products": [
+        "prospect monitoring",
+        "stablecoin infrastructure watchlist"
+      ],
+      "risk_rating": "medium"
+    },
+    "new_value": {
+      "business_area": [
+        "USDC global payments"
+      ],
+      "known_products": [
+        "USDC global payments"
+      ],
+      "risk_rating": [
+        "Review due to USDC global payments"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.93,
+    "recommended_action": "Review custody, trading, and lending suitability; assess digital-asset risk impact.",
+    "evidence_document_ids": [
+      "doc-011"
+    ],
+    "fact_ids": [
+      "fact-024"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-011",
+        "source_name": "Circle",
+        "source_url": "https://www.circle.com/usdc",
+        "published_at": null,
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "product_page",
+        "source_quality": "A",
+        "title": "USDC | Powering global finance. Issued by Circle.",
+        "excerpt": "Redeemable 1:1 for US dollars, USDC enables 24/7 liquidity for near-instant, low-cost global payments."
+      }
+    ],
+    "comparison_reason": "USDC global payments is not listed in baseline business_area. USDC global payments is not listed in baseline known_products. risk_rating requires review due to USDC global payments. The source is undated, but source quality is high enough for a review alert.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-027",
+    "customer_id": "demo-005",
+    "category": "mixed",
+    "signal_type": "digital_asset_activity",
+    "title": "Circle Internet Group, Inc. has new digital-asset activity: USDC/EURC access and redemption",
+    "summary": "1 evidence document support digital_asset_activity for USDC/EURC access and redemption. USDC/EURC access and redemption is not listed in baseline business_area. USDC/EURC access and redemption is not listed in baseline known_products. risk_rating requires review due to USDC/EURC access and redemption. The source is undated, but source quality is high enough for a review alert.",
+    "changed_fields": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "business_area": [
+        "stablecoin issuer",
+        "payments infrastructure",
+        "digital asset treasury infrastructure"
+      ],
+      "known_products": [
+        "prospect monitoring",
+        "stablecoin infrastructure watchlist"
+      ],
+      "risk_rating": "medium"
+    },
+    "new_value": {
+      "business_area": [
+        "USDC/EURC access and redemption"
+      ],
+      "known_products": [
+        "USDC/EURC access and redemption"
+      ],
+      "risk_rating": [
+        "Review due to USDC/EURC access and redemption"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.93,
+    "recommended_action": "Review custody, trading, and lending suitability; assess digital-asset risk impact.",
+    "evidence_document_ids": [
+      "doc-018"
+    ],
+    "fact_ids": [
+      "fact-040"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-018",
+        "source_name": "Circle",
+        "source_url": "https://www.circle.com/circle-mint",
+        "published_at": null,
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "product_page",
+        "source_quality": "A",
+        "title": "Circle Mint",
+        "excerpt": "Circle Mint is the fastest and most cost effective way for distributors to access and redeem USDC and EURC."
+      }
+    ],
+    "comparison_reason": "USDC/EURC access and redemption is not listed in baseline business_area. USDC/EURC access and redemption is not listed in baseline known_products. risk_rating requires review due to USDC/EURC access and redemption. The source is undated, but source quality is high enough for a review alert.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-028",
+    "customer_id": "demo-005",
+    "category": "opportunity",
+    "signal_type": "new_product",
+    "title": "Circle Internet Group, Inc. product signal: Circle Payments Network",
+    "summary": "1 evidence document support new_product for Circle Payments Network. Circle Payments Network is not listed in baseline known_products. Circle Payments Network is not listed in baseline business_area. The source is undated, but source quality is high enough for a review alert.",
+    "changed_fields": [
+      "business_area",
+      "known_products"
+    ],
+    "baseline_value": {
+      "known_products": [
+        "prospect monitoring",
+        "stablecoin infrastructure watchlist"
+      ],
+      "business_area": [
+        "stablecoin issuer",
+        "payments infrastructure",
+        "digital asset treasury infrastructure"
+      ]
+    },
+    "new_value": {
+      "known_products": [
+        "Circle Payments Network"
+      ],
+      "business_area": [
+        "Circle Payments Network"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.93,
+    "recommended_action": "Add to RM call brief for custody, payments, FX, lending, or treasury discussion.",
+    "evidence_document_ids": [
+      "doc-010"
+    ],
+    "fact_ids": [
+      "fact-022"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-010",
+        "source_name": "Circle",
+        "source_url": "https://www.circle.com/cpn",
+        "published_at": null,
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "product_page",
+        "source_quality": "A",
+        "title": "Circle Payments Network",
+        "excerpt": "Circle Payments Network (CPN) is a global network of partners, including banks, payment service providers (PSPs), virtual asset service providers (VASPs), and enterprises, who enable consumer, business, and institutional payments with 24/7 real-time settlement via stablecoins like USDC and EURC."
+      }
+    ],
+    "comparison_reason": "Circle Payments Network is not listed in baseline known_products. Circle Payments Network is not listed in baseline business_area. The source is undated, but source quality is high enough for a review alert.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-029",
+    "customer_id": "demo-005",
+    "category": "opportunity",
+    "signal_type": "new_product",
+    "title": "Circle Internet Group, Inc. product signal: USDC global payments",
+    "summary": "1 evidence document support new_product for USDC global payments. USDC global payments is not listed in baseline known_products. USDC global payments is not listed in baseline business_area. The source is undated, but source quality is high enough for a review alert.",
+    "changed_fields": [
+      "business_area",
+      "known_products"
+    ],
+    "baseline_value": {
+      "known_products": [
+        "prospect monitoring",
+        "stablecoin infrastructure watchlist"
+      ],
+      "business_area": [
+        "stablecoin issuer",
+        "payments infrastructure",
+        "digital asset treasury infrastructure"
+      ]
+    },
+    "new_value": {
+      "known_products": [
+        "USDC global payments"
+      ],
+      "business_area": [
+        "USDC global payments"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.93,
+    "recommended_action": "Add to RM call brief for custody, payments, FX, lending, or treasury discussion.",
+    "evidence_document_ids": [
+      "doc-011"
+    ],
+    "fact_ids": [
+      "fact-025"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-011",
+        "source_name": "Circle",
+        "source_url": "https://www.circle.com/usdc",
+        "published_at": null,
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "product_page",
+        "source_quality": "A",
+        "title": "USDC | Powering global finance. Issued by Circle.",
+        "excerpt": "Redeemable 1:1 for US dollars, USDC enables 24/7 liquidity for near-instant, low-cost global payments."
+      }
+    ],
+    "comparison_reason": "USDC global payments is not listed in baseline known_products. USDC global payments is not listed in baseline business_area. The source is undated, but source quality is high enough for a review alert.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-030",
+    "customer_id": "demo-005",
+    "category": "opportunity",
+    "signal_type": "new_product",
+    "title": "Circle Internet Group, Inc. product signal: Circle Mint",
+    "summary": "1 evidence document support new_product for Circle Mint. Circle Mint is not listed in baseline known_products. Circle Mint is not listed in baseline business_area. The source is undated, but source quality is high enough for a review alert.",
+    "changed_fields": [
+      "business_area",
+      "known_products"
+    ],
+    "baseline_value": {
+      "known_products": [
+        "prospect monitoring",
+        "stablecoin infrastructure watchlist"
+      ],
+      "business_area": [
+        "stablecoin issuer",
+        "payments infrastructure",
+        "digital asset treasury infrastructure"
+      ]
+    },
+    "new_value": {
+      "known_products": [
+        "Circle Mint"
+      ],
+      "business_area": [
+        "Circle Mint"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.93,
+    "recommended_action": "Add to RM call brief for custody, payments, FX, lending, or treasury discussion.",
+    "evidence_document_ids": [
+      "doc-018"
+    ],
+    "fact_ids": [
+      "fact-041"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-018",
+        "source_name": "Circle",
+        "source_url": "https://www.circle.com/circle-mint",
+        "published_at": null,
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "product_page",
+        "source_quality": "A",
+        "title": "Circle Mint",
+        "excerpt": "Circle Mint is the fastest and most cost effective way for distributors to access and redeem USDC and EURC."
+      }
+    ],
+    "comparison_reason": "Circle Mint is not listed in baseline known_products. Circle Mint is not listed in baseline business_area. The source is undated, but source quality is high enough for a review alert.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  },
+  {
+    "alert_id": "alert-031",
+    "customer_id": "demo-005",
+    "category": "opportunity",
+    "signal_type": "public_listing",
+    "title": "Circle Internet Group, Inc. public-company profile should be refreshed",
+    "summary": "1 evidence document support public_listing for Circle Investor Relations profile. entity_type requires review due to Circle Investor Relations profile. Circle Investor Relations profile is not listed in baseline known_products. The source is undated, but source quality is high enough for a review alert.",
+    "changed_fields": [
+      "entity_type",
+      "known_products"
+    ],
+    "baseline_value": {
+      "entity_type": "public_company",
+      "known_products": [
+        "prospect monitoring",
+        "stablecoin infrastructure watchlist"
+      ]
+    },
+    "new_value": {
+      "entity_type": [
+        "Circle Investor Relations profile"
+      ],
+      "known_products": [
+        "Circle Investor Relations profile"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.88,
+    "recommended_action": "Refresh the company profile and add public filing monitoring to the customer watchlist.",
+    "evidence_document_ids": [
+      "doc-017"
+    ],
+    "fact_ids": [
+      "fact-039"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-017",
+        "source_name": "Circle Investor Relations",
+        "source_url": "https://investor.circle.com/overview/default.aspx",
+        "published_at": null,
+        "collected_at": "2026-06-20T00:00:03Z",
+        "source_type": "investor_relations",
+        "source_quality": "A",
+        "title": "Circle Investor Relations",
+        "excerpt": "Circle is a global financial technology firm that enables businesses of all sizes to harness the power of digital currencies and public blockchains for payments, commerce, and financial applications worldwide."
+      }
+    ],
+    "comparison_reason": "entity_type requires review due to Circle Investor Relations profile. Circle Investor Relations profile is not listed in baseline known_products. The source is undated, but source quality is high enough for a review alert.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z"
+  }
+]

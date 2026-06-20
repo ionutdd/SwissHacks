@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SignalWatch RM Console</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div id="loading" class="loading-screen">
+      <div class="loading-box">
+        <div class="brand-mark" aria-hidden="true">SW</div>
+        <h1>SignalWatch</h1>
+        <p>Loading RM console</p>
+      </div>
+    </div>
+
+    <div id="errorState" class="error-state" hidden>
+      <div class="error-panel">
+        <div class="brand-mark" aria-hidden="true">SW</div>
+        <h1>SignalWatch</h1>
+        <p id="errorMessage">Unable to load dashboard data.</p>
+      </div>
+    </div>
+
+    <div id="app" class="app-shell" hidden>
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">SW</div>
+          <div>
+            <div class="brand-name">SignalWatch</div>
+            <div class="brand-subtitle">AMINA RM Console</div>
+          </div>
+        </div>
+        <div class="topbar-meta">
+          <span id="dataHealth" class="data-health">Data ready</span>
+          <button id="resetDemoState" class="ghost-button" type="button">Reset demo state</button>
+        </div>
+      </header>
+
+      <main class="dashboard-grid">
+        <aside class="portfolio-panel" aria-label="Portfolio queue">
+          <section class="metrics" aria-label="Portfolio metrics">
+            <div class="metric">
+              <span class="metric-value" id="metricCustomers">0</span>
+              <span class="metric-label">Customers</span>
+            </div>
+            <div class="metric">
+              <span class="metric-value" id="metricOpen">0</span>
+              <span class="metric-label">Open alerts</span>
+            </div>
+            <div class="metric">
+              <span class="metric-value" id="metricHigh">0</span>
+              <span class="metric-label">High severity</span>
+            </div>
+            <div class="metric">
+              <span class="metric-value" id="metricRisk">0</span>
+              <span class="metric-label">Risk</span>
+            </div>
+          </section>
+
+          <section class="filters" aria-label="Dashboard filters">
+            <label class="field-label" for="searchInput">Search</label>
+            <input id="searchInput" class="search-input" type="search" autocomplete="off" placeholder="Customer or alert">
+
+            <div class="segmented-control" role="group" aria-label="Category filter">
+              <button class="segment active" type="button" data-category="all">All</button>
+              <button class="segment" type="button" data-category="risk">Risk</button>
+              <button class="segment" type="button" data-category="opportunity">Opportunity</button>
+              <button class="segment" type="button" data-category="ownership_control">Ownership</button>
+              <button class="segment" type="button" data-category="mixed">Mixed</button>
+            </div>
+
+            <div class="filter-row">
+              <label>
+                <span class="field-label">Severity</span>
+                <select id="severityFilter">
+                  <option value="all">All</option>
+                  <option value="high">High</option>
+                  <option value="medium">Medium</option>
+                  <option value="low">Low</option>
+                </select>
+              </label>
+              <label>
+                <span class="field-label">Status</span>
+                <select id="statusFilter">
+                  <option value="all">All</option>
+                  <option value="new">New</option>
+                  <option value="in_review">In review</option>
+                  <option value="escalated">Escalated</option>
+                  <option value="customer_update_requested">Update requested</option>
+                  <option value="added_to_call_brief">In brief</option>
+                  <option value="dismissed">Dismissed</option>
+                </select>
+              </label>
+            </div>
+          </section>
+
+          <section class="customer-section">
+            <div class="section-heading">
+              <h2>Portfolio</h2>
+              <span id="customerCountLabel">0 shown</span>
+            </div>
+            <div id="customerList" class="customer-list" role="list"></div>
+          </section>
+        </aside>
+
+        <section class="workspace" aria-label="Alert workspace">
+          <div class="workspace-header">
+            <div>
+              <p class="eyebrow">Selected customer</p>
+              <h1 id="selectedCustomerName">Customer</h1>
+              <div id="selectedCustomerMeta" class="customer-meta"></div>
+            </div>
+            <div id="selectedCustomerStats" class="customer-stat-strip"></div>
+          </div>
+
+          <section class="queue-panel">
+            <div class="section-heading">
+              <h2>Alert queue</h2>
+              <span id="alertQueueCount">0 alerts</span>
+            </div>
+            <div id="alertQueue" class="alert-queue" role="list"></div>
+          </section>
+
+          <section id="alertDetail" class="detail-panel" aria-label="Alert detail"></section>
+        </section>
+
+        <aside class="brief-panel" aria-label="RM call brief">
+          <div class="section-heading">
+            <h2>RM brief</h2>
+            <span id="briefCustomerLabel">Customer</span>
+          </div>
+          <div class="brief-actions">
+            <button id="copyBrief" class="secondary-button" type="button">Copy brief</button>
+            <button id="printBrief" class="secondary-button" type="button">Print</button>
+          </div>
+          <div id="briefStatus" class="brief-status" aria-live="polite"></div>
+          <div id="briefContent" class="brief-content"></div>
+        </aside>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
