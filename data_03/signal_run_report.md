@@ -2,19 +2,19 @@
 
 ## Run Summary
 
-- Documents processed: 21
-- Facts generated: 56
-- Alerts generated: 45
-- Risk alerts: 10
-- Opportunity alerts: 9
+- Documents processed: 22
+- Facts generated: 59
+- Alerts generated: 48
+- Risk alerts: 9
+- Opportunity alerts: 11
 - Ownership/control alerts: 3
-- Mixed alerts: 23
+- Mixed alerts: 25
 
 ## Severity Counts
 
 - critical: 0
 - high: 18
-- medium: 27
+- medium: 30
 - low: 0
 
 ## Top Demo Alerts

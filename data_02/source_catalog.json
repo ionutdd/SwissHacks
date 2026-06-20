@@ -221,6 +221,61 @@
       "limitations": "Public news/event discovery. Use official regulator or company sources when available."
     },
     {
+      "connector": "news_event_discovery",
+      "enabled": true,
+      "customer_id": "demo-009",
+      "provider": "gdelt_doc",
+      "queries": [
+        "Google Alphabet AI chip TPU cloud infrastructure Nvidia Anthropic",
+        "Google Cloud TPU AI infrastructure Alphabet",
+        "Alphabet Google antitrust investigation regulator AI"
+      ],
+      "trusted_domains": [
+        "reuters.com",
+        "apnews.com",
+        "wsj.com",
+        "thetimes.com",
+        "bloomberg.com",
+        "barrons.com",
+        "cnbc.com",
+        "businessinsider.com"
+      ],
+      "fallback_urls": [
+        "https://www.thetimes.com/business/wsj/article/google-is-using-nvidias-playbook-to-build-a-rival-ai-chip-business-rkbzvb9jn"
+      ],
+      "source_name": "GDELT News Discovery",
+      "source_type": "reputable_news",
+      "source_quality": "B",
+      "query_terms": [
+        "Google",
+        "Alphabet",
+        "AI chip",
+        "TPU",
+        "Tensor Processing Unit",
+        "Google Cloud",
+        "AI infrastructure",
+        "Anthropic",
+        "Nvidia"
+      ],
+      "expected_signal_types": [
+        "business_activity_change",
+        "new_product",
+        "commercial_opportunity",
+        "risk_rating_review",
+        "regulatory_scrutiny"
+      ],
+      "baseline_fields_targeted": [
+        "business_area",
+        "known_products",
+        "risk_rating"
+      ],
+      "automation_potential": "medium",
+      "max_documents": 3,
+      "published_at_hint": "2026-06-19",
+      "title_hint": "Google Is Using Nvidia's Playbook to Build a Rival AI Chip Business",
+      "limitations": "High-volume public-company news discovery. Fallback is used when the news API is unavailable or rate-limited."
+    },
+    {
       "connector": "page_diff_watch",
       "enabled": true,
       "customer_id": "demo-005",
@@ -846,6 +901,115 @@
       ],
       "automation_potential": "medium",
       "limitations": "Product page has no publication date; use for product coverage and reserve-monitoring hints, not freshness by itself."
+    },
+    {
+      "source_id": "src-017-garantex-ofac-sanctions",
+      "customer_id": "demo-006",
+      "connector": "web_page",
+      "url": "https://home.treasury.gov/news/press-releases/jy0701",
+      "source_type": "regulator",
+      "source_name": "U.S. Department of the Treasury",
+      "source_quality": "A",
+      "title_hint": "Treasury Sanctions Russia-Based Hydra and Ransomware-Enabling Virtual Currency Exchange Garantex",
+      "published_at_hint": "2022-04-05",
+      "query_terms": [
+        "Garantex",
+        "virtual currency exchange",
+        "Moscow",
+        "St. Petersburg",
+        "Russia",
+        "darknet markets",
+        "ransomware",
+        "AML/CFT deficiencies",
+        "OFAC"
+      ],
+      "expected_signal_types": [
+        "regulatory_scrutiny",
+        "jurisdiction_restriction",
+        "business_activity_change",
+        "digital_asset_activity",
+        "risk_rating_review",
+        "new_jurisdiction"
+      ],
+      "baseline_fields_targeted": [
+        "known_jurisdictions",
+        "business_area",
+        "known_products",
+        "risk_rating"
+      ],
+      "automation_potential": "high",
+      "limitations": "Official enforcement source. For production, wallet-level exposure should be verified with a licensed blockchain analytics provider."
+    },
+    {
+      "source_id": "src-018-bat-ofac-north-korea",
+      "customer_id": "demo-007",
+      "connector": "web_page",
+      "url": "https://home.treasury.gov/news/press-releases/jy1441",
+      "source_type": "regulator",
+      "source_name": "U.S. Department of the Treasury",
+      "source_quality": "A",
+      "title_hint": "Treasury Announces $508 Million Settlement with British American Tobacco",
+      "published_at_hint": "2023-04-25",
+      "query_terms": [
+        "British American Tobacco",
+        "North Korea",
+        "DPRK",
+        "WMD",
+        "U.S. sanctions",
+        "designated North Korean banks",
+        "$508 million",
+        "OFAC"
+      ],
+      "expected_signal_types": [
+        "regulatory_scrutiny",
+        "jurisdiction_restriction",
+        "business_activity_change",
+        "new_jurisdiction",
+        "risk_rating_review"
+      ],
+      "baseline_fields_targeted": [
+        "known_jurisdictions",
+        "business_area",
+        "known_products",
+        "risk_rating"
+      ],
+      "automation_potential": "high",
+      "limitations": "Official sanctions settlement source. The demo treats the settlement as a KYC drift trigger, not as a final customer-risk decision."
+    },
+    {
+      "source_id": "src-019-alphabet-ai-chip-business",
+      "customer_id": "demo-009",
+      "connector": "web_page",
+      "url": "https://www.thetimes.com/business/wsj/article/google-is-using-nvidias-playbook-to-build-a-rival-ai-chip-business-rkbzvb9jn",
+      "source_type": "reputable_news",
+      "source_name": "The Times / Wall Street Journal",
+      "source_quality": "B",
+      "title_hint": "Google Is Using Nvidia's Playbook to Build a Rival AI Chip Business",
+      "published_at_hint": "2026-06-19",
+      "query_terms": [
+        "Google",
+        "Alphabet",
+        "AI chip",
+        "TPU",
+        "Tensor Processing Unit",
+        "Google Cloud",
+        "AI infrastructure",
+        "Anthropic",
+        "Nvidia",
+        "Blackstone"
+      ],
+      "expected_signal_types": [
+        "business_activity_change",
+        "new_product",
+        "commercial_opportunity"
+      ],
+      "baseline_fields_targeted": [
+        "business_area",
+        "known_products",
+        "risk_rating"
+      ],
+      "automation_potential": "medium",
+      "limitations": "Reputable secondary source used to force a fresh high-volume-company demo when the public news API rate-limits. Replace with official Google Cloud or Alphabet IR source if it publishes the same signal."
     }
   ],
   "blocked_or_provider_only_sources": [

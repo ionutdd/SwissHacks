@@ -58,7 +58,25 @@
     ],
     "comparison_reason": "global cryptocurrency exchange is not listed in baseline business_area. global cryptocurrency exchange is not listed in baseline known_products. risk_rating requires review due to global cryptocurrency exchange.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 122,
+    "material_reasons": [
+      "medium severity",
+      "mixed category",
+      "94% confidence",
+      "KYC fields changed: business_area, known_products, risk_rating",
+      "Material keywords: acquisition",
+      "Newest published evidence is 383 day(s) old"
+    ],
+    "freshness_days": 383,
+    "newest_published_at": "2025-06-02T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://robinhood.com/us/en/newsroom/robinhood-completes-acquisition-of-bitstamp/",
+    "primary_source_name": "Robinhood Newsroom",
+    "review_lane": "RM review",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   },
   {
     "alert_id": "alert-002",
@@ -119,7 +137,25 @@
     ],
     "comparison_reason": "crypto-asset services is not listed in baseline business_area. crypto-asset services is not listed in baseline known_products. risk_rating requires review due to crypto-asset services.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 123,
+    "material_reasons": [
+      "medium severity",
+      "mixed category",
+      "94% confidence",
+      "KYC fields changed: business_area, known_products, risk_rating",
+      "Material keywords: acquisition",
+      "Newest published evidence is 383 day(s) old"
+    ],
+    "freshness_days": 383,
+    "newest_published_at": "2025-06-02T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://blog.bitstamp.net/post/robinhood-completes-acquisition-of-bitstamp/",
+    "primary_source_name": "Bitstamp Blog",
+    "review_lane": "RM review",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   },
   {
     "alert_id": "alert-003",
@@ -187,7 +223,25 @@
     ],
     "comparison_reason": "Luxembourg, British Virgin Islands, Singapore is not listed in baseline known_jurisdictions. risk_rating requires review due to United Kingdom; Luxembourg; British Virgin Islands; Singapore.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 153,
+    "material_reasons": [
+      "high severity",
+      "mixed category",
+      "95% confidence",
+      "KYC fields changed: known_jurisdictions, risk_rating",
+      "Material keywords: jurisdiction, acquisition",
+      "Newest published evidence is 383 day(s) old"
+    ],
+    "freshness_days": 383,
+    "newest_published_at": "2025-06-02T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://blog.bitstamp.net/post/robinhood-completes-acquisition-of-bitstamp/",
+    "primary_source_name": "Bitstamp Blog",
+    "review_lane": "Compliance review",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   },
   {
     "alert_id": "alert-004",
@@ -255,7 +309,25 @@
     ],
     "comparison_reason": "Bitstamp Europe S.A., Bitstamp UK Ltd., Bitstamp Ltd., Bitstamp Global Ltd., Bitstamp Asia Pte Ltd is not listed in baseline subsidiaries. Luxembourg, British Virgin Islands, Singapore is not listed in baseline known_jurisdictions. risk_rating requires review due to Bitstamp Europe S.A.; Bitstamp UK Ltd.; Bitstamp Ltd.; Bitstamp Global Ltd.; Bitstamp Asia Pte Ltd.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 144,
+    "material_reasons": [
+      "medium severity",
+      "ownership_control category",
+      "94% confidence",
+      "KYC fields changed: known_jurisdictions, risk_rating, subsidiaries",
+      "Material keywords: jurisdiction, subsidiary",
+      "Newest published evidence is 383 day(s) old"
+    ],
+    "freshness_days": 383,
+    "newest_published_at": "2025-06-02T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://blog.bitstamp.net/post/robinhood-completes-acquisition-of-bitstamp/",
+    "primary_source_name": "Bitstamp Legal Footer",
+    "review_lane": "KYC update",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   },
   {
     "alert_id": "alert-005",
@@ -317,7 +389,25 @@
     ],
     "comparison_reason": "Bitstamp Ltd. is not listed in baseline subsidiaries. Bitstamp Ltd. is not listed in baseline business_area. risk_rating requires review due to Bitstamp Ltd..",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 166,
+    "material_reasons": [
+      "high severity",
+      "ownership_control category",
+      "94% confidence",
+      "KYC fields changed: business_area, risk_rating, subsidiaries",
+      "Material keywords: acquisition",
+      "Newest published evidence is 383 day(s) old"
+    ],
+    "freshness_days": 383,
+    "newest_published_at": "2025-06-02T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://robinhood.com/us/en/newsroom/robinhood-completes-acquisition-of-bitstamp/",
+    "primary_source_name": "Robinhood Newsroom",
+    "review_lane": "Compliance review",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   },
   {
     "alert_id": "alert-006",
@@ -404,7 +494,25 @@
     ],
     "comparison_reason": "event-based binary options and gambling-market exposure is not listed in baseline business_area. event-based binary options and gambling-market exposure is not listed in baseline known_products. risk_rating requires review due to event-based binary options and gambling-market exposure.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 141,
+    "material_reasons": [
+      "medium severity",
+      "mixed category",
+      "81% confidence",
+      "KYC fields changed: business_area, known_products, risk_rating",
+      "Material keywords: blocked, gambling",
+      "Newest published evidence is 25 day(s) old"
+    ],
+    "freshness_days": 25,
+    "newest_published_at": "2026-05-26T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://www.theguardian.com/world/2026/may/26/spain-blocks-access-polymarket-kalshi-gambling-licence-investigation",
+    "primary_source_name": "theguardian.com",
+    "review_lane": "RM review",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   },
   {
     "alert_id": "alert-007",
@@ -482,7 +590,25 @@
     ],
     "comparison_reason": "Spain is not listed in baseline known_jurisdictions. risk_rating requires review due to Spain market-access block.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 191,
+    "material_reasons": [
+      "high severity",
+      "risk category",
+      "81% confidence",
+      "KYC fields changed: known_jurisdictions, risk_rating",
+      "Material keywords: blocked, jurisdiction, gambling",
+      "Newest published evidence is 25 day(s) old"
+    ],
+    "freshness_days": 25,
+    "newest_published_at": "2026-05-26T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://www.theguardian.com/world/2026/may/26/spain-blocks-access-polymarket-kalshi-gambling-licence-investigation",
+    "primary_source_name": "theguardian.com",
+    "review_lane": "Compliance review",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   },
   {
     "alert_id": "alert-008",
@@ -562,7 +688,25 @@
     ],
     "comparison_reason": "risk_rating requires review due to Spanish gambling-license investigation. Spanish gambling-license investigation is not listed in baseline business_area.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 192,
+    "material_reasons": [
+      "high severity",
+      "risk category",
+      "81% confidence",
+      "KYC fields changed: business_area, risk_rating",
+      "Material keywords: regulatory, blocked, gambling",
+      "Newest published evidence is 25 day(s) old"
+    ],
+    "freshness_days": 25,
+    "newest_published_at": "2026-05-26T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://www.theguardian.com/world/2026/may/26/spain-blocks-access-polymarket-kalshi-gambling-licence-investigation",
+    "primary_source_name": "theguardian.com",
+    "review_lane": "Compliance review",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   },
   {
     "alert_id": "alert-009",
@@ -618,7 +762,26 @@
     ],
     "comparison_reason": "Bitcoin custody and treasury services opportunity is not listed in baseline known_products. Bitcoin custody and treasury services opportunity is not listed in baseline business_area.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 101,
+    "material_reasons": [
+      "medium severity",
+      "opportunity category",
+      "91% confidence",
+      "KYC fields changed: business_area, known_products",
+      "Material keywords: bitcoin, treasury",
+      "Newest published evidence is 388 day(s) old"
+    ],
+    "freshness_days": 388,
+    "newest_published_at": "2025-05-28T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://www.sec.gov/Archives/edgar/data/1326380/000132638025000026/pr-btcmay2025.htm",
+    "primary_source_name": "SEC EDGAR",
+    "review_lane": "RM opportunity",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window.",
+      "Generic opportunity or product update is below material threshold."
+    ]
   },
   {
     "alert_id": "alert-010",
@@ -679,7 +842,25 @@
     ],
     "comparison_reason": "4,710 Bitcoin purchase is not listed in baseline business_area. 4,710 Bitcoin purchase is not listed in baseline known_products. risk_rating requires review due to 4,710 Bitcoin purchase.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 123,
+    "material_reasons": [
+      "medium severity",
+      "mixed category",
+      "94% confidence",
+      "KYC fields changed: business_area, known_products, risk_rating",
+      "Material keywords: bitcoin",
+      "Newest published evidence is 388 day(s) old"
+    ],
+    "freshness_days": 388,
+    "newest_published_at": "2025-05-28T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://www.sec.gov/Archives/edgar/data/1326380/000132638025000026/pr-btcmay2025.htm",
+    "primary_source_name": "SEC EDGAR",
+    "review_lane": "RM review",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   },
   {
     "alert_id": "alert-011",
@@ -740,7 +921,25 @@
     ],
     "comparison_reason": "Bitcoin treasury reserve asset is not listed in baseline business_area. Bitcoin treasury reserve asset is not listed in baseline known_products. risk_rating requires review due to Bitcoin treasury reserve asset.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 130,
+    "material_reasons": [
+      "medium severity",
+      "mixed category",
+      "92% confidence",
+      "KYC fields changed: business_area, known_products, risk_rating",
+      "Material keywords: bitcoin, treasury",
+      "Newest published evidence is 452 day(s) old"
+    ],
+    "freshness_days": 452,
+    "newest_published_at": "2025-03-25T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://www.sec.gov/Archives/edgar/data/1326380/000162828025014731/gme-20250201.htm",
+    "primary_source_name": "SEC EDGAR",
+    "review_lane": "RM review",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   },
   {
     "alert_id": "alert-012",
@@ -801,7 +1000,24 @@
     ],
     "comparison_reason": "digital assets pledged as collateral is not listed in baseline business_area. digital assets pledged as collateral is not listed in baseline known_products. risk_rating requires review due to digital assets pledged as collateral.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 132,
+    "material_reasons": [
+      "medium severity",
+      "mixed category",
+      "92% confidence",
+      "KYC fields changed: business_area, known_products, risk_rating",
+      "Newest published evidence is 9 day(s) old"
+    ],
+    "freshness_days": 9,
+    "newest_published_at": "2026-06-11T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://www.sec.gov/Archives/edgar/data/1326380/000132638026000025/gme-20260502.htm",
+    "primary_source_name": "SEC EDGAR API",
+    "review_lane": "RM review",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   },
   {
     "alert_id": "alert-013",
@@ -862,7 +1078,25 @@
     ],
     "comparison_reason": "risk_rating requires review due to digital-asset regulatory uncertainty. digital-asset regulatory uncertainty is not listed in baseline known_products. digital-asset regulatory uncertainty is not listed in baseline business_area.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 182,
+    "material_reasons": [
+      "high severity",
+      "risk category",
+      "92% confidence",
+      "KYC fields changed: business_area, known_products, risk_rating",
+      "Material keywords: regulatory, bitcoin",
+      "Newest published evidence is 375 day(s) old"
+    ],
+    "freshness_days": 375,
+    "newest_published_at": "2025-06-10T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://www.sec.gov/Archives/edgar/data/1326380/000132638025000035/gme-20250503.htm",
+    "primary_source_name": "SEC EDGAR",
+    "review_lane": "Compliance review",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   },
   {
     "alert_id": "alert-014",
@@ -923,7 +1157,25 @@
     ],
     "comparison_reason": "4,710 Bitcoin purchase is not listed in baseline business_area. 4,710 Bitcoin purchase is not listed in baseline known_products. risk_rating requires review due to 4,710 Bitcoin purchase.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 157,
+    "material_reasons": [
+      "high severity",
+      "mixed category",
+      "94% confidence",
+      "KYC fields changed: business_area, known_products, risk_rating",
+      "Material keywords: bitcoin, treasury",
+      "Newest published evidence is 388 day(s) old"
+    ],
+    "freshness_days": 388,
+    "newest_published_at": "2025-05-28T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://www.sec.gov/Archives/edgar/data/1326380/000132638025000026/pr-btcmay2025.htm",
+    "primary_source_name": "SEC EDGAR",
+    "review_lane": "Compliance review",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   },
   {
     "alert_id": "alert-015",
@@ -984,7 +1236,25 @@
     ],
     "comparison_reason": "Bitcoin treasury reserve asset is not listed in baseline business_area. Bitcoin treasury reserve asset is not listed in baseline known_products. risk_rating requires review due to Bitcoin treasury reserve asset.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 156,
+    "material_reasons": [
+      "high severity",
+      "mixed category",
+      "92% confidence",
+      "KYC fields changed: business_area, known_products, risk_rating",
+      "Material keywords: bitcoin, treasury",
+      "Newest published evidence is 452 day(s) old"
+    ],
+    "freshness_days": 452,
+    "newest_published_at": "2025-03-25T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://www.sec.gov/Archives/edgar/data/1326380/000162828025014731/gme-20250201.htm",
+    "primary_source_name": "SEC EDGAR",
+    "review_lane": "Compliance review",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   },
   {
     "alert_id": "alert-016",
@@ -1046,7 +1316,23 @@
     ],
     "comparison_reason": "U.S. futures and multi-asset professional trading is not listed in baseline business_area. U.S. futures and multi-asset professional trading is not listed in baseline known_products. risk_rating requires review due to U.S. futures and multi-asset professional trading. The source is undated, but source quality is high enough for a review alert.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 117,
+    "material_reasons": [
+      "medium severity",
+      "mixed category",
+      "93% confidence",
+      "KYC fields changed: business_area, known_products, risk_rating"
+    ],
+    "freshness_days": null,
+    "newest_published_at": null,
+    "inside_refresh_window": false,
+    "primary_source_url": "https://www.kraken.com/press/releases/kraken-to-acquire-ninjatrader-introducing-the-next-era-of-professional-trading",
+    "primary_source_name": "Kraken Press Room",
+    "review_lane": "RM review",
+    "suppression_reasons": [
+      "No dated evidence is attached, so it is not eligible for the strict 24-hour notification feed."
+    ]
   },
   {
     "alert_id": "alert-017",
@@ -1121,7 +1407,24 @@
     ],
     "comparison_reason": "tokenized U.S. stocks and ETFs is not listed in baseline business_area. tokenized U.S. stocks and ETFs is not listed in baseline known_products. risk_rating requires review due to tokenized U.S. stocks and ETFs. The source is undated, but source quality is high enough for a review alert. tokenized U.S. stocks and ETFs is not listed in baseline business_area. tokenized U.S. stocks and ETFs is not listed in baseline known_products. risk_rating requires review due to tokenized U.S. stocks and ETFs.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 126,
+    "material_reasons": [
+      "medium severity",
+      "mixed category",
+      "95% confidence",
+      "KYC fields changed: business_area, known_products, risk_rating",
+      "Newest published evidence is 355 day(s) old"
+    ],
+    "freshness_days": 355,
+    "newest_published_at": "2025-06-30T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://www.kraken.com/legal/xstocks",
+    "primary_source_name": "Kraken Legal",
+    "review_lane": "RM review",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   },
   {
     "alert_id": "alert-018",
@@ -1175,7 +1478,24 @@
     ],
     "comparison_reason": "Bermuda, Jersey is not listed in baseline known_jurisdictions. risk_rating requires review due to Bermuda; Jersey. The source is undated, but source quality is high enough for a review alert.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 148,
+    "material_reasons": [
+      "high severity",
+      "mixed category",
+      "93% confidence",
+      "KYC fields changed: known_jurisdictions, risk_rating",
+      "Material keywords: jurisdiction"
+    ],
+    "freshness_days": null,
+    "newest_published_at": null,
+    "inside_refresh_window": false,
+    "primary_source_url": "https://www.kraken.com/legal/xstocks",
+    "primary_source_name": "Kraken Legal",
+    "review_lane": "Compliance review",
+    "suppression_reasons": [
+      "No dated evidence is attached, so it is not eligible for the strict 24-hour notification feed."
+    ]
   },
   {
     "alert_id": "alert-019",
@@ -1228,7 +1548,25 @@
     ],
     "comparison_reason": "non-U.S. clients is not listed in baseline known_jurisdictions. risk_rating requires review due to non-U.S. clients.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 131,
+    "material_reasons": [
+      "medium severity",
+      "mixed category",
+      "94% confidence",
+      "KYC fields changed: known_jurisdictions, risk_rating",
+      "Material keywords: jurisdiction",
+      "Newest published evidence is 355 day(s) old"
+    ],
+    "freshness_days": 355,
+    "newest_published_at": "2025-06-30T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://blog.kraken.com/product/xstocks/tokenized-equities-now-available",
+    "primary_source_name": "Kraken Blog",
+    "review_lane": "KYC update",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   },
   {
     "alert_id": "alert-020",
@@ -1298,7 +1636,25 @@
     ],
     "comparison_reason": "xStocks tokenized equities is not listed in baseline known_products. xStocks tokenized equities is not listed in baseline business_area. The source is undated, but source quality is high enough for a review alert. xStocks tokenized equities is not listed in baseline known_products. xStocks tokenized equities is not listed in baseline business_area.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 98,
+    "material_reasons": [
+      "medium severity",
+      "opportunity category",
+      "95% confidence",
+      "KYC fields changed: business_area, known_products",
+      "Newest published evidence is 355 day(s) old"
+    ],
+    "freshness_days": 355,
+    "newest_published_at": "2025-06-30T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://www.kraken.com/legal/xstocks",
+    "primary_source_name": "Kraken Legal",
+    "review_lane": "RM opportunity",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window.",
+      "Generic opportunity or product update is below material threshold."
+    ]
   },
   {
     "alert_id": "alert-021",
@@ -1357,7 +1713,23 @@
     ],
     "comparison_reason": "NinjaTrader is not listed in baseline subsidiaries. NinjaTrader is not listed in baseline business_area. risk_rating requires review due to NinjaTrader. The source is undated, but source quality is high enough for a review alert.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 161,
+    "material_reasons": [
+      "high severity",
+      "ownership_control category",
+      "93% confidence",
+      "KYC fields changed: business_area, risk_rating, subsidiaries"
+    ],
+    "freshness_days": null,
+    "newest_published_at": null,
+    "inside_refresh_window": false,
+    "primary_source_url": "https://www.kraken.com/press/releases/kraken-to-acquire-ninjatrader-introducing-the-next-era-of-professional-trading",
+    "primary_source_name": "Kraken Press Room",
+    "review_lane": "Compliance review",
+    "suppression_reasons": [
+      "No dated evidence is attached, so it is not eligible for the strict 24-hour notification feed."
+    ]
   },
   {
     "alert_id": "alert-022",
@@ -1413,7 +1785,24 @@
     ],
     "comparison_reason": "Circle Payments Network payments opportunity is not listed in baseline known_products. Circle Payments Network payments opportunity is not listed in baseline business_area. The source is undated, but source quality is high enough for a review alert.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 88,
+    "material_reasons": [
+      "medium severity",
+      "opportunity category",
+      "90% confidence",
+      "KYC fields changed: business_area, known_products"
+    ],
+    "freshness_days": null,
+    "newest_published_at": null,
+    "inside_refresh_window": false,
+    "primary_source_url": "https://www.circle.com/cpn",
+    "primary_source_name": "Circle",
+    "review_lane": "RM opportunity",
+    "suppression_reasons": [
+      "No dated evidence is attached, so it is not eligible for the strict 24-hour notification feed.",
+      "Generic opportunity or product update is below material threshold."
+    ]
   },
   {
     "alert_id": "alert-023",
@@ -1469,7 +1858,24 @@
     ],
     "comparison_reason": "USDC liquidity and payments opportunity is not listed in baseline known_products. USDC liquidity and payments opportunity is not listed in baseline business_area. The source is undated, but source quality is high enough for a review alert.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 88,
+    "material_reasons": [
+      "medium severity",
+      "opportunity category",
+      "90% confidence",
+      "KYC fields changed: business_area, known_products"
+    ],
+    "freshness_days": null,
+    "newest_published_at": null,
+    "inside_refresh_window": false,
+    "primary_source_url": "https://www.circle.com/usdc",
+    "primary_source_name": "Circle",
+    "review_lane": "RM opportunity",
+    "suppression_reasons": [
+      "No dated evidence is attached, so it is not eligible for the strict 24-hour notification feed.",
+      "Generic opportunity or product update is below material threshold."
+    ]
   },
   {
     "alert_id": "alert-024",
@@ -1525,7 +1931,24 @@
     ],
     "comparison_reason": "Circle Mint distribution opportunity is not listed in baseline known_products. Circle Mint distribution opportunity is not listed in baseline business_area. The source is undated, but source quality is high enough for a review alert.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 88,
+    "material_reasons": [
+      "medium severity",
+      "opportunity category",
+      "90% confidence",
+      "KYC fields changed: business_area, known_products"
+    ],
+    "freshness_days": null,
+    "newest_published_at": null,
+    "inside_refresh_window": false,
+    "primary_source_url": "https://www.circle.com/circle-mint",
+    "primary_source_name": "Circle",
+    "review_lane": "RM opportunity",
+    "suppression_reasons": [
+      "No dated evidence is attached, so it is not eligible for the strict 24-hour notification feed.",
+      "Generic opportunity or product update is below material threshold."
+    ]
   },
   {
     "alert_id": "alert-025",
@@ -1586,7 +2009,23 @@
     ],
     "comparison_reason": "USDC/EURC stablecoin payments is not listed in baseline business_area. USDC/EURC stablecoin payments is not listed in baseline known_products. risk_rating requires review due to USDC/EURC stablecoin payments. The source is undated, but source quality is high enough for a review alert.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 118,
+    "material_reasons": [
+      "medium severity",
+      "mixed category",
+      "93% confidence",
+      "KYC fields changed: business_area, known_products, risk_rating"
+    ],
+    "freshness_days": null,
+    "newest_published_at": null,
+    "inside_refresh_window": false,
+    "primary_source_url": "https://www.circle.com/cpn",
+    "primary_source_name": "Circle",
+    "review_lane": "RM review",
+    "suppression_reasons": [
+      "No dated evidence is attached, so it is not eligible for the strict 24-hour notification feed."
+    ]
   },
   {
     "alert_id": "alert-026",
@@ -1647,7 +2086,23 @@
     ],
     "comparison_reason": "USDC global payments is not listed in baseline business_area. USDC global payments is not listed in baseline known_products. risk_rating requires review due to USDC global payments. The source is undated, but source quality is high enough for a review alert.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 118,
+    "material_reasons": [
+      "medium severity",
+      "mixed category",
+      "93% confidence",
+      "KYC fields changed: business_area, known_products, risk_rating"
+    ],
+    "freshness_days": null,
+    "newest_published_at": null,
+    "inside_refresh_window": false,
+    "primary_source_url": "https://www.circle.com/usdc",
+    "primary_source_name": "Circle",
+    "review_lane": "RM review",
+    "suppression_reasons": [
+      "No dated evidence is attached, so it is not eligible for the strict 24-hour notification feed."
+    ]
   },
   {
     "alert_id": "alert-027",
@@ -1708,7 +2163,23 @@
     ],
     "comparison_reason": "USDC/EURC access and redemption is not listed in baseline business_area. USDC/EURC access and redemption is not listed in baseline known_products. risk_rating requires review due to USDC/EURC access and redemption. The source is undated, but source quality is high enough for a review alert.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 118,
+    "material_reasons": [
+      "medium severity",
+      "mixed category",
+      "93% confidence",
+      "KYC fields changed: business_area, known_products, risk_rating"
+    ],
+    "freshness_days": null,
+    "newest_published_at": null,
+    "inside_refresh_window": false,
+    "primary_source_url": "https://www.circle.com/circle-mint",
+    "primary_source_name": "Circle",
+    "review_lane": "RM review",
+    "suppression_reasons": [
+      "No dated evidence is attached, so it is not eligible for the strict 24-hour notification feed."
+    ]
   },
   {
     "alert_id": "alert-028",
@@ -1764,7 +2235,24 @@
     ],
     "comparison_reason": "Circle Payments Network is not listed in baseline known_products. Circle Payments Network is not listed in baseline business_area. The source is undated, but source quality is high enough for a review alert.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 90,
+    "material_reasons": [
+      "medium severity",
+      "opportunity category",
+      "93% confidence",
+      "KYC fields changed: business_area, known_products"
+    ],
+    "freshness_days": null,
+    "newest_published_at": null,
+    "inside_refresh_window": false,
+    "primary_source_url": "https://www.circle.com/cpn",
+    "primary_source_name": "Circle",
+    "review_lane": "RM opportunity",
+    "suppression_reasons": [
+      "No dated evidence is attached, so it is not eligible for the strict 24-hour notification feed.",
+      "Generic opportunity or product update is below material threshold."
+    ]
   },
   {
     "alert_id": "alert-029",
@@ -1820,7 +2308,24 @@
     ],
     "comparison_reason": "USDC global payments is not listed in baseline known_products. USDC global payments is not listed in baseline business_area. The source is undated, but source quality is high enough for a review alert.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 90,
+    "material_reasons": [
+      "medium severity",
+      "opportunity category",
+      "93% confidence",
+      "KYC fields changed: business_area, known_products"
+    ],
+    "freshness_days": null,
+    "newest_published_at": null,
+    "inside_refresh_window": false,
+    "primary_source_url": "https://www.circle.com/usdc",
+    "primary_source_name": "Circle",
+    "review_lane": "RM opportunity",
+    "suppression_reasons": [
+      "No dated evidence is attached, so it is not eligible for the strict 24-hour notification feed.",
+      "Generic opportunity or product update is below material threshold."
+    ]
   },
   {
     "alert_id": "alert-030",
@@ -1876,7 +2381,24 @@
     ],
     "comparison_reason": "Circle Mint is not listed in baseline known_products. Circle Mint is not listed in baseline business_area. The source is undated, but source quality is high enough for a review alert.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 90,
+    "material_reasons": [
+      "medium severity",
+      "opportunity category",
+      "93% confidence",
+      "KYC fields changed: business_area, known_products"
+    ],
+    "freshness_days": null,
+    "newest_published_at": null,
+    "inside_refresh_window": false,
+    "primary_source_url": "https://www.circle.com/circle-mint",
+    "primary_source_name": "Circle",
+    "review_lane": "RM opportunity",
+    "suppression_reasons": [
+      "No dated evidence is attached, so it is not eligible for the strict 24-hour notification feed.",
+      "Generic opportunity or product update is below material threshold."
+    ]
   },
   {
     "alert_id": "alert-031",
@@ -1928,7 +2450,24 @@
     ],
     "comparison_reason": "entity_type requires review due to Circle Investor Relations profile. Circle Investor Relations profile is not listed in baseline known_products. The source is undated, but source quality is high enough for a review alert.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 85,
+    "material_reasons": [
+      "medium severity",
+      "opportunity category",
+      "88% confidence",
+      "KYC fields changed: entity_type, known_products"
+    ],
+    "freshness_days": null,
+    "newest_published_at": null,
+    "inside_refresh_window": false,
+    "primary_source_url": "https://investor.circle.com/overview/default.aspx",
+    "primary_source_name": "Circle Investor Relations",
+    "review_lane": "RM opportunity",
+    "suppression_reasons": [
+      "No dated evidence is attached, so it is not eligible for the strict 24-hour notification feed.",
+      "Generic opportunity or product update is below material threshold."
+    ]
   },
   {
     "alert_id": "alert-032",
@@ -1979,7 +2518,25 @@
     ],
     "comparison_reason": "Russia-linked virtual currency exchange with AML/CFT deficiencies is not listed in baseline known_products. risk_rating requires review due to Russia-linked virtual currency exchange with AML/CFT deficiencies.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 132,
+    "material_reasons": [
+      "medium severity",
+      "mixed category",
+      "94% confidence",
+      "KYC fields changed: known_products, risk_rating",
+      "Material keywords: sanction, russia, ransomware, darknet, aml",
+      "Newest published evidence is 1537 day(s) old"
+    ],
+    "freshness_days": 1537,
+    "newest_published_at": "2022-04-05T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://home.treasury.gov/news/press-releases/jy0701",
+    "primary_source_name": "U.S. Department of the Treasury",
+    "review_lane": "RM review",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   },
   {
     "alert_id": "alert-033",
@@ -2030,7 +2587,25 @@
     ],
     "comparison_reason": "sanctioned Russia-linked virtual currency exchange is not listed in baseline known_products. risk_rating requires review due to sanctioned Russia-linked virtual currency exchange.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 158,
+    "material_reasons": [
+      "high severity",
+      "mixed category",
+      "94% confidence",
+      "KYC fields changed: known_products, risk_rating",
+      "Material keywords: sanction, russia, ransomware, darknet, treasury",
+      "Newest published evidence is 1537 day(s) old"
+    ],
+    "freshness_days": 1537,
+    "newest_published_at": "2022-04-05T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://home.treasury.gov/news/press-releases/jy0701",
+    "primary_source_name": "U.S. Department of the Treasury",
+    "review_lane": "Compliance review",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   },
   {
     "alert_id": "alert-034",
@@ -2081,7 +2656,25 @@
     ],
     "comparison_reason": "Russia is not listed in baseline known_jurisdictions. risk_rating requires review due to Russia sanctions and virtual-currency evasion exposure.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 194,
+    "material_reasons": [
+      "high severity",
+      "risk category",
+      "94% confidence",
+      "KYC fields changed: known_jurisdictions, risk_rating",
+      "Material keywords: sanction, russia, ransomware, darknet, jurisdiction",
+      "Newest published evidence is 1537 day(s) old"
+    ],
+    "freshness_days": 1537,
+    "newest_published_at": "2022-04-05T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://home.treasury.gov/news/press-releases/jy0701",
+    "primary_source_name": "U.S. Department of the Treasury",
+    "review_lane": "Compliance review",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   },
   {
     "alert_id": "alert-035",
@@ -2132,7 +2725,25 @@
     ],
     "comparison_reason": "Russia is not listed in baseline known_jurisdictions. risk_rating requires review due to Russia.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 165,
+    "material_reasons": [
+      "high severity",
+      "mixed category",
+      "94% confidence",
+      "KYC fields changed: known_jurisdictions, risk_rating",
+      "Material keywords: sanction, russia, ransomware, darknet, jurisdiction",
+      "Newest published evidence is 1537 day(s) old"
+    ],
+    "freshness_days": 1537,
+    "newest_published_at": "2022-04-05T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://home.treasury.gov/news/press-releases/jy0701",
+    "primary_source_name": "U.S. Department of the Treasury",
+    "review_lane": "Compliance review",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   },
   {
     "alert_id": "alert-036",
@@ -2191,7 +2802,25 @@
     ],
     "comparison_reason": "risk_rating requires review due to Garantex illicit finance and AML/CFT risk. Garantex illicit finance and AML/CFT risk is not listed in baseline known_products. Garantex illicit finance and AML/CFT risk is not listed in baseline business_area.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 193,
+    "material_reasons": [
+      "high severity",
+      "risk category",
+      "94% confidence",
+      "KYC fields changed: business_area, known_products, risk_rating",
+      "Material keywords: sanction, russia, ransomware, darknet, aml",
+      "Newest published evidence is 1537 day(s) old"
+    ],
+    "freshness_days": 1537,
+    "newest_published_at": "2022-04-05T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://home.treasury.gov/news/press-releases/jy0701",
+    "primary_source_name": "U.S. Department of the Treasury",
+    "review_lane": "Compliance review",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   },
   {
     "alert_id": "alert-037",
@@ -2250,7 +2879,25 @@
     ],
     "comparison_reason": "North Korea tobacco joint-venture and export exposure is not listed in baseline business_area. North Korea tobacco joint-venture and export exposure is not listed in baseline known_products. risk_rating requires review due to North Korea tobacco joint-venture and export exposure.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 140,
+    "material_reasons": [
+      "medium severity",
+      "mixed category",
+      "94% confidence",
+      "KYC fields changed: business_area, known_products, risk_rating",
+      "Material keywords: sanction, ofac, north korea, dprk, treasury",
+      "Newest published evidence is 1152 day(s) old"
+    ],
+    "freshness_days": 1152,
+    "newest_published_at": "2023-04-25T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://home.treasury.gov/news/press-releases/jy1441",
+    "primary_source_name": "U.S. Department of the Treasury",
+    "review_lane": "RM review",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   },
   {
     "alert_id": "alert-038",
@@ -2302,7 +2949,25 @@
     ],
     "comparison_reason": "North Korea is not listed in baseline known_jurisdictions. risk_rating requires review due to North Korea sanctions exposure.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 194,
+    "material_reasons": [
+      "high severity",
+      "risk category",
+      "94% confidence",
+      "KYC fields changed: known_jurisdictions, risk_rating",
+      "Material keywords: sanction, ofac, north korea, dprk, jurisdiction",
+      "Newest published evidence is 1152 day(s) old"
+    ],
+    "freshness_days": 1152,
+    "newest_published_at": "2023-04-25T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://home.treasury.gov/news/press-releases/jy1441",
+    "primary_source_name": "U.S. Department of the Treasury",
+    "review_lane": "Compliance review",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   },
   {
     "alert_id": "alert-039",
@@ -2354,7 +3019,25 @@
     ],
     "comparison_reason": "North Korea is not listed in baseline known_jurisdictions. risk_rating requires review due to North Korea.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 165,
+    "material_reasons": [
+      "high severity",
+      "mixed category",
+      "94% confidence",
+      "KYC fields changed: known_jurisdictions, risk_rating",
+      "Material keywords: sanction, ofac, north korea, dprk, jurisdiction",
+      "Newest published evidence is 1152 day(s) old"
+    ],
+    "freshness_days": 1152,
+    "newest_published_at": "2023-04-25T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://home.treasury.gov/news/press-releases/jy1441",
+    "primary_source_name": "U.S. Department of the Treasury",
+    "review_lane": "Compliance review",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   },
   {
     "alert_id": "alert-040",
@@ -2406,7 +3089,25 @@
     ],
     "comparison_reason": "risk_rating requires review due to $508 million OFAC settlement for North Korea sanctions violations. $508 million OFAC settlement for North Korea sanctions violations is not listed in baseline business_area.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 193,
+    "material_reasons": [
+      "high severity",
+      "risk category",
+      "94% confidence",
+      "KYC fields changed: business_area, risk_rating",
+      "Material keywords: sanction, ofac, north korea, dprk, regulatory",
+      "Newest published evidence is 1152 day(s) old"
+    ],
+    "freshness_days": 1152,
+    "newest_published_at": "2023-04-25T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://home.treasury.gov/news/press-releases/jy1441",
+    "primary_source_name": "U.S. Department of the Treasury",
+    "review_lane": "Compliance review",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   },
   {
     "alert_id": "alert-041",
@@ -2465,7 +3166,25 @@
     ],
     "comparison_reason": "risk_rating requires review due to North Korea sanctions and WMD-proliferator risk. North Korea sanctions and WMD-proliferator risk is not listed in baseline known_products. North Korea sanctions and WMD-proliferator risk is not listed in baseline business_area.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 193,
+    "material_reasons": [
+      "high severity",
+      "risk category",
+      "94% confidence",
+      "KYC fields changed: business_area, known_products, risk_rating",
+      "Material keywords: sanction, ofac, north korea, dprk, treasury",
+      "Newest published evidence is 1152 day(s) old"
+    ],
+    "freshness_days": 1152,
+    "newest_published_at": "2023-04-25T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://home.treasury.gov/news/press-releases/jy1441",
+    "primary_source_name": "U.S. Department of the Treasury",
+    "review_lane": "Compliance review",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   },
   {
     "alert_id": "alert-042",
@@ -2527,7 +3246,25 @@
     ],
     "comparison_reason": "Australia country-code domain monitoring signal is not listed in baseline business_area. Australia country-code domain monitoring signal is not listed in baseline known_products. risk_rating requires review due to Australia country-code domain monitoring signal.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 141,
+    "material_reasons": [
+      "medium severity",
+      "mixed category",
+      "94% confidence",
+      "KYC fields changed: business_area, known_products, risk_rating",
+      "Material keywords: country-code, domain",
+      "Newest published evidence is 131 day(s) old"
+    ],
+    "freshness_days": 131,
+    "newest_published_at": "2026-02-09T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://rdap.cctld.au/rdap/domain/coinbase.au",
+    "primary_source_name": ".au RDAP / auDA",
+    "review_lane": "RM review",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   },
   {
     "alert_id": "alert-043",
@@ -2588,7 +3325,25 @@
     ],
     "comparison_reason": "https://coinbase.au is not listed in baseline websites. Australia is not listed in baseline known_jurisdictions. risk_rating requires review due to https://coinbase.au.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 144,
+    "material_reasons": [
+      "medium severity",
+      "mixed category",
+      "94% confidence",
+      "KYC fields changed: known_jurisdictions, risk_rating, websites",
+      "Material keywords: jurisdiction, domain",
+      "Newest published evidence is 131 day(s) old"
+    ],
+    "freshness_days": 131,
+    "newest_published_at": "2026-02-09T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://rdap.cctld.au/rdap/domain/coinbase.au",
+    "primary_source_name": ".au RDAP / auDA",
+    "review_lane": "KYC update",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   },
   {
     "alert_id": "alert-044",
@@ -2642,7 +3397,25 @@
     ],
     "comparison_reason": "Australia is not listed in baseline known_jurisdictions. risk_rating requires review due to Australia.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 134,
+    "material_reasons": [
+      "medium severity",
+      "mixed category",
+      "94% confidence",
+      "KYC fields changed: known_jurisdictions, risk_rating",
+      "Material keywords: jurisdiction",
+      "Newest published evidence is 131 day(s) old"
+    ],
+    "freshness_days": 131,
+    "newest_published_at": "2026-02-09T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://rdap.cctld.au/rdap/domain/coinbase.au",
+    "primary_source_name": ".au RDAP / auDA",
+    "review_lane": "KYC update",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   },
   {
     "alert_id": "alert-045",
@@ -2705,185 +3478,24 @@
     ],
     "comparison_reason": "risk_rating requires review due to country-code domain expansion review. Australia is not listed in baseline known_jurisdictions. country-code domain expansion review is not listed in baseline business_area.",
     "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
-  },
-  {
-    "alert_id": "alert-046",
-    "customer_id": "demo-009",
-    "category": "mixed",
-    "signal_type": "business_activity_change",
-    "title": "Alphabet Inc. business activity changed: AI infrastructure and custom silicon expansion",
-    "summary": "1 evidence document support business_activity_change for AI infrastructure and custom silicon expansion. AI infrastructure and custom silicon expansion is not listed in baseline business_area. AI infrastructure and custom silicon expansion is not listed in baseline known_products. risk_rating requires review due to AI infrastructure and custom silicon expansion.",
-    "changed_fields": [
-      "business_area",
-      "known_products",
-      "risk_rating"
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 196,
+    "material_reasons": [
+      "high severity",
+      "risk category",
+      "94% confidence",
+      "KYC fields changed: business_area, known_jurisdictions, risk_rating",
+      "Material keywords: jurisdiction, country-code, domain",
+      "Newest published evidence is 131 day(s) old"
     ],
-    "baseline_value": {
-      "business_area": [
-        "internet search",
-        "digital advertising",
-        "consumer software",
-        "cloud services"
-      ],
-      "known_products": [
-        "relationship monitoring",
-        "corporate treasury watchlist",
-        "cloud services"
-      ],
-      "risk_rating": "low"
-    },
-    "new_value": {
-      "business_area": [
-        "AI infrastructure and custom silicon expansion"
-      ],
-      "known_products": [
-        "AI infrastructure and custom silicon expansion"
-      ],
-      "risk_rating": [
-        "Review due to AI infrastructure and custom silicon expansion"
-      ]
-    },
-    "severity": "medium",
-    "confidence": 0.78,
-    "recommended_action": "Review the updated business activity and determine whether the current KYC risk rating still fits.",
-    "evidence_document_ids": [
-      "doc-010"
-    ],
-    "fact_ids": [
-      "fact-021"
-    ],
-    "evidence": [
-      {
-        "document_id": "doc-010",
-        "source_name": "thetimes.com",
-        "source_url": "https://www.thetimes.com/business/wsj/article/google-is-using-nvidias-playbook-to-build-a-rival-ai-chip-business-rkbzvb9jn",
-        "published_at": "2026-06-19",
-        "collected_at": "2026-06-20T08:45:56Z",
-        "source_type": "reputable_news",
-        "source_quality": "B",
-        "title": "Google Is Using Nvidia's Playbook to Build a Rival AI Chip Business",
-        "excerpt": "Google Is Using Nvidia’s Playbook to Build a Rival AI Chip Business"
-      }
-    ],
-    "comparison_reason": "AI infrastructure and custom silicon expansion is not listed in baseline business_area. AI infrastructure and custom silicon expansion is not listed in baseline known_products. risk_rating requires review due to AI infrastructure and custom silicon expansion.",
-    "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
-  },
-  {
-    "alert_id": "alert-047",
-    "customer_id": "demo-009",
-    "category": "opportunity",
-    "signal_type": "commercial_opportunity",
-    "title": "Alphabet Inc. commercial opportunity: AI infrastructure and cloud banking opportunity",
-    "summary": "1 evidence document support commercial_opportunity for AI infrastructure and cloud banking opportunity. AI infrastructure and cloud banking opportunity is not listed in baseline known_products. AI infrastructure and cloud banking opportunity is not listed in baseline business_area.",
-    "changed_fields": [
-      "business_area",
-      "known_products"
-    ],
-    "baseline_value": {
-      "known_products": [
-        "relationship monitoring",
-        "corporate treasury watchlist",
-        "cloud services"
-      ],
-      "business_area": [
-        "internet search",
-        "digital advertising",
-        "consumer software",
-        "cloud services"
-      ]
-    },
-    "new_value": {
-      "known_products": [
-        "AI infrastructure and cloud banking opportunity"
-      ],
-      "business_area": [
-        "AI infrastructure and cloud banking opportunity"
-      ]
-    },
-    "severity": "medium",
-    "confidence": 0.75,
-    "recommended_action": "Add to RM call brief for custody, payments, FX, lending, or treasury discussion.",
-    "evidence_document_ids": [
-      "doc-010"
-    ],
-    "fact_ids": [
-      "fact-023"
-    ],
-    "evidence": [
-      {
-        "document_id": "doc-010",
-        "source_name": "thetimes.com",
-        "source_url": "https://www.thetimes.com/business/wsj/article/google-is-using-nvidias-playbook-to-build-a-rival-ai-chip-business-rkbzvb9jn",
-        "published_at": "2026-06-19",
-        "collected_at": "2026-06-20T08:45:56Z",
-        "source_type": "reputable_news",
-        "source_quality": "B",
-        "title": "Google Is Using Nvidia's Playbook to Build a Rival AI Chip Business",
-        "excerpt": "Google Is Using Nvidia’s Playbook to Build a Rival AI Chip Business"
-      }
-    ],
-    "comparison_reason": "AI infrastructure and cloud banking opportunity is not listed in baseline known_products. AI infrastructure and cloud banking opportunity is not listed in baseline business_area.",
-    "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
-  },
-  {
-    "alert_id": "alert-048",
-    "customer_id": "demo-009",
-    "category": "opportunity",
-    "signal_type": "new_product",
-    "title": "Alphabet Inc. product signal: Google Cloud TPUs and AI chips",
-    "summary": "1 evidence document support new_product for Google Cloud TPUs and AI chips. Google Cloud TPUs and AI chips is not listed in baseline known_products. Google Cloud TPUs and AI chips is not listed in baseline business_area.",
-    "changed_fields": [
-      "business_area",
-      "known_products"
-    ],
-    "baseline_value": {
-      "known_products": [
-        "relationship monitoring",
-        "corporate treasury watchlist",
-        "cloud services"
-      ],
-      "business_area": [
-        "internet search",
-        "digital advertising",
-        "consumer software",
-        "cloud services"
-      ]
-    },
-    "new_value": {
-      "known_products": [
-        "Google Cloud TPUs and AI chips"
-      ],
-      "business_area": [
-        "Google Cloud TPUs and AI chips"
-      ]
-    },
-    "severity": "medium",
-    "confidence": 0.78,
-    "recommended_action": "Add to RM call brief for custody, payments, FX, lending, or treasury discussion.",
-    "evidence_document_ids": [
-      "doc-010"
-    ],
-    "fact_ids": [
-      "fact-022"
-    ],
-    "evidence": [
-      {
-        "document_id": "doc-010",
-        "source_name": "thetimes.com",
-        "source_url": "https://www.thetimes.com/business/wsj/article/google-is-using-nvidias-playbook-to-build-a-rival-ai-chip-business-rkbzvb9jn",
-        "published_at": "2026-06-19",
-        "collected_at": "2026-06-20T08:45:56Z",
-        "source_type": "reputable_news",
-        "source_quality": "B",
-        "title": "Google Is Using Nvidia's Playbook to Build a Rival AI Chip Business",
-        "excerpt": "Google Is Using Nvidia’s Playbook to Build a Rival AI Chip Business"
-      }
-    ],
-    "comparison_reason": "Google Cloud TPUs and AI chips is not listed in baseline known_products. Google Cloud TPUs and AI chips is not listed in baseline business_area.",
-    "status": "new",
-    "created_at": "2026-06-20T00:00:00Z"
+    "freshness_days": 131,
+    "newest_published_at": "2026-02-09T00:00:00Z",
+    "inside_refresh_window": false,
+    "primary_source_url": "https://rdap.cctld.au/rdap/domain/coinbase.au",
+    "primary_source_name": ".au RDAP / auDA",
+    "review_lane": "Compliance review",
+    "suppression_reasons": [
+      "No evidence was published inside the strict 24-hour notification window."
+    ]
   }
 ]

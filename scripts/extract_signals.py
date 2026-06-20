@@ -526,6 +526,20 @@ def extract_business_activity_change(document, baseline):
                 fields=["business_area", "known_products", "risk_rating"],
             )
         )
+    elif has_any(text, ["google", "alphabet"]) and has_any(
+        text,
+        ["tpu", "tensor processing unit", "ai chip", "ai infrastructure", "google cloud"],
+    ):
+        facts.append(
+            make_fact(
+                document,
+                baseline,
+                "business_activity_change",
+                "AI infrastructure and custom silicon expansion",
+                "Fresh evidence describes Google's expansion of AI infrastructure, TPUs, or AI chip commercialization.",
+                fields=["business_area", "known_products", "risk_rating"],
+            )
+        )
     return facts
 
 
@@ -803,6 +817,16 @@ def extract_new_product(document, baseline):
                 "Kraken evidence describes tokenized U.S. stocks and ETFs through xStocks.",
             )
         ]
+    if has_any(text, ["google", "alphabet"]) and has_any(text, ["tpu", "tensor processing unit", "ai chip"]):
+        return [
+            make_fact(
+                document,
+                baseline,
+                "new_product",
+                "Google Cloud TPUs and AI chips",
+                "Fresh evidence describes Google expanding Tensor Processing Units or AI chip offerings for AI infrastructure customers.",
+            )
+        ]
     return []
 
 
@@ -869,6 +893,21 @@ def extract_commercial_opportunity(document, baseline):
                 "commercial_opportunity",
                 "USDC liquidity and payments opportunity",
                 "USDC payment and liquidity evidence creates an RM opportunity for stablecoin settlement and treasury services.",
+                fields=["known_products", "business_area"],
+                derived=True,
+            )
+        ]
+    if has_any(text, ["google", "alphabet"]) and has_any(
+        text,
+        ["tpu", "tensor processing unit", "ai chip", "ai infrastructure", "google cloud"],
+    ):
+        return [
+            make_fact(
+                document,
+                baseline,
+                "commercial_opportunity",
+                "AI infrastructure and cloud banking opportunity",
+                "Google's AI infrastructure expansion creates an RM conversation around corporate treasury, liquidity, FX, financing, and operating-account needs.",
                 fields=["known_products", "business_area"],
                 derived=True,
             )

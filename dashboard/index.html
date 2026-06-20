@@ -32,13 +32,41 @@
             <div class="brand-subtitle">AMINA RM Console</div>
           </div>
         </div>
+        <nav class="topbar-nav" aria-label="Primary">
+          <button class="nav-tab active" type="button" data-view-mode="notifications">
+            Notifications
+            <span id="notificationBadge" class="nav-badge">0</span>
+          </button>
+          <button class="nav-tab" type="button" data-view-mode="workspace">Customer workspace</button>
+        </nav>
         <div class="topbar-meta">
           <span id="dataHealth" class="data-health">Data ready</span>
           <button id="resetDemoState" class="ghost-button" type="button">Reset demo state</button>
         </div>
       </header>
 
-      <main class="dashboard-grid">
+      <section id="notificationsView" class="notifications-view" aria-label="TLDR notifications">
+        <div class="notifications-hero">
+          <div>
+            <p class="eyebrow">TLDR notifications</p>
+            <h1>Latest material signals</h1>
+            <p id="notificationWindowLabel" class="notification-window">Last 24 hours</p>
+          </div>
+          <div class="notification-stats" aria-label="Notification metrics">
+            <div class="metric">
+              <span class="metric-value" id="notificationCountLabel">0</span>
+              <span class="metric-label">Notifications</span>
+            </div>
+            <div class="metric">
+              <span class="metric-value" id="notificationRiskLabel">0</span>
+              <span class="metric-label">Risk items</span>
+            </div>
+          </div>
+        </div>
+        <div id="notificationList" class="notification-list" role="list"></div>
+      </section>
+
+      <main id="workspaceView" class="dashboard-grid" hidden>
         <aside class="portfolio-panel" aria-label="Portfolio queue">
           <section class="metrics" aria-label="Portfolio metrics">
             <div class="metric">
@@ -117,7 +145,7 @@
 
           <section class="queue-panel">
             <div class="section-heading">
-              <h2>Alert queue</h2>
+              <h2 id="alertQueueTitle">Customer alerts</h2>
               <span id="alertQueueCount">0 alerts</span>
             </div>
             <div id="alertQueue" class="alert-queue" role="list"></div>

@@ -1,10 +1,10 @@
 # Collection Run Report
 
-- Generated at: 2026-06-20T05:31:39Z
-- Output documents: 21
+- Generated at: 2026-06-20T08:45:56Z
+- Output documents: 22
 - Failed fetches: 1
-- Skipped low-signal candidates: 5
-- Discovery traces: 12
+- Skipped low-signal candidates: 8
+- Discovery traces: 16
 
 ## Algorithm
 
@@ -16,7 +16,10 @@ The run used split collector scripts. Each pipeline discovered candidate sources
 
 ## Skipped Candidates
 
-- `None`: News API query unavailable; using configured fallbacks. URLError: <urlopen error [WinError 10060] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond>
+- `None`: News API query unavailable; using configured fallbacks. HTTPError: HTTP Error 429: Too Many Requests
+- `None`: News API query unavailable; using configured fallbacks. HTTPError: HTTP Error 429: Too Many Requests
+- `None`: News API query unavailable; using configured fallbacks. HTTPError: HTTP Error 429: Too Many Requests
+- `None`: News API query unavailable; using configured fallbacks. HTTPError: HTTP Error 429: Too Many Requests
 - `None`: News API query unavailable; using configured fallbacks. HTTPError: HTTP Error 429: Too Many Requests
 - `https://www.sec.gov/Archives/edgar/data/1783879/000178387926000071/hood-20260616.htm`: SEC API-discovered filing did not contain configured source/signal terms.
 - `https://www.sec.gov/Archives/edgar/data/1326380/000132638026000020/gme-20260602.htm`: SEC API-discovered filing did not contain configured source/signal terms.
@@ -33,15 +36,16 @@ The run used split collector scripts. Each pipeline discovered candidate sources
 - `doc-007` `demo-002` B reputable_news: Spain blocks access to Polymarket and Kalshi as it launches gambling licence investigation | Spain | The Guardian
 - `doc-008` `demo-002` B reputable_news: Consumo ordena el bloqueo de Polymarket y Kalshi en España por operar sin licencia de juego | Economía | EL PAÍS
 - `doc-009` `demo-002` B reputable_news: El futuro de Polymarket tras el bloqueo del Gobierno: "Es ilegal, no tiene licencia y no hay posibilidad de que la consiga" | Actualidad | Cadena SER
-- `doc-010` `demo-005` A product_page: Circle Payments Network
-- `doc-011` `demo-005` A product_page: USDC | Powering global finance. Issued by Circle.
-- `doc-012` `demo-004` A product_page: xStocks Risk Disclosure
-- `doc-013` `demo-001` A company_newsroom: Robinhood Completes Acquisition of Bitstamp
+- `doc-010` `demo-009` B reputable_news: Google Is Using Nvidia's Playbook to Build a Rival AI Chip Business
+- `doc-011` `demo-005` A product_page: Circle Payments Network
+- `doc-012` `demo-005` A product_page: USDC | Powering global finance. Issued by Circle.
+- `doc-013` `demo-004` A product_page: xStocks Risk Disclosure
 - `doc-014` `demo-001` A company_newsroom: Robinhood Completes Acquisition of Bitstamp
-- `doc-015` `demo-001` A company_newsroom: Bitstamp legal entity and licensing disclosures
-- `doc-016` `demo-004` A official_blog: From Wall Street to your wallet: Tokenized equities now available on Kraken
-- `doc-017` `demo-005` A investor_relations: Circle Investor Relations
-- `doc-018` `demo-005` A product_page: Circle Mint
-- `doc-019` `demo-006` A regulator: Treasury Sanctions Russia-Based Hydra and Ransomware-Enabling Virtual Currency Exchange Garantex
-- `doc-020` `demo-007` A regulator: Treasury Announces $508 Million Settlement with British American Tobacco
-- `doc-021` `demo-008` A domain_rdap: RDAP record for coinbase.au
+- `doc-015` `demo-001` A company_newsroom: Robinhood Completes Acquisition of Bitstamp
+- `doc-016` `demo-001` A company_newsroom: Bitstamp legal entity and licensing disclosures
+- `doc-017` `demo-004` A official_blog: From Wall Street to your wallet: Tokenized equities now available on Kraken
+- `doc-018` `demo-005` A investor_relations: Circle Investor Relations
+- `doc-019` `demo-005` A product_page: Circle Mint
+- `doc-020` `demo-006` A regulator: Treasury Sanctions Russia-Based Hydra and Ransomware-Enabling Virtual Currency Exchange Garantex
+- `doc-021` `demo-007` A regulator: Treasury Announces $508 Million Settlement with British American Tobacco
+- `doc-022` `demo-008` A domain_rdap: RDAP record for coinbase.au

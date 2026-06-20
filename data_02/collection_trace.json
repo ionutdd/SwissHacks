@@ -51,7 +51,7 @@
     "status": "skipped",
     "discovered_sources": 0,
     "query": "Polymarket Kalshi Spain gambling licence blocked",
-    "reason": "News API query unavailable; using configured fallbacks. URLError: <urlopen error [WinError 10060] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond>"
+    "reason": "News API query unavailable; using configured fallbacks. HTTPError: HTTP Error 429: Too Many Requests"
   },
   {
     "stage": "discovery",
@@ -71,6 +71,40 @@
   },
   {
     "stage": "discovery",
+    "connector": "news_event_discovery",
+    "customer_id": "demo-009",
+    "status": "skipped",
+    "discovered_sources": 0,
+    "query": "Google Alphabet AI chip TPU cloud infrastructure Nvidia Anthropic",
+    "reason": "News API query unavailable; using configured fallbacks. HTTPError: HTTP Error 429: Too Many Requests"
+  },
+  {
+    "stage": "discovery",
+    "connector": "news_event_discovery",
+    "customer_id": "demo-009",
+    "status": "skipped",
+    "discovered_sources": 0,
+    "query": "Google Cloud TPU AI infrastructure Alphabet",
+    "reason": "News API query unavailable; using configured fallbacks. HTTPError: HTTP Error 429: Too Many Requests"
+  },
+  {
+    "stage": "discovery",
+    "connector": "news_event_discovery",
+    "customer_id": "demo-009",
+    "status": "skipped",
+    "discovered_sources": 0,
+    "query": "Alphabet Google antitrust investigation regulator AI",
+    "reason": "News API query unavailable; using configured fallbacks. HTTPError: HTTP Error 429: Too Many Requests"
+  },
+  {
+    "stage": "discovery",
+    "connector": "news_event_discovery",
+    "customer_id": "demo-009",
+    "status": "ok",
+    "discovered_sources": 1
+  },
+  {
+    "stage": "discovery",
     "connector": "page_diff_watch",
     "customer_id": "demo-005",
     "status": "ok",
@@ -79,10 +113,17 @@
   },
   {
     "stage": "discovery",
+    "connector": "domain_rdap",
+    "customer_id": "demo-008",
+    "status": "ok",
+    "discovered_sources": 1
+  },
+  {
+    "stage": "discovery",
     "connector": "direct_sources",
     "customer_id": "portfolio",
     "status": "ok",
-    "discovered_sources": 7
+    "discovered_sources": 9
   },
   {
     "source_id": "src-007-gamestop-bitcoin-8k",
@@ -203,7 +244,7 @@
     "entity_match_score": 36,
     "retrieval_score": 46,
     "source_term_score": 12,
-    "clean_text_chars": 15544
+    "clean_text_chars": 15586
   },
   {
     "source_id": "news-demo-002-3",
@@ -214,11 +255,22 @@
     "entity_match_score": 18,
     "retrieval_score": 43,
     "source_term_score": 12,
-    "clean_text_chars": 8471
+    "clean_text_chars": 8434
+  },
+  {
+    "source_id": "news-demo-009-1",
+    "document_id": "doc-010",
+    "url": "https://www.thetimes.com/business/wsj/article/google-is-using-nvidias-playbook-to-build-a-rival-ai-chip-business-rkbzvb9jn",
+    "status": "ok",
+    "connector": "news_event_discovery",
+    "entity_match_score": 6,
+    "retrieval_score": 56,
+    "source_term_score": 16,
+    "clean_text_chars": 2459
   },
   {
     "source_id": "page-diff-demo-005-1",
-    "document_id": "doc-010",
+    "document_id": "doc-011",
     "url": "https://www.circle.com/cpn",
     "status": "ok",
     "connector": "page_diff_watch",
@@ -231,7 +283,7 @@
   },
   {
     "source_id": "page-diff-demo-005-2",
-    "document_id": "doc-011",
+    "document_id": "doc-012",
     "url": "https://www.circle.com/usdc",
     "status": "ok",
     "connector": "page_diff_watch",
@@ -244,7 +296,7 @@
   },
   {
     "source_id": "page-diff-demo-004-3",
-    "document_id": "doc-012",
+    "document_id": "doc-013",
     "url": "https://www.kraken.com/legal/xstocks",
     "status": "ok",
     "connector": "page_diff_watch",
@@ -257,7 +309,7 @@
   },
   {
     "source_id": "src-001-robinhood-bitstamp-close",
-    "document_id": "doc-013",
+    "document_id": "doc-014",
     "url": "https://robinhood.com/us/en/newsroom/robinhood-completes-acquisition-of-bitstamp/",
     "status": "ok",
     "connector": "web_page",
@@ -268,7 +320,7 @@
   },
   {
     "source_id": "src-002-bitstamp-robinhood-close",
-    "document_id": "doc-014",
+    "document_id": "doc-015",
     "url": "https://blog.bitstamp.net/post/robinhood-completes-acquisition-of-bitstamp/",
     "status": "ok",
     "connector": "web_page",
@@ -279,7 +331,7 @@
   },
   {
     "source_id": "src-003-bitstamp-legal-footer",
-    "document_id": "doc-015",
+    "document_id": "doc-016",
     "url": "https://blog.bitstamp.net/post/robinhood-completes-acquisition-of-bitstamp/",
     "status": "ok",
     "connector": "web_page",
@@ -297,18 +349,18 @@
   },
   {
     "source_id": "src-010-kraken-xstocks-launch",
-    "document_id": "doc-016",
+    "document_id": "doc-017",
     "url": "https://blog.kraken.com/product/xstocks/tokenized-equities-now-available",
     "status": "ok",
     "connector": "web_page",
-    "entity_match_score": 65,
+    "entity_match_score": 64,
     "retrieval_score": 119,
     "source_term_score": 34,
-    "clean_text_chars": 7149
+    "clean_text_chars": 7156
   },
   {
     "source_id": "src-013-circle-investor-relations",
-    "document_id": "doc-017",
+    "document_id": "doc-018",
     "url": "https://investor.circle.com/overview/default.aspx",
     "status": "ok",
     "connector": "web_page",
@@ -319,7 +371,7 @@
   },
   {
     "source_id": "src-014-circle-mint",
-    "document_id": "doc-018",
+    "document_id": "doc-019",
     "url": "https://www.circle.com/circle-mint",
     "status": "ok",
     "connector": "web_page",
@@ -329,15 +381,30 @@
     "clean_text_chars": 10128
   },
   {
-    "stage": "discovery",
-    "connector": "domain_rdap",
-    "customer_id": "demo-008",
+    "source_id": "src-017-garantex-ofac-sanctions",
+    "document_id": "doc-020",
+    "url": "https://home.treasury.gov/news/press-releases/jy0701",
     "status": "ok",
-    "discovered_sources": 1
+    "connector": "web_page",
+    "entity_match_score": 15,
+    "retrieval_score": 91,
+    "source_term_score": 27,
+    "clean_text_chars": 21687
+  },
+  {
+    "source_id": "src-018-bat-ofac-north-korea",
+    "document_id": "doc-021",
+    "url": "https://home.treasury.gov/news/press-releases/jy1441",
+    "status": "ok",
+    "connector": "web_page",
+    "entity_match_score": 35,
+    "retrieval_score": 134,
+    "source_term_score": 37,
+    "clean_text_chars": 14646
   },
   {
     "source_id": "domain-rdap-demo-008-1",
-    "document_id": "doc-021",
+    "document_id": "doc-022",
     "url": "https://rdap.cctld.au/rdap/domain/coinbase.au",
     "status": "ok",
     "connector": "domain_rdap",

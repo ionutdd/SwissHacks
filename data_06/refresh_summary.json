@@ -1,0 +1,28 @@
+{
+  "generated_at": "2026-06-20T08:47:03Z",
+  "cutoff_at": "2026-06-19T08:47:03Z",
+  "lookback_hours": 24,
+  "freshness_policy": "published_at_only",
+  "total_alerts": 48,
+  "alerts_inside_refresh_window": 3,
+  "material_alerts": 3,
+  "suppressed_alerts": 45,
+  "stale_or_undated_alerts": 45,
+  "material_by_category": {
+    "mixed": 1,
+    "opportunity": 2
+  },
+  "material_by_severity": {
+    "medium": 3
+  },
+  "top_material_alert_ids": [
+    "alert-046",
+    "alert-048",
+    "alert-047"
+  ],
+  "suppression_reason_counts": {
+    "No evidence was published inside the strict 24-hour notification window.": 32,
+    "Generic opportunity or product update is below material threshold.": 9,
+    "No dated evidence is attached, so it is not eligible for the strict 24-hour notification feed.": 13
+  }
+}

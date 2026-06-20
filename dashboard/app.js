@@ -5,7 +5,9 @@
     customers: "../data_01/baseline_snapshots.json",
     documents: "../data_02/documents.json",
     facts: "../data_03/facts.json",
-    alerts: "../data_03/alerts.json"
+    alerts: "../data_03/alerts.json",
+    materialAlerts: "../data_06/material_alerts.json",
+    refreshSummary: "../data_06/refresh_summary.json"
   };
 
   const ACTION_STORAGE_KEY = "signalwatch.reviewActions.v1";
@@ -17,7 +19,8 @@
     "demo-005": "Rafael Costa",
     "demo-006": "Lea Baumann",
     "demo-007": "Sofia Weber",
-    "demo-008": "Daniel Roth"
+    "demo-008": "Daniel Roth",
+    "demo-009": "Mara Keller"
   };
   const SEVERITY_RANK = { critical: 4, high: 3, medium: 2, low: 1 };
   const CATEGORY_RANK = { risk: 4, mixed: 3, ownership_control: 2, opportunity: 1 };
@@ -34,12 +37,15 @@
     documents: [],
     facts: [],
     alerts: [],
+    materialAlerts: [],
+    refreshSummary: {},
     customersById: new Map(),
     documentsById: new Map(),
     factsById: new Map(),
     actions: [],
     selectedCustomerId: null,
     selectedAlertId: null,
+    viewMode: "notifications",
     filters: {
       query: "",
       category: "all",
@@ -57,17 +63,21 @@
     bindEvents();
 
     try {
-      const [customers, documents, facts, alerts] = await Promise.all([
+      const [customers, documents, facts, alerts, materialAlerts, refreshSummary] = await Promise.all([
         fetchJson(DATA_URLS.customers),
         fetchJson(DATA_URLS.documents),
         fetchJson(DATA_URLS.facts),
-        fetchJson(DATA_URLS.alerts)
+        fetchJson(DATA_URLS.alerts),
+        fetchJsonOptional(DATA_URLS.materialAlerts, []),
+        fetchJsonOptional(DATA_URLS.refreshSummary, {})
       ]);
 
       state.customers = customers;
       state.documents = documents;
       state.facts = facts;
       state.alerts = alerts;
+      state.materialAlerts = materialAlerts;
+      state.refreshSummary = refreshSummary;
       state.customersById = new Map(customers.map((customer) => [customer.customer_id, customer]));
       state.documentsById = new Map(documents.map((documentItem) => [documentItem.document_id, documentItem]));
       state.factsById = new Map(facts.map((fact) => [fact.fact_id, fact]));
@@ -88,6 +98,13 @@
       "app",
       "dataHealth",
       "resetDemoState",
+      "notificationBadge",
+      "notificationsView",
+      "workspaceView",
+      "notificationWindowLabel",
+      "notificationCountLabel",
+      "notificationRiskLabel",
+      "notificationList",
       "metricCustomers",
       "metricOpen",
       "metricHigh",
@@ -100,6 +117,7 @@
       "selectedCustomerName",
       "selectedCustomerMeta",
       "selectedCustomerStats",
+      "alertQueueTitle",
       "alertQueueCount",
       "alertQueue",
       "alertDetail",
@@ -132,6 +150,16 @@
       });
     });
 
+    document.querySelectorAll("[data-view-mode]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.viewMode = button.dataset.viewMode;
+        document.querySelectorAll("[data-view-mode]").forEach((item) => {
+          item.classList.toggle("active", item === button);
+        });
+        render();
+      });
+    });
+
     els.severityFilter.addEventListener("change", (event) => {
       state.filters.severity = event.target.value;
       repairSelectionAfterFilter();
@@ -157,6 +185,29 @@
       render();
     });
 
+    els.notificationList.addEventListener("click", (event) => {
+      const actionButton = event.target.closest("[data-notification-action]");
+      if (actionButton) {
+        event.preventDefault();
+        const alert = state.materialAlerts.find((item) => item.alert_id === actionButton.dataset.notificationAlertId);
+        if (!alert) return;
+        recordActionForAlert(alert, actionButton.dataset.notificationAction, "");
+        return;
+      }
+
+      const row = event.target.closest("[data-notification-alert-id]");
+      if (!row) return;
+      const alert = state.materialAlerts.find((item) => item.alert_id === row.dataset.notificationAlertId);
+      if (!alert) return;
+      state.selectedCustomerId = alert.customer_id;
+      state.selectedAlertId = alert.alert_id;
+      state.viewMode = "workspace";
+      document.querySelectorAll("[data-view-mode]").forEach((item) => {
+        item.classList.toggle("active", item.dataset.viewMode === state.viewMode);
+      });
+      render();
+    });
+
     els.alertDetail.addEventListener("click", (event) => {
       const actionButton = event.target.closest("[data-action]");
       if (!actionButton) return;
@@ -178,6 +229,16 @@
       throw new Error(`Could not load ${url}: ${response.status}`);
     }
     return response.json();
+  }
+
+  async function fetchJsonOptional(url, fallback) {
+    try {
+      const response = await fetch(url, { cache: "no-store" });
+      if (!response.ok) return fallback;
+      return response.json();
+    } catch (_error) {
+      return fallback;
+    }
   }
 
   function showApp() {
@@ -219,6 +280,8 @@
   }
 
   function render() {
+    renderViewMode();
+    renderNotifications();
     renderMetrics();
     renderCustomerList();
     renderWorkspaceHeader();
@@ -226,6 +289,14 @@
     renderAlertDetail();
     renderBrief();
     renderDataHealth();
+  }
+
+  function renderViewMode() {
+    els.notificationsView.hidden = state.viewMode !== "notifications";
+    els.workspaceView.hidden = state.viewMode !== "workspace";
+    document.querySelectorAll("[data-view-mode]").forEach((item) => {
+      item.classList.toggle("active", item.dataset.viewMode === state.viewMode);
+    });
   }
 
   function renderMetrics() {
@@ -238,7 +309,68 @@
 
   function renderDataHealth() {
     const lastScan = maxDate(state.documents.map((documentItem) => documentItem.collected_at));
-    els.dataHealth.textContent = `${state.alerts.length} alerts | last scan ${formatDateTime(lastScan)}`;
+    const lookback = state.refreshSummary.lookback_hours || 24;
+    els.dataHealth.textContent = `${visibleNotifications().length} open notifications | ${state.alerts.length} total | ${lookback}h scan ${formatDateTime(lastScan)}`;
+  }
+
+  function renderNotifications() {
+    const notifications = sortedAlerts(visibleNotifications());
+    const hiddenCount = state.materialAlerts.length - notifications.length;
+    const lookback = state.refreshSummary.lookback_hours || 24;
+    const cutoff = state.refreshSummary.cutoff_at ? formatDateTime(state.refreshSummary.cutoff_at) : "unknown cutoff";
+    const generated = state.refreshSummary.generated_at ? formatDateTime(state.refreshSummary.generated_at) : "unknown run";
+    const riskCount = notifications.filter((alert) => alert.category === "risk").length;
+
+    els.notificationBadge.textContent = notifications.length;
+    els.notificationCountLabel.textContent = notifications.length;
+    els.notificationRiskLabel.textContent = riskCount;
+    els.notificationWindowLabel.textContent = `Last ${lookback} hours | cutoff ${cutoff} | refreshed ${generated}`;
+
+    els.notificationList.innerHTML = notifications.length
+      ? notifications.map((alert) => notificationTemplate(alert)).join("")
+      : `
+        <div class="notification-empty">
+          <h2>${hiddenCount ? "All current notifications acknowledged" : `No material notifications in the last ${escapeHtml(lookback)} hours`}</h2>
+          <p>${hiddenCount ? `${escapeHtml(hiddenCount)} notification(s) are hidden from this queue because they were acknowledged or dismissed. They remain available in the Customer workspace audit trail.` : `The refresh still reviewed ${escapeHtml(state.refreshSummary.total_alerts || state.alerts.length)} total alerts. Older or undated evidence was kept in the customer workspace and suppression log instead of being shown as today&apos;s news.`}</p>
+        </div>
+      `;
+  }
+
+  function visibleNotifications() {
+    return state.materialAlerts.filter((alert) => {
+      const status = currentStatus(alert);
+      return !["in_review", "dismissed"].includes(status);
+    });
+  }
+
+  function notificationTemplate(alert) {
+    const customer = state.customersById.get(alert.customer_id);
+    const publishedAt = alert.newest_published_at || alert.evidence?.[0]?.published_at;
+    return `
+      <article class="notification-card" role="listitem">
+        <button class="notification-main" type="button" data-notification-alert-id="${escapeAttr(alert.alert_id)}">
+          <div class="notification-card-top">
+            <span class="customer-name">${escapeHtml(customer?.legal_name || alert.customer_id)}</span>
+            <span class="severity-mark ${alert.severity}">${escapeHtml(alert.severity)}</span>
+          </div>
+          <h2>${escapeHtml(cleanText(alert.title))}</h2>
+          <p>${escapeHtml(cleanText(alert.summary))}</p>
+          <div class="alert-tags">
+            <span class="pill ${alert.category}">${labelize(alert.category)}</span>
+            <span class="pill material">Score ${escapeHtml(alert.material_score || "N/A")}</span>
+            <span class="pill">${Math.round(alert.confidence * 100)}% confidence</span>
+            ${alert.review_lane ? `<span class="pill">${escapeHtml(alert.review_lane)}</span>` : ""}
+            <span class="pill">${formatDate(publishedAt) || "Undated"}</span>
+          </div>
+        </button>
+        <div class="alert-source-strip">
+          ${sourceLinksTemplate(alert, 2)}
+        </div>
+        <div class="notification-actions">
+          <button class="secondary-button compact-button" type="button" data-notification-action="acknowledged" data-notification-alert-id="${escapeAttr(alert.alert_id)}">Acknowledge</button>
+        </div>
+      </article>
+    `;
   }
 
   function renderCustomerList() {
@@ -291,6 +423,7 @@
 
   function renderAlertQueue() {
     const alerts = sortedAlerts(getFilteredAlertsForCustomer(state.selectedCustomerId));
+    els.alertQueueTitle.textContent = "Customer alerts";
     els.alertQueueCount.textContent = `${alerts.length} alerts`;
     els.alertQueue.innerHTML = alerts.length
       ? alerts.map((alert) => alertRowTemplate(alert)).join("")
@@ -310,6 +443,8 @@
           <div class="alert-tags">
             <span class="pill ${alert.category}">${labelize(alert.category)}</span>
             <span class="pill">${Math.round(alert.confidence * 100)}% confidence</span>
+            ${alert.material_score ? `<span class="pill material">Score ${escapeHtml(alert.material_score)}</span>` : ""}
+            ${alert.review_lane ? `<span class="pill">${escapeHtml(alert.review_lane)}</span>` : ""}
             <span class="pill">${labelize(currentStatus(alert))}</span>
             <span class="pill">${alert.evidence_document_ids.length} evidence</span>
           </div>
@@ -336,10 +471,13 @@
             <span class="pill ${alert.category}">${labelize(alert.category)}</span>
             <span class="pill ${alert.severity}">${labelize(alert.severity)} severity</span>
             <span class="pill">${labelize(alert.signal_type)}</span>
+            ${alert.material_score ? `<span class="pill material">Material score ${escapeHtml(alert.material_score)}</span>` : ""}
+            ${alert.review_lane ? `<span class="pill">${escapeHtml(alert.review_lane)}</span>` : ""}
             <span class="pill">${labelize(currentStatus(alert))}</span>
           </div>
           <h2>${escapeHtml(cleanText(alert.title))}</h2>
           <p class="summary">${escapeHtml(cleanText(alert.summary))}</p>
+          ${materialityTemplate(alert)}
           <div class="detail-source-strip">
             ${sourceLinksTemplate(alert)}
           </div>
@@ -383,6 +521,21 @@
             ${alert.evidence_document_ids.map((documentId) => `<span class="pill">${escapeHtml(documentId)}</span>`).join("")}
           </div>
         </div>
+      </div>
+    `;
+  }
+
+  function materialityTemplate(alert) {
+    if (!alert.material_score && !(alert.material_reasons || []).length) return "";
+    const reasons = alert.material_reasons || [];
+    return `
+      <div class="materiality-box">
+        <div class="materiality-head">
+          <strong>Materiality filter</strong>
+          <span class="pill material">Score ${escapeHtml(alert.material_score || "N/A")}</span>
+          ${alert.review_lane ? `<span class="pill">${escapeHtml(alert.review_lane)}</span>` : ""}
+        </div>
+        ${reasons.length ? `<ul>${reasons.map((reason) => `<li>${escapeHtml(reason)}</li>`).join("")}</ul>` : ""}
       </div>
     `;
   }
@@ -465,7 +618,7 @@
   }
 
   function actionLogTemplate(alert) {
-    const actions = actionsForAlert(alert.alert_id);
+    const actions = actionsForAlert(alert);
     if (!actions.length) {
       return `<div class="empty-state">No RM action recorded.</div>`;
     }
@@ -659,13 +812,18 @@
   function recordAction(action) {
     const alert = selectedAlert();
     if (!alert) return;
+    recordActionForAlert(alert, action);
+  }
+
+  function recordActionForAlert(alert, action, noteOverride) {
     const noteElement = document.getElementById("actionNote");
     const actionRecord = {
       id: `action-${Date.now()}`,
       alert_id: alert.alert_id,
+      notification_key: notificationKey(alert),
       customer_id: alert.customer_id,
       action,
-      note: noteElement ? noteElement.value.trim() : "",
+      note: noteOverride !== undefined ? noteOverride : (noteElement ? noteElement.value.trim() : ""),
       created_by: "demo-rm",
       created_at: new Date().toISOString()
     };
@@ -687,15 +845,34 @@
   }
 
   function currentStatus(alert) {
-    const latestAction = actionsForAlert(alert.alert_id).slice(-1)[0];
+    const latestAction = actionsForAlert(alert).slice(-1)[0];
     if (!latestAction) return alert.status || "new";
     return ACTION_TO_STATUS[latestAction.action] || latestAction.action;
   }
 
-  function actionsForAlert(alertId) {
+  function actionsForAlert(alertOrId) {
+    const alert = typeof alertOrId === "object" ? alertOrId : null;
+    const alertId = alert ? alert.alert_id : alertOrId;
+    const key = alert ? notificationKey(alert) : null;
     return state.actions
-      .filter((action) => action.alert_id === alertId)
+      .filter((action) => action.alert_id === alertId || (key && action.notification_key === key))
       .sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+  }
+
+  function notificationKey(alert) {
+    const sourceUrl = alert.primary_source_url
+      || (alert.evidence || []).map((item) => item.source_url).filter(Boolean).sort()[0]
+      || "";
+    return [
+      alert.customer_id,
+      alert.signal_type,
+      normalizeKey(alert.title),
+      normalizeKey(sourceUrl)
+    ].join("|");
+  }
+
+  function normalizeKey(value) {
+    return cleanText(value).toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
   }
 
   function getVisibleCustomers() {
@@ -736,6 +913,8 @@
         alert.summary,
         alert.signal_type,
         alert.category,
+        alert.review_lane,
+        ...(alert.material_reasons || []),
         customer?.legal_name
       ].join(" ").toLowerCase();
 
@@ -752,7 +931,9 @@
   }
 
   function selectedAlert() {
-    return state.alerts.find((alert) => alert.alert_id === state.selectedAlertId) || null;
+    return state.materialAlerts.find((alert) => alert.alert_id === state.selectedAlertId)
+      || state.alerts.find((alert) => alert.alert_id === state.selectedAlertId)
+      || null;
   }
 
   function customerAggregate(customerId) {
@@ -774,6 +955,7 @@
     return [...alerts].sort((a, b) => {
       return SEVERITY_RANK[b.severity] - SEVERITY_RANK[a.severity]
         || CATEGORY_RANK[b.category] - CATEGORY_RANK[a.category]
+        || (b.material_score || 0) - (a.material_score || 0)
         || b.confidence - a.confidence
         || new Date(b.created_at) - new Date(a.created_at)
         || a.title.localeCompare(b.title);

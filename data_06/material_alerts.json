@@ -1,0 +1,229 @@
+[
+  {
+    "alert_id": "alert-046",
+    "customer_id": "demo-009",
+    "category": "mixed",
+    "signal_type": "business_activity_change",
+    "title": "Alphabet Inc. business activity changed: AI infrastructure and custom silicon expansion",
+    "summary": "1 evidence document support business_activity_change for AI infrastructure and custom silicon expansion. AI infrastructure and custom silicon expansion is not listed in baseline business_area. AI infrastructure and custom silicon expansion is not listed in baseline known_products. risk_rating requires review due to AI infrastructure and custom silicon expansion.",
+    "changed_fields": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "baseline_value": {
+      "business_area": [
+        "internet search",
+        "digital advertising",
+        "consumer software",
+        "cloud services"
+      ],
+      "known_products": [
+        "relationship monitoring",
+        "corporate treasury watchlist",
+        "cloud services"
+      ],
+      "risk_rating": "low"
+    },
+    "new_value": {
+      "business_area": [
+        "AI infrastructure and custom silicon expansion"
+      ],
+      "known_products": [
+        "AI infrastructure and custom silicon expansion"
+      ],
+      "risk_rating": [
+        "Review due to AI infrastructure and custom silicon expansion"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.78,
+    "recommended_action": "Review the updated business activity and determine whether the current KYC risk rating still fits.",
+    "evidence_document_ids": [
+      "doc-010"
+    ],
+    "fact_ids": [
+      "fact-021"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-010",
+        "source_name": "thetimes.com",
+        "source_url": "https://www.thetimes.com/business/wsj/article/google-is-using-nvidias-playbook-to-build-a-rival-ai-chip-business-rkbzvb9jn",
+        "published_at": "2026-06-19",
+        "collected_at": "2026-06-20T08:45:56Z",
+        "source_type": "reputable_news",
+        "source_quality": "B",
+        "title": "Google Is Using Nvidia's Playbook to Build a Rival AI Chip Business",
+        "excerpt": "Google Is Using Nvidia’s Playbook to Build a Rival AI Chip Business"
+      }
+    ],
+    "comparison_reason": "AI infrastructure and custom silicon expansion is not listed in baseline business_area. AI infrastructure and custom silicon expansion is not listed in baseline known_products. risk_rating requires review due to AI infrastructure and custom silicon expansion.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 148,
+    "material_reasons": [
+      "medium severity",
+      "mixed category",
+      "78% confidence",
+      "KYC fields changed: business_area, known_products, risk_rating",
+      "Material keywords: ai chip, ai infrastructure, nvidia",
+      "Newest published evidence is 1 day(s) old"
+    ],
+    "freshness_days": 1,
+    "newest_published_at": "2026-06-19T00:00:00Z",
+    "inside_refresh_window": true,
+    "primary_source_url": "https://www.thetimes.com/business/wsj/article/google-is-using-nvidias-playbook-to-build-a-rival-ai-chip-business-rkbzvb9jn",
+    "primary_source_name": "thetimes.com",
+    "review_lane": "RM review",
+    "material_rank": 1
+  },
+  {
+    "alert_id": "alert-048",
+    "customer_id": "demo-009",
+    "category": "opportunity",
+    "signal_type": "new_product",
+    "title": "Alphabet Inc. product signal: Google Cloud TPUs and AI chips",
+    "summary": "1 evidence document support new_product for Google Cloud TPUs and AI chips. Google Cloud TPUs and AI chips is not listed in baseline known_products. Google Cloud TPUs and AI chips is not listed in baseline business_area.",
+    "changed_fields": [
+      "business_area",
+      "known_products"
+    ],
+    "baseline_value": {
+      "known_products": [
+        "relationship monitoring",
+        "corporate treasury watchlist",
+        "cloud services"
+      ],
+      "business_area": [
+        "internet search",
+        "digital advertising",
+        "consumer software",
+        "cloud services"
+      ]
+    },
+    "new_value": {
+      "known_products": [
+        "Google Cloud TPUs and AI chips"
+      ],
+      "business_area": [
+        "Google Cloud TPUs and AI chips"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.78,
+    "recommended_action": "Add to RM call brief for custody, payments, FX, lending, or treasury discussion.",
+    "evidence_document_ids": [
+      "doc-010"
+    ],
+    "fact_ids": [
+      "fact-022"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-010",
+        "source_name": "thetimes.com",
+        "source_url": "https://www.thetimes.com/business/wsj/article/google-is-using-nvidias-playbook-to-build-a-rival-ai-chip-business-rkbzvb9jn",
+        "published_at": "2026-06-19",
+        "collected_at": "2026-06-20T08:45:56Z",
+        "source_type": "reputable_news",
+        "source_quality": "B",
+        "title": "Google Is Using Nvidia's Playbook to Build a Rival AI Chip Business",
+        "excerpt": "Google Is Using Nvidia’s Playbook to Build a Rival AI Chip Business"
+      }
+    ],
+    "comparison_reason": "Google Cloud TPUs and AI chips is not listed in baseline known_products. Google Cloud TPUs and AI chips is not listed in baseline business_area.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 124,
+    "material_reasons": [
+      "medium severity",
+      "opportunity category",
+      "78% confidence",
+      "KYC fields changed: business_area, known_products",
+      "Material keywords: ai chip, tpu, google cloud, nvidia",
+      "Newest published evidence is 1 day(s) old"
+    ],
+    "freshness_days": 1,
+    "newest_published_at": "2026-06-19T00:00:00Z",
+    "inside_refresh_window": true,
+    "primary_source_url": "https://www.thetimes.com/business/wsj/article/google-is-using-nvidias-playbook-to-build-a-rival-ai-chip-business-rkbzvb9jn",
+    "primary_source_name": "thetimes.com",
+    "review_lane": "RM opportunity",
+    "material_rank": 2
+  },
+  {
+    "alert_id": "alert-047",
+    "customer_id": "demo-009",
+    "category": "opportunity",
+    "signal_type": "commercial_opportunity",
+    "title": "Alphabet Inc. commercial opportunity: AI infrastructure and cloud banking opportunity",
+    "summary": "1 evidence document support commercial_opportunity for AI infrastructure and cloud banking opportunity. AI infrastructure and cloud banking opportunity is not listed in baseline known_products. AI infrastructure and cloud banking opportunity is not listed in baseline business_area.",
+    "changed_fields": [
+      "business_area",
+      "known_products"
+    ],
+    "baseline_value": {
+      "known_products": [
+        "relationship monitoring",
+        "corporate treasury watchlist",
+        "cloud services"
+      ],
+      "business_area": [
+        "internet search",
+        "digital advertising",
+        "consumer software",
+        "cloud services"
+      ]
+    },
+    "new_value": {
+      "known_products": [
+        "AI infrastructure and cloud banking opportunity"
+      ],
+      "business_area": [
+        "AI infrastructure and cloud banking opportunity"
+      ]
+    },
+    "severity": "medium",
+    "confidence": 0.75,
+    "recommended_action": "Add to RM call brief for custody, payments, FX, lending, or treasury discussion.",
+    "evidence_document_ids": [
+      "doc-010"
+    ],
+    "fact_ids": [
+      "fact-023"
+    ],
+    "evidence": [
+      {
+        "document_id": "doc-010",
+        "source_name": "thetimes.com",
+        "source_url": "https://www.thetimes.com/business/wsj/article/google-is-using-nvidias-playbook-to-build-a-rival-ai-chip-business-rkbzvb9jn",
+        "published_at": "2026-06-19",
+        "collected_at": "2026-06-20T08:45:56Z",
+        "source_type": "reputable_news",
+        "source_quality": "B",
+        "title": "Google Is Using Nvidia's Playbook to Build a Rival AI Chip Business",
+        "excerpt": "Google Is Using Nvidia’s Playbook to Build a Rival AI Chip Business"
+      }
+    ],
+    "comparison_reason": "AI infrastructure and cloud banking opportunity is not listed in baseline known_products. AI infrastructure and cloud banking opportunity is not listed in baseline business_area.",
+    "status": "new",
+    "created_at": "2026-06-20T00:00:00Z",
+    "material_score": 119,
+    "material_reasons": [
+      "medium severity",
+      "opportunity category",
+      "75% confidence",
+      "KYC fields changed: business_area, known_products",
+      "Material keywords: ai chip, ai infrastructure, nvidia",
+      "Newest published evidence is 1 day(s) old"
+    ],
+    "freshness_days": 1,
+    "newest_published_at": "2026-06-19T00:00:00Z",
+    "inside_refresh_window": true,
+    "primary_source_url": "https://www.thetimes.com/business/wsj/article/google-is-using-nvidias-playbook-to-build-a-rival-ai-chip-business-rkbzvb9jn",
+    "primary_source_name": "thetimes.com",
+    "review_lane": "RM opportunity",
+    "material_rank": 3
+  }
+]

@@ -453,8 +453,75 @@
   },
   {
     "fact_id": "fact-021",
-    "customer_id": "demo-005",
+    "customer_id": "demo-009",
     "document_id": "doc-010",
+    "fact_type": "business_activity_change",
+    "subject": "Alphabet Inc.",
+    "object": "AI infrastructure and custom silicon expansion",
+    "value": "Fresh evidence describes Google's expansion of AI infrastructure, TPUs, or AI chip commercialization.",
+    "jurisdiction": null,
+    "effective_date": "2026-06-19",
+    "baseline_fields_targeted": [
+      "business_area",
+      "known_products",
+      "risk_rating"
+    ],
+    "evidence_excerpt": "Google Is Using Nvidia’s Playbook to Build a Rival AI Chip Business",
+    "source_quality": "B",
+    "source_type": "reputable_news",
+    "source_name": "thetimes.com",
+    "source_url": "https://www.thetimes.com/business/wsj/article/google-is-using-nvidias-playbook-to-build-a-rival-ai-chip-business-rkbzvb9jn",
+    "extraction_method": "rule",
+    "extraction_confidence": 0.72
+  },
+  {
+    "fact_id": "fact-022",
+    "customer_id": "demo-009",
+    "document_id": "doc-010",
+    "fact_type": "new_product",
+    "subject": "Alphabet Inc.",
+    "object": "Google Cloud TPUs and AI chips",
+    "value": "Fresh evidence describes Google expanding Tensor Processing Units or AI chip offerings for AI infrastructure customers.",
+    "jurisdiction": null,
+    "effective_date": "2026-06-19",
+    "baseline_fields_targeted": [
+      "known_products",
+      "business_area"
+    ],
+    "evidence_excerpt": "Google Is Using Nvidia’s Playbook to Build a Rival AI Chip Business",
+    "source_quality": "B",
+    "source_type": "reputable_news",
+    "source_name": "thetimes.com",
+    "source_url": "https://www.thetimes.com/business/wsj/article/google-is-using-nvidias-playbook-to-build-a-rival-ai-chip-business-rkbzvb9jn",
+    "extraction_method": "rule",
+    "extraction_confidence": 0.72
+  },
+  {
+    "fact_id": "fact-023",
+    "customer_id": "demo-009",
+    "document_id": "doc-010",
+    "fact_type": "commercial_opportunity",
+    "subject": "Alphabet Inc.",
+    "object": "AI infrastructure and cloud banking opportunity",
+    "value": "Google's AI infrastructure expansion creates an RM conversation around corporate treasury, liquidity, FX, financing, and operating-account needs.",
+    "jurisdiction": null,
+    "effective_date": "2026-06-19",
+    "baseline_fields_targeted": [
+      "known_products",
+      "business_area"
+    ],
+    "evidence_excerpt": "Google Is Using Nvidia’s Playbook to Build a Rival AI Chip Business",
+    "source_quality": "B",
+    "source_type": "reputable_news",
+    "source_name": "thetimes.com",
+    "source_url": "https://www.thetimes.com/business/wsj/article/google-is-using-nvidias-playbook-to-build-a-rival-ai-chip-business-rkbzvb9jn",
+    "extraction_method": "rule",
+    "extraction_confidence": 0.66
+  },
+  {
+    "fact_id": "fact-024",
+    "customer_id": "demo-005",
+    "document_id": "doc-011",
     "fact_type": "digital_asset_activity",
     "subject": "Circle Internet Group, Inc.",
     "object": "USDC/EURC stablecoin payments",
@@ -475,9 +542,9 @@
     "extraction_confidence": 0.92
   },
   {
-    "fact_id": "fact-022",
+    "fact_id": "fact-025",
     "customer_id": "demo-005",
-    "document_id": "doc-010",
+    "document_id": "doc-011",
     "fact_type": "new_product",
     "subject": "Circle Internet Group, Inc.",
     "object": "Circle Payments Network",
@@ -497,9 +564,9 @@
     "extraction_confidence": 0.92
   },
   {
-    "fact_id": "fact-023",
+    "fact_id": "fact-026",
     "customer_id": "demo-005",
-    "document_id": "doc-010",
+    "document_id": "doc-011",
     "fact_type": "commercial_opportunity",
     "subject": "Circle Internet Group, Inc.",
     "object": "Circle Payments Network payments opportunity",
@@ -519,9 +586,9 @@
     "extraction_confidence": 0.86
   },
   {
-    "fact_id": "fact-024",
+    "fact_id": "fact-027",
     "customer_id": "demo-005",
-    "document_id": "doc-011",
+    "document_id": "doc-012",
     "fact_type": "digital_asset_activity",
     "subject": "Circle Internet Group, Inc.",
     "object": "USDC global payments",
@@ -542,9 +609,9 @@
     "extraction_confidence": 0.92
   },
   {
-    "fact_id": "fact-025",
+    "fact_id": "fact-028",
     "customer_id": "demo-005",
-    "document_id": "doc-011",
+    "document_id": "doc-012",
     "fact_type": "new_product",
     "subject": "Circle Internet Group, Inc.",
     "object": "USDC global payments",
@@ -564,9 +631,9 @@
     "extraction_confidence": 0.92
   },
   {
-    "fact_id": "fact-026",
+    "fact_id": "fact-029",
     "customer_id": "demo-005",
-    "document_id": "doc-011",
+    "document_id": "doc-012",
     "fact_type": "commercial_opportunity",
     "subject": "Circle Internet Group, Inc.",
     "object": "USDC liquidity and payments opportunity",
@@ -586,9 +653,9 @@
     "extraction_confidence": 0.86
   },
   {
-    "fact_id": "fact-027",
+    "fact_id": "fact-030",
     "customer_id": "demo-004",
-    "document_id": "doc-012",
+    "document_id": "doc-013",
     "fact_type": "new_jurisdiction",
     "subject": "Payward, Inc. d/b/a Kraken",
     "object": "Bermuda; Jersey",
@@ -608,9 +675,9 @@
     "extraction_confidence": 0.92
   },
   {
-    "fact_id": "fact-028",
+    "fact_id": "fact-031",
     "customer_id": "demo-004",
-    "document_id": "doc-012",
+    "document_id": "doc-013",
     "fact_type": "digital_asset_activity",
     "subject": "Payward, Inc. d/b/a Kraken",
     "object": "tokenized U.S. stocks and ETFs",
@@ -631,9 +698,9 @@
     "extraction_confidence": 0.92
   },
   {
-    "fact_id": "fact-029",
+    "fact_id": "fact-032",
     "customer_id": "demo-004",
-    "document_id": "doc-012",
+    "document_id": "doc-013",
     "fact_type": "new_product",
     "subject": "Payward, Inc. d/b/a Kraken",
     "object": "xStocks tokenized equities",
@@ -653,9 +720,9 @@
     "extraction_confidence": 0.92
   },
   {
-    "fact_id": "fact-030",
+    "fact_id": "fact-033",
     "customer_id": "demo-001",
-    "document_id": "doc-013",
+    "document_id": "doc-014",
     "fact_type": "ownership_change",
     "subject": "Robinhood Markets, Inc.",
     "object": "Bitstamp Ltd.",
@@ -676,9 +743,9 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-031",
+    "fact_id": "fact-034",
     "customer_id": "demo-001",
-    "document_id": "doc-013",
+    "document_id": "doc-014",
     "fact_type": "business_activity_change",
     "subject": "Robinhood Markets, Inc.",
     "object": "global cryptocurrency exchange",
@@ -699,9 +766,9 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-032",
+    "fact_id": "fact-035",
     "customer_id": "demo-001",
-    "document_id": "doc-014",
+    "document_id": "doc-015",
     "fact_type": "new_jurisdiction",
     "subject": "Robinhood Markets, Inc.",
     "object": "United Kingdom; Luxembourg; British Virgin Islands; Singapore",
@@ -721,9 +788,9 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-033",
+    "fact_id": "fact-036",
     "customer_id": "demo-001",
-    "document_id": "doc-014",
+    "document_id": "doc-015",
     "fact_type": "digital_asset_activity",
     "subject": "Robinhood Markets, Inc.",
     "object": "crypto-asset services",
@@ -744,9 +811,9 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-034",
+    "fact_id": "fact-037",
     "customer_id": "demo-001",
-    "document_id": "doc-015",
+    "document_id": "doc-016",
     "fact_type": "new_subsidiary",
     "subject": "Robinhood Markets, Inc.",
     "object": "Bitstamp Europe S.A.; Bitstamp UK Ltd.; Bitstamp Ltd.; Bitstamp Global Ltd.; Bitstamp Asia Pte Ltd",
@@ -767,9 +834,9 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-035",
+    "fact_id": "fact-038",
     "customer_id": "demo-001",
-    "document_id": "doc-015",
+    "document_id": "doc-016",
     "fact_type": "new_jurisdiction",
     "subject": "Robinhood Markets, Inc.",
     "object": "United Kingdom; Luxembourg; British Virgin Islands; Singapore",
@@ -789,9 +856,9 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-036",
+    "fact_id": "fact-039",
     "customer_id": "demo-004",
-    "document_id": "doc-016",
+    "document_id": "doc-017",
     "fact_type": "new_jurisdiction",
     "subject": "Payward, Inc. d/b/a Kraken",
     "object": "non-U.S. clients",
@@ -811,9 +878,9 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-037",
+    "fact_id": "fact-040",
     "customer_id": "demo-004",
-    "document_id": "doc-016",
+    "document_id": "doc-017",
     "fact_type": "digital_asset_activity",
     "subject": "Payward, Inc. d/b/a Kraken",
     "object": "tokenized U.S. stocks and ETFs",
@@ -834,9 +901,9 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-038",
+    "fact_id": "fact-041",
     "customer_id": "demo-004",
-    "document_id": "doc-016",
+    "document_id": "doc-017",
     "fact_type": "new_product",
     "subject": "Payward, Inc. d/b/a Kraken",
     "object": "xStocks tokenized equities",
@@ -856,9 +923,9 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-039",
+    "fact_id": "fact-042",
     "customer_id": "demo-005",
-    "document_id": "doc-017",
+    "document_id": "doc-018",
     "fact_type": "public_listing",
     "subject": "Circle Internet Group, Inc.",
     "object": "Circle Investor Relations profile",
@@ -878,9 +945,9 @@
     "extraction_confidence": 0.81
   },
   {
-    "fact_id": "fact-040",
+    "fact_id": "fact-043",
     "customer_id": "demo-005",
-    "document_id": "doc-018",
+    "document_id": "doc-019",
     "fact_type": "digital_asset_activity",
     "subject": "Circle Internet Group, Inc.",
     "object": "USDC/EURC access and redemption",
@@ -901,9 +968,9 @@
     "extraction_confidence": 0.92
   },
   {
-    "fact_id": "fact-041",
+    "fact_id": "fact-044",
     "customer_id": "demo-005",
-    "document_id": "doc-018",
+    "document_id": "doc-019",
     "fact_type": "new_product",
     "subject": "Circle Internet Group, Inc.",
     "object": "Circle Mint",
@@ -923,9 +990,9 @@
     "extraction_confidence": 0.92
   },
   {
-    "fact_id": "fact-042",
+    "fact_id": "fact-045",
     "customer_id": "demo-005",
-    "document_id": "doc-018",
+    "document_id": "doc-019",
     "fact_type": "commercial_opportunity",
     "subject": "Circle Internet Group, Inc.",
     "object": "Circle Mint distribution opportunity",
@@ -945,9 +1012,31 @@
     "extraction_confidence": 0.86
   },
   {
-    "fact_id": "fact-043",
+    "fact_id": "fact-046",
     "customer_id": "demo-006",
-    "document_id": "doc-019",
+    "document_id": "doc-020",
+    "fact_type": "new_jurisdiction",
+    "subject": "Garantex Europe OU",
+    "object": "Russia",
+    "value": "Treasury evidence says the majority of Garantex operations are carried out in Moscow and St. Petersburg, Russia.",
+    "jurisdiction": "Russia",
+    "effective_date": "2022-04-05",
+    "baseline_fields_targeted": [
+      "known_jurisdictions",
+      "risk_rating"
+    ],
+    "evidence_excerpt": "Treasury Sanctions Russia-Based Hydra, World’s Largest Darknet Market, and Ransomware-Enabling Virtual Currency Exchange Garantex | U.S.",
+    "source_quality": "A",
+    "source_type": "regulator",
+    "source_name": "U.S. Department of the Treasury",
+    "source_url": "https://home.treasury.gov/news/press-releases/jy0701",
+    "extraction_method": "rule",
+    "extraction_confidence": 0.95
+  },
+  {
+    "fact_id": "fact-047",
+    "customer_id": "demo-006",
+    "document_id": "doc-020",
     "fact_type": "business_activity_change",
     "subject": "Garantex Europe OU",
     "object": "Russia-linked virtual currency exchange with AML/CFT deficiencies",
@@ -959,7 +1048,7 @@
       "known_products",
       "risk_rating"
     ],
-    "evidence_excerpt": "Garantex is a virtual currency exchange founded in late 2019 and originally registered in Estonia. The majority of Garantex's operations are carried out in Moscow, including at Federation Tower, and St. Petersburg, Russia, where other sanctioned virtual currency exchanges have also operated.",
+    "evidence_excerpt": "Treasury Sanctions Russia-Based Hydra, World’s Largest Darknet Market, and Ransomware-Enabling Virtual Currency Exchange Garantex | U.S.",
     "source_quality": "A",
     "source_type": "regulator",
     "source_name": "U.S. Department of the Treasury",
@@ -968,9 +1057,9 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-044",
+    "fact_id": "fact-048",
     "customer_id": "demo-006",
-    "document_id": "doc-019",
+    "document_id": "doc-020",
     "fact_type": "digital_asset_activity",
     "subject": "Garantex Europe OU",
     "object": "sanctioned Russia-linked virtual currency exchange",
@@ -982,7 +1071,7 @@
       "known_products",
       "risk_rating"
     ],
-    "evidence_excerpt": "Garantex is a virtual currency exchange founded in late 2019 and originally registered in Estonia. The majority of Garantex's operations are carried out in Moscow, including at Federation Tower, and St. Petersburg, Russia, where other sanctioned virtual currency exchanges have also operated.",
+    "evidence_excerpt": "Treasury Sanctions Russia-Based Hydra, World’s Largest Darknet Market, and Ransomware-Enabling Virtual Currency Exchange Garantex | U.S.",
     "source_quality": "A",
     "source_type": "regulator",
     "source_name": "U.S. Department of the Treasury",
@@ -991,31 +1080,9 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-045",
+    "fact_id": "fact-049",
     "customer_id": "demo-006",
-    "document_id": "doc-019",
-    "fact_type": "regulatory_scrutiny",
-    "subject": "Garantex Europe OU",
-    "object": "OFAC sanctions on Garantex",
-    "value": "Treasury sanctioned Garantex and described illicit transaction exposure, AML/CFT deficiencies, and Russia financial-services sanctions risk.",
-    "jurisdiction": "Russia",
-    "effective_date": "2022-04-05",
-    "baseline_fields_targeted": [
-      "risk_rating",
-      "business_area"
-    ],
-    "evidence_excerpt": "Garantex is a virtual currency exchange founded in late 2019 and originally registered in Estonia. The majority of Garantex's operations are carried out in Moscow, including at Federation Tower, and St. Petersburg, Russia, where other sanctioned virtual currency exchanges have also operated.",
-    "source_quality": "A",
-    "source_type": "regulator",
-    "source_name": "U.S. Department of the Treasury",
-    "source_url": "https://home.treasury.gov/news/press-releases/jy0701",
-    "extraction_method": "rule",
-    "extraction_confidence": 0.95
-  },
-  {
-    "fact_id": "fact-046",
-    "customer_id": "demo-006",
-    "document_id": "doc-019",
+    "document_id": "doc-020",
     "fact_type": "jurisdiction_restriction",
     "subject": "Garantex Europe OU",
     "object": "Russia sanctions and virtual-currency evasion exposure",
@@ -1026,7 +1093,7 @@
       "known_jurisdictions",
       "risk_rating"
     ],
-    "evidence_excerpt": "Garantex is a virtual currency exchange founded in late 2019 and originally registered in Estonia. The majority of Garantex's operations are carried out in Moscow, including at Federation Tower, and St. Petersburg, Russia, where other sanctioned virtual currency exchanges have also operated.",
+    "evidence_excerpt": "Treasury Sanctions Russia-Based Hydra, World’s Largest Darknet Market, and Ransomware-Enabling Virtual Currency Exchange Garantex | U.S.",
     "source_quality": "A",
     "source_type": "regulator",
     "source_name": "U.S. Department of the Treasury",
@@ -1035,9 +1102,9 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-047",
+    "fact_id": "fact-050",
     "customer_id": "demo-006",
-    "document_id": "doc-019",
+    "document_id": "doc-020",
     "fact_type": "risk_rating_review",
     "subject": "Garantex Europe OU",
     "object": "Garantex illicit finance and AML/CFT risk",
@@ -1049,7 +1116,7 @@
       "known_products",
       "business_area"
     ],
-    "evidence_excerpt": "Garantex is a virtual currency exchange founded in late 2019 and originally registered in Estonia. The majority of Garantex's operations are carried out in Moscow, including at Federation Tower, and St. Petersburg, Russia, where other sanctioned virtual currency exchanges have also operated.",
+    "evidence_excerpt": "Treasury Sanctions Russia-Based Hydra, World’s Largest Darknet Market, and Ransomware-Enabling Virtual Currency Exchange Garantex | U.S.",
     "source_quality": "A",
     "source_type": "regulator",
     "source_name": "U.S. Department of the Treasury",
@@ -1058,9 +1125,9 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-048",
+    "fact_id": "fact-051",
     "customer_id": "demo-007",
-    "document_id": "doc-020",
+    "document_id": "doc-021",
     "fact_type": "new_jurisdiction",
     "subject": "British American Tobacco p.l.c.",
     "object": "North Korea",
@@ -1071,7 +1138,7 @@
       "known_jurisdictions",
       "risk_rating"
     ],
-    "evidence_excerpt": "OFAC announced a $508 million settlement agreement with London-headquartered British American Tobacco p.l.c. to resolve its apparent violations of U.S. sanctions on the Democratic People's Republic of Korea (DPRK) and proliferators of weapons of mass destruction.",
+    "evidence_excerpt": "Department of the Treasury’s Office of Foreign Assets Control (OFAC) announced a $508 million settlement agreement with London-headquartered British American Tobacco p.l.c. (BAT) to resolve its apparent violations of U.S. sanctions on the Democratic People’s Republic of Korea (DPRK) and proliferators of weapons of mass destruction (WMD).",
     "source_quality": "A",
     "source_type": "regulator",
     "source_name": "U.S. Department of the Treasury",
@@ -1080,9 +1147,9 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-049",
+    "fact_id": "fact-052",
     "customer_id": "demo-007",
-    "document_id": "doc-020",
+    "document_id": "doc-021",
     "fact_type": "business_activity_change",
     "subject": "British American Tobacco p.l.c.",
     "object": "North Korea tobacco joint-venture and export exposure",
@@ -1094,7 +1161,7 @@
       "known_products",
       "risk_rating"
     ],
-    "evidence_excerpt": "OFAC announced a $508 million settlement agreement with London-headquartered British American Tobacco p.l.c. to resolve its apparent violations of U.S. sanctions on the Democratic People's Republic of Korea (DPRK) and proliferators of weapons of mass destruction.",
+    "evidence_excerpt": "Department of the Treasury’s Office of Foreign Assets Control (OFAC) announced a $508 million settlement agreement with London-headquartered British American Tobacco p.l.c. (BAT) to resolve its apparent violations of U.S. sanctions on the Democratic People’s Republic of Korea (DPRK) and proliferators of weapons of mass destruction (WMD).",
     "source_quality": "A",
     "source_type": "regulator",
     "source_name": "U.S. Department of the Treasury",
@@ -1103,9 +1170,9 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-050",
+    "fact_id": "fact-053",
     "customer_id": "demo-007",
-    "document_id": "doc-020",
+    "document_id": "doc-021",
     "fact_type": "regulatory_scrutiny",
     "subject": "British American Tobacco p.l.c.",
     "object": "$508 million OFAC settlement for North Korea sanctions violations",
@@ -1116,7 +1183,7 @@
       "risk_rating",
       "business_area"
     ],
-    "evidence_excerpt": "OFAC announced a $508 million settlement agreement with London-headquartered British American Tobacco p.l.c. to resolve its apparent violations of U.S. sanctions on the Democratic People's Republic of Korea (DPRK) and proliferators of weapons of mass destruction.",
+    "evidence_excerpt": "Department of the Treasury’s Office of Foreign Assets Control (OFAC) announced a $508 million settlement agreement with London-headquartered British American Tobacco p.l.c. (BAT) to resolve its apparent violations of U.S. sanctions on the Democratic People’s Republic of Korea (DPRK) and proliferators of weapons of mass destruction (WMD).",
     "source_quality": "A",
     "source_type": "regulator",
     "source_name": "U.S. Department of the Treasury",
@@ -1125,9 +1192,9 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-051",
+    "fact_id": "fact-054",
     "customer_id": "demo-007",
-    "document_id": "doc-020",
+    "document_id": "doc-021",
     "fact_type": "jurisdiction_restriction",
     "subject": "British American Tobacco p.l.c.",
     "object": "North Korea sanctions exposure",
@@ -1138,7 +1205,7 @@
       "known_jurisdictions",
       "risk_rating"
     ],
-    "evidence_excerpt": "OFAC announced a $508 million settlement agreement with London-headquartered British American Tobacco p.l.c. to resolve its apparent violations of U.S. sanctions on the Democratic People's Republic of Korea (DPRK) and proliferators of weapons of mass destruction.",
+    "evidence_excerpt": "Department of the Treasury’s Office of Foreign Assets Control (OFAC) announced a $508 million settlement agreement with London-headquartered British American Tobacco p.l.c. (BAT) to resolve its apparent violations of U.S. sanctions on the Democratic People’s Republic of Korea (DPRK) and proliferators of weapons of mass destruction (WMD).",
     "source_quality": "A",
     "source_type": "regulator",
     "source_name": "U.S. Department of the Treasury",
@@ -1147,9 +1214,9 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-052",
+    "fact_id": "fact-055",
     "customer_id": "demo-007",
-    "document_id": "doc-020",
+    "document_id": "doc-021",
     "fact_type": "risk_rating_review",
     "subject": "British American Tobacco p.l.c.",
     "object": "North Korea sanctions and WMD-proliferator risk",
@@ -1161,7 +1228,7 @@
       "known_products",
       "business_area"
     ],
-    "evidence_excerpt": "OFAC announced a $508 million settlement agreement with London-headquartered British American Tobacco p.l.c. to resolve its apparent violations of U.S. sanctions on the Democratic People's Republic of Korea (DPRK) and proliferators of weapons of mass destruction.",
+    "evidence_excerpt": "Department of the Treasury’s Office of Foreign Assets Control (OFAC) announced a $508 million settlement agreement with London-headquartered British American Tobacco p.l.c. (BAT) to resolve its apparent violations of U.S. sanctions on the Democratic People’s Republic of Korea (DPRK) and proliferators of weapons of mass destruction (WMD).",
     "source_quality": "A",
     "source_type": "regulator",
     "source_name": "U.S. Department of the Treasury",
@@ -1170,9 +1237,9 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-053",
+    "fact_id": "fact-056",
     "customer_id": "demo-008",
-    "document_id": "doc-021",
+    "document_id": "doc-022",
     "fact_type": "new_jurisdiction",
     "subject": "Coinbase Global, Inc.",
     "object": "Australia",
@@ -1192,9 +1259,9 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-054",
+    "fact_id": "fact-057",
     "customer_id": "demo-008",
-    "document_id": "doc-021",
+    "document_id": "doc-022",
     "fact_type": "business_activity_change",
     "subject": "Coinbase Global, Inc.",
     "object": "Australia country-code domain monitoring signal",
@@ -1215,9 +1282,9 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-055",
+    "fact_id": "fact-058",
     "customer_id": "demo-008",
-    "document_id": "doc-021",
+    "document_id": "doc-022",
     "fact_type": "domain_registration",
     "subject": "Coinbase Global, Inc.",
     "object": "https://coinbase.au",
@@ -1238,9 +1305,9 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-056",
+    "fact_id": "fact-059",
     "customer_id": "demo-008",
-    "document_id": "doc-021",
+    "document_id": "doc-022",
     "fact_type": "risk_rating_review",
     "subject": "Coinbase Global, Inc.",
     "object": "country-code domain expansion review",

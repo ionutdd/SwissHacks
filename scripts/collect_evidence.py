@@ -48,10 +48,13 @@ def discover_pipeline_sources(
     catalog: dict[str, Any],
     baselines: list[dict[str, Any]],
     output_dir: str,
+    lookback_hours: int | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     module = PIPELINE_MODULES[pipeline]
     if pipeline == "page_diff":
         return module.discover_sources(catalog, baselines, output_dir=output_dir)
+    if pipeline == "news_event":
+        return module.discover_sources(catalog, baselines, lookback_hours=lookback_hours)
     return module.discover_sources(catalog, baselines)
 
 
@@ -75,7 +78,13 @@ def collect(args: argparse.Namespace) -> int:
             sources, traces = collect_evidence_direct_sources.discover_sources(catalog, baselines, existing_urls)
             candidate_sources.extend(sources)
         else:
-            sources, traces = discover_pipeline_sources(pipeline, catalog, baselines, args.output_dir)
+            sources, traces = discover_pipeline_sources(
+                pipeline,
+                catalog,
+                baselines,
+                args.output_dir,
+                lookback_hours=args.lookback_hours,
+            )
             candidate_sources.extend(sources)
         discovery_traces.extend(traces)
 
@@ -111,6 +120,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--catalog", default="data_02/source_catalog.json")
     parser.add_argument("--output-dir", default="data_02")
     parser.add_argument("--polite-delay-seconds", type=float, default=0.15)
+    parser.add_argument("--lookback-hours", type=int, default=None)
     parser.add_argument(
         "--pipelines",
         nargs="*",

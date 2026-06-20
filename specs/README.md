@@ -14,6 +14,9 @@ This folder turns `InitialPrompt.md` into a buildable specification package for 
 - [Subtask 02 Specs](subtask-02-evidence-source-collection/README.md): detailed specs for public evidence collection and normalized source documents.
 - [Subtask 03 Specs](subtask-03-signal-extraction-scoring/README.md): detailed specs for fact extraction, baseline comparison, scoring, and alert generation.
 - [Subtask 04 Specs](subtask-04-rm-dashboard/README.md): detailed specs for the RM dashboard, review actions, evidence view, and call brief.
+- [Subtask 05 Specs](subtask-05-crypto-risk-signals/): crypto-risk signal case studies and signal specifications.
+- [Subtask 06 Specs](subtask-06-material-signal-refresh/README.md): detailed specs for material signal refresh, 24-hour notifications, and scheduled automation.
+- [Subtask 07 Specs](subtask-07-challenge-gap-closure/README.md): realistic challenge gap analysis and specs for internal-bank context, governance, cost, evaluation, and source hardening.
 
 ## Product Thesis
 

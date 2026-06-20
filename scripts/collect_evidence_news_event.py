@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+from datetime import datetime, timedelta, timezone
 import json
 from pathlib import Path
 from typing import Any
@@ -35,10 +36,44 @@ def source_name_from_url(url: str, fallback: str) -> str:
     return host
 
 
-def gdelt_articles(query: str, max_records: int = 10) -> list[dict[str, Any]]:
+def parse_gdelt_seen_date(value: str | None) -> datetime | None:
+    if not value:
+        return None
+    candidate = str(value).strip()
+    formats = [
+        "%Y%m%d%H%M%S",
+        "%Y%m%d%H%M",
+        "%Y-%m-%dT%H:%M:%SZ",
+        "%Y-%m-%d %H:%M:%S",
+        "%Y-%m-%d",
+    ]
+    for date_format in formats:
+        try:
+            parsed = datetime.strptime(candidate, date_format)
+            return parsed.replace(tzinfo=timezone.utc)
+        except ValueError:
+            continue
+    try:
+        if candidate.endswith("Z"):
+            candidate = candidate[:-1] + "+00:00"
+        parsed = datetime.fromisoformat(candidate)
+        if parsed.tzinfo is None:
+            parsed = parsed.replace(tzinfo=timezone.utc)
+        return parsed.astimezone(timezone.utc)
+    except ValueError:
+        return None
+
+
+def gdelt_hint(value: str | None) -> str | None:
+    parsed = parse_gdelt_seen_date(value)
+    return parsed.date().isoformat() if parsed else value
+
+
+def gdelt_articles(query: str, max_records: int = 10, lookback_hours: int | None = None) -> list[dict[str, Any]]:
+    timespan = f"&timespan={lookback_hours}h" if lookback_hours else ""
     endpoint = (
         "https://api.gdeltproject.org/api/v2/doc/doc"
-        f"?query={quote_plus(query)}&mode=ArtList&format=json&maxrecords={max_records}&sort=HybridRel"
+        f"?query={quote_plus(query)}&mode=ArtList&format=json&maxrecords={max_records}&sort=DateDesc{timespan}"
     )
     payload = json.loads(fetch_url(endpoint))
     return list(payload.get("articles", []))
@@ -48,10 +83,13 @@ def discover_sources(
     catalog: dict[str, Any],
     baselines: list[dict[str, Any]],
     existing_urls: set[str] | None = None,
+    lookback_hours: int | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     seen_urls = set(existing_urls or set())
     sources: list[dict[str, Any]] = []
     traces: list[dict[str, Any]] = []
+    now = datetime.now(timezone.utc)
+    cutoff = now - timedelta(hours=lookback_hours) if lookback_hours else None
 
     for config in catalog.get("source_discovery", []):
         if not config.get("enabled") or config.get("connector") != "news_event_discovery":
@@ -63,7 +101,10 @@ def discover_sources(
 
         for query in config.get("queries", []):
             try:
-                for article in gdelt_articles(query):
+                for article in gdelt_articles(query, lookback_hours=lookback_hours):
+                    seen_at = parse_gdelt_seen_date(article.get("seendate"))
+                    if cutoff and seen_at and seen_at < cutoff:
+                        continue
                     url = article.get("url")
                     if not url or not domain_allowed(url, trusted_domains):
                         continue
@@ -71,7 +112,7 @@ def discover_sources(
                         {
                             "url": url,
                             "title_hint": article.get("title"),
-                            "published_at_hint": article.get("seendate"),
+                            "published_at_hint": gdelt_hint(article.get("seendate")),
                             "source_name": source_name_from_url(url, config.get("source_name", "News Discovery")),
                         }
                     )
@@ -137,10 +178,11 @@ def run_pipeline(
     collected_at: str | None = None,
     polite_delay_seconds: float = 0.0,
     write_outputs: bool = True,
+    lookback_hours: int | None = None,
 ) -> PipelineResult:
     baselines, catalog = load_baselines_and_catalog(baseline_path, catalog_path)
     timestamp = collected_at or now_utc()
-    sources, discovery_traces = discover_sources(catalog, baselines)
+    sources, discovery_traces = discover_sources(catalog, baselines, lookback_hours=lookback_hours)
     documents, collect_traces = collect_sources(sources, baselines, timestamp, polite_delay_seconds=polite_delay_seconds)
     result = PipelineResult(PIPELINE_NAME, documents, discovery_traces + collect_traces, len(sources), len(sources))
     if write_outputs:
@@ -154,10 +196,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--catalog", default="data_02/source_catalog.json")
     parser.add_argument("--output-dir", default="data_02")
     parser.add_argument("--polite-delay-seconds", type=float, default=0.15)
+    parser.add_argument("--lookback-hours", type=int, default=None)
     return parser.parse_args()
 
 
 if __name__ == "__main__":
     args = parse_args()
-    output = run_pipeline(args.baseline, args.catalog, args.output_dir, polite_delay_seconds=args.polite_delay_seconds)
+    output = run_pipeline(
+        args.baseline,
+        args.catalog,
+        args.output_dir,
+        polite_delay_seconds=args.polite_delay_seconds,
+        lookback_hours=args.lookback_hours,
+    )
     print(f"Wrote {len(output.documents)} news/event document(s).")

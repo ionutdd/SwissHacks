@@ -615,5 +615,94 @@
       "RM confirmation workflow for defensive versus active launch domains"
     ],
     "notes": "Synthetic baseline dated before the 2026 RDAP last-changed event. .au RDAP redacts the original registration date, so this is a domain-control signal requiring confirmation rather than proof of active Australian operations."
+  },
+  {
+    "customer_id": "demo-009",
+    "legal_name": "Alphabet Inc.",
+    "aliases": [
+      "Alphabet",
+      "Google",
+      "Google Cloud",
+      "Google DeepMind",
+      "Gemini",
+      "GOOGL",
+      "GOOG"
+    ],
+    "entity_type": "public_company",
+    "domicile": "United States",
+    "business_area": [
+      "internet search",
+      "digital advertising",
+      "consumer software",
+      "cloud services"
+    ],
+    "risk_rating": "low",
+    "known_jurisdictions": [
+      "United States",
+      "European Union",
+      "United Kingdom"
+    ],
+    "known_products": [
+      "relationship monitoring",
+      "corporate treasury watchlist",
+      "cloud services"
+    ],
+    "directors": [],
+    "executives": [
+      "Sundar Pichai",
+      "Ruth Porat",
+      "Anat Ashkenazi"
+    ],
+    "investors": [],
+    "subsidiaries": [
+      "Google LLC",
+      "Google Cloud",
+      "Google DeepMind",
+      "Waymo LLC"
+    ],
+    "websites": [
+      "https://abc.xyz",
+      "https://www.google.com",
+      "https://cloud.google.com"
+    ],
+    "social_handles": {
+      "x": [
+        "@Google",
+        "@GoogleCloud"
+      ],
+      "linkedin": [
+        "google"
+      ]
+    },
+    "known_wallets": [],
+    "last_reviewed_at": "2026-06-01",
+    "demo_story": "Alphabet is added as a high-news-volume control entity so the strict 24-hour notification feed can demonstrate fresh, same-day materiality filtering on public news.",
+    "expected_drift_types": [
+      "business_activity_change",
+      "new_product",
+      "commercial_opportunity",
+      "risk_rating_review",
+      "regulatory_scrutiny"
+    ],
+    "suggested_sources_to_check": [
+      "Fresh reputable news on Google AI infrastructure and chips",
+      "Google Cloud announcements",
+      "Alphabet investor relations",
+      "Regulatory news on Google antitrust, privacy, or market-access matters"
+    ],
+    "source_candidates": [
+      {
+        "label": "Fresh Google AI chip coverage",
+        "url": "https://www.thetimes.com/business/wsj/article/google-is-using-nvidias-playbook-to-build-a-rival-ai-chip-business-rkbzvb9jn",
+        "source_quality": "B"
+      }
+    ],
+    "amina_relevance": [
+      "AI infrastructure financing and liquidity monitoring",
+      "cloud and enterprise banking opportunity",
+      "large-cap public company relationship monitoring",
+      "technology-sector risk and regulatory monitoring"
+    ],
+    "notes": "Synthetic baseline is intentionally conservative on AI chip commercialization so fresh AI infrastructure news produces a visible same-day notification."
   }
 ]
