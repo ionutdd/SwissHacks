@@ -13,7 +13,8 @@
     internalSignals: "../data_07/internal_monitoring_signals.json",
     fusedAlerts: "../data_07/public_internal_fused_alerts.json",
     expandedKycProfiles: "../data_07/expanded_kyc_profiles.json",
-    layer2SignalPlaybook: "../data_07/layer2_signal_playbook.json"
+    layer2SignalPlaybook: "../data_07/layer2_signal_playbook.json",
+    founderInvestor: "../data_08/founder_investor_intelligence.json"
   };
 
   const ACTION_STORAGE_KEY = "signalwatch.reviewActions.v1";
@@ -50,10 +51,12 @@
     fusedAlerts: [],
     expandedKycProfiles: [],
     layer2SignalPlaybook: [],
+    founderInvestor: { customers: [] },
     customersById: new Map(),
     documentsById: new Map(),
     factsById: new Map(),
     aiAnalysesByDocument: new Map(),
+    founderInvestorByCustomer: new Map(),
     actions: [],
     selectedCustomerId: null,
     selectedAlertId: null,
@@ -87,7 +90,8 @@
         internalSignals,
         fusedAlerts,
         expandedKycProfiles,
-        layer2SignalPlaybook
+        layer2SignalPlaybook,
+        founderInvestor
       ] = await Promise.all([
         fetchJson(DATA_URLS.customers),
         fetchJson(DATA_URLS.documents),
@@ -100,7 +104,8 @@
         fetchJsonOptional(DATA_URLS.internalSignals, []),
         fetchJsonOptional(DATA_URLS.fusedAlerts, []),
         fetchJsonOptional(DATA_URLS.expandedKycProfiles, []),
-        fetchJsonOptional(DATA_URLS.layer2SignalPlaybook, [])
+        fetchJsonOptional(DATA_URLS.layer2SignalPlaybook, []),
+        fetchJsonOptional(DATA_URLS.founderInvestor, { customers: [] })
       ]);
 
       state.customers = customers;
@@ -116,9 +121,11 @@
       state.fusedAlerts = fusedAlerts;
       state.expandedKycProfiles = expandedKycProfiles;
       state.layer2SignalPlaybook = layer2SignalPlaybook;
+      state.founderInvestor = founderInvestor;
       state.customersById = new Map(customers.map((customer) => [customer.customer_id, customer]));
       state.documentsById = new Map(documents.map((documentItem) => [documentItem.document_id, documentItem]));
       state.factsById = new Map(facts.map((fact) => [fact.fact_id, fact]));
+      state.founderInvestorByCustomer = new Map((founderInvestor.customers || []).map((item) => [item.customer_id, item]));
       state.actions = loadActions();
       seedSelection();
       showApp();
@@ -529,6 +536,7 @@
           ${materialityTemplate(alert)}
           ${detectionTemplate(alert)}
           ${layer2ProfileTemplate(alert)}
+          ${founderInvestorTemplate(alert)}
           ${internalContextTemplate(alert)}
           <div class="detail-source-strip">
             ${sourceLinksTemplate(alert)}
@@ -721,6 +729,78 @@
     `;
   }
 
+  function founderInvestorTemplate(alert) {
+    const intel = founderInvestorForCustomer(alert.customer_id);
+    const records = sortInvestorRecords(intel?.records || []).slice(0, 5);
+    if (!intel || !records.length) return "";
+
+    const summary = intel.summary || {};
+    const verifyCount = records.filter((record) => record.needs_verification).length;
+    return `
+      <div class="materiality-box founder-investor-box">
+        <div class="materiality-head">
+          <strong>Founder & investor intelligence</strong>
+          <span class="pill ownership_control">${escapeHtml(summary.equity_or_control_record_count || 0)} equity/control</span>
+          <span class="pill">${escapeHtml(summary.ownership_percent_unknown_count || 0)} stake(s) unknown</span>
+          ${verifyCount ? `<span class="pill material">${escapeHtml(verifyCount)} verify</span>` : ""}
+        </div>
+        <div class="investor-record-list">
+          ${records.map((record) => investorRecordTemplate(record)).join("")}
+        </div>
+        ${investorQuestionsTemplate(summary.top_rm_questions || [])}
+      </div>
+    `;
+  }
+
+  function investorRecordTemplate(record) {
+    const stake = record.ownership_percent || "stake not disclosed";
+    const amount = record.amount ? `<span class="pill">${escapeHtml(record.amount)}</span>` : "";
+    const valuation = record.valuation ? `<span class="pill">${escapeHtml(record.valuation)}</span>` : "";
+    const sourceLink = record.source_url
+      ? `<a class="source-link" href="${escapeAttr(record.source_url)}" target="_blank" rel="noreferrer">
+          <span>Open source</span>
+          <strong>${escapeHtml(record.source_name || "Source")}</strong>
+          <small>${escapeHtml(record.source_quality ? `Quality ${record.source_quality}` : "")}</small>
+        </a>`
+      : `<span class="source-link-muted">${escapeHtml(record.source_name || "No public source")}</span>`;
+
+    return `
+      <article class="investor-record">
+        <div class="investor-record-head">
+          <strong>${escapeHtml(record.entity_name || "Unknown party")}</strong>
+          <span class="pill ${record.rm_impact === "mixed" ? "mixed" : record.rm_impact === "positive" ? "opportunity" : ""}">
+            ${escapeHtml(labelize(record.rm_impact || "unknown"))}
+          </span>
+        </div>
+        <div class="alert-tags">
+          <span class="pill">${escapeHtml(labelize(record.role_type || "investor"))}</span>
+          <span class="pill ownership_control">${escapeHtml(labelize(record.advisory_vs_equity || "unknown"))}</span>
+          <span class="pill">${escapeHtml(stake)}</span>
+          ${amount}
+          ${valuation}
+          ${record.needs_verification ? `<span class="pill material">Verification needed</span>` : ""}
+        </div>
+        ${record.rm_impact_reason ? `<p class="summary">${escapeHtml(cleanText(record.rm_impact_reason))}</p>` : ""}
+        ${record.ownership_basis ? `<p class="summary"><strong>Ownership basis:</strong> ${escapeHtml(cleanText(record.ownership_basis))}</p>` : ""}
+        ${record.recommended_action ? `<p class="summary"><strong>RM action:</strong> ${escapeHtml(cleanText(record.recommended_action))}</p>` : ""}
+        ${record.evidence_quote ? `<p class="evidence-excerpt"><strong>Evidence:</strong> ${escapeHtml(cleanText(record.evidence_quote))}</p>` : ""}
+        <div class="detail-source-strip">${sourceLink}</div>
+      </article>
+    `;
+  }
+
+  function investorQuestionsTemplate(questions) {
+    if (!questions.length) return "";
+    return `
+      <div class="investor-questions">
+        <strong>Cap table questions</strong>
+        <ul>
+          ${questions.slice(0, 4).map((question) => `<li>${escapeHtml(question)}</li>`).join("")}
+        </ul>
+      </div>
+    `;
+  }
+
   function driftTableTemplate(alert) {
     const rows = alert.changed_fields.map((field) => {
       const before = alert.baseline_value ? alert.baseline_value[field] : null;
@@ -853,6 +933,7 @@
 
     const suggestedQuestions = suggestedQuestionsForAlerts(enrichedAlerts).slice(0, 5);
     const evidenceReferences = uniqueEvidence(enrichedAlerts).slice(0, 5);
+    const founderInvestorRecords = sortInvestorRecords(founderInvestorForCustomer(customer.customer_id)?.records || []).slice(0, 5);
 
     return {
       customer,
@@ -860,7 +941,8 @@
       riskQuestions,
       opportunities,
       suggestedQuestions,
-      evidenceReferences
+      evidenceReferences,
+      founderInvestorRecords
     };
   }
 
@@ -870,6 +952,7 @@
       ${briefSectionTemplate("Open risk questions", brief.riskQuestions, alertBriefItem)}
       ${briefSectionTemplate("Commercial opportunities", brief.opportunities, alertBriefItem)}
       ${briefSectionTemplate("Suggested customer questions", brief.suggestedQuestions, questionBriefItem)}
+      ${briefSectionTemplate("Founder/investor intelligence", brief.founderInvestorRecords, investorBriefItem)}
       ${briefSectionTemplate("Evidence references", brief.evidenceReferences, evidenceBriefItem)}
     `;
   }
@@ -915,6 +998,17 @@
       <li class="brief-item">
         <strong>${escapeHtml(cleanText(evidence.source_name || evidence.title || evidence.document_id))}</strong>
         <p>${escapeHtml(cleanText(evidence.excerpt || ""))}</p>
+      </li>
+    `;
+  }
+
+  function investorBriefItem(record) {
+    const stake = record.ownership_percent || "stake not disclosed";
+    return `
+      <li class="brief-item">
+        <strong>${escapeHtml(cleanText(record.entity_name || "Unknown party"))}</strong>
+        <p>${escapeHtml(labelize(record.role_type || "investor"))} | ${escapeHtml(labelize(record.advisory_vs_equity || "unknown"))} | ${escapeHtml(stake)}</p>
+        <p>${escapeHtml(cleanText(record.recommended_action || record.rm_impact_reason || ""))}</p>
       </li>
     `;
   }
@@ -993,6 +1087,14 @@
     appendTextSection(lines, "Open risk questions", brief.riskQuestions.map((alert) => `${alert.title} | ${alert.recommended_action}`));
     appendTextSection(lines, "Commercial opportunities", brief.opportunities.map((alert) => `${alert.title} | ${alert.recommended_action}`));
     appendTextSection(lines, "Suggested customer questions", brief.suggestedQuestions);
+    appendTextSection(
+      lines,
+      "Founder/investor intelligence",
+      brief.founderInvestorRecords.map((record) => {
+        const stake = record.ownership_percent || "stake not disclosed";
+        return `${record.entity_name} | ${labelize(record.role_type || "investor")} | ${labelize(record.advisory_vs_equity || "unknown")} | ${stake} | ${record.recommended_action}`;
+      })
+    );
     appendTextSection(lines, "Evidence references", brief.evidenceReferences.map((evidence) => `${evidence.source_name}: ${evidence.source_url}`));
     return lines.join("\n");
   }
@@ -1171,6 +1273,10 @@
     return state.expandedKycProfiles.find((profile) => profile.customer_id === customerId) || null;
   }
 
+  function founderInvestorForCustomer(customerId) {
+    return state.founderInvestorByCustomer.get(customerId) || null;
+  }
+
   function customerAggregate(customerId) {
     const alerts = state.alerts.filter((alert) => alert.customer_id === customerId && currentStatus(alert) !== "dismissed");
     const severity = alerts.reduce((highest, alert) => {
@@ -1194,6 +1300,26 @@
         || b.confidence - a.confidence
         || new Date(b.created_at) - new Date(a.created_at)
         || a.title.localeCompare(b.title);
+    });
+  }
+
+  function sortInvestorRecords(records) {
+    const roleRank = {
+      equity_control: 6,
+      equity: 5,
+      voting_control: 5,
+      financing: 4,
+      management: 3,
+      not_equity: 2,
+      unknown: 1
+    };
+    const impactRank = { mixed: 4, positive: 3, unknown: 2, neutral: 1 };
+    return [...records].sort((a, b) => {
+      return (roleRank[b.advisory_vs_equity] || 0) - (roleRank[a.advisory_vs_equity] || 0)
+        || (impactRank[b.rm_impact] || 0) - (impactRank[a.rm_impact] || 0)
+        || Number(Boolean(b.ownership_percent)) - Number(Boolean(a.ownership_percent))
+        || (b.confidence || 0) - (a.confidence || 0)
+        || (a.entity_name || "").localeCompare(b.entity_name || "");
     });
   }
 

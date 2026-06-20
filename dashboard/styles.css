@@ -896,6 +896,46 @@ textarea {
   background: #f5fcf9;
 }
 
+.founder-investor-box {
+  border-color: #d5c8fb;
+  background: #faf8ff;
+}
+
+.investor-record-list {
+  display: grid;
+  gap: 10px;
+}
+
+.investor-record {
+  padding: 10px;
+  border: 1px solid #d5c8fb;
+  border-radius: var(--radius);
+  background: #ffffff;
+}
+
+.investor-record-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.investor-record-head strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.investor-questions {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #d5c8fb;
+}
+
+.investor-questions ul {
+  margin-top: 6px;
+}
+
 .kyc-baseline-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
