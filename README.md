@@ -58,6 +58,14 @@ python scripts/build_founder_investor_intelligence.py
 
 This writes `data_08/founder_investor_intelligence.json` and `data_08/founder_investor_report.md`. The layer separates founders, executives, strategic investors, public shareholders, financing sources, advisory/unknown roles, and non-equity product exposure. Ownership percentages stay blank unless a source states them; secondary-source stakes are marked for verification before any KYC profile is updated.
 
+Public-source KYC enrichment:
+
+```powershell
+python scripts/build_public_kyc_layer.py
+```
+
+This writes `data_09/public_kyc_profiles.json` and `data_09/public_kyc_report.md`. The layer enriches every demo customer with public-source identity, business model, product/service, jurisdiction, regulatory/licensing, sanctions/adverse-media, scale, RM question, and source-link context. It is an RM review layer only; it does not overwrite internal KYC or beneficial ownership records.
+
 ## Dashboard
 
 Start a local static server:
@@ -76,7 +84,7 @@ Alert details show both levels of provenance: whether the source document was re
 
 Material scores use deterministic controls plus Apertus severity suggestions when available. Sanctions, OFAC, DPRK/North Korea, ransomware, regulatory scrutiny, ownership/control drift, jurisdiction drift, and human-review-required signals receive explicit business-impact weighting so critical compliance alerts rank above lower-risk product or opportunity alerts.
 
-Alert details and RM briefs also show founder/investor context from `data_08`, including advisory-vs-equity classification, disclosed or missing ownership percentage, source link, verification status, and the next cap-table question the RM should ask.
+Alert details and RM briefs also show public-source KYC context from `data_09` and founder/investor context from `data_08`, including source links, verification status, KYC questions, advisory-vs-equity classification, and disclosed or missing ownership percentage.
 
 ## Tests
 

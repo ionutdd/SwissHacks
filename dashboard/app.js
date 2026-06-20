@@ -14,7 +14,8 @@
     fusedAlerts: "../data_07/public_internal_fused_alerts.json",
     expandedKycProfiles: "../data_07/expanded_kyc_profiles.json",
     layer2SignalPlaybook: "../data_07/layer2_signal_playbook.json",
-    founderInvestor: "../data_08/founder_investor_intelligence.json"
+    founderInvestor: "../data_08/founder_investor_intelligence.json",
+    publicKyc: "../data_09/public_kyc_profiles.json"
   };
 
   const ACTION_STORAGE_KEY = "signalwatch.reviewActions.v1";
@@ -52,11 +53,13 @@
     expandedKycProfiles: [],
     layer2SignalPlaybook: [],
     founderInvestor: { customers: [] },
+    publicKyc: { customers: [] },
     customersById: new Map(),
     documentsById: new Map(),
     factsById: new Map(),
     aiAnalysesByDocument: new Map(),
     founderInvestorByCustomer: new Map(),
+    publicKycByCustomer: new Map(),
     actions: [],
     selectedCustomerId: null,
     selectedAlertId: null,
@@ -91,7 +94,8 @@
         fusedAlerts,
         expandedKycProfiles,
         layer2SignalPlaybook,
-        founderInvestor
+        founderInvestor,
+        publicKyc
       ] = await Promise.all([
         fetchJson(DATA_URLS.customers),
         fetchJson(DATA_URLS.documents),
@@ -105,7 +109,8 @@
         fetchJsonOptional(DATA_URLS.fusedAlerts, []),
         fetchJsonOptional(DATA_URLS.expandedKycProfiles, []),
         fetchJsonOptional(DATA_URLS.layer2SignalPlaybook, []),
-        fetchJsonOptional(DATA_URLS.founderInvestor, { customers: [] })
+        fetchJsonOptional(DATA_URLS.founderInvestor, { customers: [] }),
+        fetchJsonOptional(DATA_URLS.publicKyc, { customers: [] })
       ]);
 
       state.customers = customers;
@@ -122,10 +127,12 @@
       state.expandedKycProfiles = expandedKycProfiles;
       state.layer2SignalPlaybook = layer2SignalPlaybook;
       state.founderInvestor = founderInvestor;
+      state.publicKyc = publicKyc;
       state.customersById = new Map(customers.map((customer) => [customer.customer_id, customer]));
       state.documentsById = new Map(documents.map((documentItem) => [documentItem.document_id, documentItem]));
       state.factsById = new Map(facts.map((fact) => [fact.fact_id, fact]));
       state.founderInvestorByCustomer = new Map((founderInvestor.customers || []).map((item) => [item.customer_id, item]));
+      state.publicKycByCustomer = new Map((publicKyc.customers || []).map((item) => [item.customer_id, item]));
       state.actions = loadActions();
       seedSelection();
       showApp();
@@ -535,6 +542,7 @@
           <p class="summary">${escapeHtml(cleanText(alert.summary))}</p>
           ${materialityTemplate(alert)}
           ${detectionTemplate(alert)}
+          ${publicKycTemplate(alert)}
           ${layer2ProfileTemplate(alert)}
           ${founderInvestorTemplate(alert)}
           ${internalContextTemplate(alert)}
@@ -723,6 +731,79 @@
             <span>Open source</span>
             <strong>${escapeHtml(source.source_name)}</strong>
             <small>${escapeHtml(source.how_used || "")}</small>
+          </a>
+        `).join("")}
+      </div>
+    `;
+  }
+
+  function publicKycTemplate(alert) {
+    const profile = publicKycForCustomer(alert.customer_id);
+    if (!profile) return "";
+
+    const identity = profile.identity || {};
+    const coverage = profile.source_coverage || {};
+    const completeness = profile.completeness || {};
+    return `
+      <div class="materiality-box public-kyc-box">
+        <div class="materiality-head">
+          <strong>Public-source KYC</strong>
+          <span class="pill ${kycRiskPillClass(profile.public_kyc_risk_rating)}">Risk ${escapeHtml(labelize(profile.public_kyc_risk_rating || "unknown"))}</span>
+          <span class="pill">${escapeHtml(coverage.source_count || 0)} source(s)</span>
+          <span class="pill">Coverage ${escapeHtml(Math.round((completeness.score || 0) * 100))}%</span>
+          <span class="pill">${escapeHtml(labelize(profile.kyc_status || "review"))}</span>
+        </div>
+        <div class="public-kyc-grid">
+          <div>
+            <span class="field-label">Identity</span>
+            <ul class="value-list">
+              <li><strong>Legal:</strong> ${escapeHtml(identity.legal_name || profile.legal_name || "unknown")}</li>
+              <li><strong>Type:</strong> ${escapeHtml(labelize(identity.entity_type || "unknown"))}</li>
+              <li><strong>Listing:</strong> ${escapeHtml(identity.public_listing || "private / not listed")}</li>
+              <li><strong>Domicile:</strong> ${escapeHtml(identity.primary_domicile || "unknown")}</li>
+              ${identity.headquarters ? `<li><strong>HQ:</strong> ${escapeHtml(identity.headquarters)}</li>` : ""}
+            </ul>
+          </div>
+          <div>
+            <span class="field-label">Products and regions</span>
+            <div class="alert-tags kyc-tags">
+              ${(profile.products_services || []).slice(0, 8).map((item) => `<span class="pill">${escapeHtml(item)}</span>`).join("")}
+              ${(identity.operating_regions || []).slice(0, 6).map((item) => `<span class="pill">${escapeHtml(item)}</span>`).join("")}
+            </div>
+          </div>
+        </div>
+        ${kycListTemplate("Risk rationale", profile.risk_rationale)}
+        ${kycListTemplate("Regulatory / sanctions context", [...(profile.regulatory_and_licensing || []).slice(0, 4), ...(profile.sanctions_adverse_media || []).slice(0, 3)])}
+        ${kycListTemplate("RM KYC questions", profile.open_kyc_questions)}
+        ${publicKycSourceLinksTemplate(profile)}
+        <p class="layer2-demo-note">${escapeHtml(profile.important_notice || "")}</p>
+      </div>
+    `;
+  }
+
+  function kycListTemplate(title, items) {
+    const visible = (items || []).filter(Boolean).slice(0, 5);
+    if (!visible.length) return "";
+    return `
+      <div class="public-kyc-list">
+        <strong>${escapeHtml(title)}</strong>
+        <ul>
+          ${visible.map((item) => `<li>${escapeHtml(cleanText(item))}</li>`).join("")}
+        </ul>
+      </div>
+    `;
+  }
+
+  function publicKycSourceLinksTemplate(profile) {
+    const sources = (profile.source_notes || []).filter((source) => source.source_url).slice(0, 6);
+    if (!sources.length) return "";
+    return `
+      <div class="detail-source-strip layer2-source-strip">
+        ${sources.map((source) => `
+          <a class="source-link" href="${escapeAttr(source.source_url)}" target="_blank" rel="noreferrer">
+            <span>Open source</span>
+            <strong>${escapeHtml(source.source_name)}</strong>
+            <small>${escapeHtml(source.source_type || "")}${source.source_quality ? ` | Quality ${escapeHtml(source.source_quality)}` : ""}</small>
           </a>
         `).join("")}
       </div>
@@ -934,6 +1015,7 @@
     const suggestedQuestions = suggestedQuestionsForAlerts(enrichedAlerts).slice(0, 5);
     const evidenceReferences = uniqueEvidence(enrichedAlerts).slice(0, 5);
     const founderInvestorRecords = sortInvestorRecords(founderInvestorForCustomer(customer.customer_id)?.records || []).slice(0, 5);
+    const publicKyc = publicKycForCustomer(customer.customer_id);
 
     return {
       customer,
@@ -942,7 +1024,9 @@
       opportunities,
       suggestedQuestions,
       evidenceReferences,
-      founderInvestorRecords
+      founderInvestorRecords,
+      publicKycQuestions: publicKyc?.open_kyc_questions || [],
+      publicKycSources: publicKyc?.source_notes || []
     };
   }
 
@@ -952,6 +1036,7 @@
       ${briefSectionTemplate("Open risk questions", brief.riskQuestions, alertBriefItem)}
       ${briefSectionTemplate("Commercial opportunities", brief.opportunities, alertBriefItem)}
       ${briefSectionTemplate("Suggested customer questions", brief.suggestedQuestions, questionBriefItem)}
+      ${briefSectionTemplate("Public KYC questions", brief.publicKycQuestions, questionBriefItem)}
       ${briefSectionTemplate("Founder/investor intelligence", brief.founderInvestorRecords, investorBriefItem)}
       ${briefSectionTemplate("Evidence references", brief.evidenceReferences, evidenceBriefItem)}
     `;
@@ -1087,6 +1172,7 @@
     appendTextSection(lines, "Open risk questions", brief.riskQuestions.map((alert) => `${alert.title} | ${alert.recommended_action}`));
     appendTextSection(lines, "Commercial opportunities", brief.opportunities.map((alert) => `${alert.title} | ${alert.recommended_action}`));
     appendTextSection(lines, "Suggested customer questions", brief.suggestedQuestions);
+    appendTextSection(lines, "Public KYC questions", brief.publicKycQuestions);
     appendTextSection(
       lines,
       "Founder/investor intelligence",
@@ -1277,6 +1363,10 @@
     return state.founderInvestorByCustomer.get(customerId) || null;
   }
 
+  function publicKycForCustomer(customerId) {
+    return state.publicKycByCustomer.get(customerId) || null;
+  }
+
   function customerAggregate(customerId) {
     const alerts = state.alerts.filter((alert) => alert.customer_id === customerId && currentStatus(alert) !== "dismissed");
     const severity = alerts.reduce((highest, alert) => {
@@ -1321,6 +1411,14 @@
         || (b.confidence || 0) - (a.confidence || 0)
         || (a.entity_name || "").localeCompare(b.entity_name || "");
     });
+  }
+
+  function kycRiskPillClass(rating) {
+    const value = String(rating || "").toLowerCase();
+    if (value.includes("critical") || value.includes("high")) return "risk";
+    if (value.includes("medium")) return "mixed";
+    if (value.includes("low")) return "opportunity";
+    return "";
   }
 
   function valueTemplate(value) {

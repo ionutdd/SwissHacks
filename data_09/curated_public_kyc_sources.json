@@ -1,0 +1,715 @@
+[
+  {
+    "customer_id": "demo-001",
+    "kyc_status": "public_source_enriched",
+    "public_kyc_risk_rating": "medium_to_high",
+    "risk_rationale": [
+      "Public financial-services company with strong disclosure coverage.",
+      "Brokerage, crypto, futures, event contracts, private markets, advisory, and digital banking create a broad regulated perimeter.",
+      "Bitstamp integration adds global crypto exchange and licensing exposure."
+    ],
+    "identity": {
+      "legal_name": "Robinhood Markets, Inc.",
+      "trading_names": ["Robinhood", "Robinhood Crypto", "Bitstamp"],
+      "entity_type": "public_company",
+      "public_listing": "NASDAQ: HOOD",
+      "headquarters": "Menlo Park, California, United States",
+      "primary_domicile": "United States",
+      "operating_regions": ["United States", "United Kingdom", "European Union"],
+      "websites": ["https://robinhood.com", "https://investors.robinhood.com"]
+    },
+    "business_model": [
+      "Retail brokerage and investing platform.",
+      "Crypto trading and crypto asset platform activity.",
+      "Advisory, digital banking, private markets access, futures and event-contract products.",
+      "Bitstamp acquisition expands crypto operations and non-US footprint."
+    ],
+    "products_services": [
+      "brokerage",
+      "crypto trading",
+      "advisory",
+      "digital banking services",
+      "private markets access",
+      "futures and event contracts",
+      "Bitstamp exchange activity"
+    ],
+    "scale_indicators": [
+      "Investor relations reported 27.7 million funded customers as of May 31, 2026.",
+      "Investor relations reported $377 billion total platform assets as of May 31, 2026.",
+      "Investor relations notes crypto fair value includes Bitstamp starting June 2025."
+    ],
+    "regulatory_and_licensing": [
+      "Public company SEC reporting and investor-relations disclosure.",
+      "Brokerage, crypto, futures, and event-contract activities should be mapped to entity-level licenses.",
+      "Bitstamp regulatory licenses and registrations should be added to the KYC structure chart."
+    ],
+    "sanctions_adverse_media": [
+      "No sanctions flag in the collected public KYC sources.",
+      "Regulatory perimeter remains material because products include crypto, brokerage, futures, and event contracts."
+    ],
+    "banking_relevance": [
+      "Confirm expected fiat settlement flows after Bitstamp integration.",
+      "Update entity chart, licensing footprint, and crypto custody/trading narrative.",
+      "Review whether event contracts or private-market access change suitability/compliance expectations."
+    ],
+    "open_kyc_questions": [
+      "Which legal entities now control Bitstamp operations and client assets?",
+      "Which jurisdictions are active operating markets versus marketing or product-availability regions?",
+      "Do expected transaction volumes need to include Bitstamp platform assets and institutional crypto flows?"
+    ],
+    "source_notes": [
+      {
+        "source_id": "kyc-src-001-robinhood-ir",
+        "source_name": "Robinhood Investor Relations",
+        "source_url": "https://investors.robinhood.com/",
+        "source_type": "investor_relations",
+        "source_quality": "A",
+        "retrieved_at": "2026-06-20",
+        "fields_supported": ["public_listing", "business_model", "scale_indicators", "products_services"]
+      },
+      {
+        "source_id": "kyc-src-002-robinhood-bitstamp",
+        "source_name": "Robinhood Bitstamp acquisition close announcement",
+        "source_url": "https://robinhood.com/us/en/newsroom/robinhood-completes-acquisition-of-bitstamp/",
+        "source_type": "company_newsroom",
+        "source_quality": "A",
+        "retrieved_at": "2026-06-20",
+        "fields_supported": ["subsidiaries", "crypto_exchange_activity", "jurisdiction_expansion"]
+      }
+    ]
+  },
+  {
+    "customer_id": "demo-002",
+    "kyc_status": "enhanced_due_diligence_required",
+    "public_kyc_risk_rating": "high",
+    "risk_rationale": [
+      "Private prediction-market/event-contract business using crypto settlement.",
+      "CFTC order identified unregistered off-exchange event-based binary options conduct.",
+      "Strategic investment from ICE improves institutional credibility but creates new ownership/control and tokenization questions."
+    ],
+    "identity": {
+      "legal_name": "Blockratize, Inc. d/b/a Polymarket",
+      "trading_names": ["Polymarket", "Blockratize", "QCEX", "QCX"],
+      "entity_type": "private_company",
+      "public_listing": null,
+      "headquarters": "New York City, New York, United States",
+      "primary_domicile": "United States",
+      "operating_regions": ["United States", "international online users"],
+      "websites": ["https://polymarket.com"]
+    },
+    "business_model": [
+      "Prediction market and event-contract platform.",
+      "Event markets have included binary yes/no contracts resolved by future events.",
+      "Crypto/blockchain smart-contract infrastructure is central to the historic operating model.",
+      "ICE investment and tokenization partnership may change institutional distribution and data-commercialization profile."
+    ],
+    "products_services": [
+      "prediction markets",
+      "event contracts",
+      "USDC or crypto settlement",
+      "market data distribution",
+      "tokenization partnership"
+    ],
+    "scale_indicators": [
+      "CFTC order said Polymarket had offered more than 900 event markets since inception.",
+      "ICE official release disclosed a strategic investment of up to $2 billion at an approximately $8 billion pre-investment valuation."
+    ],
+    "regulatory_and_licensing": [
+      "CFTC order required a $1.4 million civil monetary penalty and wind-down of non-compliant markets.",
+      "Event-contract and gambling-law perimeter should be reviewed by jurisdiction.",
+      "QCEX/QCX acquisition and ICE partnership require updated legal-entity and licensing review."
+    ],
+    "sanctions_adverse_media": [
+      "No sanctions designation in collected public KYC sources.",
+      "Regulatory scrutiny and jurisdiction blocks are material for onboarding and ongoing monitoring."
+    ],
+    "banking_relevance": [
+      "Enhanced due diligence should validate business model, legal status, and permitted jurisdictions.",
+      "Clarify settlement assets, fiat rails, stablecoin flows, market-makers, and liquidity providers.",
+      "Ask for updated investor/control-person schedule after ICE investment."
+    ],
+    "open_kyc_questions": [
+      "Which entity is the contracting customer and which entity operates regulated event contracts?",
+      "Are users, counterparties, or liquidity providers located in restricted or blocked jurisdictions?",
+      "Does ICE receive board, veto, data, tokenization, or control rights?"
+    ],
+    "source_notes": [
+      {
+        "source_id": "kyc-src-003-cftc-polymarket",
+        "source_name": "CFTC order against Blockratize d/b/a Polymarket",
+        "source_url": "https://www.cftc.gov/PressRoom/PressReleases/8478-22",
+        "source_type": "regulator",
+        "source_quality": "A",
+        "retrieved_at": "2026-06-20",
+        "fields_supported": ["legal_name", "regulatory_history", "business_model", "risk_rating"]
+      },
+      {
+        "source_id": "kyc-src-004-ice-polymarket",
+        "source_name": "ICE strategic investment in Polymarket",
+        "source_url": "https://ir.theice.com/press/news-details/2025/ICE-Announces-Strategic-Investment-in-Polymarket/default.aspx",
+        "source_type": "investor_relations",
+        "source_quality": "A",
+        "retrieved_at": "2026-06-20",
+        "fields_supported": ["funding", "ownership_control", "business_model", "tokenization"]
+      },
+      {
+        "source_id": "kyc-src-005-axios-polymarket",
+        "source_name": "Axios coverage of ICE stake",
+        "source_url": "https://www.axios.com/2025/10/07/polymarket-new-york-stock-exchange",
+        "source_type": "reputable_news",
+        "source_quality": "B",
+        "retrieved_at": "2026-06-20",
+        "fields_supported": ["reported_ownership_percent", "prior_investors", "valuation_context"]
+      }
+    ]
+  },
+  {
+    "customer_id": "demo-003",
+    "kyc_status": "public_source_enriched",
+    "public_kyc_risk_rating": "medium",
+    "risk_rationale": [
+      "Public retail company with SEC and investor-relations disclosure.",
+      "Baseline retail profile is materially changed by bitcoin treasury exposure.",
+      "Low inherent AML risk retail profile becomes medium due to digital-asset treasury and financing activity."
+    ],
+    "identity": {
+      "legal_name": "GameStop Corp.",
+      "trading_names": ["GameStop", "GME"],
+      "entity_type": "public_company",
+      "public_listing": "NYSE: GME",
+      "headquarters": "625 Westport Parkway, Grapevine, Texas, United States",
+      "primary_domicile": "United States",
+      "operating_regions": ["United States", "Canada", "Australia", "Europe"],
+      "websites": ["https://www.gamestop.com", "https://investor.gamestop.com"]
+    },
+    "business_model": [
+      "Retail gaming and trade-in destination for games, systems, cards, consoles, and accessories.",
+      "Ecommerce and retail store operations.",
+      "Digital-asset treasury exposure through bitcoin purchase."
+    ],
+    "products_services": [
+      "video game retail",
+      "trade-in and resale",
+      "consumer electronics",
+      "collectibles and cards",
+      "bitcoin treasury exposure"
+    ],
+    "scale_indicators": [
+      "Investor-relations page provides SEC filings and annual/quarterly reports.",
+      "Public reporting and market listing make ongoing KYC monitoring scalable."
+    ],
+    "regulatory_and_licensing": [
+      "Public-company SEC reporting.",
+      "Digital-asset treasury policy should be documented even though GameStop is not a crypto financial intermediary."
+    ],
+    "sanctions_adverse_media": [
+      "No sanctions flag in collected public KYC sources.",
+      "Bitcoin treasury volatility and custody model require risk review."
+    ],
+    "banking_relevance": [
+      "Confirm custody provider, execution desk, wallet controls, insurance, and accounting policy for bitcoin holdings.",
+      "Reassess treasury, lending, collateral, and FX opportunity.",
+      "Monitor any debt/equity financing used to fund digital-asset purchases."
+    ],
+    "open_kyc_questions": [
+      "Who custodies the bitcoin and who can authorize transfers?",
+      "Are bitcoin purchases one-off treasury allocation or an ongoing investment policy?",
+      "Will financing proceeds be used for additional digital assets?"
+    ],
+    "source_notes": [
+      {
+        "source_id": "kyc-src-006-gamestop-ir",
+        "source_name": "GameStop Investor Relations",
+        "source_url": "https://investor.gamestop.com/",
+        "source_type": "investor_relations",
+        "source_quality": "A",
+        "retrieved_at": "2026-06-20",
+        "fields_supported": ["headquarters", "business_model", "public_listing", "sec_filings"]
+      },
+      {
+        "source_id": "kyc-src-007-gamestop-bitcoin",
+        "source_name": "Investopedia coverage of GameStop bitcoin purchase",
+        "source_url": "https://www.investopedia.com/gamestop-stock-slips-on-disclosure-of-500-million-bitcoin-buy-11743013",
+        "source_type": "reputable_news",
+        "source_quality": "B",
+        "retrieved_at": "2026-06-20",
+        "fields_supported": ["digital_asset_activity", "treasury_policy_change", "financing_context"]
+      }
+    ]
+  },
+  {
+    "customer_id": "demo-004",
+    "kyc_status": "enhanced_due_diligence_required",
+    "public_kyc_risk_rating": "high",
+    "risk_rationale": [
+      "Private crypto exchange and institutional digital-asset platform.",
+      "Expanded beyond spot crypto into futures, derivatives, tokenized equities, and fintech/bank embedded trading.",
+      "M&A activity adds ownership/control and regulated futures footprint questions."
+    ],
+    "identity": {
+      "legal_name": "Payward, Inc. d/b/a Kraken",
+      "trading_names": ["Kraken", "Payward", "Kraken Institutional", "NinjaTrader", "xStocks"],
+      "entity_type": "private_company",
+      "public_listing": null,
+      "headquarters": "United States",
+      "primary_domicile": "United States",
+      "operating_regions": ["United States", "European Union", "United Kingdom", "Bermuda", "Australia"],
+      "websites": ["https://www.kraken.com", "https://blog.kraken.com"]
+    },
+    "business_model": [
+      "Cryptocurrency exchange and institutional digital-asset services.",
+      "Custody, trading, staking, wallet, derivatives, tokenized-equity, and embedded crypto-trading offerings.",
+      "NinjaTrader acquisition adds retail futures platform and FCM-related footprint."
+    ],
+    "products_services": [
+      "crypto exchange",
+      "institutional crypto services",
+      "custody",
+      "staking",
+      "wallet",
+      "futures and derivatives",
+      "tokenized equities",
+      "embedded crypto trading"
+    ],
+    "scale_indicators": [
+      "Public sources describe Kraken as a major global crypto exchange.",
+      "NinjaTrader acquisition was announced at $1.5 billion.",
+      "xStocks product creates stock-linked tokenized instruments for non-US customers."
+    ],
+    "regulatory_and_licensing": [
+      "Crypto exchange regulatory perimeter should be mapped by operating entity and jurisdiction.",
+      "NinjaTrader and derivatives footprint require CFTC/NFA entity review.",
+      "xStocks issuer/distributor structure should be reviewed separately from Kraken operating entities."
+    ],
+    "sanctions_adverse_media": [
+      "No sanctions designation in collected public KYC sources.",
+      "Prior regulatory scrutiny and tokenized-securities perimeter make EDD appropriate."
+    ],
+    "banking_relevance": [
+      "Map all regulated entities, issuers, distributors, custody entities, and derivatives entities.",
+      "Confirm whether xStocks holders have no underlying equity ownership and identify issuer/custodian obligations.",
+      "Reassess expected fiat settlement flows after M&A and product expansion."
+    ],
+    "open_kyc_questions": [
+      "Which legal entity is the bank customer versus product distributor?",
+      "Which regulator supervises each activity: exchange, custody, staking, derivatives, tokenized securities?",
+      "Do any tokenized-equity products create securities, suitability, or custody obligations for AMINA?"
+    ],
+    "source_notes": [
+      {
+        "source_id": "kyc-src-008-kraken-ninjatrader",
+        "source_name": "Kraken NinjaTrader acquisition announcement",
+        "source_url": "https://blog.kraken.com/news/kraken-to-acquire-ninjatrader",
+        "source_type": "company_newsroom",
+        "source_quality": "A",
+        "retrieved_at": "2026-06-20",
+        "fields_supported": ["mna", "business_model", "derivatives", "ownership_control"]
+      },
+      {
+        "source_id": "kyc-src-009-kraken-xstocks",
+        "source_name": "Kraken xStocks/tokenized equities announcement",
+        "source_url": "https://blog.kraken.com/product/xstocks/tokenized-equities-now-available",
+        "source_type": "company_newsroom",
+        "source_quality": "A",
+        "retrieved_at": "2026-06-20",
+        "fields_supported": ["tokenized_equities", "new_product", "non_us_customers"]
+      },
+      {
+        "source_id": "kyc-src-010-xstocks-prospectus",
+        "source_name": "xStocks prospectus and final terms",
+        "source_url": "https://assets.backed.fi/legal-documentation/security-prospectus",
+        "source_type": "product_disclosure",
+        "source_quality": "A",
+        "retrieved_at": "2026-06-20",
+        "fields_supported": ["issuer_structure", "no_underlying_equity_ownership", "securities_product"]
+      }
+    ]
+  },
+  {
+    "customer_id": "demo-005",
+    "kyc_status": "public_source_enriched",
+    "public_kyc_risk_rating": "medium_to_high",
+    "risk_rationale": [
+      "Public financial technology company issuing stablecoins through regulated affiliates.",
+      "Stablecoin issuance, reserves, public blockchains, and global settlement rails create financial-crime, sanctions, and reserve-transparency review needs.",
+      "Public-company disclosure improves monitoring coverage."
+    ],
+    "identity": {
+      "legal_name": "Circle Internet Group, Inc.",
+      "trading_names": ["Circle", "USDC", "EURC", "Circle Payments Network", "Arc", "CRCL"],
+      "entity_type": "public_company",
+      "public_listing": "NYSE: CRCL",
+      "headquarters": "United States",
+      "primary_domicile": "United States",
+      "operating_regions": ["United States", "European Union", "Singapore", "global blockchain networks"],
+      "websites": ["https://www.circle.com", "https://investor.circle.com"]
+    },
+    "business_model": [
+      "Global financial technology firm using digital currencies and public blockchains for payments, commerce, and financial applications.",
+      "Issuer of USDC and EURC stablecoins through regulated affiliates.",
+      "Enterprise and developer services for integrating stablecoins and blockchains into business operations."
+    ],
+    "products_services": [
+      "USDC",
+      "EURC",
+      "stablecoin network",
+      "Circle Mint",
+      "Circle Payments Network",
+      "developer APIs",
+      "public blockchain payment infrastructure",
+      "reserve transparency materials"
+    ],
+    "scale_indicators": [
+      "Investor-relations page provides SEC filings, quarterly results, reserve composition, and monthly attestations.",
+      "Circle describes itself as building a large stablecoin network."
+    ],
+    "regulatory_and_licensing": [
+      "Stablecoins are issued through regulated affiliates.",
+      "Reserve composition and monthly attestations are important recurring KYC controls.",
+      "MiCA, US stablecoin regulation, Singapore, and other licensing regimes should be mapped by entity."
+    ],
+    "sanctions_adverse_media": [
+      "No sanctions designation in collected public KYC sources.",
+      "Stablecoin flows require sanctions-screening and blockchain-monitoring controls."
+    ],
+    "banking_relevance": [
+      "Payments, FX, treasury, custody, stablecoin settlement, and tokenized cash opportunities.",
+      "Monitor reserve composition, redemption mechanics, and regulatory changes.",
+      "Confirm entity issuing each product and bank-account flow expectations."
+    ],
+    "open_kyc_questions": [
+      "Which affiliate issues each stablecoin and which entity would bank with AMINA?",
+      "What are expected reserve, mint, redeem, and treasury flows by jurisdiction?",
+      "Which blockchain-monitoring and sanctions controls govern enterprise payments?"
+    ],
+    "source_notes": [
+      {
+        "source_id": "kyc-src-011-circle-ir",
+        "source_name": "Circle Investor Relations",
+        "source_url": "https://investor.circle.com/overview/default.aspx",
+        "source_type": "investor_relations",
+        "source_quality": "A",
+        "retrieved_at": "2026-06-20",
+        "fields_supported": ["business_model", "public_listing", "products_services", "regulated_affiliates"]
+      },
+      {
+        "source_id": "kyc-src-012-circle-reserves",
+        "source_name": "Circle reserves composition",
+        "source_url": "https://www.circle.com/en/transparency",
+        "source_type": "company_disclosure",
+        "source_quality": "A",
+        "retrieved_at": "2026-06-20",
+        "fields_supported": ["reserve_monitoring", "stablecoin_controls", "recurring_kyc_checks"]
+      }
+    ]
+  },
+  {
+    "customer_id": "demo-006",
+    "kyc_status": "prohibited_or_exit_review",
+    "public_kyc_risk_rating": "critical",
+    "risk_rationale": [
+      "OFAC sanctioned Garantex in April 2022.",
+      "Treasury described Russia-linked operations and illicit actor/darknet-market transaction exposure.",
+      "Estonian license loss for AML/CFT deficiencies creates a direct regulatory failure signal."
+    ],
+    "identity": {
+      "legal_name": "Garantex Europe OU",
+      "trading_names": ["Garantex", "Garantex Europe", "Garantex Europe OU"],
+      "entity_type": "virtual_asset_service_provider",
+      "public_listing": null,
+      "headquarters": "Originally Estonia; Treasury described Moscow and St. Petersburg operations",
+      "primary_domicile": "Estonia",
+      "operating_regions": ["Estonia", "Russia"],
+      "websites": ["https://garantex.io"]
+    },
+    "business_model": [
+      "Virtual currency exchange allowing customers to buy and sell virtual currencies using fiat currencies.",
+      "Treasury linked majority operations to Moscow and St. Petersburg.",
+      "License and sanctions events supersede ordinary commercial KYC."
+    ],
+    "products_services": [
+      "virtual currency exchange",
+      "fiat-to-crypto exchange",
+      "Russia-linked exchange activity"
+    ],
+    "scale_indicators": [
+      "Treasury said over $100 million in transactions were associated with illicit actors and darknet markets.",
+      "Treasury identified nearly $6 million from Conti and approximately $2.6 million from Hydra."
+    ],
+    "regulatory_and_licensing": [
+      "Estonian FIU license loss in February 2022 after critical AML/CFT deficiencies.",
+      "OFAC designation under Russia-related sanctions.",
+      "Blocked-property and 50-percent rule implications must be checked before any exposure."
+    ],
+    "sanctions_adverse_media": [
+      "OFAC sanctions designation.",
+      "Ransomware, darknet-market, Russia sanctions-evasion, and AML/CFT deficiency exposure."
+    ],
+    "banking_relevance": [
+      "Do not onboard without sanctions/legal approval.",
+      "Screen entity, aliases, related wallets, officers, beneficial owners, and counterparties.",
+      "Freeze, reject, or exit any exposure according to sanctions counsel and bank policy."
+    ],
+    "open_kyc_questions": [
+      "Is there any direct or indirect exposure to Garantex or related blocked property?",
+      "Are counterparties, wallets, or intermediaries connected to Garantex clusters?",
+      "Has any historical relationship been exited and documented?"
+    ],
+    "source_notes": [
+      {
+        "source_id": "kyc-src-013-treasury-garantex",
+        "source_name": "U.S. Treasury OFAC action on Garantex",
+        "source_url": "https://home.treasury.gov/news/press-releases/jy0701",
+        "source_type": "sanctions_authority",
+        "source_quality": "A",
+        "retrieved_at": "2026-06-20",
+        "fields_supported": ["sanctions", "regulatory_history", "illicit_finance_exposure", "license_loss"]
+      }
+    ]
+  },
+  {
+    "customer_id": "demo-007",
+    "kyc_status": "enhanced_due_diligence_required",
+    "public_kyc_risk_rating": "high",
+    "risk_rationale": [
+      "Large public tobacco company with inherently sensitive product sector.",
+      "OFAC settlement involved North Korea and WMD sanctions exposure through subsidiary and intermediaries.",
+      "Historical conduct required major settlement and compliance commitments."
+    ],
+    "identity": {
+      "legal_name": "British American Tobacco p.l.c.",
+      "trading_names": ["BAT", "British American Tobacco", "British-American Tobacco Marketing Singapore"],
+      "entity_type": "public_company",
+      "public_listing": "LSE: BATS; NYSE: BTI ADS",
+      "headquarters": "London, United Kingdom",
+      "primary_domicile": "United Kingdom",
+      "operating_regions": ["United Kingdom", "Singapore", "global tobacco markets"],
+      "websites": ["https://www.bat.com"]
+    },
+    "business_model": [
+      "Tobacco and nicotine products multinational.",
+      "Product set includes cigarettes, heated tobacco, vapor, and oral nicotine products.",
+      "Large multinational trade, subsidiary, distributor, and sanctions-control perimeter."
+    ],
+    "products_services": [
+      "tobacco products",
+      "cigarettes",
+      "heated tobacco",
+      "vapour products",
+      "oral nicotine",
+      "trade finance sensitive goods"
+    ],
+    "scale_indicators": [
+      "Treasury described BAT as one of the world's largest tobacco companies.",
+      "OFAC settlement was the largest ever against a non-financial institution at announcement date."
+    ],
+    "regulatory_and_licensing": [
+      "Public-company disclosure in the UK and US ADS context.",
+      "Tobacco sector controls, sanctions controls, anti-bribery and anti-corruption controls should be documented.",
+      "Subsidiary and distributor screening is central to KYC."
+    ],
+    "sanctions_adverse_media": [
+      "OFAC settlement for apparent DPRK and WMD sanctions violations.",
+      "Treasury described over $250 million in profits from a North Korean joint venture moving through US financial institutions.",
+      "BAT agreed to compliance commitments and investments."
+    ],
+    "banking_relevance": [
+      "Enhanced due diligence for sanctioned-country, intermediary, and subsidiary exposure.",
+      "Review trade finance restrictions, distributor payments, and high-risk jurisdictions.",
+      "Screen subsidiaries, intermediaries, and beneficial owners against sanctions and PEP lists."
+    ],
+    "open_kyc_questions": [
+      "Which subsidiaries, distributors, and intermediaries touch high-risk jurisdictions?",
+      "What controls prevent indirect sanctioned-country payments through third parties?",
+      "Are any historical North Korea-related accounts, counterparties, or claims still open?"
+    ],
+    "source_notes": [
+      {
+        "source_id": "kyc-src-014-treasury-bat",
+        "source_name": "U.S. Treasury BAT North Korea settlement",
+        "source_url": "https://home.treasury.gov/news/press-releases/jy1441",
+        "source_type": "sanctions_authority",
+        "source_quality": "A",
+        "retrieved_at": "2026-06-20",
+        "fields_supported": ["sanctions_settlement", "high_risk_jurisdiction", "subsidiary_risk", "compliance_commitments"]
+      }
+    ]
+  },
+  {
+    "customer_id": "demo-008",
+    "kyc_status": "public_source_enriched",
+    "public_kyc_risk_rating": "medium_to_high",
+    "risk_rationale": [
+      "Public crypto platform with broad institutional, consumer, developer, custody, staking, and derivatives footprint.",
+      "Licenses and disclosures show money-transmission and virtual-currency regulatory perimeter across many US jurisdictions.",
+      "Country-code domain signal adds market-entry review need."
+    ],
+    "identity": {
+      "legal_name": "Coinbase Global, Inc.",
+      "trading_names": ["Coinbase", "Coinbase, Inc.", "Coinbase Prime", "Coinbase Custody", "Base", "COIN"],
+      "entity_type": "public_company",
+      "public_listing": "NASDAQ: COIN",
+      "headquarters": "United States",
+      "primary_domicile": "United States",
+      "operating_regions": ["United States", "European Union", "United Kingdom", "Singapore", "Australia review"],
+      "websites": ["https://www.coinbase.com", "https://investor.coinbase.com"]
+    },
+    "business_model": [
+      "Crypto platform serving consumers, institutions, and developers.",
+      "Coinbase Prime, custody, exchange, staking, stablecoin infrastructure, developer platform, and global settlement rails.",
+      "Public messaging describes an expansion toward an everything exchange covering crypto, equities, derivatives, and prediction markets."
+    ],
+    "products_services": [
+      "crypto exchange",
+      "Coinbase Prime",
+      "custody",
+      "staking",
+      "derivatives",
+      "developer platform",
+      "USDC and stablecoin infrastructure",
+      "wallets",
+      "institutional settlement rails"
+    ],
+    "scale_indicators": [
+      "Investor relations reported $202 billion quarterly trading volume as of March 31, 2026.",
+      "Investor relations reported $294 billion assets on platform as of March 31, 2026.",
+      "Investor relations reported 4,900+ employees as of March 31, 2026."
+    ],
+    "regulatory_and_licensing": [
+      "Coinbase, Inc. license page lists US money-transmitter licenses and virtual-currency licenses/disclosures.",
+      "New York listing includes money transmitter and virtual currency business activity license references.",
+      "Product set requires entity-by-entity mapping for custody, exchange, derivatives, staking, and developer services."
+    ],
+    "sanctions_adverse_media": [
+      "No sanctions designation in collected public KYC sources.",
+      "Crypto platform exposure requires sanctions, blockchain analytics, travel rule, fraud, and market-integrity controls."
+    ],
+    "banking_relevance": [
+      "Strong institutional custody, trading, treasury, staking, and stablecoin opportunity.",
+      "Country-domain signal should be validated as defensive registration or Australia market activity.",
+      "Expected transaction flows may include institutional settlements and custody operations."
+    ],
+    "open_kyc_questions": [
+      "Which licensed entity would bank with AMINA and for which product line?",
+      "Is coinbase.au defensive, pre-launch, or tied to active Australian operations?",
+      "What controls govern customer asset custody, staking, sanctions, and institutional settlement flows?"
+    ],
+    "source_notes": [
+      {
+        "source_id": "kyc-src-015-coinbase-ir",
+        "source_name": "Coinbase Investor Relations",
+        "source_url": "https://investor.coinbase.com/",
+        "source_type": "investor_relations",
+        "source_quality": "A",
+        "retrieved_at": "2026-06-20",
+        "fields_supported": ["business_model", "scale_indicators", "products_services", "public_listing"]
+      },
+      {
+        "source_id": "kyc-src-016-coinbase-licenses",
+        "source_name": "Coinbase licenses and disclosures",
+        "source_url": "https://www.coinbase.com/legal/licenses",
+        "source_type": "license_disclosure",
+        "source_quality": "A",
+        "retrieved_at": "2026-06-20",
+        "fields_supported": ["licenses", "regulated_entities", "virtual_currency_disclosures"]
+      },
+      {
+        "source_id": "kyc-src-017-coinbase-rdap",
+        "source_name": "RDAP record for coinbase.au",
+        "source_url": "https://rdap.cctld.au/rdap/domain/coinbase.au",
+        "source_type": "domain_registry",
+        "source_quality": "A",
+        "retrieved_at": "2026-06-20",
+        "fields_supported": ["domain_control", "new_jurisdiction_review", "entity_match"]
+      }
+    ]
+  },
+  {
+    "customer_id": "demo-009",
+    "kyc_status": "public_source_enriched",
+    "public_kyc_risk_rating": "low_to_medium",
+    "risk_rationale": [
+      "Large public technology holding company with strong disclosure coverage.",
+      "Core AML risk is low-to-medium, but antitrust, privacy, AI infrastructure, cloud, data, cyber, and geopolitical exposure matter for KYC narrative.",
+      "Founder voting-control structure should be understood even where public float is broad."
+    ],
+    "identity": {
+      "legal_name": "Alphabet Inc.",
+      "trading_names": ["Alphabet", "Google", "Google Cloud", "Google DeepMind", "Waymo", "GOOGL", "GOOG"],
+      "entity_type": "public_company",
+      "public_listing": "NASDAQ: GOOGL / GOOG",
+      "headquarters": "Mountain View, California, United States",
+      "primary_domicile": "United States",
+      "operating_regions": ["United States", "European Union", "United Kingdom", "global technology markets"],
+      "websites": ["https://abc.xyz", "https://www.google.com", "https://cloud.google.com"]
+    },
+    "business_model": [
+      "Public technology holding company with search, advertising, cloud, consumer software, devices, AI, and other bets.",
+      "Google Cloud and AI infrastructure activity are relevant for treasury, FX, data-center, and supply-chain flows.",
+      "Alphabet investor relations provides SEC filings, governance, proxy, and financial reporting."
+    ],
+    "products_services": [
+      "search",
+      "digital advertising",
+      "Google Cloud",
+      "AI infrastructure",
+      "TPUs",
+      "consumer software",
+      "Waymo",
+      "Google DeepMind",
+      "devices"
+    ],
+    "scale_indicators": [
+      "Alphabet investor relations provides SEC filings, quarterly and annual reports, proxy filings, and governance materials.",
+      "AI infrastructure signals may change treasury volumes and counterparty regions."
+    ],
+    "regulatory_and_licensing": [
+      "Public-company SEC reporting and proxy governance.",
+      "Antitrust, privacy, AI, cloud, export-control, tax, and data-sovereignty issues are relevant non-AML KYC context.",
+      "Cloud/data-center supply chain may create new high-value cross-border flows."
+    ],
+    "sanctions_adverse_media": [
+      "No sanctions designation in collected public KYC sources.",
+      "Regulatory scrutiny risk is primarily antitrust, privacy, AI, market-access, and data governance."
+    ],
+    "banking_relevance": [
+      "Treasury, FX, cash management, data-center capex, and enterprise technology relationship opportunities.",
+      "Monitor AI infrastructure expansion for counterparty, region, and volume changes against baseline.",
+      "Review founder voting-control and institutional shareholder context for governance risk."
+    ],
+    "open_kyc_questions": [
+      "Does AI infrastructure activity materially change expected treasury volumes or counterparties?",
+      "Are new AI hardware, cloud, or data-center counterparties in jurisdictions outside the baseline?",
+      "Should KYC activity narrative include AI chip commercialization and TPU infrastructure?"
+    ],
+    "source_notes": [
+      {
+        "source_id": "kyc-src-018-alphabet-ir",
+        "source_name": "Alphabet Investor Relations",
+        "source_url": "https://abc.xyz/investor/",
+        "source_type": "investor_relations",
+        "source_quality": "A",
+        "retrieved_at": "2026-06-20",
+        "fields_supported": ["public_listing", "sec_filings", "governance", "public_reporting"]
+      },
+      {
+        "source_id": "kyc-src-019-google-cloud-tpu",
+        "source_name": "Google Cloud TPU documentation",
+        "source_url": "https://docs.cloud.google.com/tpu/docs/intro-to-tpu",
+        "source_type": "product_documentation",
+        "source_quality": "A",
+        "retrieved_at": "2026-06-20",
+        "fields_supported": ["ai_infrastructure", "products_services", "business_activity"]
+      },
+      {
+        "source_id": "kyc-src-020-alphabet-shareholders",
+        "source_name": "Investopedia Alphabet shareholder profile",
+        "source_url": "https://www.investopedia.com/articles/markets/011516/top-5-google-shareholders-goog.asp",
+        "source_type": "reputable_secondary_profile",
+        "source_quality": "B",
+        "retrieved_at": "2026-06-20",
+        "fields_supported": ["founder_voting_control", "institutional_shareholders"]
+      }
+    ]
+  }
+]
