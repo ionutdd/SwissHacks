@@ -1214,6 +1214,13 @@ def category_for_alert(facts):
 
 def severity_for_alert(fact_type, materiality, category, object_value):
     object_value = (object_value or "").lower()
+    if has_any(object_value, ["ofac", "sanction", "north korea", "dprk", "ransomware", "darknet"]):
+        return "critical"
+    if fact_type in {"regulatory_scrutiny", "jurisdiction_restriction", "risk_rating_review"} and has_any(
+        object_value,
+        ["russia", "aml", "cftc", "gambling", "blocked"],
+    ):
+        return "high"
     if materiality == "high":
         return "high"
     if fact_type == "new_jurisdiction" and has_any(object_value, ["bermuda", "british virgin islands", "russia", "north korea"]):
@@ -1227,6 +1234,23 @@ def severity_for_alert(fact_type, materiality, category, object_value):
     if materiality == "low":
         return "low"
     return "medium"
+
+
+def highest_ai_severity(facts):
+    severity_rank = {"low": 1, "medium": 2, "high": 3, "critical": 4}
+    suggestions = [
+        fact.get("severity_suggestion")
+        for fact in facts
+        if fact.get("detection_method") == "ai_validated" and fact.get("severity_suggestion")
+    ]
+    return max(suggestions, key=lambda value: severity_rank.get(value, 0)) if suggestions else None
+
+
+def max_severity(rule_severity, ai_severity):
+    if not ai_severity:
+        return rule_severity
+    severity_rank = {"low": 1, "medium": 2, "high": 3, "critical": 4}
+    return ai_severity if severity_rank.get(ai_severity, 0) > severity_rank.get(rule_severity, 0) else rule_severity
 
 
 def average(values):
@@ -1333,6 +1357,8 @@ def build_evidence(facts, documents_by_id):
                 "model_name": fact.get("model_name"),
                 "evidence_quote": fact.get("evidence_quote") or fact.get("evidence_excerpt"),
                 "needs_human_review": bool(fact.get("needs_human_review")),
+                "ai_model_reviewed": bool(fact.get("model_name")),
+                "ai_review_model_name": fact.get("model_name"),
             }
         )
     return evidence
@@ -1392,12 +1418,14 @@ def create_alerts(facts, comparisons_by_fact_id, baselines_by_customer, document
             group_facts[0]["object"],
             merged_comparison,
         )
-        severity = severity_for_alert(
+        rule_severity = severity_for_alert(
             fact_type,
             merged_comparison["materiality"],
             category,
             object_value,
         )
+        ai_severity_suggestion = highest_ai_severity(group_facts)
+        severity = max_severity(rule_severity, ai_severity_suggestion)
         detection_method = (
             "ai_validated"
             if any(fact.get("detection_method") == "ai_validated" for fact in group_facts)
@@ -1423,6 +1451,8 @@ def create_alerts(facts, comparisons_by_fact_id, baselines_by_customer, document
                 "baseline_value": merged_comparison["baseline_value"],
                 "new_value": merged_comparison["new_value"],
                 "severity": severity,
+                "rule_severity": rule_severity,
+                "ai_severity_suggestion": ai_severity_suggestion,
                 "confidence": alert_confidence(group_facts, merged_comparison, documents_by_id),
                 "recommended_action": RECOMMENDED_ACTIONS[fact_type],
                 "evidence_document_ids": sorted({fact["document_id"] for fact in group_facts}),
@@ -1432,6 +1462,8 @@ def create_alerts(facts, comparisons_by_fact_id, baselines_by_customer, document
                 "model_name": ", ".join(model_names) if model_names else None,
                 "evidence_quote": clean_spaces(primary_quote),
                 "needs_human_review": any(bool(fact.get("needs_human_review")) for fact in group_facts),
+                "ai_model_reviewed": bool(model_names),
+                "ai_review_model_name": ", ".join(model_names) if model_names else None,
                 "comparison_reason": merged_comparison["comparison_reason"],
                 "status": "new",
                 "created_at": created_at,

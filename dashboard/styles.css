@@ -18,6 +18,7 @@
   --ownership-bg: #f2edff;
   --mixed: #1f6f8b;
   --mixed-bg: #eaf6fb;
+  --critical: #8a120b;
   --high: #b42318;
   --medium: #a15c07;
   --low: #24724c;
@@ -687,6 +688,11 @@ textarea {
   background: #fff7e8;
   border-color: #f2c77f;
   color: #7a4a00;
+}
+
+.pill.critical,
+.severity-mark.critical {
+  color: var(--critical);
 }
 
 .pill.high,

@@ -14,16 +14,16 @@
 
 ## Severity Counts
 
-- critical: 0
-- high: 21
-- medium: 42
+- critical: 5
+- high: 17
+- medium: 41
 - low: 0
 
 ## Top Demo Alerts
 
-1. demo-001 - Robinhood Markets, Inc. has new jurisdiction exposure: Luxembourg; British Virgin Islands; Singapore - high severity, 0.95 confidence
-2. demo-001 - Robinhood Markets, Inc. has ownership/control drift involving Bitstamp Ltd. - high severity, 0.94 confidence
-3. demo-003 - GameStop Corp. treasury activity changed: 4,710 Bitcoin purchase - high severity, 0.94 confidence
+1. demo-006 - Garantex Europe OU has new digital-asset activity: sanctioned Russia-linked virtual currency exchange - critical severity, 0.94 confidence
+2. demo-006 - Garantex Europe OU has jurisdiction restriction signal: Russia sanctions and virtual-currency evasion exposure - critical severity, 0.94 confidence
+3. demo-007 - British American Tobacco p.l.c. has new jurisdiction exposure: North Korea - critical severity, 0.94 confidence
 
 ## Suppressed Or Skipped
 

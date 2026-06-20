@@ -13,17 +13,42 @@ from typing import Any
 
 
 SEVERITY_POINTS = {
-    "critical": 85,
-    "high": 70,
+    "critical": 130,
+    "high": 90,
     "medium": 45,
-    "low": 20,
+    "low": 15,
 }
 
 CATEGORY_POINTS = {
-    "risk": 18,
-    "ownership_control": 16,
-    "mixed": 8,
-    "opportunity": 3,
+    "risk": 32,
+    "ownership_control": 22,
+    "mixed": 12,
+    "opportunity": 5,
+}
+
+AI_SEVERITY_POINTS = {
+    "critical": 55,
+    "high": 32,
+    "medium": 10,
+    "low": 0,
+}
+
+BUSINESS_IMPACT_KEYWORDS = {
+    "sanction": 36,
+    "ofac": 34,
+    "north korea": 34,
+    "dprk": 34,
+    "russia": 24,
+    "ransomware": 32,
+    "darknet": 32,
+    "aml": 24,
+    "regulatory scrutiny": 22,
+    "blocked": 20,
+    "gambling licence": 18,
+    "country-code": 16,
+    "domain": 10,
+    "bitcoin": 14,
+    "treasury reserve": 16,
 }
 
 SOURCE_POINTS = {
@@ -199,6 +224,45 @@ def keyword_points(alert: dict[str, Any]) -> tuple[int, list[str]]:
     return min(points, 26), matched
 
 
+def business_impact_points(alert: dict[str, Any]) -> tuple[int, list[str]]:
+    text = alert_text(alert)
+    points = 0
+    reasons: list[str] = []
+
+    ai_severity = alert.get("ai_severity_suggestion")
+    ai_points = AI_SEVERITY_POINTS.get(ai_severity, 0)
+    if ai_points:
+        points += ai_points
+        reasons.append(f"Apertus severity suggestion: {ai_severity}")
+
+    if alert.get("detection_method") == "ai_validated":
+        points += 10
+        reasons.append("AI-validated candidate")
+    if alert.get("needs_human_review"):
+        points += 8
+        reasons.append("Human review required")
+
+    if alert.get("category") == "risk":
+        points += 18
+        reasons.append("Risk/compliance category")
+    if alert.get("signal_type") in {"regulatory_scrutiny", "jurisdiction_restriction", "risk_rating_review"}:
+        points += 18
+        reasons.append("Compliance-sensitive signal type")
+    if alert.get("signal_type") in {"ownership_change", "new_subsidiary"}:
+        points += 12
+        reasons.append("Ownership/control change")
+    if alert.get("signal_type") in {"domain_registration", "new_jurisdiction"}:
+        points += 8
+        reasons.append("Jurisdiction/domain drift")
+
+    for keyword, value in BUSINESS_IMPACT_KEYWORDS.items():
+        if keyword in text:
+            points += value
+            reasons.append(f"Business impact keyword: {keyword}")
+
+    return min(points, 110), reasons
+
+
 def source_quality_points(alert: dict[str, Any]) -> int:
     qualities = [
         SOURCE_POINTS.get(str(evidence.get("source_quality") or "D"), 0)
@@ -240,6 +304,7 @@ def review_lane(alert: dict[str, Any]) -> str:
 
 def material_score(alert: dict[str, Any], now: datetime) -> tuple[int, list[str]]:
     keyword_score, keywords = keyword_points(alert)
+    business_score, business_reasons = business_impact_points(alert)
     score = (
         SEVERITY_POINTS.get(alert.get("severity"), 0)
         + CATEGORY_POINTS.get(alert.get("category"), 0)
@@ -249,6 +314,7 @@ def material_score(alert: dict[str, Any], now: datetime) -> tuple[int, list[str]
         + SIGNAL_POINTS.get(alert.get("signal_type"), 0)
         + freshness_points(alert, now)
         + keyword_score
+        + business_score
     )
 
     reasons = [
@@ -256,6 +322,7 @@ def material_score(alert: dict[str, Any], now: datetime) -> tuple[int, list[str]
         f"{alert.get('category', 'unknown')} category",
         f"{round(float(alert.get('confidence') or 0.0) * 100)}% confidence",
     ]
+    reasons.extend(business_reasons)
     if alert.get("changed_fields"):
         reasons.append(f"KYC fields changed: {', '.join(alert['changed_fields'])}")
     if keywords:

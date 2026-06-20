@@ -1,7 +1,7 @@
 # Material Signal Refresh Report
 
-- Generated at: 2026-06-20T14:21:45Z
-- Refresh window: last 24 hour(s), cutoff 2026-06-19T14:21:45Z
+- Generated at: 2026-06-20T14:37:31Z
+- Refresh window: last 24 hour(s), cutoff 2026-06-19T14:37:31Z
 - Freshness policy: published_at_only
 - Notification customer scope: ['demo-003', 'demo-004', 'demo-008', 'demo-009']
 - Total alerts reviewed: 63
@@ -12,16 +12,16 @@
 
 ## TLDR Notifications
 
-1. `alert-061` `demo-009` medium / mixed / score 148: Alphabet Inc. business activity changed: AI infrastructure and custom silicon expansion
-2. `alert-062` `demo-009` medium / opportunity / score 119: Alphabet Inc. commercial opportunity: AI infrastructure and cloud banking opportunity
-3. `alert-063` `demo-009` medium / opportunity / score 113: Alphabet Inc. product signal: Google is building a rival AI chip business
+1. `alert-061` `demo-009` medium / mixed / score 152: Alphabet Inc. business activity changed: AI infrastructure and custom silicon expansion
+2. `alert-063` `demo-009` medium / opportunity / score 143: Alphabet Inc. product signal: Google is building a rival AI chip business
+3. `alert-062` `demo-009` medium / opportunity / score 121: Alphabet Inc. commercial opportunity: AI infrastructure and cloud banking opportunity
 
 ## Suppression Summary
 
 - 41: No evidence was published inside the strict 24-hour notification window.
 - 35: Customer is outside the TLDR notification watchlist.
 - 19: No dated evidence is attached, so it is not eligible for the strict 24-hour notification feed.
-- 5: Generic opportunity or product update is below material threshold.
+- 4: Generic opportunity or product update is below material threshold.
 
 ## Dashboard Notes
 

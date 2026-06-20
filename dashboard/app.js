@@ -6,7 +6,9 @@
     documents: "../data_02/documents.json",
     facts: "../data_03/facts.json",
     alerts: "../data_03/alerts.json",
+    aiAnalysis: "../data_03/ai_evidence_analysis.json",
     materialAlerts: "../data_06/material_alerts.json",
+    noiseSuppression: "../data_06/noise_suppression.json",
     refreshSummary: "../data_06/refresh_summary.json",
     internalSignals: "../data_07/internal_monitoring_signals.json",
     fusedAlerts: "../data_07/public_internal_fused_alerts.json",
@@ -42,6 +44,7 @@
     facts: [],
     alerts: [],
     materialAlerts: [],
+    noiseSuppression: [],
     refreshSummary: {},
     internalSignals: [],
     fusedAlerts: [],
@@ -50,6 +53,7 @@
     customersById: new Map(),
     documentsById: new Map(),
     factsById: new Map(),
+    aiAnalysesByDocument: new Map(),
     actions: [],
     selectedCustomerId: null,
     selectedAlertId: null,
@@ -76,7 +80,9 @@
         documents,
         facts,
         alerts,
+        aiAnalysis,
         materialAlerts,
+        noiseSuppression,
         refreshSummary,
         internalSignals,
         fusedAlerts,
@@ -87,7 +93,9 @@
         fetchJson(DATA_URLS.documents),
         fetchJson(DATA_URLS.facts),
         fetchJson(DATA_URLS.alerts),
+        fetchJsonOptional(DATA_URLS.aiAnalysis, { analyses: [] }),
         fetchJsonOptional(DATA_URLS.materialAlerts, []),
+        fetchJsonOptional(DATA_URLS.noiseSuppression, []),
         fetchJsonOptional(DATA_URLS.refreshSummary, {}),
         fetchJsonOptional(DATA_URLS.internalSignals, []),
         fetchJsonOptional(DATA_URLS.fusedAlerts, []),
@@ -98,8 +106,11 @@
       state.customers = customers;
       state.documents = documents;
       state.facts = facts;
-      state.alerts = alerts;
+      const scoredAlertsById = new Map([...materialAlerts, ...noiseSuppression].map((alert) => [alert.alert_id, alert]));
+      state.alerts = alerts.map((alert) => ({ ...alert, ...(scoredAlertsById.get(alert.alert_id) || {}) }));
+      state.aiAnalysesByDocument = new Map((aiAnalysis.analyses || []).map((analysis) => [analysis.document_id, analysis]));
       state.materialAlerts = materialAlerts;
+      state.noiseSuppression = noiseSuppression;
       state.refreshSummary = refreshSummary;
       state.internalSignals = internalSignals;
       state.fusedAlerts = fusedAlerts;
@@ -464,6 +475,7 @@
 
   function alertRowTemplate(alert) {
     const active = alert.alert_id === state.selectedAlertId ? "active" : "";
+    const reviewedByAi = aiReviewsForAlert(alert).length > 0;
     return `
       <article class="alert-row ${active}" role="listitem">
         <button class="alert-row-main" type="button" data-alert-id="${escapeAttr(alert.alert_id)}">
@@ -477,6 +489,8 @@
             <span class="pill">${Math.round(alert.confidence * 100)}% confidence</span>
             ${alert.material_score ? `<span class="pill material">Score ${escapeHtml(alert.material_score)}</span>` : ""}
             ${alert.review_lane ? `<span class="pill">${escapeHtml(alert.review_lane)}</span>` : ""}
+            ${reviewedByAi ? `<span class="pill mixed">Document reviewed by Apertus</span>` : ""}
+            <span class="pill">Signal extracted by ${escapeHtml(detectionLabel(alert.detection_method))}</span>
             ${kycProfileForCustomer(alert.customer_id) ? `<span class="pill mixed">Layer 2 KYC</span>` : ""}
             <span class="pill">${labelize(currentStatus(alert))}</span>
             <span class="pill">${alert.evidence_document_ids.length} evidence</span>
@@ -581,12 +595,18 @@
   function detectionTemplate(alert) {
     const method = alert.detection_method || "rule_fallback";
     const quote = alert.evidence_quote || primaryEvidenceQuote(alert);
+    const reviews = aiReviewsForAlert(alert);
+    const reviewModels = [...new Set(reviews.map((review) => review.model).filter(Boolean))];
+    const reviewStatuses = [...new Set(reviews.map((review) => review.status).filter(Boolean))];
     return `
       <div class="materiality-box detection-box">
         <div class="materiality-head">
           <strong>Detection provenance</strong>
-          <span class="pill ${method === "ai_validated" ? "mixed" : ""}">${escapeHtml(detectionLabel(method))}</span>
-          ${method === "ai_validated" && alert.model_name ? `<span class="pill">Model ${escapeHtml(alert.model_name)}</span>` : ""}
+          ${reviews.length ? `<span class="pill mixed">Document reviewed by Apertus</span>` : `<span class="pill">Document not AI reviewed</span>`}
+          <span class="pill ${method === "ai_validated" ? "mixed" : ""}">Signal extracted by ${escapeHtml(detectionLabel(method))}</span>
+          ${reviewModels.length ? `<span class="pill">Review model ${escapeHtml(reviewModels.join(", "))}</span>` : ""}
+          ${reviewStatuses.length ? `<span class="pill">AI status ${escapeHtml(reviewStatuses.join(", "))}</span>` : ""}
+          ${alert.ai_severity_suggestion ? `<span class="pill ${alert.ai_severity_suggestion}">Apertus severity ${escapeHtml(labelize(alert.ai_severity_suggestion))}</span>` : ""}
           ${alert.needs_human_review ? `<span class="pill risk">Human review required</span>` : ""}
         </div>
         ${quote ? `<p class="evidence-excerpt"><strong>Exact evidence quote:</strong> ${escapeHtml(quote)}</p>` : ""}
@@ -731,6 +751,7 @@
   function evidenceTemplate(alert) {
     const evidenceItems = (alert.evidence || []).map((evidence) => {
       const sourceUrl = evidence.source_url || "#";
+      const review = state.aiAnalysesByDocument.get(evidence.document_id);
       return `
         <li class="evidence-item">
           <div class="evidence-title">
@@ -741,8 +762,10 @@
             <span class="pill">${escapeHtml(labelize(evidence.source_type || "source"))}</span>
             <span class="pill">${formatDate(evidence.published_at) || "Undated"}</span>
             <span class="pill">${escapeHtml(evidence.document_id)}</span>
+            ${review ? `<span class="pill mixed">Document reviewed by Apertus</span>` : ""}
             ${evidence.detection_method ? `<span class="pill">${escapeHtml(detectionLabel(evidence.detection_method))}</span>` : ""}
-            ${evidence.model_name ? `<span class="pill">Model ${escapeHtml(evidence.model_name)}</span>` : ""}
+            ${review?.model ? `<span class="pill">Review model ${escapeHtml(review.model)}</span>` : ""}
+            ${review?.status ? `<span class="pill">AI status ${escapeHtml(review.status)}</span>` : ""}
             ${evidence.needs_human_review ? `<span class="pill risk">Human review required</span>` : ""}
           </div>
           <p class="evidence-excerpt">${escapeHtml(cleanText(evidence.excerpt || ""))}</p>
@@ -1125,6 +1148,12 @@
     return state.materialAlerts.find((alert) => alert.alert_id === state.selectedAlertId)
       || state.alerts.find((alert) => alert.alert_id === state.selectedAlertId)
       || null;
+  }
+
+  function aiReviewsForAlert(alert) {
+    return (alert.evidence_document_ids || [])
+      .map((documentId) => state.aiAnalysesByDocument.get(documentId))
+      .filter(Boolean);
   }
 
   function fusedForAlert(alertId) {

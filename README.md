@@ -64,7 +64,9 @@ Open:
 http://127.0.0.1:8000/dashboard/
 ```
 
-Alert details show detection method, model name when AI was used, exact evidence quote, source links, and a human-review badge for AI-derived signals.
+Alert details show both levels of provenance: whether the source document was reviewed by Apertus, and whether the final signal was extracted by AI or deterministic fallback. Details also show the model name, exact evidence quote, source links, and a human-review badge for model-derived signals.
+
+Material scores use deterministic controls plus Apertus severity suggestions when available. Sanctions, OFAC, DPRK/North Korea, ransomware, regulatory scrutiny, ownership/control drift, jurisdiction drift, and human-review-required signals receive explicit business-impact weighting so critical compliance alerts rank above lower-risk product or opportunity alerts.
 
 ## Tests
 
