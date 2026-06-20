@@ -327,8 +327,9 @@
   }
 
   function renderMetrics() {
-    const openAlerts = state.alerts.filter((alert) => currentStatus(alert) !== "dismissed");
-    els.metricCustomers.textContent = state.customers.length;
+    const visibleCustomers = getVisibleCustomers();
+    const openAlerts = getFilteredAlerts().filter((alert) => currentStatus(alert) !== "dismissed");
+    els.metricCustomers.textContent = visibleCustomers.length;
     els.metricOpen.textContent = openAlerts.length;
     els.metricHigh.textContent = openAlerts.filter((alert) => alert.severity === "high").length;
     els.metricRisk.textContent = openAlerts.filter((alert) => alert.category === "risk").length;
@@ -337,7 +338,7 @@
   function renderDataHealth() {
     const lastScan = maxDate(state.documents.map((documentItem) => documentItem.collected_at));
     const lookback = state.refreshSummary.lookback_hours || 24;
-    els.dataHealth.textContent = `${visibleNotifications().length} open notifications | ${state.alerts.length} total | ${lookback}h scan ${formatDateTime(lastScan)}`;
+    els.dataHealth.textContent = `${visibleNotifications().length} open notifications | ${getFilteredAlerts().length} focused alerts | ${lookback}h scan ${formatDateTime(lastScan)}`;
   }
 
   function renderNotifications() {
@@ -505,11 +506,14 @@
             <span class="pill">${labelize(alert.signal_type)}</span>
             ${alert.material_score ? `<span class="pill material">Material score ${escapeHtml(alert.material_score)}</span>` : ""}
             ${alert.review_lane ? `<span class="pill">${escapeHtml(alert.review_lane)}</span>` : ""}
+            <span class="pill ${alert.detection_method === "ai_validated" ? "mixed" : ""}">${escapeHtml(detectionLabel(alert.detection_method))}</span>
+            ${alert.needs_human_review ? `<span class="pill risk">Human review required</span>` : ""}
             <span class="pill">${labelize(currentStatus(alert))}</span>
           </div>
           <h2>${escapeHtml(cleanText(alert.title))}</h2>
           <p class="summary">${escapeHtml(cleanText(alert.summary))}</p>
           ${materialityTemplate(alert)}
+          ${detectionTemplate(alert)}
           ${layer2ProfileTemplate(alert)}
           ${internalContextTemplate(alert)}
           <div class="detail-source-strip">
@@ -570,6 +574,22 @@
           ${alert.review_lane ? `<span class="pill">${escapeHtml(alert.review_lane)}</span>` : ""}
         </div>
         ${reasons.length ? `<ul>${reasons.map((reason) => `<li>${escapeHtml(reason)}</li>`).join("")}</ul>` : ""}
+      </div>
+    `;
+  }
+
+  function detectionTemplate(alert) {
+    const method = alert.detection_method || "rule_fallback";
+    const quote = alert.evidence_quote || primaryEvidenceQuote(alert);
+    return `
+      <div class="materiality-box detection-box">
+        <div class="materiality-head">
+          <strong>Detection provenance</strong>
+          <span class="pill ${method === "ai_validated" ? "mixed" : ""}">${escapeHtml(detectionLabel(method))}</span>
+          ${method === "ai_validated" && alert.model_name ? `<span class="pill">Model ${escapeHtml(alert.model_name)}</span>` : ""}
+          ${alert.needs_human_review ? `<span class="pill risk">Human review required</span>` : ""}
+        </div>
+        ${quote ? `<p class="evidence-excerpt"><strong>Exact evidence quote:</strong> ${escapeHtml(quote)}</p>` : ""}
       </div>
     `;
   }
@@ -721,8 +741,12 @@
             <span class="pill">${escapeHtml(labelize(evidence.source_type || "source"))}</span>
             <span class="pill">${formatDate(evidence.published_at) || "Undated"}</span>
             <span class="pill">${escapeHtml(evidence.document_id)}</span>
+            ${evidence.detection_method ? `<span class="pill">${escapeHtml(detectionLabel(evidence.detection_method))}</span>` : ""}
+            ${evidence.model_name ? `<span class="pill">Model ${escapeHtml(evidence.model_name)}</span>` : ""}
+            ${evidence.needs_human_review ? `<span class="pill risk">Human review required</span>` : ""}
           </div>
           <p class="evidence-excerpt">${escapeHtml(cleanText(evidence.excerpt || ""))}</p>
+          ${evidence.evidence_quote ? `<p class="evidence-excerpt"><strong>Quote:</strong> ${escapeHtml(evidence.evidence_quote)}</p>` : ""}
         </li>
       `;
     });
@@ -910,6 +934,16 @@
     return evidenceItems;
   }
 
+  function primaryEvidenceQuote(alert) {
+    const evidence = (alert.evidence || []).find((item) => item.evidence_quote || item.excerpt);
+    return evidence ? cleanText(evidence.evidence_quote || evidence.excerpt || "") : "";
+  }
+
+  function detectionLabel(value) {
+    if (value === "ai_validated") return "AI validated";
+    return "Rule fallback";
+  }
+
   function copyBrief() {
     const customer = selectedCustomer();
     if (!customer) return;
@@ -1026,8 +1060,12 @@
     });
 
     const query = state.filters.query;
+    const watchlist = notificationCustomerScope();
     return state.customers
       .filter((customer) => {
+        if (watchlist && !watchlist.has(customer.customer_id)) {
+          return false;
+        }
         const customerText = [customer.legal_name, customer.customer_id, customer.risk_rating].join(" ").toLowerCase();
         const customerMatches = !query || customerText.includes(query);
         return customerMatches || matchingAlertsByCustomer.has(customer.customer_id);
@@ -1046,7 +1084,11 @@
   }
 
   function getFilteredAlerts() {
+    const watchlist = notificationCustomerScope();
     return state.alerts.filter((alert) => {
+      if (watchlist && !watchlist.has(alert.customer_id)) {
+        return false;
+      }
       const query = state.filters.query;
       const customer = state.customersById.get(alert.customer_id);
       const searchable = [
@@ -1065,6 +1107,14 @@
       const queryMatches = !query || searchable.includes(query);
       return categoryMatches && severityMatches && statusMatches && queryMatches;
     });
+  }
+
+  function notificationCustomerScope() {
+    const scope = state.refreshSummary.notification_customer_ids;
+    if (!Array.isArray(scope) || !scope.length) {
+      return null;
+    }
+    return new Set(scope);
   }
 
   function selectedCustomer() {

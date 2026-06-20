@@ -375,7 +375,7 @@
       "domains": [
         {
           "domain": "coinbase.au",
-          "rdap_url": "https://rdap.org/domain/coinbase.au",
+          "rdap_url": "https://rdap.cctld.au/rdap/domain/coinbase.au",
           "title_hint": "RDAP record for coinbase.au"
         }
       ],

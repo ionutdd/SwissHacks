@@ -1,13 +1,19 @@
 {
-  "generated_at": "2026-06-20T09:09:38Z",
-  "cutoff_at": "2026-06-19T09:09:38Z",
+  "generated_at": "2026-06-20T14:21:45Z",
+  "cutoff_at": "2026-06-19T14:21:45Z",
   "lookback_hours": 24,
   "freshness_policy": "published_at_only",
-  "total_alerts": 48,
+  "notification_customer_ids": [
+    "demo-003",
+    "demo-004",
+    "demo-008",
+    "demo-009"
+  ],
+  "total_alerts": 63,
   "alerts_inside_refresh_window": 3,
   "material_alerts": 3,
-  "suppressed_alerts": 45,
-  "stale_or_undated_alerts": 45,
+  "suppressed_alerts": 60,
+  "stale_or_undated_alerts": 60,
   "material_by_category": {
     "mixed": 1,
     "opportunity": 2
@@ -16,13 +22,14 @@
     "medium": 3
   },
   "top_material_alert_ids": [
-    "alert-046",
-    "alert-048",
-    "alert-047"
+    "alert-061",
+    "alert-062",
+    "alert-063"
   ],
   "suppression_reason_counts": {
-    "No evidence was published inside the strict 24-hour notification window.": 32,
-    "Generic opportunity or product update is below material threshold.": 9,
-    "No dated evidence is attached, so it is not eligible for the strict 24-hour notification feed.": 13
+    "Customer is outside the TLDR notification watchlist.": 35,
+    "No evidence was published inside the strict 24-hour notification window.": 41,
+    "Generic opportunity or product update is below material threshold.": 5,
+    "No dated evidence is attached, so it is not eligible for the strict 24-hour notification feed.": 19
   }
 }

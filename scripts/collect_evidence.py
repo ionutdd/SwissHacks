@@ -61,6 +61,7 @@ def discover_pipeline_sources(
 def collect(args: argparse.Namespace) -> int:
     baselines, catalog = load_baselines_and_catalog(args.baseline, args.catalog)
     collected_at = now_utc()
+    output_dir = Path(args.output_dir)
     selected_pipelines = args.pipelines or DEFAULT_PIPELINES
 
     candidate_sources: list[dict[str, Any]] = []
@@ -100,12 +101,12 @@ def collect(args: argparse.Namespace) -> int:
         baselines,
         collected_at,
         start_number=len(documents) + 1,
+        cache_dir=output_dir,
     )
     documents.extend(domain_documents)
     traces = discovery_traces + collect_traces
     traces.extend(domain_traces)
 
-    output_dir = Path(args.output_dir)
     write_json(output_dir / "pipeline_runs" / "all_candidate_sources.json", candidate_sources + domain_rdap_sources)
     write_json(output_dir / "pipeline_runs" / "merged_sources.json", sources + domain_rdap_sources)
     write_final_outputs(output_dir, documents, traces, baselines, collected_at)

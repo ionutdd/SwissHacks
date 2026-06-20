@@ -1,0 +1,1265 @@
+{
+  "generated_at": "2026-06-20T14:21:13Z",
+  "analysis_version": "ai-evidence-analysis-v1",
+  "mode": "live",
+  "model": "swiss-ai/apertus-70b-instruct",
+  "allowed_signal_types": [
+    "business_activity_change",
+    "commercial_opportunity",
+    "digital_asset_activity",
+    "domain_registration",
+    "jurisdiction_restriction",
+    "new_jurisdiction",
+    "new_product",
+    "new_subsidiary",
+    "ownership_change",
+    "public_listing",
+    "regulatory_scrutiny",
+    "risk_rating_review",
+    "treasury_policy_change"
+  ],
+  "allowed_kyc_fields": [
+    "business_area",
+    "entity_type",
+    "known_jurisdictions",
+    "known_products",
+    "risk_rating",
+    "subsidiaries",
+    "websites"
+  ],
+  "analyses": [
+    {
+      "analysis_id": "ai-doc-001",
+      "analysis_version": "ai-evidence-analysis-v1",
+      "document_id": "doc-001",
+      "customer_id": "demo-003",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1326380/000132638025000026/pr-btcmay2025.htm",
+      "source_name": "SEC EDGAR",
+      "title": "GameStop Announces Purchase of Bitcoin",
+      "published_at": "2025-05-28",
+      "generated_at": "2026-06-20T14:21:13Z",
+      "mode": "live",
+      "model": "swiss-ai/apertus-70b-instruct",
+      "detection_method": "ai_validated",
+      "raw_model_output": "{\"relevant\": true, \"entity_match\": true, \"signal_candidates\": [{\"signal_type\": \"business_activity_change\", \"changed_kyc_fields\": [\"business_area\", \"known_products\"], \"severity_suggestion\": \"medium\", \"confidence\": 0.8, \"claim\": \"GameStop has expanded into digital asset activity\", \"reason\": \"The document states that GameStop has purchased 4,710 Bitcoin, indicating a new business activity related to digital assets.\", \"verbatim_evidence\": \"GameStop today announced that it has purchased 4,710 Bitcoin.\", \"effective_date\": \"2025-05-28\", \"needs_human_review\": true}], \"no_signal_reason\": \"null\"}",
+      "validated_analysis": {
+        "relevant": true,
+        "entity_match": true,
+        "signal_candidates": [
+          {
+            "signal_type": "business_activity_change",
+            "changed_kyc_fields": [
+              "business_area",
+              "known_products"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.8,
+            "claim": "GameStop has expanded into digital asset activity",
+            "reason": "The document states that GameStop has purchased 4,710 Bitcoin, indicating a new business activity related to digital assets.",
+            "verbatim_evidence": "GRAPEVINE, Texas, May 28, 2025 (BUSINESS WIRE) —GameStop Corp. (NYSE: GME) (“GameStop” or the “Company”) today announced that it has purchased 4,710 Bitcoin.",
+            "effective_date": "2025-05-28",
+            "effective_date_source": "document_published_at",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "Apertus evidence quote was not exact; replaced with collected source excerpt."
+            ]
+          }
+        ],
+        "no_signal_reason": null
+      },
+      "api_diagnostics": null,
+      "validation_errors": [],
+      "validation_warnings": [],
+      "status": "validated"
+    },
+    {
+      "analysis_id": "ai-doc-002",
+      "analysis_version": "ai-evidence-analysis-v1",
+      "document_id": "doc-002",
+      "customer_id": "demo-003",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1326380/000162828025014731/gme-20250201.htm",
+      "source_name": "SEC EDGAR",
+      "title": "GameStop Form 10-K for fiscal year 2024",
+      "published_at": "2025-03-25",
+      "generated_at": "2026-06-20T14:21:13Z",
+      "mode": "live",
+      "model": "swiss-ai/apertus-70b-instruct",
+      "detection_method": "ai_validated",
+      "raw_model_output": "```json\n{\n  \"relevant\": true,\n  \"entity_match\": true,\n  \"signal_candidates\": [\n    {\n      \"signal_type\": \"treasury_policy_change\",\n      \"changed_kyc_fields\": [\"business_area\", \"known_products\", \"risk_rating\"],\n      \"severity_suggestion\": \"medium\",\n      \"confidence\": 0.8,\n      \"claim\": \"GameStop Corp. has added Bitcoin as a treasury reserve asset.\",\n      \"reason\": \"The document states that the Board approved the addition of Bitcoin as a treasury reserve asset.\",\n      \"verbatim_evidence\": \"On March 25, 2025 we announced that, as part of our revisions to the Investment Policy, the Board approved the addition of Bitcoin as a treasury reserve asset, whereby a portion of our cash or future debt and equity issuances may be invested in Bitcoin.\",\n      \"effective_date\": \"2025-03-25\",\n      \"needs_human_review\": true\n    }\n  ],\n  \"no_signal_reason\": null\n}\n```",
+      "validated_analysis": {
+        "relevant": true,
+        "entity_match": true,
+        "signal_candidates": [
+          {
+            "signal_type": "treasury_policy_change",
+            "changed_kyc_fields": [
+              "business_area",
+              "known_products",
+              "risk_rating"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.8,
+            "claim": "GameStop Corp. has added Bitcoin as a treasury reserve asset.",
+            "reason": "The document states that the Board approved the addition of Bitcoin as a treasury reserve asset.",
+            "verbatim_evidence": "On March 25, 2025 we announced that, as part of our revisions to the Investment Policy, the Board approved the addition of Bitcoin as a treasury reserve asset, whereby a portion of our cash or future debt and equity issuances may be invested in Bitcoin.",
+            "effective_date": "2025-03-25",
+            "effective_date_source": "document_published_at",
+            "needs_human_review": true,
+            "validator_warnings": []
+          }
+        ],
+        "no_signal_reason": null
+      },
+      "api_diagnostics": null,
+      "validation_errors": [],
+      "validation_warnings": [],
+      "status": "validated"
+    },
+    {
+      "analysis_id": "ai-doc-003",
+      "analysis_version": "ai-evidence-analysis-v1",
+      "document_id": "doc-003",
+      "customer_id": "demo-003",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1326380/000132638025000035/gme-20250503.htm",
+      "source_name": "SEC EDGAR",
+      "title": "GameStop Form 10-Q for quarter ended May 3, 2025",
+      "published_at": "2025-06-10",
+      "generated_at": "2026-06-20T14:21:13Z",
+      "mode": "live",
+      "model": "swiss-ai/apertus-70b-instruct",
+      "detection_method": "ai_validated",
+      "raw_model_output": "```json\n{\n  \"relevant\": true,\n  \"entity_match\": true,\n  \"signal_candidates\": [\n    {\n      \"signal_type\": \"digital_asset_activity\",\n      \"changed_kyc_fields\": [\"business_area\", \"known_products\", \"risk_rating\"],\n      \"severity_suggestion\": \"medium\",\n      \"confidence\": 0.8,\n      \"claim\": \"GameStop is involved in digital asset activity related to Bitcoin.\",\n      \"reason\": \"The document mentions Bitcoin and other crypto-currencies, indicating involvement in digital asset activity.\",\n      \"verbatim_evidence\": \"Bitcoin and other crypto-currencies are subject to regulatory and legal uncertainty, and governments and regulators may enact new laws and regulations, or pursue regulatory, legislative, enforcement or judicial actions that could impact the price of Bitcoin or our ability to acquire, hold or transfer Bitcoin, and may subject us to increased regulatory scrutiny.\",\n      \"effective_date\": \"2025-06-10\"\n    },\n    {\n      \"signal_type\": \"treasury_policy_change\",\n      \"changed_kyc_fields\": [\"business_area\", \"known_products\", \"risk_rating\"],\n      \"severity_suggestion\": \"medium\",\n      \"confidence\": 0.7,\n      \"claim\": \"GameStop may be considering or has made changes to its treasury policy related to digital assets.\",\n      \"reason\": \"The document mentions regulatory and legal uncertainty around Bitcoin and other crypto-currencies, which could impact the company's ability to acquire, hold or transfer these assets, suggesting a potential treasury policy change.\",\n      \"verbatim_evidence\": \"Bitcoin and other crypto-currencies are subject to regulatory and legal uncertainty, and governments and regulators may enact new laws and regulations, or pursue regulatory, legislative, enforcement or judicial actions that could impact the price of Bitcoin or our ability to acquire, hold or transfer Bitcoin, and may subject us to increased regulatory scrutiny.\",\n      \"effective_date\": \"2025-06-10\"\n    },\n    {\n      \"signal_type\": \"risk_rating_review\",\n      \"changed_kyc_fields\": [\"risk_rating\"],\n      \"severity_suggestion\": \"medium\",\n      \"confidence\": 0.6,\n      \"claim\": \"GameStop's risk rating may need to be reviewed due to involvement in digital asset activity.\",\n      \"reason\": \"The document mentions regulatory and legal uncertainty around Bitcoin and other crypto-currencies, which could subject the company to increased regulatory scrutiny and impact its risk rating.\",\n      \"verbatim_evidence\": \"Bitcoin and other crypto-currencies are subject to regulatory and legal uncertainty, and governments and regulators may enact new laws and regulations, or pursue regulatory, legislative, enforcement or judicial actions that could impact the price of Bitcoin or our ability to acquire, hold or transfer Bitcoin, and may subject us to increased regulatory scrutiny.\",\n      \"effective_date\": \"2025-06-10\"\n    },\n    {\n      \"signal_type\": \"business_activity_change\",\n      \"changed_kyc_fields\": [\"business_area\", \"known_products\"],\n      \"severity_suggestion\": \"medium\",\n      \"confidence\": 0.5,\n      \"claim\": \"GameStop's business activity may be changing to include digital assets.\",\n      \"reason\": \"The document mentions Bitcoin and other crypto-currencies, which could indicate a shift in business activity towards digital assets.\",\n      \"verbatim_evidence\": \"Bitcoin and other crypto-currencies are subject to regulatory and legal uncertainty, and governments and regulators may enact new laws and regulations, or pursue regulatory, legislative, enforcement or judicial actions that could impact the price of Bitcoin or our ability to acquire, hold or transfer Bitcoin, and may subject us to increased regulatory scrutiny.\",\n      \"effective_date\": \"2025-06-10\"\n    }\n  ],\n  \"no_signal_reason\": \"required when signal_candidates is empty\"\n}\n```",
+      "validated_analysis": {
+        "relevant": true,
+        "entity_match": true,
+        "signal_candidates": [
+          {
+            "signal_type": "digital_asset_activity",
+            "changed_kyc_fields": [
+              "business_area",
+              "known_products",
+              "risk_rating"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.8,
+            "claim": "GameStop is involved in digital asset activity related to Bitcoin.",
+            "reason": "The document mentions Bitcoin and other crypto-currencies, indicating involvement in digital asset activity.",
+            "verbatim_evidence": "Bitcoin and other crypto-currencies are subject to regulatory and legal uncertainty, and governments and regulators may enact new laws and regulations, or pursue regulatory, legislative, enforcement or judicial actions that could impact the price of Bitcoin or our ability to acquire, hold or transfer Bitcoin, and may subject us to increased regulatory scrutiny.",
+            "effective_date": "2025-06-10",
+            "effective_date_source": "document_published_at",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "digital_asset_activity needs_human_review was not boolean; normalized to true."
+            ]
+          },
+          {
+            "signal_type": "treasury_policy_change",
+            "changed_kyc_fields": [
+              "business_area",
+              "known_products",
+              "risk_rating"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.7,
+            "claim": "GameStop may be considering or has made changes to its treasury policy related to digital assets.",
+            "reason": "The document mentions regulatory and legal uncertainty around Bitcoin and other crypto-currencies, which could impact the company's ability to acquire, hold or transfer these assets, suggesting a potential treasury policy change.",
+            "verbatim_evidence": "Bitcoin and other crypto-currencies are subject to regulatory and legal uncertainty, and governments and regulators may enact new laws and regulations, or pursue regulatory, legislative, enforcement or judicial actions that could impact the price of Bitcoin or our ability to acquire, hold or transfer Bitcoin, and may subject us to increased regulatory scrutiny.",
+            "effective_date": "2025-06-10",
+            "effective_date_source": "document_published_at",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "treasury_policy_change needs_human_review was not boolean; normalized to true."
+            ]
+          },
+          {
+            "signal_type": "risk_rating_review",
+            "changed_kyc_fields": [
+              "risk_rating"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.6,
+            "claim": "GameStop's risk rating may need to be reviewed due to involvement in digital asset activity.",
+            "reason": "The document mentions regulatory and legal uncertainty around Bitcoin and other crypto-currencies, which could subject the company to increased regulatory scrutiny and impact its risk rating.",
+            "verbatim_evidence": "Bitcoin and other crypto-currencies are subject to regulatory and legal uncertainty, and governments and regulators may enact new laws and regulations, or pursue regulatory, legislative, enforcement or judicial actions that could impact the price of Bitcoin or our ability to acquire, hold or transfer Bitcoin, and may subject us to increased regulatory scrutiny.",
+            "effective_date": "2025-06-10",
+            "effective_date_source": "document_published_at",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "risk_rating_review needs_human_review was not boolean; normalized to true."
+            ]
+          },
+          {
+            "signal_type": "business_activity_change",
+            "changed_kyc_fields": [
+              "business_area",
+              "known_products"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.5,
+            "claim": "GameStop's business activity may be changing to include digital assets.",
+            "reason": "The document mentions Bitcoin and other crypto-currencies, which could indicate a shift in business activity towards digital assets.",
+            "verbatim_evidence": "Bitcoin and other crypto-currencies are subject to regulatory and legal uncertainty, and governments and regulators may enact new laws and regulations, or pursue regulatory, legislative, enforcement or judicial actions that could impact the price of Bitcoin or our ability to acquire, hold or transfer Bitcoin, and may subject us to increased regulatory scrutiny.",
+            "effective_date": "2025-06-10",
+            "effective_date_source": "document_published_at",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "business_activity_change needs_human_review was not boolean; normalized to true."
+            ]
+          }
+        ],
+        "no_signal_reason": null
+      },
+      "api_diagnostics": null,
+      "validation_errors": [],
+      "validation_warnings": [],
+      "status": "validated"
+    },
+    {
+      "analysis_id": "ai-doc-004",
+      "analysis_version": "ai-evidence-analysis-v1",
+      "document_id": "doc-004",
+      "customer_id": "demo-003",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1326380/000132638026000025/gme-20260502.htm",
+      "source_name": "SEC EDGAR API",
+      "title": "GameStop Corp. 10-Q filed 2026-06-11",
+      "published_at": "2026-06-11",
+      "generated_at": "2026-06-20T14:21:13Z",
+      "mode": "live",
+      "model": "swiss-ai/apertus-70b-instruct",
+      "detection_method": "ai_validated",
+      "raw_model_output": "{\"relevant\": true, \"entity_match\": true, \"signal_candidates\": [{\"signal_type\": \"digital_asset_activity\", \"changed_kyc_fields\": [\"business_area\", \"known_products\", \"risk_rating\"], \"severity_suggestion\": \"medium\", \"confidence\": 0.8, \"claim\": \"GameStop Corp. pledged portion of its digital assets as collateral in connection with a covered-call strategy in fiscal 2025.\", \"reason\": \"The document explicitly states that during fiscal 2025, the Company pledged portion of its digital assets as collateral in connection with a covered-call strategy, which resulted in the derecognition of the pledged digital assets and the corresponding recognition of a digital asset receivable. This activity is directly related to digital assets and could potentially impact the risk rating and business area of the company.\", \"verbatim_evidence\": \"During fiscal 2025, the Company pledged portion of its digital assets as collateral in connection with a covered-call strategy, which resulted in the derecognition of the pledged digital assets and the corresponding recognition of a digital asset receivable.\", \"effective_date\": \"2025-01-01\", \"needs_human_review\": true}], \"no_signal_reason\": \"None\"}}",
+      "validated_analysis": {
+        "relevant": true,
+        "entity_match": true,
+        "signal_candidates": [
+          {
+            "signal_type": "digital_asset_activity",
+            "changed_kyc_fields": [
+              "business_area",
+              "known_products",
+              "risk_rating"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.8,
+            "claim": "GameStop Corp. pledged portion of its digital assets as collateral in connection with a covered-call strategy in fiscal 2025.",
+            "reason": "The document explicitly states that during fiscal 2025, the Company pledged portion of its digital assets as collateral in connection with a covered-call strategy, which resulted in the derecognition of the pledged digital assets and the corresponding recognition of a digital asset receivable. This activity is directly related to digital assets and could potentially impact the risk rating and business area of the company.",
+            "verbatim_evidence": "During fiscal 2025, the Company pledged portion of its digital assets as collateral in connection with a covered‑call strategy, which resulted in the derecognition of the pledged digital assets and the corresponding recognition of a digital asset receivable.",
+            "effective_date": null,
+            "effective_date_source": "model_supplied_date_not_in_source_normalized_to_null",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "Apertus evidence quote was not exact; replaced with collected source excerpt.",
+              "Apertus effective_date was not present in source text; normalized to null."
+            ]
+          }
+        ],
+        "no_signal_reason": null
+      },
+      "api_diagnostics": null,
+      "validation_errors": [],
+      "validation_warnings": [],
+      "status": "validated"
+    },
+    {
+      "analysis_id": "ai-doc-005",
+      "analysis_version": "ai-evidence-analysis-v1",
+      "document_id": "doc-005",
+      "customer_id": "demo-004",
+      "source_url": "https://www.kraken.com/press/releases/kraken-to-acquire-ninjatrader-introducing-the-next-era-of-professional-trading",
+      "source_name": "Kraken Press Room",
+      "title": "Kraken to Acquire NinjaTrader: Introducing the Next Era of Professional Trading Kraken has entered into an agreement to acquire NinjaTrader, the leading U.S. retail futures trading platform, for $1.5 billion, subject to certain purchase price adjustments.",
+      "published_at": null,
+      "generated_at": "2026-06-20T14:21:13Z",
+      "mode": "live",
+      "model": "swiss-ai/apertus-70b-instruct",
+      "detection_method": "ai_validated",
+      "raw_model_output": "{\"signal_candidates\": [ \n    {\"signal_type\": \"new_product\", \n     \"changed_kyc_fields\": [\"known_products\"], \n     \"severity_suggestion\": \"medium\", \n     \"confidence\": 0.8, \n     \"claim\": \"Kraken is acquiring NinjaTrader, a leading U.S. retail futures trading platform, for $1.5 billion.\", \n     \"reason\": \"The document states that Kraken has entered into an agreement to acquire NinjaTrader, which is a new product for Kraken.\", \n     \"verbatim_evidence\": \"Kraken has entered into an agreement to acquire NinjaTrader, the leading U.S. retail futures trading platform, for $1.5 billion, subject to certain purchase price adjustments.\", \n     \"effective_date\": \"2023-02-15\", \n     \"needs_human_review\": true \n    }, \n    {\"signal_type\": \"business_activity_change\", \n     \"changed_kyc_fields\": [\"business_area\"], \n     \"severity_suggestion\": \"medium\", \n     \"confidence\": 0.7, \n     \"claim\": \"Kraken is expanding its business area to include U.S. retail futures trading.\", \n     \"reason\": \"The document states that this acquisition makes Kraken a leader in the U.S. futures market for both traditional and crypto trading, and accelerates its multi-asset-class ambitions.\", \n     \"verbatim_evidence\": \"Makes Kraken a leader in the U.S. futures market for both traditional and crypto trading, and accelerates its multi-asset-class ambitions — which include plans for equities trading and payments.\", \n     \"effective_date\": \"2023-02-15\", \n     \"needs_human_review\": true \n    }, \n    {\"signal_type\": \"ownership_change\", \n     \"changed_kyc_fields\": [\"subsidiaries\"], \n     \"severity_suggestion\": \"high\", \n     \"confidence\": 0.9, \n     \"claim\": \"Kraken is acquiring a new subsidiary, NinjaTrader.\", \n     \"reason\": \"The document states that Kraken has entered into an agreement to acquire NinjaTrader, which would make it a subsidiary of Kraken.\", \n     \"verbatim_evidence\": \"Kraken has entered into an agreement to acquire NinjaTrader, the leading U.S. retail futures trading platform, for $1.5 billion, subject to certain purchase price adjustments.\", \n     \"effective_date\": \"2023-02-15\", \n     \"needs_human_review\": true \n    }, \n    {\"signal_type\": \"digital_asset_activity\", \n     \"changed_kyc_fields\": [\"business_area\", \"known_products\"], \n     \"severity_suggestion\": \"medium\", \n     \"confidence\": 0.6, \n     \"claim\": \"Kraken is expanding its digital asset activity to include U.S. retail futures trading.\", \n     \"reason\": \"The document states that this acquisition strengthens Kraken’s position as a 24/7, always-on technology platform built for professional traders, making it a leader in U.S. futures for both traditional and crypto markets.\", \n     \"verbatim_evidence\": \"This acquisition strengthens Kraken’s position as a 24/7, always-on technology platform built for professional traders, making it a leader in U.S. futures for both traditional and crypto markets.\", \n     \"effective_date\": \"2023-02-15\", \n     \"needs_human_review\": true \n    } \n  ]}",
+      "validated_analysis": {
+        "relevant": true,
+        "entity_match": true,
+        "signal_candidates": [
+          {
+            "signal_type": "new_product",
+            "changed_kyc_fields": [
+              "known_products"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.8,
+            "claim": "Kraken is acquiring NinjaTrader, a leading U.S. retail futures trading platform, for $1.5 billion.",
+            "reason": "The document states that Kraken has entered into an agreement to acquire NinjaTrader, which is a new product for Kraken.",
+            "verbatim_evidence": "Kraken has entered into an agreement to acquire NinjaTrader, the leading U.S. retail futures trading platform, for $1.5 billion, subject to certain purchase price adjustments.",
+            "effective_date": null,
+            "effective_date_source": "model_supplied_date_not_in_source_normalized_to_null",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "Apertus effective_date was not present in source text; normalized to null."
+            ]
+          },
+          {
+            "signal_type": "business_activity_change",
+            "changed_kyc_fields": [
+              "business_area"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.7,
+            "claim": "Kraken is expanding its business area to include U.S. retail futures trading.",
+            "reason": "The document states that this acquisition makes Kraken a leader in the U.S. futures market for both traditional and crypto trading, and accelerates its multi-asset-class ambitions.",
+            "verbatim_evidence": "Makes Kraken a leader in the U.S. futures market for both traditional and crypto trading, and accelerates its multi-asset-class ambitions — which include plans for equities trading and payments.",
+            "effective_date": null,
+            "effective_date_source": "model_supplied_date_not_in_source_normalized_to_null",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "Apertus effective_date was not present in source text; normalized to null."
+            ]
+          },
+          {
+            "signal_type": "ownership_change",
+            "changed_kyc_fields": [
+              "subsidiaries"
+            ],
+            "severity_suggestion": "high",
+            "confidence": 0.9,
+            "claim": "Kraken is acquiring a new subsidiary, NinjaTrader.",
+            "reason": "The document states that Kraken has entered into an agreement to acquire NinjaTrader, which would make it a subsidiary of Kraken.",
+            "verbatim_evidence": "Kraken has entered into an agreement to acquire NinjaTrader, the leading U.S. retail futures trading platform, for $1.5 billion, subject to certain purchase price adjustments.",
+            "effective_date": null,
+            "effective_date_source": "model_supplied_date_not_in_source_normalized_to_null",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "Apertus effective_date was not present in source text; normalized to null."
+            ]
+          },
+          {
+            "signal_type": "digital_asset_activity",
+            "changed_kyc_fields": [
+              "business_area",
+              "known_products"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.6,
+            "claim": "Kraken is expanding its digital asset activity to include U.S. retail futures trading.",
+            "reason": "The document states that this acquisition strengthens Kraken’s position as a 24/7, always-on technology platform built for professional traders, making it a leader in U.S. futures for both traditional and crypto markets.",
+            "verbatim_evidence": "This acquisition strengthens Kraken’s position as a 24/7, always-on technology platform built for professional traders, making it a leader in U.S. futures for both traditional and crypto markets.",
+            "effective_date": null,
+            "effective_date_source": "model_supplied_date_not_in_source_normalized_to_null",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "Apertus effective_date was not present in source text; normalized to null."
+            ]
+          }
+        ],
+        "no_signal_reason": null
+      },
+      "api_diagnostics": null,
+      "validation_errors": [],
+      "validation_warnings": [
+        "Model omitted relevant; inferred from non-empty signal_candidates.",
+        "Model omitted entity_match; inferred from non-empty signal_candidates."
+      ],
+      "status": "validated"
+    },
+    {
+      "analysis_id": "ai-doc-006",
+      "analysis_version": "ai-evidence-analysis-v1",
+      "document_id": "doc-006",
+      "customer_id": "demo-002",
+      "source_url": "https://www.cftc.gov/PressRoom/PressReleases/8478-22",
+      "source_name": "Commodity Futures Trading Commission",
+      "title": "CFTC Orders Event-Based Binary Options Markets Operator to Pay $1.4 Million Penalty",
+      "published_at": "2022-01-03",
+      "generated_at": "2026-06-20T14:21:13Z",
+      "mode": "live",
+      "model": "swiss-ai/apertus-70b-instruct",
+      "detection_method": "ai_validated",
+      "raw_model_output": "{\"signal_candidates\": [{\"signal_type\": \"regulatory_scrutiny\", \"changed_kyc_fields\": [\"risk_rating\"], \"severity_suggestion\": \"high\", \"confidence\": 0.8, \"claim\": \"Blockratize, Inc. d/b/a Polymarket was ordered to pay a $1.4 million civil monetary penalty by the CFTC for offering off-exchange event-based binary options contracts and failure to obtain designation as a designated contract market (DCM) or registration as a swap execution facility (SEF).\", \"reason\": \"The document states that the CFTC entered an order against Blockratize, Inc. d/b/a Polymarket for offering off-exchange event-based binary options contracts and failure to obtain designation as a DCM or SEF, resulting in a $1.4 million penalty. This indicates regulatory scrutiny.\", \"verbatim_evidence\": \"The order requires that Polymarket pay a $1.4 million civil monetary penalty, facilitate the resolution (i.e. wind down) of all markets displayed on Polymarket.com that do not comply with the Commodity Exchange Act (CEA) and applicable CFTC regulations, and cease and desist from violating the CEA and CFTC regulations, as charged.\", \"effective_date\": \"2022-01-03\"}]}}",
+      "validated_analysis": {
+        "relevant": true,
+        "entity_match": true,
+        "signal_candidates": [
+          {
+            "signal_type": "regulatory_scrutiny",
+            "changed_kyc_fields": [
+              "risk_rating"
+            ],
+            "severity_suggestion": "high",
+            "confidence": 0.8,
+            "claim": "Blockratize, Inc. d/b/a Polymarket was ordered to pay a $1.4 million civil monetary penalty by the CFTC for offering off-exchange event-based binary options contracts and failure to obtain designation as a designated contract market (DCM) or registration as a swap execution facility (SEF).",
+            "reason": "The document states that the CFTC entered an order against Blockratize, Inc. d/b/a Polymarket for offering off-exchange event-based binary options contracts and failure to obtain designation as a DCM or SEF, resulting in a $1.4 million penalty. This indicates regulatory scrutiny.",
+            "verbatim_evidence": "The order requires that Polymarket pay a $1.4 million civil monetary penalty, facilitate the resolution (i.e. wind down) of all markets displayed on Polymarket.com that do not comply with the Commodity Exchange Act (CEA) and applicable CFTC regulations, and cease and desist from violating the CEA and CFTC regulations, as charged.",
+            "effective_date": "2022-01-03",
+            "effective_date_source": "document_published_at",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "regulatory_scrutiny needs_human_review was not boolean; normalized to true."
+            ]
+          }
+        ],
+        "no_signal_reason": null
+      },
+      "api_diagnostics": null,
+      "validation_errors": [],
+      "validation_warnings": [
+        "Model omitted relevant; inferred from non-empty signal_candidates.",
+        "Model omitted entity_match; inferred from non-empty signal_candidates."
+      ],
+      "status": "validated"
+    },
+    {
+      "analysis_id": "ai-doc-007",
+      "analysis_version": "ai-evidence-analysis-v1",
+      "document_id": "doc-007",
+      "customer_id": "demo-002",
+      "source_url": "https://www.theguardian.com/world/2026/may/26/spain-blocks-access-polymarket-kalshi-gambling-licence-investigation",
+      "source_name": "theguardian.com",
+      "title": "Spain blocks access to Polymarket and Kalshi as it launches gambling licence investigation | Spain | The Guardian",
+      "published_at": "2026-05-26",
+      "generated_at": "2026-06-20T14:21:13Z",
+      "mode": "live",
+      "model": "swiss-ai/apertus-70b-instruct",
+      "detection_method": "ai_validated",
+      "raw_model_output": "```json\n{\n  \"relevant\": true,\n  \"entity_match\": true,\n  \"signal_candidates\": [\n    {\n      \"signal_type\": \"jurisdiction_restriction\",\n      \"changed_kyc_fields\": [\"known_jurisdictions\", \"risk_rating\"],\n      \"severity_suggestion\": \"medium\",\n      \"confidence\": 0.8,\n      \"claim\": \"Spain has blocked access to Polymarket and Kalshi, indicating a new jurisdiction restriction.\",\n      \"reason\": \"The document states that Spain’s ministry of consumer rights has blocked access to Polymarket and Kalshi while it investigates whether the leading prediction market sites are violating Spanish law by operating without a gambling licence.\",\n      \"verbatim_evidence\": \"Spain’s ministry of consumer rights has blocked access to Polymarket and Kalshi while it investigates whether the leading prediction market sites are violating Spanish law by operating without a gambling licence.\",\n      \"effective_date\": \"2026-05-26\"\n    }\n  ],\n  \"no_signal_reason\": null\n}\n```",
+      "validated_analysis": {
+        "relevant": true,
+        "entity_match": true,
+        "signal_candidates": [
+          {
+            "signal_type": "jurisdiction_restriction",
+            "changed_kyc_fields": [
+              "known_jurisdictions",
+              "risk_rating"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.8,
+            "claim": "Spain has blocked access to Polymarket and Kalshi, indicating a new jurisdiction restriction.",
+            "reason": "The document states that Spain’s ministry of consumer rights has blocked access to Polymarket and Kalshi while it investigates whether the leading prediction market sites are violating Spanish law by operating without a gambling licence.",
+            "verbatim_evidence": "Spain’s ministry of consumer rights has blocked access to Polymarket and Kalshi while it investigates whether the leading prediction market sites are violating Spanish law by operating without a gambling licence.",
+            "effective_date": "2026-05-26",
+            "effective_date_source": "document_published_at",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "jurisdiction_restriction needs_human_review was not boolean; normalized to true."
+            ]
+          }
+        ],
+        "no_signal_reason": null
+      },
+      "api_diagnostics": null,
+      "validation_errors": [],
+      "validation_warnings": [],
+      "status": "validated"
+    },
+    {
+      "analysis_id": "ai-doc-008",
+      "analysis_version": "ai-evidence-analysis-v1",
+      "document_id": "doc-008",
+      "customer_id": "demo-002",
+      "source_url": "https://elpais.com/economia/2026-05-26/consumo-ordena-el-bloqueo-de-polymarket-y-kalshi-en-espana-por-operar-sin-licencia-de-juego.html",
+      "source_name": "elpais.com",
+      "title": "Consumo ordena el bloqueo de Polymarket y Kalshi en España por operar sin licencia de juego | Economía | EL PAÍS",
+      "published_at": "2026-05-26",
+      "generated_at": "2026-06-20T14:21:13Z",
+      "mode": "live",
+      "model": "swiss-ai/apertus-70b-instruct",
+      "detection_method": "ai_validated",
+      "raw_model_output": "{\"relevant\": true, \"entity_match\": true, \"signal_candidates\": [{\"signal_type\": \"jurisdiction_restriction\", \"changed_kyc_fields\": [\"known_jurisdictions\"], \"severity_suggestion\": \"high\", \"confidence\": 0.8, \"claim\": \"Polymarket and Kalshi are blocked in Spain due to lack of gaming license\", \"reason\": \"The document states that the Ministry of Consumption has ordered the blocking of Polymarket and Kalshi in Spain as they operate without the necessary gaming license.\", \"verbatim_evidence\": \"El Ministerio de Consumo ha emitido una orden para bloquear en España las páginas web de estas dos plataformas como medida cautelar hasta la resolución definitiva del expediente.\", \"effective_date\": \"2026-05-26\"}]}}",
+      "validated_analysis": {
+        "relevant": true,
+        "entity_match": true,
+        "signal_candidates": [
+          {
+            "signal_type": "jurisdiction_restriction",
+            "changed_kyc_fields": [
+              "known_jurisdictions"
+            ],
+            "severity_suggestion": "high",
+            "confidence": 0.8,
+            "claim": "Polymarket and Kalshi are blocked in Spain due to lack of gaming license",
+            "reason": "The document states that the Ministry of Consumption has ordered the blocking of Polymarket and Kalshi in Spain as they operate without the necessary gaming license.",
+            "verbatim_evidence": "El Ministerio de Consumo ha emitido una orden para bloquear en España las páginas web de estas dos plataformas como medida cautelar hasta la resolución definitiva del expediente.",
+            "effective_date": "2026-05-26",
+            "effective_date_source": "document_published_at",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "jurisdiction_restriction needs_human_review was not boolean; normalized to true."
+            ]
+          }
+        ],
+        "no_signal_reason": null
+      },
+      "api_diagnostics": null,
+      "validation_errors": [],
+      "validation_warnings": [],
+      "status": "validated"
+    },
+    {
+      "analysis_id": "ai-doc-009",
+      "analysis_version": "ai-evidence-analysis-v1",
+      "document_id": "doc-009",
+      "customer_id": "demo-002",
+      "source_url": "https://cadenaser.com/nacional/2026/05/26/el-futuro-de-polymarket-tras-el-bloqueo-del-gobierno-es-ilegal-no-tiene-licencia-y-no-hay-posibilidad-de-que-la-consiga-cadena-ser/",
+      "source_name": "cadenaser.com",
+      "title": "El futuro de Polymarket tras el bloqueo del Gobierno: \"Es ilegal, no tiene licencia y no hay posibilidad de que la consiga\" | Actualidad | Cadena SER",
+      "published_at": "2026-05-26",
+      "generated_at": "2026-06-20T14:21:13Z",
+      "mode": "live",
+      "model": "swiss-ai/apertus-70b-instruct",
+      "detection_method": "ai_validated",
+      "raw_model_output": "{\"relevant\": true, \"entity_match\": true, \"signal_candidates\": [{\"signal_type\": \"regulatory_scrutiny\", \"changed_kyc_fields\": [\"risk_rating\"], \"severity_suggestion\": \"high\", \"confidence\": 0.8, \"claim\": \"Polymarket is under regulatory scrutiny in Spain for operating without a license.\", \"reason\": \"The document states that the Dirección General de Ordenación del Juego (DGOJ) has opened a sanctioning file against Polymarket for operating in Spain without the necessary administrative authorization.\", \"verbatim_evidence\": \"La Dirección General de Ordenación del Juego (DGOJ), dependiente del Ministerio de Derechos Sociales, Consumo y Agenda 2030, ha abierto expediente sancionador a Polymarket y Kalshi, dos plataformas de predicción en las que se realizan apuestas, por una posible infracción de la normativa de juego, ya que estarían operando en España sin contar con la obligatoria habilitación administrativa.\", \"effective_date\": \"2026-05-26\"}]}}",
+      "validated_analysis": {
+        "relevant": true,
+        "entity_match": true,
+        "signal_candidates": [
+          {
+            "signal_type": "regulatory_scrutiny",
+            "changed_kyc_fields": [
+              "risk_rating"
+            ],
+            "severity_suggestion": "high",
+            "confidence": 0.8,
+            "claim": "Polymarket is under regulatory scrutiny in Spain for operating without a license.",
+            "reason": "The document states that the Dirección General de Ordenación del Juego (DGOJ) has opened a sanctioning file against Polymarket for operating in Spain without the necessary administrative authorization.",
+            "verbatim_evidence": "La Dirección General de Ordenación del Juego (DGOJ), dependiente del Ministerio de Derechos Sociales, Consumo y Agenda 2030, ha abierto expediente sancionador a Polymarket y Kalshi, dos plataformas de predicción en las que se realizan apuestas, por una posible infracción de la normativa de juego, ya que estarían operando en España sin contar con la obligatoria habilitación administrativa.",
+            "effective_date": "2026-05-26",
+            "effective_date_source": "document_published_at",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "regulatory_scrutiny needs_human_review was not boolean; normalized to true."
+            ]
+          }
+        ],
+        "no_signal_reason": null
+      },
+      "api_diagnostics": null,
+      "validation_errors": [],
+      "validation_warnings": [],
+      "status": "validated"
+    },
+    {
+      "analysis_id": "ai-doc-010",
+      "analysis_version": "ai-evidence-analysis-v1",
+      "document_id": "doc-010",
+      "customer_id": "demo-009",
+      "source_url": "https://www.thetimes.com/business/wsj/article/google-is-using-nvidias-playbook-to-build-a-rival-ai-chip-business-rkbzvb9jn",
+      "source_name": "thetimes.com",
+      "title": "Google Is Using Nvidia's Playbook to Build a Rival AI Chip Business",
+      "published_at": "2026-06-19",
+      "generated_at": "2026-06-20T14:21:13Z",
+      "mode": "live",
+      "model": "swiss-ai/apertus-70b-instruct",
+      "detection_method": "ai_validated",
+      "raw_model_output": "{\"relevant\": true, \"entity_match\": true, \"signal_candidates\": [{\"signal_type\": \"new_product\", \"changed_kyc_fields\": [\"business_area\", \"known_products\"], \"severity_suggestion\": \"medium\", \"confidence\": 0.8, \"claim\": \"Google is building a rival AI chip business\", \"reason\": \"The document mentions that Google is using Nvidia's playbook to build a rival AI chip business. This is a new product development which could potentially change the business area and known products of the company.\", \"verbatim_evidence\": \"Google Is Using Nvidia’s Playbook to Build a Rival AI Chip Business\", \"effective_date\": \"2026-06-19\", \"needs_human_review\": true}], \"no_signal_reason\": null}",
+      "validated_analysis": {
+        "relevant": true,
+        "entity_match": true,
+        "signal_candidates": [
+          {
+            "signal_type": "new_product",
+            "changed_kyc_fields": [
+              "business_area",
+              "known_products"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.8,
+            "claim": "Google is building a rival AI chip business",
+            "reason": "The document mentions that Google is using Nvidia's playbook to build a rival AI chip business. This is a new product development which could potentially change the business area and known products of the company.",
+            "verbatim_evidence": "Google Is Using Nvidia’s Playbook to Build a Rival AI Chip Business",
+            "effective_date": "2026-06-19",
+            "effective_date_source": "document_published_at",
+            "needs_human_review": true,
+            "validator_warnings": []
+          }
+        ],
+        "no_signal_reason": null
+      },
+      "api_diagnostics": null,
+      "validation_errors": [],
+      "validation_warnings": [],
+      "status": "validated"
+    },
+    {
+      "analysis_id": "ai-doc-011",
+      "analysis_version": "ai-evidence-analysis-v1",
+      "document_id": "doc-011",
+      "customer_id": "demo-005",
+      "source_url": "https://www.circle.com/cpn",
+      "source_name": "Circle",
+      "title": "Circle Payments Network",
+      "published_at": null,
+      "generated_at": "2026-06-20T14:21:13Z",
+      "mode": "live",
+      "model": "swiss-ai/apertus-70b-instruct",
+      "detection_method": "ai_validated",
+      "raw_model_output": "```json\n{\n  \"relevant\": true,\n  \"entity_match\": true,\n  \"signal_candidates\": [\n    {\n      \"signal_type\": \"new_product\",\n      \"changed_kyc_fields\": [\"business_area\", \"known_products\"],\n      \"severity_suggestion\": \"medium\",\n      \"confidence\": 0.8,\n      \"claim\": \"Circle Payments Network (CPN) is a new product enabling consumer, business, and institutional payments with 24/7 real-time settlement via stablecoins like USDC and EURC.\",\n      \"reason\": \"The document introduces Circle Payments Network (CPN) as a new product for enabling payments with stablecoins, which is not mentioned in the baseline.\",\n      \"verbatim_evidence\": \"Circle Payments Network (CPN) is a global network of partners, including banks, payment service providers (PSPs), virtual asset service providers (VASPs), and enterprises, who enable consumer, business, and institutional payments with 24/7 real-time settlement via stablecoins like USDC and EURC.\",\n      \"effective_date\": \"2024-01-01\"\n    },\n    {\n      \"signal_type\": \"business_activity_change\",\n      \"changed_kyc_fields\": [\"business_area\", \"known_products\"],\n      \"severity_suggestion\": \"medium\",\n      \"confidence\": 0.7,\n      \"claim\": \"Circle Internet Group, Inc. is expanding its business area to include payments infrastructure and stablecoin issuance through Circle Payments Network.\",\n      \"reason\": \"The document mentions that Circle Payments Network enables payments with stablecoins, which expands the business area beyond the baseline.\",\n      \"verbatim_evidence\": \"Circle Payments Network (CPN) is a global network of partners, including banks, payment service providers (PSPs), virtual asset service providers (VASPs), and enterprises, who enable consumer, business, and institutional payments with 24/7 real-time settlement via stablecoins like USDC and EURC.\",\n      \"effective_date\": \"2024-01-01\"\n    },\n    {\n      \"signal_type\": \"digital_asset_activity\",\n      \"changed_kyc_fields\": [\"business_area\", \"known_products\", \"risk_rating\"],\n      \"severity_suggestion\": \"medium\",\n      \"confidence\": 0.6,\n      \"claim\": \"Circle Internet Group, Inc. is engaging in digital asset activity through the issuance and settlement of stablecoins like USDC and EURC via Circle Payments Network.\",\n      \"reason\": \"The document indicates that Circle Payments Network enables payments with stablecoins, which is a form of digital asset activity.\",\n      \"verbatim_evidence\": \"Circle Payments Network (CPN) is a global network of partners, including banks, payment service providers (PSPs), virtual asset service providers (VASPs), and enterprises, who enable consumer, business, and institutional payments with 24/7 real-time settlement via stablecoins like USDC and EURC.\",\n      \"effective_date\": \"2024-01-01\"\n    },\n    {\n      \"signal_type\": \"new_product\",\n      \"changed_kyc_fields\": [\"known_products\"],\n      \"severity_suggestion\": \"medium\",\n      \"confidence\": 0.5,\n      \"claim\": \"Circle Internet Group, Inc. has introduced a new product, Circle Payments Network, which enables payments with stablecoins like USDC and EURC.\",\n      \"reason\": \"The document introduces Circle Payments Network as a new product for enabling payments with stablecoins, which is not mentioned in the baseline.\",\n      \"verbatim_evidence\": \"Circle Payments Network (CPN) is a global network of partners, including banks, payment service providers (PSPs), virtual asset service providers (VASPs), and enterprises, who enable consumer, business, and institutional payments with 24/7 real-time settlement via stablecoins like USDC and EURC.\",\n      \"effective_date\": \"2024-01-01\"\n    }\n  ],\n  \"no_signal_reason\": \"required when signal_candidates is empty\"\n}\n```",
+      "validated_analysis": {
+        "relevant": true,
+        "entity_match": true,
+        "signal_candidates": [
+          {
+            "signal_type": "new_product",
+            "changed_kyc_fields": [
+              "business_area",
+              "known_products"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.8,
+            "claim": "Circle Payments Network (CPN) is a new product enabling consumer, business, and institutional payments with 24/7 real-time settlement via stablecoins like USDC and EURC.",
+            "reason": "The document introduces Circle Payments Network (CPN) as a new product for enabling payments with stablecoins, which is not mentioned in the baseline.",
+            "verbatim_evidence": "Circle Payments Network (CPN) is a global network of partners, including banks, payment service providers (PSPs), virtual asset service providers (VASPs), and enterprises, who enable consumer, business, and institutional payments with 24/7 real-time settlement via stablecoins like USDC and EURC.",
+            "effective_date": null,
+            "effective_date_source": "model_supplied_date_not_in_source_normalized_to_null",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "Apertus effective_date was not present in source text; normalized to null.",
+              "new_product needs_human_review was not boolean; normalized to true."
+            ]
+          },
+          {
+            "signal_type": "business_activity_change",
+            "changed_kyc_fields": [
+              "business_area",
+              "known_products"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.7,
+            "claim": "Circle Internet Group, Inc. is expanding its business area to include payments infrastructure and stablecoin issuance through Circle Payments Network.",
+            "reason": "The document mentions that Circle Payments Network enables payments with stablecoins, which expands the business area beyond the baseline.",
+            "verbatim_evidence": "Circle Payments Network (CPN) is a global network of partners, including banks, payment service providers (PSPs), virtual asset service providers (VASPs), and enterprises, who enable consumer, business, and institutional payments with 24/7 real-time settlement via stablecoins like USDC and EURC.",
+            "effective_date": null,
+            "effective_date_source": "model_supplied_date_not_in_source_normalized_to_null",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "Apertus effective_date was not present in source text; normalized to null.",
+              "business_activity_change needs_human_review was not boolean; normalized to true."
+            ]
+          },
+          {
+            "signal_type": "digital_asset_activity",
+            "changed_kyc_fields": [
+              "business_area",
+              "known_products",
+              "risk_rating"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.6,
+            "claim": "Circle Internet Group, Inc. is engaging in digital asset activity through the issuance and settlement of stablecoins like USDC and EURC via Circle Payments Network.",
+            "reason": "The document indicates that Circle Payments Network enables payments with stablecoins, which is a form of digital asset activity.",
+            "verbatim_evidence": "Circle Payments Network (CPN) is a global network of partners, including banks, payment service providers (PSPs), virtual asset service providers (VASPs), and enterprises, who enable consumer, business, and institutional payments with 24/7 real-time settlement via stablecoins like USDC and EURC.",
+            "effective_date": null,
+            "effective_date_source": "model_supplied_date_not_in_source_normalized_to_null",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "Apertus effective_date was not present in source text; normalized to null.",
+              "digital_asset_activity needs_human_review was not boolean; normalized to true."
+            ]
+          },
+          {
+            "signal_type": "new_product",
+            "changed_kyc_fields": [
+              "known_products"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.5,
+            "claim": "Circle Internet Group, Inc. has introduced a new product, Circle Payments Network, which enables payments with stablecoins like USDC and EURC.",
+            "reason": "The document introduces Circle Payments Network as a new product for enabling payments with stablecoins, which is not mentioned in the baseline.",
+            "verbatim_evidence": "Circle Payments Network (CPN) is a global network of partners, including banks, payment service providers (PSPs), virtual asset service providers (VASPs), and enterprises, who enable consumer, business, and institutional payments with 24/7 real-time settlement via stablecoins like USDC and EURC.",
+            "effective_date": null,
+            "effective_date_source": "model_supplied_date_not_in_source_normalized_to_null",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "Apertus effective_date was not present in source text; normalized to null.",
+              "new_product needs_human_review was not boolean; normalized to true."
+            ]
+          }
+        ],
+        "no_signal_reason": null
+      },
+      "api_diagnostics": null,
+      "validation_errors": [],
+      "validation_warnings": [],
+      "status": "validated"
+    },
+    {
+      "analysis_id": "ai-doc-012",
+      "analysis_version": "ai-evidence-analysis-v1",
+      "document_id": "doc-012",
+      "customer_id": "demo-005",
+      "source_url": "https://www.circle.com/usdc",
+      "source_name": "Circle",
+      "title": "USDC | Powering global finance. Issued by Circle.",
+      "published_at": null,
+      "generated_at": "2026-06-20T14:21:13Z",
+      "mode": "live",
+      "model": "swiss-ai/apertus-70b-instruct",
+      "detection_method": "ai_validated",
+      "raw_model_output": "{\"relevant\": true, \"entity_match\": true, \"signal_candidates\": [{\"signal_type\": \"new_product\", \"changed_kyc_fields\": [\"business_area\", \"known_products\"], \"severity_suggestion\": \"medium\", \"confidence\": 0.8, \"claim\": \"USDC is a regulated digital currency that enables 24/7 liquidity for near-instant, low-cost global payments.\", \"reason\": \"The document mentions USDC as a regulated digital currency that enables 24/7 liquidity for near-instant, low-cost global payments, which is a new product description compared to the baseline.\", \"verbatim_evidence\": \"Redeemable 1:1 for US dollars, USDC enables 24/7 liquidity for near-instant, low-cost global payments.\", \"effective_date\": \"2024-12-31\", \"needs_human_review\": true}], \"no_signal_reason\": \"null\"}",
+      "validated_analysis": {
+        "relevant": true,
+        "entity_match": true,
+        "signal_candidates": [
+          {
+            "signal_type": "new_product",
+            "changed_kyc_fields": [
+              "business_area",
+              "known_products"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.8,
+            "claim": "USDC is a regulated digital currency that enables 24/7 liquidity for near-instant, low-cost global payments.",
+            "reason": "The document mentions USDC as a regulated digital currency that enables 24/7 liquidity for near-instant, low-cost global payments, which is a new product description compared to the baseline.",
+            "verbatim_evidence": "Redeemable 1:1 for US dollars, USDC enables 24/7 liquidity for near-instant, low-cost global payments.",
+            "effective_date": null,
+            "effective_date_source": "model_supplied_date_not_in_source_normalized_to_null",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "Apertus effective_date was not present in source text; normalized to null."
+            ]
+          }
+        ],
+        "no_signal_reason": null
+      },
+      "api_diagnostics": null,
+      "validation_errors": [],
+      "validation_warnings": [],
+      "status": "validated"
+    },
+    {
+      "analysis_id": "ai-doc-013",
+      "analysis_version": "ai-evidence-analysis-v1",
+      "document_id": "doc-013",
+      "customer_id": "demo-004",
+      "source_url": "https://www.kraken.com/legal/xstocks",
+      "source_name": "Kraken Legal",
+      "title": "xStocks Risk Disclosure",
+      "published_at": null,
+      "generated_at": "2026-06-20T14:21:13Z",
+      "mode": "live",
+      "model": "swiss-ai/apertus-70b-instruct",
+      "detection_method": "ai_validated",
+      "raw_model_output": "{\"signal_candidates\": [{\"signal_type\": \"new_product\", \"changed_kyc_fields\": [\"known_products\"], \"severity_suggestion\": \"medium\", \"confidence\": 0.8, \"claim\": \"Kraken is offering a new product called xStocks\", \"reason\": \"The document mentions xStocks as a new product offered by Kraken to certain clients.\", \"verbatim_evidence\": \"xStocks are issued by Backed Assets (JE) Limited (a Jersey private limited company) (the \\\"Issuer\\\"), and offered to certain Kraken clients by Payward Digital Solutions Ltd. (“PDSL”), a Bermuda exempted company licensed to conduct digital asset business by the Bermuda Monetary Authority.\", \"effective_date\": \"2025-02-15\"}]}\nThe document indicates that Kraken is offering a new product called xStocks. This could be a new product signal candidate. The effective_date is set to 2025-02-15 based on the document's publication date. The confidence level is 0.8. This signal candidate suggests a medium severity change. The verbatim evidence is provided from the document. The changed KYC field is known_products. This signal candidate needs human review.",
+      "validated_analysis": {
+        "relevant": true,
+        "entity_match": true,
+        "signal_candidates": [
+          {
+            "signal_type": "new_product",
+            "changed_kyc_fields": [
+              "known_products"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.8,
+            "claim": "Kraken is offering a new product called xStocks",
+            "reason": "The document mentions xStocks as a new product offered by Kraken to certain clients.",
+            "verbatim_evidence": "xStocks are issued by Backed Assets (JE) Limited (a Jersey private limited company) (the \"Issuer\"), and offered to certain Kraken clients by Payward Digital Solutions Ltd. (“PDSL”), a Bermuda exempted company licensed to conduct digital asset business by the Bermuda Monetary Authority.",
+            "effective_date": null,
+            "effective_date_source": "model_supplied_date_not_in_source_normalized_to_null",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "Apertus effective_date was not present in source text; normalized to null.",
+              "new_product needs_human_review was not boolean; normalized to true."
+            ]
+          }
+        ],
+        "no_signal_reason": null
+      },
+      "api_diagnostics": null,
+      "validation_errors": [],
+      "validation_warnings": [
+        "Model omitted relevant; inferred from non-empty signal_candidates.",
+        "Model omitted entity_match; inferred from non-empty signal_candidates."
+      ],
+      "status": "validated"
+    },
+    {
+      "analysis_id": "ai-doc-014",
+      "analysis_version": "ai-evidence-analysis-v1",
+      "document_id": "doc-014",
+      "customer_id": "demo-001",
+      "source_url": "https://robinhood.com/us/en/newsroom/robinhood-completes-acquisition-of-bitstamp/",
+      "source_name": "Robinhood Newsroom",
+      "title": "Robinhood Completes Acquisition of Bitstamp",
+      "published_at": "2025-06-02",
+      "generated_at": "2026-06-20T14:21:13Z",
+      "mode": "live",
+      "model": "swiss-ai/apertus-70b-instruct",
+      "detection_method": "ai_validated",
+      "raw_model_output": "{\"relevant\": true, \"entity_match\": true, \"signal_candidates\": [{\"signal_type\": \"new_subsidiary\", \"changed_kyc_fields\": [\"subsidiaries\"], \"severity_suggestion\": \"medium\", \"confidence\": 0.8, \"claim\": \"Robinhood acquired Bitstamp Ltd.\", \"reason\": \"The document states that Robinhood has closed its acquisition of Bitstamp Ltd.\", \"verbatim_evidence\": \"Robinhood Markets, Inc. (“Robinhood”) has closed its acquisition of Bitstamp Ltd. (“Bitstamp”), a global cryptocurrency exchange.\", \"effective_date\": \"2025-06-02\", \"needs_human_review\": true}], \"no_signal_reason\": \"None\"}",
+      "validated_analysis": {
+        "relevant": true,
+        "entity_match": true,
+        "signal_candidates": [
+          {
+            "signal_type": "new_subsidiary",
+            "changed_kyc_fields": [
+              "subsidiaries"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.8,
+            "claim": "Robinhood acquired Bitstamp Ltd.",
+            "reason": "The document states that Robinhood has closed its acquisition of Bitstamp Ltd.",
+            "verbatim_evidence": "Robinhood Markets, Inc. (“Robinhood”) has closed its acquisition of Bitstamp Ltd. (“Bitstamp”), a global cryptocurrency exchange.",
+            "effective_date": "2025-06-02",
+            "effective_date_source": "document_published_at",
+            "needs_human_review": true,
+            "validator_warnings": []
+          }
+        ],
+        "no_signal_reason": null
+      },
+      "api_diagnostics": null,
+      "validation_errors": [],
+      "validation_warnings": [],
+      "status": "validated"
+    },
+    {
+      "analysis_id": "ai-doc-015",
+      "analysis_version": "ai-evidence-analysis-v1",
+      "document_id": "doc-015",
+      "customer_id": "demo-001",
+      "source_url": "https://blog.bitstamp.net/post/robinhood-completes-acquisition-of-bitstamp/",
+      "source_name": "Bitstamp Blog",
+      "title": "Robinhood Completes Acquisition of Bitstamp",
+      "published_at": "2025-06-02",
+      "generated_at": "2026-06-20T14:21:13Z",
+      "mode": "live",
+      "model": "swiss-ai/apertus-70b-instruct",
+      "detection_method": "ai_validated",
+      "raw_model_output": "{\"relevant\": true, \"entity_match\": true, \"signal_candidates\": [{\"signal_type\": \"new_subsidiary\", \"changed_kyc_fields\": [\"subsidiaries\"], \"severity_suggestion\": \"medium\", \"confidence\": 0.8, \"claim\": \"Bitstamp UK Ltd. is a subsidiary of Robinhood Markets, Inc.\", \"reason\": \"The document mentions Bitstamp UK Ltd. as a subsidiary of Robinhood Markets, Inc. in the context of the acquisition of Bitstamp.\", \"verbatim_evidence\": \"Bitstamp UK Ltd., which is registered with the Financial Conduct Authority (FCA) in the UK for the provision of certain cryptoassets activities under the Money Laundering Regulations (Firm Reference Number 978690); Registered address: 5 New Street Square, EC4A 3TW London, United Kingdom; Registration number: 14174243;\", \"effective_date\": \"2025-06-02\"}]}}",
+      "validated_analysis": {
+        "relevant": true,
+        "entity_match": true,
+        "signal_candidates": [
+          {
+            "signal_type": "new_subsidiary",
+            "changed_kyc_fields": [
+              "subsidiaries"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.8,
+            "claim": "Bitstamp UK Ltd. is a subsidiary of Robinhood Markets, Inc.",
+            "reason": "The document mentions Bitstamp UK Ltd. as a subsidiary of Robinhood Markets, Inc. in the context of the acquisition of Bitstamp.",
+            "verbatim_evidence": "Bitstamp UK Ltd., which is registered with the Financial Conduct Authority (FCA) in the UK for the provision of certain cryptoassets activities under the Money Laundering Regulations (Firm Reference Number 978690); Registered address: 5 New Street Square, EC4A 3TW London, United Kingdom; Registration number: 14174243;",
+            "effective_date": "2025-06-02",
+            "effective_date_source": "document_published_at",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "new_subsidiary needs_human_review was not boolean; normalized to true."
+            ]
+          }
+        ],
+        "no_signal_reason": null
+      },
+      "api_diagnostics": null,
+      "validation_errors": [],
+      "validation_warnings": [],
+      "status": "validated"
+    },
+    {
+      "analysis_id": "ai-doc-016",
+      "analysis_version": "ai-evidence-analysis-v1",
+      "document_id": "doc-016",
+      "customer_id": "demo-001",
+      "source_url": "https://blog.bitstamp.net/post/robinhood-completes-acquisition-of-bitstamp/",
+      "source_name": "Bitstamp Legal Footer",
+      "title": "Bitstamp legal entity and licensing disclosures",
+      "published_at": "2025-06-02",
+      "generated_at": "2026-06-20T14:21:13Z",
+      "mode": "live",
+      "model": "swiss-ai/apertus-70b-instruct",
+      "detection_method": "ai_validated",
+      "raw_model_output": "{\"relevant\": true, \"entity_match\": true, \"signal_candidates\": [{\"signal_type\": \"new_subsidiary\", \"changed_kyc_fields\": [\"subsidiaries\"], \"severity_suggestion\": \"medium\", \"confidence\": 0.8, \"claim\": \"Bitstamp UK Ltd. is a subsidiary of Robinhood Markets, Inc.\", \"reason\": \"The document mentions Bitstamp UK Ltd. as a subsidiary of Bitstamp, and Bitstamp is mentioned as being acquired by Robinhood Markets, Inc.\", \"verbatim_evidence\": \"Bitstamp UK Ltd., which is registered with the Financial Conduct Authority (FCA) in the UK for the provision of certain cryptoassets activities under the Money Laundering Regulations (Firm Reference Number 978690); Registered address: 5 New Street Square, EC4A 3TW London, United Kingdom; Registration number: 14174243\", \"effective_date\": \"2025-06-02\"}]}}",
+      "validated_analysis": {
+        "relevant": true,
+        "entity_match": true,
+        "signal_candidates": [
+          {
+            "signal_type": "new_subsidiary",
+            "changed_kyc_fields": [
+              "subsidiaries"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.8,
+            "claim": "Bitstamp UK Ltd. is a subsidiary of Robinhood Markets, Inc.",
+            "reason": "The document mentions Bitstamp UK Ltd. as a subsidiary of Bitstamp, and Bitstamp is mentioned as being acquired by Robinhood Markets, Inc.",
+            "verbatim_evidence": "Bitstamp UK Ltd., which is registered with the Financial Conduct Authority (FCA) in the UK for the provision of certain cryptoassets activities under the Money Laundering Regulations (Firm Reference Number 978690); Registered address: 5 New Street Square, EC4A 3TW London, United Kingdom; Registration number: 14174243",
+            "effective_date": "2025-06-02",
+            "effective_date_source": "document_published_at",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "new_subsidiary needs_human_review was not boolean; normalized to true."
+            ]
+          }
+        ],
+        "no_signal_reason": null
+      },
+      "api_diagnostics": null,
+      "validation_errors": [],
+      "validation_warnings": [],
+      "status": "validated"
+    },
+    {
+      "analysis_id": "ai-doc-017",
+      "analysis_version": "ai-evidence-analysis-v1",
+      "document_id": "doc-017",
+      "customer_id": "demo-004",
+      "source_url": "https://blog.kraken.com/product/xstocks/tokenized-equities-now-available",
+      "source_name": "Kraken Blog",
+      "title": "From Wall Street to your wallet: Tokenized equities now available on Kraken",
+      "published_at": "2025-06-30",
+      "generated_at": "2026-06-20T14:21:13Z",
+      "mode": "live",
+      "model": "swiss-ai/apertus-70b-instruct",
+      "detection_method": "ai_validated",
+      "raw_model_output": "{\"signal_candidates\": [{\"signal_type\": \"new_product\", \"changed_kyc_fields\": [\"known_products\"], \"severity_suggestion\": \"medium\", \"confidence\": 0.8, \"claim\": \"Kraken is now offering tokenized U.S. stocks and ETFs for eligible non-U.S. clients.\", \"reason\": \"The document states that Kraken is beginning a phased rollout of tokenized U.S. stocks and ETFs for eligible non-U.S. clients.\", \"verbatim_evidence\": \"We’re beginning a phased rollout of tokenized U.S. stocks and ETFs – powered by Backed’s xStocks innovation – for eligible non-U.S. clients.\", \"effective_date\": \"2025-06-30\", \"needs_human_review\": true}]}",
+      "validated_analysis": {
+        "relevant": true,
+        "entity_match": true,
+        "signal_candidates": [
+          {
+            "signal_type": "new_product",
+            "changed_kyc_fields": [
+              "known_products"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.8,
+            "claim": "Kraken is now offering tokenized U.S. stocks and ETFs for eligible non-U.S. clients.",
+            "reason": "The document states that Kraken is beginning a phased rollout of tokenized U.S. stocks and ETFs for eligible non-U.S. clients.",
+            "verbatim_evidence": "We’re beginning a phased rollout of tokenized U.S. stocks and ETFs – powered by Backed’s xStocks innovation – for eligible non-U.S. clients.",
+            "effective_date": "2025-06-30",
+            "effective_date_source": "document_published_at",
+            "needs_human_review": true,
+            "validator_warnings": []
+          }
+        ],
+        "no_signal_reason": null
+      },
+      "api_diagnostics": null,
+      "validation_errors": [],
+      "validation_warnings": [
+        "Model omitted relevant; inferred from non-empty signal_candidates.",
+        "Model omitted entity_match; inferred from non-empty signal_candidates."
+      ],
+      "status": "validated"
+    },
+    {
+      "analysis_id": "ai-doc-018",
+      "analysis_version": "ai-evidence-analysis-v1",
+      "document_id": "doc-018",
+      "customer_id": "demo-005",
+      "source_url": "https://investor.circle.com/overview/default.aspx",
+      "source_name": "Circle Investor Relations",
+      "title": "Circle Investor Relations",
+      "published_at": null,
+      "generated_at": "2026-06-20T14:21:13Z",
+      "mode": "live",
+      "model": "swiss-ai/apertus-70b-instruct",
+      "detection_method": "ai_validated",
+      "raw_model_output": "{\"relevant\": true, \"entity_match\": true, \"signal_candidates\": [{\"signal_type\": \"new_product\", \"changed_kyc_fields\": [\"business_area\", \"known_products\"], \"severity_suggestion\": \"medium\", \"confidence\": 0.8, \"claim\": \"Circle is building the world’s largest, most-widely used, stablecoin network, and issues, through its regulated affiliates, USDC and EURC stablecoins.\", \"reason\": \"The document mentions Circle is building a stablecoin network and issuing USDC and EURC stablecoins, which could indicate a new product or expansion of existing products.\", \"verbatim_evidence\": \"Circle is building the world’s largest, most-widely used, stablecoin network, and issues, through its regulated affiliates, USDC and EURC stablecoins.\", \"effective_date\": \"2024-12-31\", \"needs_human_review\": true}], \"no_signal_reason\": \"None\"}}",
+      "validated_analysis": {
+        "relevant": true,
+        "entity_match": true,
+        "signal_candidates": [
+          {
+            "signal_type": "new_product",
+            "changed_kyc_fields": [
+              "business_area",
+              "known_products"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.8,
+            "claim": "Circle is building the world’s largest, most-widely used, stablecoin network, and issues, through its regulated affiliates, USDC and EURC stablecoins.",
+            "reason": "The document mentions Circle is building a stablecoin network and issuing USDC and EURC stablecoins, which could indicate a new product or expansion of existing products.",
+            "verbatim_evidence": "Circle is building the world’s largest, most-widely used, stablecoin network, and issues, through its regulated affiliates, USDC and EURC stablecoins.",
+            "effective_date": null,
+            "effective_date_source": "model_supplied_date_not_in_source_normalized_to_null",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "Apertus effective_date was not present in source text; normalized to null."
+            ]
+          }
+        ],
+        "no_signal_reason": null
+      },
+      "api_diagnostics": null,
+      "validation_errors": [],
+      "validation_warnings": [],
+      "status": "validated"
+    },
+    {
+      "analysis_id": "ai-doc-019",
+      "analysis_version": "ai-evidence-analysis-v1",
+      "document_id": "doc-019",
+      "customer_id": "demo-005",
+      "source_url": "https://www.circle.com/circle-mint",
+      "source_name": "Circle",
+      "title": "Circle Mint",
+      "published_at": null,
+      "generated_at": "2026-06-20T14:21:13Z",
+      "mode": "live",
+      "model": "swiss-ai/apertus-70b-instruct",
+      "detection_method": "ai_validated",
+      "raw_model_output": "{\"relevant\": true, \"entity_match\": true, \"signal_candidates\": [{\"signal_type\": \"new_product\", \"changed_kyc_fields\": [\"known_products\"], \"severity_suggestion\": \"medium\", \"confidence\": 0.8, \"claim\": \"Circle has introduced a new product called Circle Mint.\", \"reason\": \"The document explicitly mentions 'Circle Mint' as a new way for distributors to access and redeem USDC and EURC.\", \"verbatim_evidence\": \"Circle Mint is the fastest and most cost effective way for distributors to access and redeem USDC and EURC.\", \"effective_date\": \"2024-01-01\", \"needs_human_review\": true}], \"no_signal_reason\": \"None\"}",
+      "validated_analysis": {
+        "relevant": true,
+        "entity_match": true,
+        "signal_candidates": [
+          {
+            "signal_type": "new_product",
+            "changed_kyc_fields": [
+              "known_products"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.8,
+            "claim": "Circle has introduced a new product called Circle Mint.",
+            "reason": "The document explicitly mentions 'Circle Mint' as a new way for distributors to access and redeem USDC and EURC.",
+            "verbatim_evidence": "Circle Mint is the fastest and most cost effective way for distributors to access and redeem USDC and EURC.",
+            "effective_date": null,
+            "effective_date_source": "model_supplied_date_not_in_source_normalized_to_null",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "Apertus effective_date was not present in source text; normalized to null."
+            ]
+          }
+        ],
+        "no_signal_reason": null
+      },
+      "api_diagnostics": null,
+      "validation_errors": [],
+      "validation_warnings": [],
+      "status": "validated"
+    },
+    {
+      "analysis_id": "ai-doc-020",
+      "analysis_version": "ai-evidence-analysis-v1",
+      "document_id": "doc-020",
+      "customer_id": "demo-006",
+      "source_url": "https://home.treasury.gov/news/press-releases/jy0701",
+      "source_name": "U.S. Department of the Treasury",
+      "title": "Treasury Sanctions Russia-Based Hydra and Ransomware-Enabling Virtual Currency Exchange Garantex",
+      "published_at": "2022-04-05",
+      "generated_at": "2026-06-20T14:21:13Z",
+      "mode": "live",
+      "model": "swiss-ai/apertus-70b-instruct",
+      "detection_method": "ai_validated",
+      "raw_model_output": "{\"relevant\": true, \"entity_match\": true, \"signal_candidates\": [{\"signal_type\": \"business_activity_change\", \"changed_kyc_fields\": [\"business_area\", \"known_products\"], \"severity_suggestion\": \"medium\", \"confidence\": 0.8, \"claim\": \"Garantex Europe OU is involved in ransomware-enabling activities\", \"reason\": \"The document states that Garantex is a ransomware-enabling virtual currency exchange, which could indicate a change in business activities from just virtual currency exchange to potentially facilitating illegal activities.\", \"verbatim_evidence\": \"Treasury Sanctions Russia-Based Hydra and Ransomware-Enabling Virtual Currency Exchange Garantex\", \"effective_date\": \"2022-04-05\", \"needs_human_review\": true}], \"no_signal_reason\": \"None\"}",
+      "validated_analysis": {
+        "relevant": true,
+        "entity_match": true,
+        "signal_candidates": [
+          {
+            "signal_type": "business_activity_change",
+            "changed_kyc_fields": [
+              "business_area",
+              "known_products"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.8,
+            "claim": "Garantex Europe OU is involved in ransomware-enabling activities",
+            "reason": "The document states that Garantex is a ransomware-enabling virtual currency exchange, which could indicate a change in business activities from just virtual currency exchange to potentially facilitating illegal activities.",
+            "verbatim_evidence": "Treasury Sanctions Russia-Based Hydra and Ransomware-Enabling Virtual Currency Exchange Garantex",
+            "effective_date": "2022-04-05",
+            "effective_date_source": "document_published_at",
+            "needs_human_review": true,
+            "validator_warnings": []
+          }
+        ],
+        "no_signal_reason": null
+      },
+      "api_diagnostics": null,
+      "validation_errors": [],
+      "validation_warnings": [],
+      "status": "validated"
+    },
+    {
+      "analysis_id": "ai-doc-021",
+      "analysis_version": "ai-evidence-analysis-v1",
+      "document_id": "doc-021",
+      "customer_id": "demo-007",
+      "source_url": "https://home.treasury.gov/news/press-releases/jy1441",
+      "source_name": "U.S. Department of the Treasury",
+      "title": "Treasury Announces $508 Million Settlement with British American Tobacco",
+      "published_at": "2023-04-25",
+      "generated_at": "2026-06-20T14:21:13Z",
+      "mode": "live",
+      "model": "swiss-ai/apertus-70b-instruct",
+      "detection_method": "ai_validated",
+      "raw_model_output": "```json\n{\n  \"relevant\": true,\n  \"entity_match\": true,\n  \"signal_candidates\": [\n    {\n      \"signal_type\": \"regulatory_scrutiny\",\n      \"changed_kyc_fields\": [\"risk_rating\"],\n      \"severity_suggestion\": \"medium\",\n      \"confidence\": 0.8,\n      \"claim\": \"British American Tobacco p.l.c. is under regulatory scrutiny for apparent violations of U.S. sanctions on the Democratic People’s Republic of Korea (DPRK) and proliferators of weapons of mass destruction (WMD).\",\n      \"reason\": \"The document mentions a $508 million settlement agreement with the U.S. Department of the Treasury’s Office of Foreign Assets Control (OFAC) to resolve apparent violations of U.S. sanctions on DPRK and WMD proliferators.\",\n      \"verbatim_evidence\": \"Department of the Treasury’s Office of Foreign Assets Control (OFAC) announced a $508 million settlement agreement with London-headquartered British American Tobacco p.l.c. (BAT) to resolve its apparent violations of U.S. sanctions on the Democratic People’s Republic of Korea (DPRK) and proliferators of weapons of mass destruction (WMD).\",\n      \"effective_date\": \"2023-04-25\"\n    },\n    {\n      \"signal_type\": \"risk_rating_review\",\n      \"changed_kyc_fields\": [\"risk_rating\"],\n      \"severity_suggestion\": \"medium\",\n      \"confidence\": 0.7,\n      \"claim\": \"The risk rating of British American Tobacco p.l.c. may need to be reviewed due to the regulatory scrutiny and settlement.\",\n      \"reason\": \"The settlement with OFAC for apparent sanctions violations could indicate a higher risk profile for the company.\",\n      \"verbatim_evidence\": \"This settlement is OFAC’s largest ever with a non-financial institution and reflects the statutory maximum penalty.\",\n      \"effective_date\": \"2023-04-25\"\n    },\n    {\n      \"signal_type\": \"business_activity_change\",\n      \"changed_kyc_fields\": [\"business_area\", \"known_products\"],\n      \"severity_suggestion\": \"low\",\n      \"confidence\": 0.5,\n      \"claim\": \"The business activities of British American Tobacco p.l.c. may be impacted by the regulatory scrutiny and settlement.\",\n      \"reason\": \"The settlement could affect the company's operations and products, especially if there are restrictions or penalties imposed.\",\n      \"verbatim_evidence\": \"Department of the Treasury’s Office of Foreign Assets Control (OFAC) announced a $508 million settlement agreement with London-headquartered British American Tobacco p.l.c. (BAT) to resolve its apparent violations of U.S. sanctions on the Democratic People’s Republic of Korea (DPRK) and proliferators of weapons of mass destruction (WMD).\",\n      \"effective_date\": \"2023-04-25\"\n    },\n    {\n      \"signal_type\": \"jurisdiction_restriction\",\n      \"changed_kyc_fields\": [\"known_jurisdictions\", \"risk_rating\"],\n      \"severity_suggestion\": \"medium\",\n      \"confidence\": 0.6,\n      \"claim\": \"The known jurisdictions and risk rating of British American Tobacco p.l.c. may need to be updated due to the regulatory scrutiny and settlement.\",\n      \"reason\": \"The settlement could lead to restrictions on operations in certain jurisdictions or a higher risk rating due to the sanctions violations.\",\n      \"verbatim_evidence\": \"Department of the Treasury’s Office of Foreign Assets Control (OFAC) announced a $508 million settlement agreement with London-headquartered British American Tobacco p.l.c. (BAT) to resolve its apparent violations of U.S. sanctions on the Democratic People’s Republic of Korea (DPRK) and proliferators of weapons of mass destruction (WMD).\",\n      \"effective_date\": \"2023-04-25\"\n    }\n  ],\n  \"no_signal_reason\": \"required when signal_candidates is empty\"\n}\n```",
+      "validated_analysis": {
+        "relevant": true,
+        "entity_match": true,
+        "signal_candidates": [
+          {
+            "signal_type": "regulatory_scrutiny",
+            "changed_kyc_fields": [
+              "risk_rating"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.8,
+            "claim": "British American Tobacco p.l.c. is under regulatory scrutiny for apparent violations of U.S. sanctions on the Democratic People’s Republic of Korea (DPRK) and proliferators of weapons of mass destruction (WMD).",
+            "reason": "The document mentions a $508 million settlement agreement with the U.S. Department of the Treasury’s Office of Foreign Assets Control (OFAC) to resolve apparent violations of U.S. sanctions on DPRK and WMD proliferators.",
+            "verbatim_evidence": "Department of the Treasury’s Office of Foreign Assets Control (OFAC) announced a $508 million settlement agreement with London-headquartered British American Tobacco p.l.c. (BAT) to resolve its apparent violations of U.S. sanctions on the Democratic People’s Republic of Korea (DPRK) and proliferators of weapons of mass destruction (WMD).",
+            "effective_date": "2023-04-25",
+            "effective_date_source": "document_published_at",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "regulatory_scrutiny needs_human_review was not boolean; normalized to true."
+            ]
+          },
+          {
+            "signal_type": "risk_rating_review",
+            "changed_kyc_fields": [
+              "risk_rating"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.7,
+            "claim": "The risk rating of British American Tobacco p.l.c. may need to be reviewed due to the regulatory scrutiny and settlement.",
+            "reason": "The settlement with OFAC for apparent sanctions violations could indicate a higher risk profile for the company.",
+            "verbatim_evidence": "This settlement is OFAC’s largest ever with a non-financial institution and reflects the statutory maximum penalty.",
+            "effective_date": "2023-04-25",
+            "effective_date_source": "document_published_at",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "risk_rating_review needs_human_review was not boolean; normalized to true."
+            ]
+          },
+          {
+            "signal_type": "business_activity_change",
+            "changed_kyc_fields": [
+              "business_area",
+              "known_products"
+            ],
+            "severity_suggestion": "low",
+            "confidence": 0.5,
+            "claim": "The business activities of British American Tobacco p.l.c. may be impacted by the regulatory scrutiny and settlement.",
+            "reason": "The settlement could affect the company's operations and products, especially if there are restrictions or penalties imposed.",
+            "verbatim_evidence": "Department of the Treasury’s Office of Foreign Assets Control (OFAC) announced a $508 million settlement agreement with London-headquartered British American Tobacco p.l.c. (BAT) to resolve its apparent violations of U.S. sanctions on the Democratic People’s Republic of Korea (DPRK) and proliferators of weapons of mass destruction (WMD).",
+            "effective_date": "2023-04-25",
+            "effective_date_source": "document_published_at",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "business_activity_change needs_human_review was not boolean; normalized to true."
+            ]
+          },
+          {
+            "signal_type": "jurisdiction_restriction",
+            "changed_kyc_fields": [
+              "known_jurisdictions",
+              "risk_rating"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.6,
+            "claim": "The known jurisdictions and risk rating of British American Tobacco p.l.c. may need to be updated due to the regulatory scrutiny and settlement.",
+            "reason": "The settlement could lead to restrictions on operations in certain jurisdictions or a higher risk rating due to the sanctions violations.",
+            "verbatim_evidence": "Department of the Treasury’s Office of Foreign Assets Control (OFAC) announced a $508 million settlement agreement with London-headquartered British American Tobacco p.l.c. (BAT) to resolve its apparent violations of U.S. sanctions on the Democratic People’s Republic of Korea (DPRK) and proliferators of weapons of mass destruction (WMD).",
+            "effective_date": "2023-04-25",
+            "effective_date_source": "document_published_at",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "jurisdiction_restriction needs_human_review was not boolean; normalized to true."
+            ]
+          }
+        ],
+        "no_signal_reason": null
+      },
+      "api_diagnostics": null,
+      "validation_errors": [],
+      "validation_warnings": [],
+      "status": "validated"
+    },
+    {
+      "analysis_id": "ai-doc-022",
+      "analysis_version": "ai-evidence-analysis-v1",
+      "document_id": "doc-022",
+      "customer_id": "demo-008",
+      "source_url": "https://rdap.cctld.au/rdap/domain/coinbase.au",
+      "source_name": ".au RDAP / auDA",
+      "title": "RDAP record for coinbase.au",
+      "published_at": "2026-02-09",
+      "generated_at": "2026-06-20T14:21:13Z",
+      "mode": "live",
+      "model": "swiss-ai/apertus-70b-instruct",
+      "detection_method": "ai_validated",
+      "raw_model_output": "```json\n{\n  \"relevant\": true,\n  \"entity_match\": true,\n  \"signal_candidates\": [\n    {\n      \"signal_type\": \"new_jurisdiction\",\n      \"changed_kyc_fields\": [\"known_jurisdictions\"],\n      \"severity_suggestion\": \"medium\",\n      \"confidence\": 0.8,\n      \"claim\": \"Coinbase, Inc. has registered a domain in Australia (coinbase.au) as of 2026-02-09.\",\n      \"reason\": \"The RDAP record for coinbase.au lists the registrant name as Coinbase, Inc. and the eligibility name as COINBASE, with the inferred country-code jurisdiction as Australia.\",\n      \"verbatim_evidence\": \"RDAP record for coinbase.au lists registrant name Coinbase, Inc., eligibility type Trademark Owner, eligibility name COINBASE, eligibility id TM 1647712, and last changed 2026-02-09T01:44:15.302Z. RDAP record for coinbase.au lists registrant name Coinbase, Inc.; eligibility type Trademark Owner; eligibility name COINBASE; eligibility id TM 1647712; inferred country-code jurisdiction Australia; nameservers ns1.markmonitor.com, ns2.markmonitor.com, ns3.markmonitor.com, ns4.markmonitor.com, ns5.markmonitor.com, ns6.markmonitor.com, ns7.markmonitor.com; last changed 2026-02-09T01:44:15.302Z; RDAP database updated 2026-06-20T05:31:12.765Z.\",\n      \"effective_date\": \"2026-02-09\"\n    },\n    {\n      \"signal_type\": \"domain_registration\",\n      \"changed_kyc_fields\": [\"websites\"],\n      \"severity_suggestion\": \"medium\",\n      \"confidence\": 0.8,\n      \"claim\": \"Coinbase, Inc. has registered a new domain (coinbase.au) as of 2026-02-09.\",\n      \"reason\": \"The RDAP record for coinbase.au lists the registrant name as Coinbase, Inc. and the last changed date as 2026-02-09.\",\n      \"verbatim_evidence\": \"RDAP record for coinbase.au lists registrant name Coinbase, Inc., eligibility type Trademark Owner, eligibility name COINBASE, eligibility id TM 1647712, and last changed 2026-02-09T01:44:15.302Z.\",\n      \"effective_date\": \"2026-02-09\"\n    },\n    {\n      \"signal_type\": \"new_jurisdiction\",\n      \"changed_kyc_fields\": [\"known_jurisdictions\"],\n      \"severity_suggestion\": \"medium\",\n      \"confidence\": 0.8,\n      \"claim\": \"Coinbase, Inc. has expanded its operations to Australia as of 2026-02-09.\",\n      \"reason\": \"The RDAP record for coinbase.au lists the inferred country-code jurisdiction as Australia.\",\n      \"verbatim_evidence\": \"RDAP record for coinbase.au lists registrant name Coinbase, Inc.; eligibility type Trademark Owner; eligibility name COINBASE; eligibility id TM 1647712; inferred country-code jurisdiction Australia; nameservers ns1.markmonitor.com, ns2.markmonitor.com, ns3.markmonitor.com, ns4.markmonitor.com, ns5.markmonitor.com, ns6.markmonitor.com, ns7.markmonitor.com; last changed 2026-02-09T01:44:15.302Z; RDAP database updated 2026-06-20T05:31:12.765Z.\",\n      \"effective_date\": \"2026-02-09\"\n    },\n    {\n      \"signal_type\": \"risk_rating_review\",\n      \"changed_kyc_fields\": [\"risk_rating\"],\n      \"severity_suggestion\": \"medium\",\n      \"confidence\": 0.6,\n      \"claim\": \"The registration of a new domain in Australia (coinbase.au) may indicate a change in risk profile for Coinbase, Inc.\",\n      \"reason\": \"The registration of a new domain in a new jurisdiction may indicate a change in operational risk or regulatory exposure.\",\n      \"verbatim_evidence\": \"RDAP record for coinbase.au lists registrant name Coinbase, Inc.; eligibility type Trademark Owner; eligibility name COINBASE; eligibility id TM 1647712; inferred country-code jurisdiction Australia; nameservers ns1.markmonitor.com, ns2.markmonitor.com, ns3.markmonitor.com, ns4.markmonitor.com, ns5.markmonitor.com, ns6.markmonitor.com, ns7.markmonitor.com; last changed 2026-02-09T01:44:15.302Z; RDAP database updated 2026-06-20T05:31:12.765Z.\",\n      \"effective_date\": \"2026-02-09\"\n    }\n  ],\n  \"no_signal_reason\": \"None\"\n}\n```",
+      "validated_analysis": {
+        "relevant": true,
+        "entity_match": true,
+        "signal_candidates": [
+          {
+            "signal_type": "new_jurisdiction",
+            "changed_kyc_fields": [
+              "known_jurisdictions"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.8,
+            "claim": "Coinbase, Inc. has registered a domain in Australia (coinbase.au) as of 2026-02-09.",
+            "reason": "The RDAP record for coinbase.au lists the registrant name as Coinbase, Inc. and the eligibility name as COINBASE, with the inferred country-code jurisdiction as Australia.",
+            "verbatim_evidence": "RDAP for coinbase.au lists registrant name Coinbase, Inc., eligibility type Trademark Owner, eligibility name COINBASE, eligibility id TM 1647712, and last changed 2026-02-09T01:44:15.302Z.",
+            "effective_date": "2026-02-09",
+            "effective_date_source": "document_published_at",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "Apertus evidence quote was not exact; replaced with collected source excerpt.",
+              "new_jurisdiction needs_human_review was not boolean; normalized to true."
+            ]
+          },
+          {
+            "signal_type": "domain_registration",
+            "changed_kyc_fields": [
+              "websites"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.8,
+            "claim": "Coinbase, Inc. has registered a new domain (coinbase.au) as of 2026-02-09.",
+            "reason": "The RDAP record for coinbase.au lists the registrant name as Coinbase, Inc. and the last changed date as 2026-02-09.",
+            "verbatim_evidence": "RDAP for coinbase.au lists registrant name Coinbase, Inc., eligibility type Trademark Owner, eligibility name COINBASE, eligibility id TM 1647712, and last changed 2026-02-09T01:44:15.302Z.",
+            "effective_date": "2026-02-09",
+            "effective_date_source": "document_published_at",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "Apertus evidence quote was not exact; replaced with collected source excerpt.",
+              "domain_registration needs_human_review was not boolean; normalized to true."
+            ]
+          },
+          {
+            "signal_type": "new_jurisdiction",
+            "changed_kyc_fields": [
+              "known_jurisdictions"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.8,
+            "claim": "Coinbase, Inc. has expanded its operations to Australia as of 2026-02-09.",
+            "reason": "The RDAP record for coinbase.au lists the inferred country-code jurisdiction as Australia.",
+            "verbatim_evidence": "RDAP record for coinbase.au lists registrant name Coinbase, Inc.; eligibility type Trademark Owner; eligibility name COINBASE; eligibility id TM 1647712; inferred country-code jurisdiction Australia; nameservers ns1.markmonitor.com, ns2.markmonitor.com, ns3.markmonitor.com, ns4.markmonitor.com, ns5.markmonitor.com, ns6.markmonitor.com, ns7.markmonitor.com; last changed 2026-02-09T01:44:15.302Z; RDAP database updated 2026-06-20T05:31:12.765Z.",
+            "effective_date": "2026-02-09",
+            "effective_date_source": "document_published_at",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "new_jurisdiction needs_human_review was not boolean; normalized to true."
+            ]
+          },
+          {
+            "signal_type": "risk_rating_review",
+            "changed_kyc_fields": [
+              "risk_rating"
+            ],
+            "severity_suggestion": "medium",
+            "confidence": 0.6,
+            "claim": "The registration of a new domain in Australia (coinbase.au) may indicate a change in risk profile for Coinbase, Inc.",
+            "reason": "The registration of a new domain in a new jurisdiction may indicate a change in operational risk or regulatory exposure.",
+            "verbatim_evidence": "RDAP record for coinbase.au lists registrant name Coinbase, Inc.; eligibility type Trademark Owner; eligibility name COINBASE; eligibility id TM 1647712; inferred country-code jurisdiction Australia; nameservers ns1.markmonitor.com, ns2.markmonitor.com, ns3.markmonitor.com, ns4.markmonitor.com, ns5.markmonitor.com, ns6.markmonitor.com, ns7.markmonitor.com; last changed 2026-02-09T01:44:15.302Z; RDAP database updated 2026-06-20T05:31:12.765Z.",
+            "effective_date": "2026-02-09",
+            "effective_date_source": "document_published_at",
+            "needs_human_review": true,
+            "validator_warnings": [
+              "risk_rating_review needs_human_review was not boolean; normalized to true."
+            ]
+          }
+        ],
+        "no_signal_reason": null
+      },
+      "api_diagnostics": null,
+      "validation_errors": [],
+      "validation_warnings": [],
+      "status": "validated"
+    }
+  ]
+}

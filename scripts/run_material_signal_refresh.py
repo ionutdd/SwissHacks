@@ -91,6 +91,7 @@ MATERIAL_KEYWORDS = {
 
 MATERIAL_THRESHOLD = 100
 DATE_ONLY_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+DEFAULT_NOTIFICATION_CUSTOMER_IDS = ("demo-003", "demo-004", "demo-008", "demo-009")
 
 
 def load_json(path: Path) -> Any:
@@ -274,9 +275,12 @@ def alert_in_refresh_window(
     cutoff: datetime,
     now: datetime,
     include_undated_collected: bool,
+    include_collected_evidence: bool = False,
 ) -> bool:
     for evidence in alert.get("evidence") or []:
         if value_in_window(evidence.get("published_at"), cutoff, now):
+            return True
+        if include_collected_evidence and value_in_window(evidence.get("collected_at"), cutoff, now):
             return True
         if include_undated_collected and not evidence.get("published_at") and value_in_window(evidence.get("collected_at"), cutoff, now):
             return True
@@ -287,7 +291,10 @@ def refresh_window_reason(
     alert: dict[str, Any],
     lookback_hours: int,
     include_undated_collected: bool,
+    include_collected_evidence: bool = False,
 ) -> str:
+    if include_collected_evidence:
+        return f"No evidence was published or collected inside the {lookback_hours} hour notification window."
     if not any(evidence.get("published_at") for evidence in alert.get("evidence") or []):
         if include_undated_collected:
             return f"No dated or collected evidence fell inside the {lookback_hours} hour refresh window."
@@ -301,12 +308,14 @@ def classify_alerts(
     cutoff: datetime,
     lookback_hours: int,
     include_undated_collected: bool,
+    include_collected_evidence: bool,
+    notification_customer_ids: set[str] | None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     scored: list[dict[str, Any]] = []
     for alert in alerts:
         score, reasons = material_score(alert, now)
         evidence = primary_evidence(alert)
-        in_window = alert_in_refresh_window(alert, cutoff, now, include_undated_collected)
+        in_window = alert_in_refresh_window(alert, cutoff, now, include_undated_collected, include_collected_evidence)
         newest_published_at = newest_alert_datetime(alert)
         enriched = {
             **alert,
@@ -336,8 +345,12 @@ def classify_alerts(
         category = alert.get("category")
         signal_type = alert.get("signal_type")
 
+        if notification_customer_ids is not None and alert.get("customer_id") not in notification_customer_ids:
+            suppression_reasons.append("Customer is outside the TLDR notification watchlist.")
         if not alert.get("inside_refresh_window"):
-            suppression_reasons.append(refresh_window_reason(alert, lookback_hours, include_undated_collected))
+            suppression_reasons.append(
+                refresh_window_reason(alert, lookback_hours, include_undated_collected, include_collected_evidence)
+            )
         if not has_source_url(alert):
             suppression_reasons.append("No source URL is attached.")
         if confidence < 0.70 and severity not in {"critical", "high"}:
@@ -352,6 +365,7 @@ def classify_alerts(
             signal_type in {"commercial_opportunity", "new_product", "public_listing"}
             and category == "opportunity"
             and alert["material_score"] < 115
+            and alert.get("detection_method") != "ai_validated"
         ):
             suppression_reasons.append("Generic opportunity or product update is below material threshold.")
 
@@ -392,13 +406,22 @@ def summary_payload(
     cutoff_at: str,
     lookback_hours: int,
     include_undated_collected: bool,
+    include_collected_evidence: bool,
+    notification_customer_ids: set[str] | None,
 ) -> dict[str, Any]:
     window_alerts = [alert for alert in [*material, *suppressed] if alert.get("inside_refresh_window")]
+    if include_collected_evidence:
+        freshness_policy = "published_at_or_collected_at"
+    elif include_undated_collected:
+        freshness_policy = "published_at_or_undated_collected_at"
+    else:
+        freshness_policy = "published_at_only"
     return {
         "generated_at": generated_at,
         "cutoff_at": cutoff_at,
         "lookback_hours": lookback_hours,
-        "freshness_policy": "published_at_only" if not include_undated_collected else "published_at_or_undated_collected_at",
+        "freshness_policy": freshness_policy,
+        "notification_customer_ids": sorted(notification_customer_ids) if notification_customer_ids else "all",
         "total_alerts": len(alerts),
         "alerts_inside_refresh_window": len(window_alerts),
         "material_alerts": len(material),
@@ -420,6 +443,7 @@ def report_lines(summary: dict[str, Any], material: list[dict[str, Any]], suppre
         f"- Generated at: {summary['generated_at']}",
         f"- Refresh window: last {summary['lookback_hours']} hour(s), cutoff {summary['cutoff_at']}",
         f"- Freshness policy: {summary['freshness_policy']}",
+        f"- Notification customer scope: {summary['notification_customer_ids']}",
         f"- Total alerts reviewed: {summary['total_alerts']}",
         f"- Alerts inside refresh window: {summary['alerts_inside_refresh_window']}",
         f"- Material alerts: {summary['material_alerts']}",
@@ -461,7 +485,15 @@ def build_material_outputs(args: argparse.Namespace) -> dict[str, Any]:
     generated_at = now.replace(microsecond=0).isoformat().replace("+00:00", "Z")
     cutoff_at = cutoff.replace(microsecond=0).isoformat().replace("+00:00", "Z")
     alerts = load_json(Path(args.alerts))
-    material, suppressed = classify_alerts(alerts, now, cutoff, args.lookback_hours, args.include_undated_collected)
+    material, suppressed = classify_alerts(
+        alerts,
+        now,
+        cutoff,
+        args.lookback_hours,
+        args.include_undated_collected,
+        args.include_collected_evidence,
+        args.notification_customer_ids,
+    )
     summary = summary_payload(
         alerts,
         material,
@@ -470,6 +502,8 @@ def build_material_outputs(args: argparse.Namespace) -> dict[str, Any]:
         cutoff_at,
         args.lookback_hours,
         args.include_undated_collected,
+        args.include_collected_evidence,
+        args.notification_customer_ids,
     )
 
     output_dir = Path(args.output_dir)
@@ -497,10 +531,42 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--include-undated-collected",
         action="store_true",
-        help="Allow undated evidence collected during the window. Off by default to keep the TLDR feed strict.",
+        default=False,
+        help="Allow undated evidence collected during the window.",
+    )
+    parser.add_argument(
+        "--include-collected-evidence",
+        action="store_true",
+        default=False,
+        help="Allow any evidence collected during the notification window, even if the source publication date is old.",
+    )
+    parser.add_argument(
+        "--strict-published-only",
+        action="store_true",
+        help="Use only published_at for the notification window.",
     )
     parser.add_argument("--skip-collection", action="store_true")
     parser.add_argument("--skip-extraction", action="store_true")
+    parser.add_argument(
+        "--notification-customer-ids",
+        default=",".join(DEFAULT_NOTIFICATION_CUSTOMER_IDS),
+        help=(
+            "Comma-separated customer IDs eligible for the TLDR notification feed. "
+            "Defaults to Coinbase, GameStop, Kraken, and Alphabet demo entities."
+        ),
+    )
+    parser.add_argument(
+        "--all-notification-customers",
+        action="store_true",
+        help="Allow every customer to appear in the TLDR notification feed.",
+    )
+    parser.add_argument(
+        "--ai-mode",
+        choices=["off", "mock", "live"],
+        default="off",
+        help="Run Apertus evidence analysis before extraction. off is deterministic-only; mock makes no API calls.",
+    )
+    parser.add_argument("--ai-analysis-output", default="data_03/ai_evidence_analysis.json")
     return parser.parse_args()
 
 
@@ -508,6 +574,17 @@ def main() -> int:
     args = parse_args()
     if args.lookback_hours <= 0:
         raise ValueError("--lookback-hours must be greater than zero")
+    if args.all_notification_customers:
+        args.notification_customer_ids = None
+    else:
+        args.notification_customer_ids = {
+            customer_id.strip()
+            for customer_id in str(args.notification_customer_ids).split(",")
+            if customer_id.strip()
+        }
+    if args.strict_published_only:
+        args.include_undated_collected = False
+        args.include_collected_evidence = False
     if not args.skip_collection:
         run_command(
             [
@@ -525,18 +602,38 @@ def main() -> int:
             "evidence collection",
         )
 
-    if not args.skip_extraction:
+    if not args.skip_extraction and args.ai_mode != "off":
         run_command(
             [
                 sys.executable,
-                "scripts/extract_signals.py",
+                "scripts/ai_evidence_analysis.py",
                 "--baselines",
                 args.baseline,
                 "--documents",
                 args.documents,
-                "--output-dir",
-                args.data03_dir,
+                "--output",
+                args.ai_analysis_output,
+                "--mode",
+                args.ai_mode,
             ],
+            "AI evidence analysis",
+        )
+
+    if not args.skip_extraction:
+        extraction_command = [
+            sys.executable,
+            "scripts/extract_signals.py",
+            "--baselines",
+            args.baseline,
+            "--documents",
+            args.documents,
+            "--output-dir",
+            args.data03_dir,
+        ]
+        if args.ai_mode != "off":
+            extraction_command.extend(["--ai-analysis", args.ai_analysis_output])
+        run_command(
+            extraction_command,
             "signal extraction",
         )
 

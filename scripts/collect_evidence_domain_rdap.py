@@ -271,6 +271,7 @@ def collect_rdap_sources(
     baselines: list[dict[str, Any]],
     collected_at: str,
     start_number: int = 1,
+    cache_dir: Path | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     baselines_by_id = {entity["customer_id"]: entity for entity in baselines}
     documents: list[dict[str, Any]] = []
@@ -293,6 +294,13 @@ def collect_rdap_sources(
         try:
             data = fetch_rdap(source["url"])
         except (HTTPError, URLError, TimeoutError, OSError, json.JSONDecodeError) as exc:
+            cached = cached_document_for_source(source, cache_dir, start_number + len(documents), collected_at)
+            if cached:
+                document, cache_trace = cached
+                cache_trace["live_fetch_error"] = f"{type(exc).__name__}: {exc}"
+                documents.append(document)
+                traces.append(cache_trace)
+                continue
             traces.append(
                 {
                     "source_id": source.get("source_id"),
@@ -330,6 +338,57 @@ def collect_rdap_sources(
         traces.append(trace)
 
     return documents, traces
+
+
+def cached_document_for_source(
+    source: dict[str, Any],
+    cache_dir: Path | None,
+    document_number: int,
+    collected_at: str,
+) -> tuple[dict[str, Any], dict[str, Any]] | None:
+    if cache_dir is None:
+        return None
+
+    cache_path = cache_dir / "pipeline_runs" / "domain_rdap_documents.json"
+    if not cache_path.exists():
+        return None
+
+    try:
+        cached_documents = load_json(cache_path)
+    except (OSError, json.JSONDecodeError):
+        return None
+
+    domain = source.get("domain", "").lower()
+    for cached in cached_documents:
+        haystack = " ".join(
+            str(cached.get(key) or "")
+            for key in ("source_url", "title", "raw_text", "evidence_excerpt")
+        ).lower()
+        if cached.get("customer_id") != source.get("customer_id"):
+            continue
+        if domain and domain not in haystack:
+            continue
+
+        document = {
+            **cached,
+            "document_id": f"doc-{document_number:03d}",
+            "collected_at": collected_at,
+            "limitations": (
+                f"{cached.get('limitations') or ''} Cached RDAP fallback used because live RDAP fetch was rate-limited or unavailable."
+            ).strip(),
+        }
+        trace = {
+            "source_id": source.get("source_id"),
+            "document_id": document["document_id"],
+            "url": document.get("source_url") or source.get("url"),
+            "status": "ok_cached_fallback",
+            "connector": PIPELINE_NAME,
+            "domain": domain,
+            "reason": "Live RDAP fetch failed; reused cached RDAP document from prior successful collection.",
+        }
+        return document, trace
+
+    return None
 
 
 def next_document_number(documents: list[dict[str, Any]]) -> int:
@@ -396,7 +455,13 @@ def run_pipeline(
         ]
         start_number = next_document_number(existing_documents)
 
-    documents, collect_traces = collect_rdap_sources(sources, baselines, timestamp, start_number=start_number)
+    documents, collect_traces = collect_rdap_sources(
+        sources,
+        baselines,
+        timestamp,
+        start_number=start_number,
+        cache_dir=output_path,
+    )
     result = PipelineResult(PIPELINE_NAME, documents, discovery_traces + collect_traces, len(sources), len(sources))
     if write_outputs:
         write_pipeline_outputs(output_path, PIPELINE_NAME, result)

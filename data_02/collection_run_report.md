@@ -1,6 +1,6 @@
 # Collection Run Report
 
-- Generated at: 2026-06-20T09:08:36Z
+- Generated at: 2026-06-20T14:19:54Z
 - Output documents: 22
 - Failed fetches: 1
 - Skipped low-signal candidates: 8
@@ -17,7 +17,7 @@ The run used split collector scripts. Each pipeline discovered candidate sources
 ## Skipped Candidates
 
 - `None`: News API query unavailable; using configured fallbacks. HTTPError: HTTP Error 429: Too Many Requests
-- `None`: News API query unavailable; using configured fallbacks. JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+- `None`: News API query unavailable; using configured fallbacks. HTTPError: HTTP Error 429: Too Many Requests
 - `None`: News API query unavailable; using configured fallbacks. HTTPError: HTTP Error 429: Too Many Requests
 - `None`: News API query unavailable; using configured fallbacks. HTTPError: HTTP Error 429: Too Many Requests
 - `None`: News API query unavailable; using configured fallbacks. HTTPError: HTTP Error 429: Too Many Requests

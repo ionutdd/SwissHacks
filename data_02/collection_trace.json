@@ -60,7 +60,7 @@
     "status": "skipped",
     "discovered_sources": 0,
     "query": "Polymarket QCEX acquisition return US regulated",
-    "reason": "News API query unavailable; using configured fallbacks. JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+    "reason": "News API query unavailable; using configured fallbacks. HTTPError: HTTP Error 429: Too Many Requests"
   },
   {
     "stage": "discovery",
@@ -244,7 +244,7 @@
     "entity_match_score": 36,
     "retrieval_score": 46,
     "source_term_score": 12,
-    "clean_text_chars": 15581
+    "clean_text_chars": 15425
   },
   {
     "source_id": "news-demo-002-3",
@@ -255,7 +255,7 @@
     "entity_match_score": 18,
     "retrieval_score": 43,
     "source_term_score": 12,
-    "clean_text_chars": 8434
+    "clean_text_chars": 8457
   },
   {
     "source_id": "news-demo-009-1",
@@ -291,7 +291,7 @@
     "retrieval_score": 82,
     "source_term_score": 23,
     "clean_text_chars": 15441,
-    "page_hash": "7df29bb93f738cefa78ae992b9c439dedb99c547c578f1c34cce4af70d98230e",
+    "page_hash": "61671629982af1e8b642afbdfbd6e2aeff38d56de5ed55bb00efa282d30f2aaf",
     "page_changed": false
   },
   {
@@ -356,7 +356,7 @@
     "entity_match_score": 65,
     "retrieval_score": 119,
     "source_term_score": 34,
-    "clean_text_chars": 7133
+    "clean_text_chars": 7247
   },
   {
     "source_id": "src-013-circle-investor-relations",
@@ -406,16 +406,10 @@
     "source_id": "domain-rdap-demo-008-1",
     "document_id": "doc-022",
     "url": "https://rdap.cctld.au/rdap/domain/coinbase.au",
-    "status": "ok",
+    "status": "ok_cached_fallback",
     "connector": "domain_rdap",
     "domain": "coinbase.au",
-    "jurisdiction": "Australia",
-    "matched_identity_fields": [
-      "registrant name",
-      "eligibility name"
-    ],
-    "last_changed": "2026-02-09T01:44:15.302Z",
-    "registration_date_redacted": true,
-    "nameserver_count": 7
+    "reason": "Live RDAP fetch failed; reused cached RDAP document from prior successful collection.",
+    "live_fetch_error": "HTTPError: HTTP Error 429: Too Many Requests"
   }
 ]

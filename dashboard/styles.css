@@ -880,6 +880,11 @@ textarea {
   background: #f3f9fd;
 }
 
+.detection-box {
+  border-color: #d0d7de;
+  background: #fbfcfc;
+}
+
 .layer2-box {
   border-color: #b8e8d5;
   background: #f5fcf9;

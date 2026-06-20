@@ -455,7 +455,7 @@
     "source_id": "page-diff-demo-005-2",
     "customer_id": "demo-005",
     "connector": "page_diff_watch",
-    "page_hash": "7df29bb93f738cefa78ae992b9c439dedb99c547c578f1c34cce4af70d98230e",
+    "page_hash": "61671629982af1e8b642afbdfbd6e2aeff38d56de5ed55bb00efa282d30f2aaf",
     "page_changed": false
   },
   {
@@ -778,7 +778,7 @@
     "customer_id": "demo-008",
     "connector": "domain_rdap",
     "domain": "coinbase.au",
-    "url": "https://rdap.org/domain/coinbase.au",
+    "url": "https://rdap.cctld.au/rdap/domain/coinbase.au",
     "jurisdiction": "Australia",
     "source_type": "domain_rdap",
     "source_name": ".au RDAP / auDA",

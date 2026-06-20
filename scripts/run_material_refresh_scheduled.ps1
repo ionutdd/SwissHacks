@@ -1,5 +1,7 @@
 param(
-  [int]$LookbackHours = 24
+  [int]$LookbackHours = 24,
+  [ValidateSet("off", "mock", "live")]
+  [string]$AiMode = "live"
 )
 
 $ErrorActionPreference = "Stop"
@@ -21,9 +23,9 @@ function Write-RefreshLog {
 
 $startedAt = Get-Date -Format "yyyy-MM-dd HH:mm:ss K"
 Write-RefreshLog ""
-Write-RefreshLog "[$startedAt] Starting SignalWatch material refresh. LookbackHours=$LookbackHours"
+Write-RefreshLog "[$startedAt] Starting SignalWatch material refresh. LookbackHours=$LookbackHours AiMode=$AiMode"
 
-& python "scripts\run_material_signal_refresh.py" --lookback-hours $LookbackHours *>&1 | ForEach-Object {
+& python "scripts\run_material_signal_refresh.py" --lookback-hours $LookbackHours --ai-mode $AiMode *>&1 | ForEach-Object {
   $line = $_.ToString()
   Write-Output $line
   Write-RefreshLog $line

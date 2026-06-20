@@ -3,18 +3,20 @@
 ## Run Summary
 
 - Documents processed: 22
-- Facts generated: 59
-- Alerts generated: 48
-- Risk alerts: 9
-- Opportunity alerts: 11
-- Ownership/control alerts: 3
-- Mixed alerts: 25
+- Facts generated: 71
+- Alerts generated: 63
+- AI-validated facts: 37
+- Rule-fallback facts: 34
+- Risk alerts: 12
+- Opportunity alerts: 15
+- Ownership/control alerts: 4
+- Mixed alerts: 32
 
 ## Severity Counts
 
 - critical: 0
-- high: 18
-- medium: 30
+- high: 21
+- medium: 42
 - low: 0
 
 ## Top Demo Alerts
@@ -27,7 +29,7 @@
 
 - Low-confidence facts skipped: 0
 - Pre-baseline context facts not alerted: 2
-- Duplicate facts clustered into shared alerts: 9
+- Duplicate facts clustered into shared alerts: 6
 
 ## Notes For Teammate 4
 
