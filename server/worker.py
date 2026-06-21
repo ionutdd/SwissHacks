@@ -77,7 +77,7 @@ def materialize_pipeline_inputs(documents: DocumentStore, workspace: Path) -> di
         "ai_analysis": workspace / "signals" / "ai_evidence_analysis.json",
     }
     write_json(paths["baseline"], documents.collection("customers"))
-    write_json(paths["catalog"], documents.collection("source_catalog"))
+    write_json(paths["catalog"], documents.document("source_catalog") or {})
     write_json(paths["documents"], documents.collection("evidence_documents"))
     page_watch_state = documents.document("page_watch_state")
     if page_watch_state:
@@ -167,12 +167,13 @@ def run_retrieval_if_needed(
                 import_pipeline_outputs(documents, paths)
         log_dir = store.database_path.parent / "jobs" / job_id
         log_dir.mkdir(parents=True, exist_ok=True)
-        (log_dir / "pipeline.log").write_text(
+        log_file = log_dir / "pipeline.log"
+        log_file.write_text(
             completed.stdout + ("\nSTDERR\n" + completed.stderr if completed.stderr else ""),
             encoding="utf-8",
         )
         if completed.returncode:
-            raise RuntimeError(f"Evidence pipeline failed with exit code {completed.returncode}.")
+            raise RuntimeError(f"Evidence pipeline failed with exit code {completed.returncode}. See explicit log file with extra details at: {log_file.absolute()}")
         completed_at = utc_now()
         store.set_metadata("last_retrieval_at", completed_at)
         return {"retrieval": "completed", "last_retrieval_at": completed_at}

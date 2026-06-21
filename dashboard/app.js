@@ -298,7 +298,6 @@
       "loginStatus",
       "app",
       "dataHealth",
-      "relationshipManagerSelect",
       "openPreferences",
       "authenticatedUserLabel",
       "logoutButton",
@@ -492,9 +491,6 @@
 
     els.copyBrief.addEventListener("click", copyBrief);
     els.printBrief.addEventListener("click", () => window.print());
-    els.relationshipManagerSelect.addEventListener("change", () => {
-      loadRelationshipManager(els.relationshipManagerSelect.value);
-    });
     els.openPreferences.addEventListener("click", openPreferences);
     els.closePreferences.addEventListener("click", () => els.preferencesDialog.close());
     els.cancelPreferences.addEventListener("click", () => els.preferencesDialog.close());
@@ -574,7 +570,6 @@
       }
       applyBootstrap(bootstrap);
       seedSelection();
-      renderRelationshipManagerSelect();
       restoreColumnSizes();
       showApp();
       render();
@@ -601,25 +596,18 @@
   }
 
   function renderRelationshipManagerSelect() {
-    els.relationshipManagerSelect.innerHTML = state.relationshipManagers.map((manager) => {
-      return `<option value="${escapeAttr(manager.id)}">${escapeHtml(manager.name)}</option>`;
-    }).join("");
-    els.relationshipManagerSelect.value = currentRmId();
+    // RM select removed per request
   }
 
   async function loadRelationshipManager(rmId) {
-    els.relationshipManagerSelect.disabled = true;
     try {
       const data = await fetchJson(`/api/bootstrap?rm_id=${encodeURIComponent(rmId)}`);
       applyBootstrap(data);
       localStorage.setItem(CURRENT_RM_STORAGE_KEY, rmId);
       seedSelection();
-      renderRelationshipManagerSelect();
       render();
     } catch (error) {
       showTransientStatus(error.message);
-    } finally {
-      els.relationshipManagerSelect.disabled = false;
     }
   }
 
