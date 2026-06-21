@@ -1,6 +1,6 @@
 [
   {
-    "alert_id": "alert-061",
+    "alert_id": "alert-059",
     "customer_id": "demo-009",
     "category": "mixed",
     "signal_type": "business_activity_change",
@@ -45,7 +45,7 @@
       "doc-010"
     ],
     "fact_ids": [
-      "fact-028"
+      "fact-027"
     ],
     "evidence": [
       {
@@ -93,7 +93,7 @@
     "material_rank": 1
   },
   {
-    "alert_id": "alert-063",
+    "alert_id": "alert-061",
     "customer_id": "demo-009",
     "category": "opportunity",
     "signal_type": "new_product",
@@ -133,7 +133,7 @@
       "doc-010"
     ],
     "fact_ids": [
-      "fact-027"
+      "fact-026"
     ],
     "evidence": [
       {
@@ -184,7 +184,7 @@
     "material_rank": 2
   },
   {
-    "alert_id": "alert-062",
+    "alert_id": "alert-060",
     "customer_id": "demo-009",
     "category": "opportunity",
     "signal_type": "commercial_opportunity",
@@ -224,7 +224,7 @@
       "doc-010"
     ],
     "fact_ids": [
-      "fact-029"
+      "fact-028"
     ],
     "evidence": [
       {

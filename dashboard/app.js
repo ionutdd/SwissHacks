@@ -32,13 +32,7 @@
   };
   const SEVERITY_RANK = { critical: 4, high: 3, medium: 2, low: 1 };
   const CATEGORY_RANK = { risk: 4, mixed: 3, ownership_control: 2, opportunity: 1 };
-  const TIMELINE_RANGES = {
-    "1d": 24 * 60 * 60 * 1000,
-    "1w": 7 * 24 * 60 * 60 * 1000,
-    "1m": 30 * 24 * 60 * 60 * 1000,
-    "3m": 90 * 24 * 60 * 60 * 1000,
-    "1y": 365 * 24 * 60 * 60 * 1000
-  };
+
   const GEO_COUNTRIES = {
     "Australia": {
       id: "AU",
@@ -204,8 +198,6 @@
     founderInvestorByCustomer: new Map(),
     publicKycByCustomer: new Map(),
     actions: [],
-    timelineRange: "1y",
-    selectedGeoCountry: null,
     selectedCustomerId: null,
     selectedAlertId: null,
     viewMode: "notifications",
@@ -319,9 +311,6 @@
       "alertQueueCount",
       "alertQueue",
       "alertDetail",
-      "timelineCustomerLabel",
-      "timelineStatus",
-      "timelineViewport",
       "geoFootprintTitle",
       "geoMap",
       "geoCountryCard",
@@ -419,29 +408,7 @@
       recordAction(actionButton.dataset.action);
     });
 
-    document.querySelectorAll("[data-timeline-range]").forEach((button) => {
-      button.addEventListener("click", () => {
-        state.timelineRange = button.dataset.timelineRange;
-        renderTimeline();
-      });
-    });
 
-    document.querySelectorAll("[data-timeline-pan]").forEach((button) => {
-      button.addEventListener("click", () => {
-        const direction = Number(button.dataset.timelinePan || 0);
-        els.timelineViewport.scrollBy({
-          left: direction * Math.max(320, els.timelineViewport.clientWidth * 0.78),
-          behavior: "smooth"
-        });
-      });
-    });
-
-    els.timelineViewport.addEventListener("click", (event) => {
-      const row = event.target.closest("[data-timeline-alert-id]");
-      if (!row) return;
-      state.selectedAlertId = row.dataset.timelineAlertId;
-      render();
-    });
 
     [els.geoMap, els.geoCountryChips].forEach((container) => {
       container.addEventListener("click", (event) => {
@@ -459,6 +426,33 @@
       state.actions = [];
       render();
     });
+
+    // ── Brief panel collapse toggle ───────────────────────────────────────
+    const briefToggle = document.getElementById("briefPanelToggle");
+    const grid = els.workspaceView;
+
+    function applyBriefCollapse(collapsed) {
+      grid.classList.toggle("brief-collapsed", collapsed);
+      if (briefToggle) {
+        briefToggle.setAttribute(
+          "aria-label",
+          collapsed ? "Expand RM brief panel" : "Collapse RM brief panel"
+        );
+        briefToggle.setAttribute("title", collapsed ? "Expand panel" : "Collapse panel");
+      }
+      sessionStorage.setItem("briefPanelCollapsed", collapsed ? "1" : "0");
+    }
+
+    // Restore previous state
+    if (sessionStorage.getItem("briefPanelCollapsed") === "1") {
+      applyBriefCollapse(true);
+    }
+
+    if (briefToggle) {
+      briefToggle.addEventListener("click", () => {
+        applyBriefCollapse(!grid.classList.contains("brief-collapsed"));
+      });
+    }
   }
 
   async function fetchJson(url) {
@@ -526,7 +520,6 @@
     renderWorkspaceHeader();
     renderAlertQueue();
     renderAlertDetail();
-    renderTimeline();
     renderGeographicFootprint();
     renderBrief();
     renderDataHealth();
@@ -543,10 +536,10 @@
   function renderMetrics() {
     const visibleCustomers = getVisibleCustomers();
     const openAlerts = getFilteredAlerts().filter((alert) => currentStatus(alert) !== "dismissed");
-    els.metricCustomers.textContent = visibleCustomers.length;
-    els.metricOpen.textContent = openAlerts.length;
-    els.metricHigh.textContent = openAlerts.filter((alert) => alert.severity === "high").length;
-    els.metricRisk.textContent = openAlerts.filter((alert) => alert.category === "risk").length;
+    if (els.metricCustomers) els.metricCustomers.textContent = visibleCustomers.length;
+    if (els.metricOpen) els.metricOpen.textContent = openAlerts.length;
+    if (els.metricHigh) els.metricHigh.textContent = openAlerts.filter((alert) => alert.severity === "high").length;
+    if (els.metricRisk) els.metricRisk.textContent = openAlerts.filter((alert) => alert.category === "risk").length;
   }
 
   function renderDataHealth() {
@@ -621,7 +614,7 @@
 
   function renderCustomerList() {
     const customers = getVisibleCustomers();
-    els.customerCountLabel.textContent = `${customers.length} shown`;
+    els.customerCountLabel.textContent = `Showing ${customers.length} filtered result${customers.length !== 1 ? "s" : ""}`;
     els.customerList.innerHTML = customers.length
       ? customers.map((customer) => customerRowTemplate(customer)).join("")
       : `<div class="empty-state">No customers match the current filters.</div>`;
@@ -653,17 +646,26 @@
     const customer = selectedCustomer();
     if (!customer) return;
     const aggregate = customerAggregate(customer.customer_id);
+    const rm = escapeHtml(RM_OWNERS[customer.customer_id] || "Demo RM");
+    const reviewed = formatDate(customer.last_reviewed_at);
+    const riskRating = escapeHtml(customer.risk_rating || "Unknown");
+    const riskClass = riskRating.toLowerCase();
+
     els.selectedCustomerName.textContent = customer.legal_name;
     els.selectedCustomerMeta.innerHTML = `
-      <span class="pill">Risk ${escapeHtml(customer.risk_rating)}</span>
-      <span class="pill">Reviewed ${formatDate(customer.last_reviewed_at)}</span>
-      <span class="pill">RM ${escapeHtml(RM_OWNERS[customer.customer_id] || "Demo RM")}</span>
+      <span class="customer-band-rm">RM ${rm}</span>
+      <span class="customer-band-dot" aria-hidden="true">·</span>
+      <span class="customer-band-reviewed">last reviewed ${reviewed}</span>
+      <span class="customer-band-dot" aria-hidden="true">·</span>
+      <span class="customer-band-risk ${riskClass}">Current risk rating: <strong>${riskRating}</strong></span>
     `;
     els.selectedCustomerStats.innerHTML = `
-      <span class="pill ${aggregate.highestSeverity}">${aggregate.highestSeverity} top severity</span>
-      <span class="pill">${aggregate.alertCount} alerts</span>
-      <span class="pill risk">${aggregate.riskCount} risk</span>
-      <span class="pill opportunity">${aggregate.opportunityCount} opportunity</span>
+      <span class="customer-band-summary">${aggregate.alertCount} alert${aggregate.alertCount !== 1 ? "s" : ""}</span>
+      <span class="customer-band-dot" aria-hidden="true">·</span>
+      <span class="customer-band-summary risk">${aggregate.riskCount} risk</span>
+      <span class="customer-band-dot" aria-hidden="true">·</span>
+      <span class="customer-band-summary opportunity">${aggregate.opportunityCount} opportunity</span>
+      ${aggregate.ownershipCount > 0 ? `<span class="customer-band-dot" aria-hidden="true">·</span><span class="customer-band-summary ownership_control">${aggregate.ownershipCount} ownership</span>` : ""}
     `;
   }
 
@@ -678,26 +680,20 @@
 
   function alertRowTemplate(alert) {
     const active = alert.alert_id === state.selectedAlertId ? "active" : "";
-    const reviewedByAi = aiReviewsForAlert(alert).length > 0;
+    const status = currentStatus(alert);
+    const isNew = status === "new";
+    const combinedBadge = `${labelize(alert.category)} · ${labelize(alert.severity)}`;
     return `
       <article class="alert-row ${active}" role="listitem">
         <button class="alert-row-main" type="button" data-alert-id="${escapeAttr(alert.alert_id)}">
           <div class="alert-topline">
             <span class="alert-title">${escapeHtml(cleanText(alert.title))}</span>
-            <span class="severity-mark ${alert.severity}">${escapeHtml(alert.severity)}</span>
+            <div class="alert-topline-right">
+              ${isNew ? `<span class="new-dot" title="New" aria-label="New"></span>` : ""}
+              <span class="combined-badge ${alert.category} ${alert.severity}">${escapeHtml(combinedBadge)}</span>
+            </div>
           </div>
           <div class="alert-subline">${escapeHtml(cleanText(alert.summary))}</div>
-          <div class="alert-tags">
-            <span class="pill ${alert.category}">${labelize(alert.category)}</span>
-            <span class="pill">${Math.round(alert.confidence * 100)}% confidence</span>
-            ${alert.material_score ? `<span class="pill material">Score ${escapeHtml(alert.material_score)}</span>` : ""}
-            ${alert.review_lane ? `<span class="pill">${escapeHtml(alert.review_lane)}</span>` : ""}
-            ${reviewedByAi ? `<span class="pill mixed">Document reviewed by Apertus</span>` : ""}
-            <span class="pill">Signal extracted by ${escapeHtml(detectionLabel(alert.detection_method))}</span>
-            ${kycProfileForCustomer(alert.customer_id) ? `<span class="pill mixed">Layer 2 KYC</span>` : ""}
-            <span class="pill">${labelize(currentStatus(alert))}</span>
-            <span class="pill">${alert.evidence_document_ids.length} evidence</span>
-          </div>
         </button>
         <div class="alert-source-strip">
           ${sourceLinksTemplate(alert, 2)}
@@ -713,74 +709,212 @@
       return;
     }
 
-    const score = Math.round(alert.confidence * 100);
-    els.alertDetail.innerHTML = `
-      <div class="detail-header">
-        <div>
-          <div class="detail-tags">
-            <span class="pill ${alert.category}">${labelize(alert.category)}</span>
-            <span class="pill ${alert.severity}">${labelize(alert.severity)} severity</span>
-            <span class="pill">${labelize(alert.signal_type)}</span>
-            ${alert.material_score ? `<span class="pill material">Material score ${escapeHtml(alert.material_score)}</span>` : ""}
-            ${alert.review_lane ? `<span class="pill">${escapeHtml(alert.review_lane)}</span>` : ""}
-            <span class="pill ${alert.detection_method === "ai_validated" ? "mixed" : ""}">${escapeHtml(detectionLabel(alert.detection_method))}</span>
-            ${alert.needs_human_review ? `<span class="pill risk">Human review required</span>` : ""}
-            <span class="pill">${labelize(currentStatus(alert))}</span>
+    const score        = Math.round(alert.confidence * 100);
+    const status       = currentStatus(alert);
+    const isNew        = status === "new";
+    const combinedBadge = `${labelize(alert.category)} \u00b7 ${labelize(alert.severity)}`;
+    const hasDrift     = alert.changed_fields && alert.changed_fields.length > 0;
+
+    // ── Accordion 1: What changed? ───────────────────────────────────────────
+    const acc1 = `
+      <details class="intel-accordion" open>
+        <summary class="intel-accordion-summary">
+          <span class="intel-accordion-num">1</span>
+          <span class="intel-accordion-title">What changed?</span>
+          <div class="intel-accordion-badges">
+            <span class="combined-badge ${alert.category} ${alert.severity}">${escapeHtml(combinedBadge)}</span>
+            ${isNew ? `<span class="pill new-badge">New</span>` : `<span class="pill">${escapeHtml(labelize(status))}</span>`}
           </div>
-          <h2>${escapeHtml(cleanText(alert.title))}</h2>
-          <p class="summary">${escapeHtml(cleanText(alert.summary))}</p>
-          ${materialityTemplate(alert)}
-          ${detectionTemplate(alert)}
+          <span class="intel-accordion-chevron" aria-hidden="true"></span>
+        </summary>
+        <div class="intel-accordion-body">
+          <h3 class="intel-event-title">${escapeHtml(cleanText(alert.title))}</h3>
+          <div class="intel-fact-row">
+            <div class="intel-fact">
+              <span class="intel-fact-label">Detected</span>
+              <span class="intel-fact-value">${formatDate(alert.detected_at) || "Unknown"}</span>
+            </div>
+            <div class="intel-fact">
+              <span class="intel-fact-label">Confidence</span>
+              <span class="intel-fact-value">${score}%</span>
+            </div>
+            ${alert.material_score ? `
+            <div class="intel-fact">
+              <span class="intel-fact-label">Materiality score</span>
+              <span class="intel-fact-value intel-fact-material">${escapeHtml(alert.material_score)}</span>
+            </div>` : ""}
+            ${alert.review_lane ? `
+            <div class="intel-fact">
+              <span class="intel-fact-label">Review lane</span>
+              <span class="intel-fact-value">${escapeHtml(alert.review_lane)}</span>
+            </div>` : ""}
+          </div>
+          ${hasDrift ? `
+          <div class="intel-subsection">
+            <p class="intel-subsection-label">Before / After comparison</p>
+            ${driftTableTemplate(alert)}
+          </div>` : ""}
+        </div>
+      </details>
+    `;
+
+    // ── Accordion 2: Why does it matter? ────────────────────────────────────
+    const publicKyc    = publicKycForCustomer(alert.customer_id);
+    const riskRationale = (publicKyc?.risk_rationale || []).slice(0, 4);
+    const sanctions     = [...(publicKyc?.regulatory_and_licensing || []).slice(0, 3),
+                            ...(publicKyc?.sanctions_adverse_media || []).slice(0, 3)];
+    const matReasons    = (alert.material_reasons || []).slice(0, 4);
+    const fusion        = fusedForAlert(alert.alert_id);
+
+    const acc2 = `
+      <details class="intel-accordion">
+        <summary class="intel-accordion-summary">
+          <span class="intel-accordion-num">2</span>
+          <span class="intel-accordion-title">Why does it matter?</span>
+          <span class="intel-accordion-chevron" aria-hidden="true"></span>
+        </summary>
+        <div class="intel-accordion-body">
+          <p class="intel-narrative">${escapeHtml(cleanText(alert.summary))}</p>
+          ${matReasons.length ? `
+          <div class="intel-subsection">
+            <p class="intel-subsection-label">Materiality signals</p>
+            <ul class="intel-list">${matReasons.map(r => `<li>${escapeHtml(r)}</li>`).join("")}</ul>
+          </div>` : ""}
+          ${riskRationale.length ? `
+          <div class="intel-subsection">
+            <p class="intel-subsection-label">Risk rationale</p>
+            <ul class="intel-list">${riskRationale.map(r => `<li>${escapeHtml(cleanText(r))}</li>`).join("")}</ul>
+          </div>` : ""}
+          ${sanctions.length ? `
+          <div class="intel-subsection">
+            <p class="intel-subsection-label">Regulatory &amp; sanctions context</p>
+            <ul class="intel-list">${sanctions.map(s => `<li>${escapeHtml(cleanText(s))}</li>`).join("")}</ul>
+          </div>` : ""}
+          ${fusion ? `
+          <div class="intel-subsection">
+            <p class="intel-subsection-label">Internal bank context</p>
+            <p class="intel-narrative">${escapeHtml(fusion.fusion_rationale)}</p>
+          </div>` : ""}
+        </div>
+      </details>
+    `;
+
+    // ── Accordion 3: What should I do? ──────────────────────────────────────
+    const kycQuestions = (publicKyc?.open_kyc_questions || []).slice(0, 4);
+    const founderIntel = founderInvestorForCustomer(alert.customer_id);
+    const capQuestions = (founderIntel?.summary?.top_rm_questions || []).slice(0, 3);
+    const allGaps      = [...kycQuestions, ...capQuestions].filter(Boolean);
+
+    const acc3 = `
+      <details class="intel-accordion">
+        <summary class="intel-accordion-summary">
+          <span class="intel-accordion-num">3</span>
+          <span class="intel-accordion-title">What should I do?</span>
+          <span class="intel-accordion-chevron" aria-hidden="true"></span>
+        </summary>
+        <div class="intel-accordion-body">
+          <div class="intel-subsection">
+            <p class="intel-subsection-label">Recommended action</p>
+            <p class="intel-narrative">${escapeHtml(cleanText(alert.recommended_action))}</p>
+          </div>
+          ${allGaps.length ? `
+          <div class="intel-subsection">
+            <p class="intel-subsection-label">Missing information &amp; open questions</p>
+            <ul class="intel-list intel-list-gaps">
+              ${allGaps.map(q => `<li>${escapeHtml(cleanText(q))}</li>`).join("")}
+            </ul>
+          </div>` : ""}
+          <div class="intel-subsection">
+            <p class="intel-subsection-label">RM action</p>
+            <div class="action-stack">
+              <textarea id="actionNote" placeholder="Optional note for audit trail \u2014 will appear in action history"></textarea>
+              <div class="action-buttons">
+                <button class="secondary-button" type="button" data-action="acknowledged">Acknowledge</button>
+                <button class="primary-button" type="button" data-action="escalated">Escalate</button>
+                <button class="secondary-button" type="button" data-action="customer_update_requested">Request update</button>
+                <button class="secondary-button" type="button" data-action="added_to_call_brief">Add to brief</button>
+                <button class="danger-button" type="button" data-action="dismissed">Dismiss</button>
+              </div>
+            </div>
+          </div>
+          <div class="intel-subsection">
+            <p class="intel-subsection-label">Action history</p>
+            ${actionLogTemplate(alert)}
+          </div>
+        </div>
+      </details>
+    `;
+
+    // ── Accordion 4: What supports this finding? ────────────────────────────
+    const reviews      = aiReviewsForAlert(alert);
+    const reviewModels = [...new Set(reviews.map(r => r.model).filter(Boolean))];
+    const quote        = alert.evidence_quote || primaryEvidenceQuote(alert);
+    const method       = alert.detection_method || "rule_fallback";
+
+    const acc4 = `
+      <details class="intel-accordion">
+        <summary class="intel-accordion-summary">
+          <span class="intel-accordion-num">4</span>
+          <span class="intel-accordion-title">What supports this finding?</span>
+          <span class="intel-accordion-chevron" aria-hidden="true"></span>
+        </summary>
+        <div class="intel-accordion-body">
+          <div class="intel-provenance-row">
+            <span class="intel-provenance-item">Signal extracted by <strong>${escapeHtml(detectionLabel(method))}</strong></span>
+            ${reviews.length
+              ? `<span class="intel-provenance-item intel-provenance-ai">Document reviewed by Apertus AI${reviewModels.length ? ` (${escapeHtml(reviewModels.join(", "))})` : ""}</span>`
+              : `<span class="intel-provenance-item intel-provenance-muted">Document not AI-reviewed</span>`}
+            ${alert.needs_human_review ? `<span class="intel-provenance-item intel-provenance-warn">Human review required</span>` : ""}
+            ${alert.ai_severity_suggestion ? `<span class="intel-provenance-item">Apertus severity: <strong>${escapeHtml(labelize(alert.ai_severity_suggestion))}</strong></span>` : ""}
+          </div>
+          ${quote ? `
+          <div class="intel-subsection">
+            <p class="intel-subsection-label">Key evidence quote</p>
+            <blockquote class="intel-quote">${escapeHtml(quote)}</blockquote>
+          </div>` : ""}
+          <div class="intel-subsection">
+            <p class="intel-subsection-label">Supporting documents (${(alert.evidence || []).length})</p>
+            ${evidenceTemplate(alert)}
+          </div>
+          <div class="intel-subsection">
+            <p class="intel-subsection-label">Audit IDs</p>
+            <div class="fact-id-row">
+              ${alert.fact_ids.map(id => `<span class="pill">${escapeHtml(id)}</span>`).join("")}
+              ${alert.evidence_document_ids.map(id => `<span class="pill">${escapeHtml(id)}</span>`).join("")}
+            </div>
+          </div>
+        </div>
+      </details>
+    `;
+
+    // ── Accordion 5: What else should I know? ───────────────────────────────
+    const acc5 = `
+      <details class="intel-accordion">
+        <summary class="intel-accordion-summary">
+          <span class="intel-accordion-num">5</span>
+          <span class="intel-accordion-title">What else should I know?</span>
+          <span class="intel-accordion-chevron" aria-hidden="true"></span>
+        </summary>
+        <div class="intel-accordion-body">
           ${publicKycTemplate(alert)}
           ${layer2ProfileTemplate(alert)}
           ${founderInvestorTemplate(alert)}
           ${internalContextTemplate(alert)}
-          <div class="detail-source-strip">
-            ${sourceLinksTemplate(alert)}
+          <div class="intel-subsection">
+            <p class="intel-subsection-label">Source links</p>
+            <div class="detail-source-strip">${sourceLinksTemplate(alert)}</div>
           </div>
         </div>
-        <div class="confidence-ring" style="--score: ${score}%;" aria-label="${score}% confidence">
-          <span>${score}%</span>
-        </div>
-      </div>
+      </details>
+    `;
 
-      <div class="detail-grid">
-        <div class="detail-block">
-          <h3>Recommended action</h3>
-          <div class="recommendation">${escapeHtml(cleanText(alert.recommended_action))}</div>
-
-          <h3>Before / after KYC fields</h3>
-          ${driftTableTemplate(alert)}
-
-          <h3>Evidence</h3>
-          ${evidenceTemplate(alert)}
-        </div>
-
-        <div class="detail-block">
-          <h3>RM actions</h3>
-          <div class="action-stack">
-            <textarea id="actionNote" placeholder="Optional note for audit trail"></textarea>
-            <div class="action-buttons">
-              <button class="secondary-button" type="button" data-action="acknowledged">Acknowledge</button>
-              <button class="primary-button" type="button" data-action="escalated">Escalate</button>
-              <button class="secondary-button" type="button" data-action="customer_update_requested">Request update</button>
-              <button class="secondary-button" type="button" data-action="added_to_call_brief">Add to brief</button>
-              <button class="danger-button" type="button" data-action="dismissed">Dismiss</button>
-            </div>
-          </div>
-
-          <h3>Action history</h3>
-          ${actionLogTemplate(alert)}
-
-          <h3>Audit IDs</h3>
-          <div class="fact-id-row">
-            ${alert.fact_ids.map((factId) => `<span class="pill">${escapeHtml(factId)}</span>`).join("")}
-            ${alert.evidence_document_ids.map((documentId) => `<span class="pill">${escapeHtml(documentId)}</span>`).join("")}
-          </div>
-        </div>
+    els.alertDetail.innerHTML = `
+      <div class="intel-accordion-stack">
+        ${acc1}${acc2}${acc3}${acc4}${acc5}
       </div>
     `;
   }
+
 
   function materialityTemplate(alert) {
     if (!alert.material_score && !(alert.material_reasons || []).length) return "";
@@ -1219,34 +1353,74 @@
     };
   }
 
+  function getBriefIcon(title) {
+    if (title.includes("Material changes")) {
+      // Warning triangle
+      return `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>`;
+    }
+    if (title.includes("risk questions")) {
+      // Shield
+      return `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>`;
+    }
+    if (title.includes("opportunities")) {
+      // Lightbulb
+      return `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="11" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
+    }
+    if (title.includes("questions")) {
+      // Message bubble
+      return `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>`;
+    }
+    if (title.includes("intelligence")) {
+      // Users
+      return `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>`;
+    }
+    // Default file / evidence
+    return `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>`;
+  }
+
   function briefHtmlTemplate(brief) {
     return `
-      ${briefSectionTemplate("Material changes", brief.materialChanges, alertBriefItem)}
-      ${briefSectionTemplate("Open risk questions", brief.riskQuestions, alertBriefItem)}
-      ${briefSectionTemplate("Commercial opportunities", brief.opportunities, alertBriefItem)}
-      ${briefSectionTemplate("Suggested customer questions", brief.suggestedQuestions, questionBriefItem)}
-      ${briefSectionTemplate("Public KYC questions", brief.publicKycQuestions, questionBriefItem)}
-      ${briefSectionTemplate("Founder/investor intelligence", brief.founderInvestorRecords, investorBriefItem)}
-      ${briefSectionTemplate("Evidence references", brief.evidenceReferences, evidenceBriefItem)}
+      ${briefSectionTemplate("Material changes", brief.materialChanges, alertBriefItem, true)}
+      ${briefSectionTemplate("Open risk questions", brief.riskQuestions, alertBriefItem, false)}
+      ${briefSectionTemplate("Commercial opportunities", brief.opportunities, alertBriefItem, false)}
+      ${briefSectionTemplate("Suggested customer questions", brief.suggestedQuestions, questionBriefItem, false)}
+      ${briefSectionTemplate("Public KYC questions", brief.publicKycQuestions, questionBriefItem, false)}
+      ${briefSectionTemplate("Founder/investor intelligence", brief.founderInvestorRecords, investorBriefItem, false)}
+      ${briefSectionTemplate("Evidence references", brief.evidenceReferences, evidenceBriefItem, false)}
     `;
   }
 
-  function briefSectionTemplate(title, items, renderer) {
+  function briefSectionTemplate(title, items, renderer, isOpen) {
+    const openAttr = isOpen ? "open" : "";
+    const icon = getBriefIcon(title);
+    
     if (!items.length) {
       return `
-        <section class="brief-section">
-          <h3>${escapeHtml(title)}</h3>
-          <div class="empty-state">No current items.</div>
-        </section>
+        <details class="brief-accordion" ${openAttr}>
+          <summary class="brief-accordion-summary">
+            <span class="brief-accordion-icon">${icon}</span>
+            <span class="brief-accordion-title">${escapeHtml(title)}</span>
+            <span class="brief-accordion-chevron"></span>
+          </summary>
+          <div class="brief-accordion-body">
+            <div class="empty-state">No current items.</div>
+          </div>
+        </details>
       `;
     }
     return `
-      <section class="brief-section">
-        <h3>${escapeHtml(title)}</h3>
-        <ul class="brief-list">
-          ${items.map(renderer).join("")}
-        </ul>
-      </section>
+      <details class="brief-accordion" ${openAttr}>
+        <summary class="brief-accordion-summary">
+          <span class="brief-accordion-icon">${icon}</span>
+          <span class="brief-accordion-title">${escapeHtml(title)}</span>
+          <span class="brief-accordion-chevron"></span>
+        </summary>
+        <div class="brief-accordion-body">
+          <ul class="brief-list">
+            ${items.map(renderer).join("")}
+          </ul>
+        </div>
+      </details>
     `;
   }
 
@@ -1421,217 +1595,6 @@
     localStorage.setItem(ACTION_STORAGE_KEY, JSON.stringify(state.actions));
   }
 
-  function renderTimeline() {
-    const customer = selectedCustomer();
-    if (!customer) {
-      els.timelineCustomerLabel.textContent = "Customer activity";
-      els.timelineViewport.innerHTML = `<div class="empty-state">No customer selected.</div>`;
-      return;
-    }
-
-    document.querySelectorAll("[data-timeline-range]").forEach((button) => {
-      button.classList.toggle("active", button.dataset.timelineRange === state.timelineRange);
-    });
-
-    els.timelineCustomerLabel.textContent = `${customer.legal_name} activity log`;
-    const allEvents = buildTimelineEvents(customer.customer_id);
-    const windowState = timelineWindow(allEvents);
-    const events = eventsInTimelineWindow(allEvents, windowState);
-    const ticks = buildTimelineTicks(windowState);
-    const chartWidth = timelineChartWidth();
-
-    els.timelineViewport.innerHTML = `
-      <div class="timeline-chart" style="width: ${chartWidth}px;">
-        ${timelineGridTemplate(ticks)}
-        ${timelineTodayTemplate(windowState)}
-        ${events.map((event) => timelineMarkerTemplate(event, windowState)).join("")}
-        ${events.length ? "" : `<div class="timeline-empty-note">No events in this range.</div>`}
-      </div>
-    `;
-
-    window.requestAnimationFrame(() => {
-      els.timelineViewport.scrollLeft = els.timelineViewport.scrollWidth;
-    });
-  }
-
-  function buildTimelineEvents(customerId) {
-    const events = [];
-    state.alerts
-      .filter((alert) => alert.customer_id === customerId)
-      .forEach((alert) => {
-        const time = alertTimelineDate(alert);
-        if (!time) return;
-        events.push({
-          id: `signal-${alert.alert_id}`,
-          type: "signal",
-          time,
-          alert_id: alert.alert_id,
-          title: cleanText(alert.title),
-          detail: cleanText(alert.recommended_action || alert.summary || ""),
-          meta: `${labelize(alert.signal_type)} | ${labelize(alert.severity)} | ${detectionLabel(alert.detection_method)}`,
-          severity: alert.severity
-        });
-      });
-
-    state.actions
-      .filter((action) => action.customer_id === customerId)
-      .forEach((action) => {
-        const alert = state.alerts.find((item) => item.alert_id === action.alert_id);
-        const time = parseTimelineDate(action.created_at);
-        if (!time) return;
-        events.push({
-          id: action.id,
-          type: "action",
-          time,
-          alert_id: action.alert_id,
-          title: `RM ${labelize(action.action)}`,
-          detail: cleanText(action.note || alert?.recommended_action || alert?.title || "Status updated"),
-          meta: `${formatDateTime(action.created_at)} | ${action.created_by || "demo-rm"}`,
-          severity: alert?.severity || "medium"
-        });
-      });
-
-    return events.sort((a, b) => a.time - b.time || a.title.localeCompare(b.title));
-  }
-
-  function timelineWindow(events) {
-    const rangeMs = TIMELINE_RANGES[state.timelineRange] || TIMELINE_RANGES["1y"];
-    const now = Date.now();
-    const latestEvent = events.length ? Math.max(...events.map((event) => event.time.getTime())) : now;
-    const latest = latestEvent < now - rangeMs ? latestEvent : Math.max(now, latestEvent);
-    return {
-      start: new Date(latest - rangeMs),
-      end: new Date(latest),
-      rangeMs
-    };
-  }
-
-  function eventsInTimelineWindow(events, windowState) {
-    const start = windowState.start.getTime();
-    const end = windowState.end.getTime();
-    return events.filter((event) => {
-      const time = event.time.getTime();
-      return time >= start && time <= end;
-    });
-  }
-
-  function buildTimelineTicks(windowState) {
-    const count = state.timelineRange === "1d" ? 7 : 6;
-    return Array.from({ length: count }, (_item, index) => {
-      const ratio = count === 1 ? 0 : index / (count - 1);
-      const time = new Date(windowState.start.getTime() + windowState.rangeMs * ratio);
-      return {
-        label: formatTimelineTick(time),
-        position: ratio * 100
-      };
-    });
-  }
-
-  function timelineGridTemplate(ticks) {
-    return ticks.map((tick) => `
-      <div class="timeline-grid-line" style="left: ${tick.position}%;">
-        <span>${escapeHtml(tick.label)}</span>
-      </div>
-    `).join("");
-  }
-
-  function timelineTodayTemplate(windowState) {
-    const now = new Date();
-    const nowMs = now.getTime();
-    if (nowMs < windowState.start.getTime() || nowMs > windowState.end.getTime()) return "";
-    const position = eventPercent(now, windowState);
-    return `
-      <div class="timeline-today" style="left: ${position}%;">
-        <span>Today</span>
-      </div>
-    `;
-  }
-
-  function timelineMarkerTemplate(event, windowState) {
-    const selected = event.alert_id && event.alert_id === state.selectedAlertId ? "active" : "";
-    const alertAttr = event.alert_id ? ` data-timeline-alert-id="${escapeAttr(event.alert_id)}"` : "";
-    const left = eventPercent(event.time, windowState);
-    const top = 68 + (stableIndex(event.id, 4) * 34);
-    const edgeClass = left > 78 ? "near-right" : left < 12 ? "near-left" : "";
-    const body = `
-      <span class="timeline-dot ${escapeAttr(event.type)}"></span>
-      <span class="timeline-marker-label">
-        <strong>${escapeHtml(event.title)}</strong>
-        <small>${escapeHtml(formatDateTime(event.time))}</small>
-        <em>${escapeHtml(event.detail)}</em>
-        <small>${escapeHtml(event.meta || labelize(event.type))}</small>
-      </span>
-    `;
-    return event.alert_id
-      ? `<button class="timeline-marker ${escapeAttr(event.type)} ${selected} ${edgeClass}" type="button" style="left: ${left}%; top: ${top}px;" aria-label="${escapeAttr(`${event.title}: ${event.detail}`)}"${alertAttr}>${body}</button>`
-      : `<article class="timeline-marker ${escapeAttr(event.type)} ${selected} ${edgeClass}" style="left: ${left}%; top: ${top}px;" aria-label="${escapeAttr(`${event.title}: ${event.detail}`)}">${body}</article>`;
-  }
-
-  function eventPercent(time, windowState) {
-    const elapsed = time.getTime() - windowState.start.getTime();
-    return Math.max(0, Math.min(100, (elapsed / windowState.rangeMs) * 100));
-  }
-
-  function timelineChartWidth() {
-    const widths = {
-      "1d": 940,
-      "1w": 980,
-      "1m": 1120,
-      "3m": 1260,
-      "1y": 1360
-    };
-    return widths[state.timelineRange] || 1120;
-  }
-
-  function stableIndex(value, modulo) {
-    const text = String(value || "");
-    let hash = 0;
-    for (let index = 0; index < text.length; index += 1) {
-      hash = ((hash << 5) - hash) + text.charCodeAt(index);
-      hash |= 0;
-    }
-    return Math.abs(hash) % modulo;
-  }
-
-  function formatTimelineTick(value) {
-    if (state.timelineRange === "1d") {
-      return new Intl.DateTimeFormat("en-GB", {
-        hour: "2-digit",
-        minute: "2-digit"
-      }).format(value).toUpperCase();
-    }
-    if (state.timelineRange === "1y") {
-      return new Intl.DateTimeFormat("en-GB", {
-        month: "short",
-        year: "2-digit"
-      }).format(value).toUpperCase();
-    }
-    return new Intl.DateTimeFormat("en-GB", {
-      month: "short",
-      day: "2-digit"
-    }).format(value).toUpperCase();
-  }
-
-  function alertTimelineDate(alert) {
-    const evidenceDates = (alert.evidence || []).flatMap((item) => [
-      item.published_at,
-      item.collected_at
-    ]);
-    const dates = [
-      alert.newest_published_at,
-      alert.created_at,
-      ...(alert.evidence || []).map((item) => item.published_at),
-      ...evidenceDates
-    ].map(parseTimelineDate).filter(Boolean);
-    if (!dates.length) return null;
-    return new Date(Math.max(...dates.map((date) => date.getTime())));
-  }
-
-  function parseTimelineDate(value) {
-    if (!value) return null;
-    const date = new Date(value);
-    return Number.isNaN(date.getTime()) ? null : date;
-  }
 
   function renderGeographicFootprint() {
     const customer = selectedCustomer();

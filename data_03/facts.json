@@ -22,7 +22,7 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-001",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
     "ai_reason": "The document states that GameStop has purchased 4,710 Bitcoin, indicating a new business activity related to digital assets.",
     "ai_validator_warnings": [
       "Apertus evidence quote was not exact; replaced with collected source excerpt."
@@ -136,7 +136,7 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-002",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
     "ai_reason": "The document states that the Board approved the addition of Bitcoin as a treasury reserve asset.",
     "ai_validator_warnings": [],
     "severity_suggestion": "medium",
@@ -195,7 +195,7 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-003",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
     "ai_reason": "The document mentions Bitcoin and other crypto-currencies, indicating involvement in digital asset activity.",
     "ai_validator_warnings": [
       "digital_asset_activity needs_human_review was not boolean; normalized to true."
@@ -220,7 +220,7 @@
       "known_products",
       "risk_rating"
     ],
-    "evidence_excerpt": "Bitcoin and other crypto-currencies are subject to regulatory and legal uncertainty, and governments and regulators may enact new laws and regulations, or pursue regulatory, legislative, enforcement or judicial actions that could impact the price of Bitcoin or our ability to acquire, hold or transfer Bitcoin, and may subject us to increased regulatory scrutiny.",
+    "evidence_excerpt": "If federal or state tax authorities change Bitcoin’s classification from property, which allows for capital gains treatment but also imposes certain tax reporting requirements, to another category, such as to currency or a financial asset, the resulting tax implications could negatively affect us and our stockholders.",
     "source_quality": "A",
     "source_type": "sec_filing",
     "source_name": "SEC EDGAR",
@@ -229,13 +229,13 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-003",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
-    "ai_reason": "The document mentions regulatory and legal uncertainty around Bitcoin and other crypto-currencies, which could impact the company's ability to acquire, hold or transfer these assets, suggesting a potential treasury policy change.",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
+    "ai_reason": "The document mentions regulatory and legal uncertainty related to Bitcoin, which could impact the company's ability to acquire, hold or transfer Bitcoin, suggesting a potential change in treasury policy.",
     "ai_validator_warnings": [
       "treasury_policy_change needs_human_review was not boolean; normalized to true."
     ],
     "severity_suggestion": "medium",
-    "evidence_quote": "Bitcoin and other crypto-currencies are subject to regulatory and legal uncertainty, and governments and regulators may enact new laws and regulations, or pursue regulatory, legislative, enforcement or judicial actions that could impact the price of Bitcoin or our ability to acquire, hold or transfer Bitcoin, and may subject us to increased regulatory scrutiny.",
+    "evidence_quote": "If federal or state tax authorities change Bitcoin’s classification from property, which allows for capital gains treatment but also imposes certain tax reporting requirements, to another category, such as to currency or a financial asset, the resulting tax implications could negatively affect us and our stockholders.",
     "needs_human_review": true,
     "extraction_confidence": 0.7
   },
@@ -245,8 +245,8 @@
     "document_id": "doc-003",
     "fact_type": "risk_rating_review",
     "subject": "GameStop Corp.",
-    "object": "GameStop's risk rating may need to be reviewed due to involvement in digital asset activity.",
-    "value": "GameStop's risk rating may need to be reviewed due to involvement in digital asset activity.",
+    "object": "GameStop's risk rating may need to be reviewed due to its involvement in digital asset activity.",
+    "value": "GameStop's risk rating may need to be reviewed due to its involvement in digital asset activity.",
     "jurisdiction": null,
     "effective_date": "2025-06-10",
     "baseline_fields_targeted": [
@@ -261,8 +261,8 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-003",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
-    "ai_reason": "The document mentions regulatory and legal uncertainty around Bitcoin and other crypto-currencies, which could subject the company to increased regulatory scrutiny and impact its risk rating.",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
+    "ai_reason": "The document mentions regulatory and legal uncertainty related to Bitcoin, which could subject the company to increased regulatory scrutiny, potentially impacting its risk rating.",
     "ai_validator_warnings": [
       "risk_rating_review needs_human_review was not boolean; normalized to true."
     ],
@@ -277,8 +277,8 @@
     "document_id": "doc-003",
     "fact_type": "business_activity_change",
     "subject": "GameStop Corp.",
-    "object": "GameStop's business activity may be changing to include digital assets.",
-    "value": "GameStop's business activity may be changing to include digital assets.",
+    "object": "GameStop's business area or known products may be expanding to include digital assets.",
+    "value": "GameStop's business area or known products may be expanding to include digital assets.",
     "jurisdiction": null,
     "effective_date": "2025-06-10",
     "baseline_fields_targeted": [
@@ -294,12 +294,12 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-003",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
-    "ai_reason": "The document mentions Bitcoin and other crypto-currencies, which could indicate a shift in business activity towards digital assets.",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
+    "ai_reason": "The document mentions Bitcoin and other crypto-currencies, which could indicate an expansion of the company's business area or known products to include digital assets.",
     "ai_validator_warnings": [
       "business_activity_change needs_human_review was not boolean; normalized to true."
     ],
-    "severity_suggestion": "medium",
+    "severity_suggestion": "low",
     "evidence_quote": "Bitcoin and other crypto-currencies are subject to regulatory and legal uncertainty, and governments and regulators may enact new laws and regulations, or pursue regulatory, legislative, enforcement or judicial actions that could impact the price of Bitcoin or our ability to acquire, hold or transfer Bitcoin, and may subject us to increased regulatory scrutiny.",
     "needs_human_review": true,
     "extraction_confidence": 0.5
@@ -328,7 +328,7 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-004",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
     "ai_reason": "The document explicitly states that during fiscal 2025, the Company pledged portion of its digital assets as collateral in connection with a covered-call strategy, which resulted in the derecognition of the pledged digital assets and the corresponding recognition of a digital asset receivable. This activity is directly related to digital assets and could potentially impact the risk rating and business area of the company.",
     "ai_validator_warnings": [
       "Apertus evidence quote was not exact; replaced with collected source excerpt.",
@@ -345,8 +345,8 @@
     "document_id": "doc-005",
     "fact_type": "new_product",
     "subject": "Payward, Inc. d/b/a Kraken",
-    "object": "Kraken is acquiring NinjaTrader, a leading U.S. retail futures trading platform, for $1.5 billion.",
-    "value": "Kraken is acquiring NinjaTrader, a leading U.S. retail futures trading platform, for $1.5 billion.",
+    "object": "Kraken is acquiring NinjaTrader, a leading U.S. retail futures trading platform.",
+    "value": "Kraken is acquiring NinjaTrader, a leading U.S. retail futures trading platform.",
     "jurisdiction": null,
     "effective_date": null,
     "baseline_fields_targeted": [
@@ -361,12 +361,10 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-005",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
     "ai_reason": "The document states that Kraken has entered into an agreement to acquire NinjaTrader, which is a new product for Kraken.",
     "ai_validator_warnings": [
-      "Apertus effective_date was not present in source text; normalized to null.",
-      "Model omitted relevant; inferred from non-empty signal_candidates.",
-      "Model omitted entity_match; inferred from non-empty signal_candidates."
+      "Apertus effective_date was not present in source text; normalized to null."
     ],
     "severity_suggestion": "medium",
     "evidence_quote": "Kraken has entered into an agreement to acquire NinjaTrader, the leading U.S. retail futures trading platform, for $1.5 billion, subject to certain purchase price adjustments.",
@@ -377,107 +375,58 @@
     "fact_id": "fact-013",
     "customer_id": "demo-004",
     "document_id": "doc-005",
-    "fact_type": "business_activity_change",
+    "fact_type": "ownership_change",
     "subject": "Payward, Inc. d/b/a Kraken",
-    "object": "Kraken is expanding its business area to include U.S. retail futures trading.",
-    "value": "Kraken is expanding its business area to include U.S. retail futures trading.",
+    "object": "NinjaTrader",
+    "value": "Kraken entered into an agreement to acquire NinjaTrader for $1.5 billion.",
     "jurisdiction": null,
     "effective_date": null,
     "baseline_fields_targeted": [
-      "business_area"
+      "subsidiaries",
+      "business_area",
+      "risk_rating"
     ],
-    "evidence_excerpt": "Makes Kraken a leader in the U.S. futures market for both traditional and crypto trading, and accelerates its multi-asset-class ambitions — which include plans for equities trading and payments.",
+    "evidence_excerpt": "CHEYENNE, Wyo.--Kraken, one of the longest-standing, most liquid and secure crypto platforms serving more than 15 million clients globally, has entered into an agreement to acquire NinjaTrader, the leading U.S. retail futures trading platform, for $1.5 billion, subject to certain purchase price adjustments.",
     "source_quality": "A",
     "source_type": "company_newsroom",
     "source_name": "Kraken Press Room",
     "source_url": "https://www.kraken.com/press/releases/kraken-to-acquire-ninjatrader-introducing-the-next-era-of-professional-trading",
-    "extraction_method": "ai",
-    "detection_method": "ai_validated",
-    "model_name": "swiss-ai/apertus-70b-instruct",
-    "ai_analysis_id": "ai-doc-005",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
-    "ai_reason": "The document states that this acquisition makes Kraken a leader in the U.S. futures market for both traditional and crypto trading, and accelerates its multi-asset-class ambitions.",
-    "ai_validator_warnings": [
-      "Apertus effective_date was not present in source text; normalized to null.",
-      "Model omitted relevant; inferred from non-empty signal_candidates.",
-      "Model omitted entity_match; inferred from non-empty signal_candidates."
-    ],
-    "severity_suggestion": "medium",
-    "evidence_quote": "Makes Kraken a leader in the U.S. futures market for both traditional and crypto trading, and accelerates its multi-asset-class ambitions — which include plans for equities trading and payments.",
-    "needs_human_review": true,
-    "extraction_confidence": 0.7
+    "extraction_method": "rule",
+    "detection_method": "rule_fallback",
+    "model_name": null,
+    "evidence_quote": "CHEYENNE, Wyo.--Kraken, one of the longest-standing, most liquid and secure crypto platforms serving more than 15 million clients globally, has entered into an agreement to acquire NinjaTrader, the leading U.S. retail futures trading platform, for $1.5 billion, subject to certain purchase price adjustments.",
+    "needs_human_review": false,
+    "extraction_confidence": 0.92
   },
   {
     "fact_id": "fact-014",
     "customer_id": "demo-004",
     "document_id": "doc-005",
-    "fact_type": "ownership_change",
+    "fact_type": "business_activity_change",
     "subject": "Payward, Inc. d/b/a Kraken",
-    "object": "Kraken is acquiring a new subsidiary, NinjaTrader.",
-    "value": "Kraken is acquiring a new subsidiary, NinjaTrader.",
-    "jurisdiction": null,
-    "effective_date": null,
-    "baseline_fields_targeted": [
-      "subsidiaries"
-    ],
-    "evidence_excerpt": "Kraken has entered into an agreement to acquire NinjaTrader, the leading U.S. retail futures trading platform, for $1.5 billion, subject to certain purchase price adjustments.",
-    "source_quality": "A",
-    "source_type": "company_newsroom",
-    "source_name": "Kraken Press Room",
-    "source_url": "https://www.kraken.com/press/releases/kraken-to-acquire-ninjatrader-introducing-the-next-era-of-professional-trading",
-    "extraction_method": "ai",
-    "detection_method": "ai_validated",
-    "model_name": "swiss-ai/apertus-70b-instruct",
-    "ai_analysis_id": "ai-doc-005",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
-    "ai_reason": "The document states that Kraken has entered into an agreement to acquire NinjaTrader, which would make it a subsidiary of Kraken.",
-    "ai_validator_warnings": [
-      "Apertus effective_date was not present in source text; normalized to null.",
-      "Model omitted relevant; inferred from non-empty signal_candidates.",
-      "Model omitted entity_match; inferred from non-empty signal_candidates."
-    ],
-    "severity_suggestion": "high",
-    "evidence_quote": "Kraken has entered into an agreement to acquire NinjaTrader, the leading U.S. retail futures trading platform, for $1.5 billion, subject to certain purchase price adjustments.",
-    "needs_human_review": true,
-    "extraction_confidence": 0.9
-  },
-  {
-    "fact_id": "fact-015",
-    "customer_id": "demo-004",
-    "document_id": "doc-005",
-    "fact_type": "digital_asset_activity",
-    "subject": "Payward, Inc. d/b/a Kraken",
-    "object": "Kraken is expanding its digital asset activity to include U.S. retail futures trading.",
-    "value": "Kraken is expanding its digital asset activity to include U.S. retail futures trading.",
+    "object": "U.S. futures and multi-asset professional trading",
+    "value": "The NinjaTrader acquisition expands Kraken toward U.S. futures and multi-asset professional trading.",
     "jurisdiction": null,
     "effective_date": null,
     "baseline_fields_targeted": [
       "business_area",
-      "known_products"
+      "known_products",
+      "risk_rating"
     ],
-    "evidence_excerpt": "This acquisition strengthens Kraken’s position as a 24/7, always-on technology platform built for professional traders, making it a leader in U.S. futures for both traditional and crypto markets.",
+    "evidence_excerpt": "CHEYENNE, Wyo.--Kraken, one of the longest-standing, most liquid and secure crypto platforms serving more than 15 million clients globally, has entered into an agreement to acquire NinjaTrader, the leading U.S. retail futures trading platform, for $1.5 billion, subject to certain purchase price adjustments.",
     "source_quality": "A",
     "source_type": "company_newsroom",
     "source_name": "Kraken Press Room",
     "source_url": "https://www.kraken.com/press/releases/kraken-to-acquire-ninjatrader-introducing-the-next-era-of-professional-trading",
-    "extraction_method": "ai",
-    "detection_method": "ai_validated",
-    "model_name": "swiss-ai/apertus-70b-instruct",
-    "ai_analysis_id": "ai-doc-005",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
-    "ai_reason": "The document states that this acquisition strengthens Kraken’s position as a 24/7, always-on technology platform built for professional traders, making it a leader in U.S. futures for both traditional and crypto markets.",
-    "ai_validator_warnings": [
-      "Apertus effective_date was not present in source text; normalized to null.",
-      "Model omitted relevant; inferred from non-empty signal_candidates.",
-      "Model omitted entity_match; inferred from non-empty signal_candidates."
-    ],
-    "severity_suggestion": "medium",
-    "evidence_quote": "This acquisition strengthens Kraken’s position as a 24/7, always-on technology platform built for professional traders, making it a leader in U.S. futures for both traditional and crypto markets.",
-    "needs_human_review": true,
-    "extraction_confidence": 0.6
+    "extraction_method": "rule",
+    "detection_method": "rule_fallback",
+    "model_name": null,
+    "evidence_quote": "CHEYENNE, Wyo.--Kraken, one of the longest-standing, most liquid and secure crypto platforms serving more than 15 million clients globally, has entered into an agreement to acquire NinjaTrader, the leading U.S. retail futures trading platform, for $1.5 billion, subject to certain purchase price adjustments.",
+    "needs_human_review": false,
+    "extraction_confidence": 0.92
   },
   {
-    "fact_id": "fact-016",
+    "fact_id": "fact-015",
     "customer_id": "demo-002",
     "document_id": "doc-006",
     "fact_type": "regulatory_scrutiny",
@@ -498,8 +447,8 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-006",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
-    "ai_reason": "The document states that the CFTC entered an order against Blockratize, Inc. d/b/a Polymarket for offering off-exchange event-based binary options contracts and failure to obtain designation as a DCM or SEF, resulting in a $1.4 million penalty. This indicates regulatory scrutiny.",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
+    "ai_reason": "The document states that the CFTC entered an order filing and simultaneously settling charges against Blockratize, Inc. d/b/a Polymarket for offering off-exchange event-based binary options contracts and failure to obtain designation as a DCM or registration as a SEF. This indicates regulatory scrutiny and potential risk to the company's risk rating.",
     "ai_validator_warnings": [
       "regulatory_scrutiny needs_human_review was not boolean; normalized to true.",
       "Model omitted relevant; inferred from non-empty signal_candidates.",
@@ -511,7 +460,7 @@
     "extraction_confidence": 0.8
   },
   {
-    "fact_id": "fact-017",
+    "fact_id": "fact-016",
     "customer_id": "demo-002",
     "document_id": "doc-006",
     "fact_type": "business_activity_change",
@@ -538,13 +487,13 @@
     "extraction_confidence": 0.9
   },
   {
-    "fact_id": "fact-018",
+    "fact_id": "fact-017",
     "customer_id": "demo-002",
     "document_id": "doc-007",
     "fact_type": "jurisdiction_restriction",
     "subject": "Blockratize, Inc. d/b/a Polymarket",
-    "object": "Spain has blocked access to Polymarket and Kalshi, indicating a new jurisdiction restriction.",
-    "value": "Spain has blocked access to Polymarket and Kalshi, indicating a new jurisdiction restriction.",
+    "object": "Spain has blocked access to Polymarket and Kalshi while investigating whether they are violating Spanish law by operating without a gambling licence.",
+    "value": "Spain has blocked access to Polymarket and Kalshi while investigating whether they are violating Spanish law by operating without a gambling licence.",
     "jurisdiction": null,
     "effective_date": "2026-05-26",
     "baseline_fields_targeted": [
@@ -560,18 +509,18 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-007",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
     "ai_reason": "The document states that Spain’s ministry of consumer rights has blocked access to Polymarket and Kalshi while it investigates whether the leading prediction market sites are violating Spanish law by operating without a gambling licence.",
     "ai_validator_warnings": [
       "jurisdiction_restriction needs_human_review was not boolean; normalized to true."
     ],
-    "severity_suggestion": "medium",
+    "severity_suggestion": "high",
     "evidence_quote": "Spain’s ministry of consumer rights has blocked access to Polymarket and Kalshi while it investigates whether the leading prediction market sites are violating Spanish law by operating without a gambling licence.",
     "needs_human_review": true,
     "extraction_confidence": 0.8
   },
   {
-    "fact_id": "fact-019",
+    "fact_id": "fact-018",
     "customer_id": "demo-002",
     "document_id": "doc-007",
     "fact_type": "business_activity_change",
@@ -584,6 +533,32 @@
       "business_area",
       "known_products",
       "risk_rating"
+    ],
+    "evidence_excerpt": "Spain’s ministry of consumer rights has blocked access to Polymarket and Kalshi while it investigates whether the leading prediction market sites are violating Spanish law by operating without a gambling licence.",
+    "source_quality": "B",
+    "source_type": "reputable_news",
+    "source_name": "theguardian.com",
+    "source_url": "https://www.theguardian.com/world/2026/may/26/spain-blocks-access-polymarket-kalshi-gambling-licence-investigation",
+    "extraction_method": "rule",
+    "detection_method": "rule_fallback",
+    "model_name": null,
+    "evidence_quote": "Spain’s ministry of consumer rights has blocked access to Polymarket and Kalshi while it investigates whether the leading prediction market sites are violating Spanish law by operating without a gambling licence.",
+    "needs_human_review": false,
+    "extraction_confidence": 0.72
+  },
+  {
+    "fact_id": "fact-019",
+    "customer_id": "demo-002",
+    "document_id": "doc-007",
+    "fact_type": "regulatory_scrutiny",
+    "subject": "Blockratize, Inc. d/b/a Polymarket",
+    "object": "Spanish gambling-license investigation",
+    "value": "Spanish authorities opened or reported a gambling-license investigation involving Polymarket.",
+    "jurisdiction": "Spain",
+    "effective_date": "2026-05-26",
+    "baseline_fields_targeted": [
+      "risk_rating",
+      "business_area"
     ],
     "evidence_excerpt": "Spain’s ministry of consumer rights has blocked access to Polymarket and Kalshi while it investigates whether the leading prediction market sites are violating Spanish law by operating without a gambling licence.",
     "source_quality": "B",
@@ -600,37 +575,11 @@
   {
     "fact_id": "fact-020",
     "customer_id": "demo-002",
-    "document_id": "doc-007",
-    "fact_type": "regulatory_scrutiny",
-    "subject": "Blockratize, Inc. d/b/a Polymarket",
-    "object": "Spanish gambling-license investigation",
-    "value": "Spanish authorities opened or reported a gambling-license investigation involving Polymarket.",
-    "jurisdiction": "Spain",
-    "effective_date": "2026-05-26",
-    "baseline_fields_targeted": [
-      "risk_rating",
-      "business_area"
-    ],
-    "evidence_excerpt": "Spain’s ministry of consumer rights has blocked access to Polymarket and Kalshi while it investigates whether the leading prediction market sites are violating Spanish law by operating without a gambling licence.",
-    "source_quality": "B",
-    "source_type": "reputable_news",
-    "source_name": "theguardian.com",
-    "source_url": "https://www.theguardian.com/world/2026/may/26/spain-blocks-access-polymarket-kalshi-gambling-licence-investigation",
-    "extraction_method": "rule",
-    "detection_method": "rule_fallback",
-    "model_name": null,
-    "evidence_quote": "Spain’s ministry of consumer rights has blocked access to Polymarket and Kalshi while it investigates whether the leading prediction market sites are violating Spanish law by operating without a gambling licence.",
-    "needs_human_review": false,
-    "extraction_confidence": 0.72
-  },
-  {
-    "fact_id": "fact-021",
-    "customer_id": "demo-002",
     "document_id": "doc-008",
     "fact_type": "jurisdiction_restriction",
     "subject": "Blockratize, Inc. d/b/a Polymarket",
-    "object": "Polymarket and Kalshi are blocked in Spain due to lack of gaming license",
-    "value": "Polymarket and Kalshi are blocked in Spain due to lack of gaming license",
+    "object": "Polymarket and Kalshi are blocked in Spain due to operating without a gaming license.",
+    "value": "Polymarket and Kalshi are blocked in Spain due to operating without a gaming license.",
     "jurisdiction": null,
     "effective_date": "2026-05-26",
     "baseline_fields_targeted": [
@@ -645,8 +594,8 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-008",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
-    "ai_reason": "The document states that the Ministry of Consumption has ordered the blocking of Polymarket and Kalshi in Spain as they operate without the necessary gaming license.",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
+    "ai_reason": "The document states that the Ministry of Consumption has issued an order to block the websites of Polymarket and Kalshi in Spain as a measure until the resolution of the administrative procedure. This indicates a restriction on their operations in Spain.",
     "ai_validator_warnings": [
       "jurisdiction_restriction needs_human_review was not boolean; normalized to true."
     ],
@@ -656,7 +605,7 @@
     "extraction_confidence": 0.8
   },
   {
-    "fact_id": "fact-022",
+    "fact_id": "fact-021",
     "customer_id": "demo-002",
     "document_id": "doc-008",
     "fact_type": "business_activity_change",
@@ -683,7 +632,7 @@
     "extraction_confidence": 0.72
   },
   {
-    "fact_id": "fact-023",
+    "fact_id": "fact-022",
     "customer_id": "demo-002",
     "document_id": "doc-008",
     "fact_type": "regulatory_scrutiny",
@@ -709,7 +658,7 @@
     "extraction_confidence": 0.72
   },
   {
-    "fact_id": "fact-024",
+    "fact_id": "fact-023",
     "customer_id": "demo-002",
     "document_id": "doc-009",
     "fact_type": "regulatory_scrutiny",
@@ -730,7 +679,7 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-009",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
     "ai_reason": "The document states that the Dirección General de Ordenación del Juego (DGOJ) has opened a sanctioning file against Polymarket for operating in Spain without the necessary administrative authorization.",
     "ai_validator_warnings": [
       "regulatory_scrutiny needs_human_review was not boolean; normalized to true."
@@ -741,7 +690,7 @@
     "extraction_confidence": 0.8
   },
   {
-    "fact_id": "fact-025",
+    "fact_id": "fact-024",
     "customer_id": "demo-002",
     "document_id": "doc-009",
     "fact_type": "business_activity_change",
@@ -768,7 +717,7 @@
     "extraction_confidence": 0.72
   },
   {
-    "fact_id": "fact-026",
+    "fact_id": "fact-025",
     "customer_id": "demo-002",
     "document_id": "doc-009",
     "fact_type": "jurisdiction_restriction",
@@ -794,7 +743,7 @@
     "extraction_confidence": 0.72
   },
   {
-    "fact_id": "fact-027",
+    "fact_id": "fact-026",
     "customer_id": "demo-009",
     "document_id": "doc-010",
     "fact_type": "new_product",
@@ -816,8 +765,8 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-010",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
-    "ai_reason": "The document mentions that Google is using Nvidia's playbook to build a rival AI chip business. This is a new product development which could potentially change the business area and known products of the company.",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
+    "ai_reason": "The document mentions Google is using Nvidia's playbook to build a rival AI chip business. This is a new product development which could potentially change the business area and known products of Alphabet Inc.",
     "ai_validator_warnings": [],
     "severity_suggestion": "medium",
     "evidence_quote": "Google Is Using Nvidia’s Playbook to Build a Rival AI Chip Business",
@@ -825,7 +774,7 @@
     "extraction_confidence": 0.8
   },
   {
-    "fact_id": "fact-028",
+    "fact_id": "fact-027",
     "customer_id": "demo-009",
     "document_id": "doc-010",
     "fact_type": "business_activity_change",
@@ -852,7 +801,7 @@
     "extraction_confidence": 0.72
   },
   {
-    "fact_id": "fact-029",
+    "fact_id": "fact-028",
     "customer_id": "demo-009",
     "document_id": "doc-010",
     "fact_type": "commercial_opportunity",
@@ -878,7 +827,7 @@
     "extraction_confidence": 0.66
   },
   {
-    "fact_id": "fact-030",
+    "fact_id": "fact-029",
     "customer_id": "demo-005",
     "document_id": "doc-011",
     "fact_type": "new_product",
@@ -900,7 +849,7 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-011",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
     "ai_reason": "The document introduces Circle Payments Network (CPN) as a new product for enabling payments with stablecoins, which is not mentioned in the baseline.",
     "ai_validator_warnings": [
       "Apertus effective_date was not present in source text; normalized to null.",
@@ -912,7 +861,7 @@
     "extraction_confidence": 0.8
   },
   {
-    "fact_id": "fact-031",
+    "fact_id": "fact-030",
     "customer_id": "demo-005",
     "document_id": "doc-011",
     "fact_type": "business_activity_change",
@@ -934,7 +883,7 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-011",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
     "ai_reason": "The document mentions that Circle Payments Network enables payments with stablecoins, which expands the business area beyond the baseline.",
     "ai_validator_warnings": [
       "Apertus effective_date was not present in source text; normalized to null.",
@@ -946,7 +895,7 @@
     "extraction_confidence": 0.7
   },
   {
-    "fact_id": "fact-032",
+    "fact_id": "fact-031",
     "customer_id": "demo-005",
     "document_id": "doc-011",
     "fact_type": "digital_asset_activity",
@@ -969,7 +918,7 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-011",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
     "ai_reason": "The document indicates that Circle Payments Network enables payments with stablecoins, which is a form of digital asset activity.",
     "ai_validator_warnings": [
       "Apertus effective_date was not present in source text; normalized to null.",
@@ -981,7 +930,7 @@
     "extraction_confidence": 0.6
   },
   {
-    "fact_id": "fact-033",
+    "fact_id": "fact-032",
     "customer_id": "demo-005",
     "document_id": "doc-011",
     "fact_type": "new_product",
@@ -1002,7 +951,7 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-011",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
     "ai_reason": "The document introduces Circle Payments Network as a new product for enabling payments with stablecoins, which is not mentioned in the baseline.",
     "ai_validator_warnings": [
       "Apertus effective_date was not present in source text; normalized to null.",
@@ -1014,7 +963,7 @@
     "extraction_confidence": 0.5
   },
   {
-    "fact_id": "fact-034",
+    "fact_id": "fact-033",
     "customer_id": "demo-005",
     "document_id": "doc-011",
     "fact_type": "commercial_opportunity",
@@ -1040,7 +989,7 @@
     "extraction_confidence": 0.86
   },
   {
-    "fact_id": "fact-035",
+    "fact_id": "fact-034",
     "customer_id": "demo-005",
     "document_id": "doc-012",
     "fact_type": "new_product",
@@ -1062,7 +1011,7 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-012",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
     "ai_reason": "The document mentions USDC as a regulated digital currency that enables 24/7 liquidity for near-instant, low-cost global payments, which is a new product description compared to the baseline.",
     "ai_validator_warnings": [
       "Apertus effective_date was not present in source text; normalized to null."
@@ -1073,7 +1022,7 @@
     "extraction_confidence": 0.8
   },
   {
-    "fact_id": "fact-036",
+    "fact_id": "fact-035",
     "customer_id": "demo-005",
     "document_id": "doc-012",
     "fact_type": "digital_asset_activity",
@@ -1100,7 +1049,7 @@
     "extraction_confidence": 0.92
   },
   {
-    "fact_id": "fact-037",
+    "fact_id": "fact-036",
     "customer_id": "demo-005",
     "document_id": "doc-012",
     "fact_type": "commercial_opportunity",
@@ -1126,13 +1075,13 @@
     "extraction_confidence": 0.86
   },
   {
-    "fact_id": "fact-038",
+    "fact_id": "fact-037",
     "customer_id": "demo-004",
     "document_id": "doc-013",
     "fact_type": "new_product",
     "subject": "Payward, Inc. d/b/a Kraken",
-    "object": "Kraken is offering a new product called xStocks",
-    "value": "Kraken is offering a new product called xStocks",
+    "object": "Kraken is offering a new product called xStocks.",
+    "value": "Kraken is offering a new product called xStocks.",
     "jurisdiction": null,
     "effective_date": null,
     "baseline_fields_targeted": [
@@ -1147,13 +1096,11 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-013",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
-    "ai_reason": "The document mentions xStocks as a new product offered by Kraken to certain clients.",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
+    "ai_reason": "The document mentions xStocks as a new product offered by Kraken.",
     "ai_validator_warnings": [
       "Apertus effective_date was not present in source text; normalized to null.",
-      "new_product needs_human_review was not boolean; normalized to true.",
-      "Model omitted relevant; inferred from non-empty signal_candidates.",
-      "Model omitted entity_match; inferred from non-empty signal_candidates."
+      "new_product needs_human_review was not boolean; normalized to true."
     ],
     "severity_suggestion": "medium",
     "evidence_quote": "xStocks are issued by Backed Assets (JE) Limited (a Jersey private limited company) (the \"Issuer\"), and offered to certain Kraken clients by Payward Digital Solutions Ltd. (“PDSL”), a Bermuda exempted company licensed to conduct digital asset business by the Bermuda Monetary Authority.",
@@ -1161,7 +1108,7 @@
     "extraction_confidence": 0.8
   },
   {
-    "fact_id": "fact-039",
+    "fact_id": "fact-038",
     "customer_id": "demo-004",
     "document_id": "doc-013",
     "fact_type": "new_jurisdiction",
@@ -1187,7 +1134,7 @@
     "extraction_confidence": 0.92
   },
   {
-    "fact_id": "fact-040",
+    "fact_id": "fact-039",
     "customer_id": "demo-004",
     "document_id": "doc-013",
     "fact_type": "digital_asset_activity",
@@ -1214,7 +1161,7 @@
     "extraction_confidence": 0.92
   },
   {
-    "fact_id": "fact-041",
+    "fact_id": "fact-040",
     "customer_id": "demo-001",
     "document_id": "doc-014",
     "fact_type": "new_subsidiary",
@@ -1235,7 +1182,7 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-014",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
     "ai_reason": "The document states that Robinhood has closed its acquisition of Bitstamp Ltd.",
     "ai_validator_warnings": [],
     "severity_suggestion": "medium",
@@ -1244,7 +1191,7 @@
     "extraction_confidence": 0.8
   },
   {
-    "fact_id": "fact-042",
+    "fact_id": "fact-041",
     "customer_id": "demo-001",
     "document_id": "doc-014",
     "fact_type": "ownership_change",
@@ -1271,7 +1218,7 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-043",
+    "fact_id": "fact-042",
     "customer_id": "demo-001",
     "document_id": "doc-014",
     "fact_type": "business_activity_change",
@@ -1298,7 +1245,7 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-044",
+    "fact_id": "fact-043",
     "customer_id": "demo-001",
     "document_id": "doc-015",
     "fact_type": "new_subsidiary",
@@ -1319,7 +1266,7 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-015",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
     "ai_reason": "The document mentions Bitstamp UK Ltd. as a subsidiary of Robinhood Markets, Inc. in the context of the acquisition of Bitstamp.",
     "ai_validator_warnings": [
       "new_subsidiary needs_human_review was not boolean; normalized to true."
@@ -1330,7 +1277,7 @@
     "extraction_confidence": 0.8
   },
   {
-    "fact_id": "fact-045",
+    "fact_id": "fact-044",
     "customer_id": "demo-001",
     "document_id": "doc-015",
     "fact_type": "new_jurisdiction",
@@ -1356,7 +1303,7 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-046",
+    "fact_id": "fact-045",
     "customer_id": "demo-001",
     "document_id": "doc-015",
     "fact_type": "digital_asset_activity",
@@ -1383,7 +1330,7 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-047",
+    "fact_id": "fact-046",
     "customer_id": "demo-001",
     "document_id": "doc-016",
     "fact_type": "new_subsidiary",
@@ -1404,7 +1351,7 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-016",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
     "ai_reason": "The document mentions Bitstamp UK Ltd. as a subsidiary of Bitstamp, and Bitstamp is mentioned as being acquired by Robinhood Markets, Inc.",
     "ai_validator_warnings": [
       "new_subsidiary needs_human_review was not boolean; normalized to true."
@@ -1415,7 +1362,7 @@
     "extraction_confidence": 0.8
   },
   {
-    "fact_id": "fact-048",
+    "fact_id": "fact-047",
     "customer_id": "demo-001",
     "document_id": "doc-016",
     "fact_type": "new_jurisdiction",
@@ -1441,13 +1388,13 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-049",
+    "fact_id": "fact-048",
     "customer_id": "demo-004",
     "document_id": "doc-017",
     "fact_type": "new_product",
     "subject": "Payward, Inc. d/b/a Kraken",
-    "object": "Kraken is now offering tokenized U.S. stocks and ETFs for eligible non-U.S. clients.",
-    "value": "Kraken is now offering tokenized U.S. stocks and ETFs for eligible non-U.S. clients.",
+    "object": "Kraken is introducing tokenized U.S. stocks and ETFs for eligible non-U.S. clients.",
+    "value": "Kraken is introducing tokenized U.S. stocks and ETFs for eligible non-U.S. clients.",
     "jurisdiction": null,
     "effective_date": "2025-06-30",
     "baseline_fields_targeted": [
@@ -1462,8 +1409,8 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-017",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
-    "ai_reason": "The document states that Kraken is beginning a phased rollout of tokenized U.S. stocks and ETFs for eligible non-U.S. clients.",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
+    "ai_reason": "The document mentions a phased rollout of tokenized U.S. stocks and ETFs for eligible non-U.S. clients, which is a new product offering.",
     "ai_validator_warnings": [
       "Model omitted relevant; inferred from non-empty signal_candidates.",
       "Model omitted entity_match; inferred from non-empty signal_candidates."
@@ -1474,7 +1421,7 @@
     "extraction_confidence": 0.8
   },
   {
-    "fact_id": "fact-050",
+    "fact_id": "fact-049",
     "customer_id": "demo-004",
     "document_id": "doc-017",
     "fact_type": "new_jurisdiction",
@@ -1500,7 +1447,7 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-051",
+    "fact_id": "fact-050",
     "customer_id": "demo-004",
     "document_id": "doc-017",
     "fact_type": "digital_asset_activity",
@@ -1527,7 +1474,7 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-052",
+    "fact_id": "fact-051",
     "customer_id": "demo-005",
     "document_id": "doc-018",
     "fact_type": "new_product",
@@ -1549,8 +1496,8 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-018",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
-    "ai_reason": "The document mentions Circle is building a stablecoin network and issuing USDC and EURC stablecoins, which could indicate a new product or expansion of existing products.",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
+    "ai_reason": "The document mentions new stablecoins (USDC and EURC) and a stablecoin network, which could indicate a new product or expansion of existing products.",
     "ai_validator_warnings": [
       "Apertus effective_date was not present in source text; normalized to null."
     ],
@@ -1560,7 +1507,7 @@
     "extraction_confidence": 0.8
   },
   {
-    "fact_id": "fact-053",
+    "fact_id": "fact-052",
     "customer_id": "demo-005",
     "document_id": "doc-018",
     "fact_type": "public_listing",
@@ -1586,7 +1533,7 @@
     "extraction_confidence": 0.81
   },
   {
-    "fact_id": "fact-054",
+    "fact_id": "fact-053",
     "customer_id": "demo-005",
     "document_id": "doc-019",
     "fact_type": "new_product",
@@ -1607,8 +1554,8 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-019",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
-    "ai_reason": "The document explicitly mentions 'Circle Mint' as a new way for distributors to access and redeem USDC and EURC.",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
+    "ai_reason": "The document mentions 'Circle Mint' as a new way for distributors to access and redeem USDC and EURC, which is not listed in the baseline known products.",
     "ai_validator_warnings": [
       "Apertus effective_date was not present in source text; normalized to null."
     ],
@@ -1618,7 +1565,7 @@
     "extraction_confidence": 0.8
   },
   {
-    "fact_id": "fact-055",
+    "fact_id": "fact-054",
     "customer_id": "demo-005",
     "document_id": "doc-019",
     "fact_type": "digital_asset_activity",
@@ -1645,7 +1592,7 @@
     "extraction_confidence": 0.92
   },
   {
-    "fact_id": "fact-056",
+    "fact_id": "fact-055",
     "customer_id": "demo-005",
     "document_id": "doc-019",
     "fact_type": "commercial_opportunity",
@@ -1671,7 +1618,7 @@
     "extraction_confidence": 0.86
   },
   {
-    "fact_id": "fact-057",
+    "fact_id": "fact-056",
     "customer_id": "demo-006",
     "document_id": "doc-020",
     "fact_type": "business_activity_change",
@@ -1693,7 +1640,7 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-020",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
     "ai_reason": "The document states that Garantex is a ransomware-enabling virtual currency exchange, which could indicate a change in business activities from just virtual currency exchange to potentially facilitating illegal activities.",
     "ai_validator_warnings": [],
     "severity_suggestion": "medium",
@@ -1702,7 +1649,7 @@
     "extraction_confidence": 0.8
   },
   {
-    "fact_id": "fact-058",
+    "fact_id": "fact-057",
     "customer_id": "demo-006",
     "document_id": "doc-020",
     "fact_type": "new_jurisdiction",
@@ -1728,7 +1675,7 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-059",
+    "fact_id": "fact-058",
     "customer_id": "demo-006",
     "document_id": "doc-020",
     "fact_type": "digital_asset_activity",
@@ -1755,7 +1702,7 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-060",
+    "fact_id": "fact-059",
     "customer_id": "demo-006",
     "document_id": "doc-020",
     "fact_type": "jurisdiction_restriction",
@@ -1781,7 +1728,7 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-061",
+    "fact_id": "fact-060",
     "customer_id": "demo-006",
     "document_id": "doc-020",
     "fact_type": "risk_rating_review",
@@ -1808,7 +1755,7 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-062",
+    "fact_id": "fact-061",
     "customer_id": "demo-007",
     "document_id": "doc-021",
     "fact_type": "regulatory_scrutiny",
@@ -1829,8 +1776,8 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-021",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
-    "ai_reason": "The document mentions a $508 million settlement agreement with the U.S. Department of the Treasury’s Office of Foreign Assets Control (OFAC) to resolve apparent violations of U.S. sanctions on DPRK and WMD proliferators.",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
+    "ai_reason": "The document mentions a $508 million settlement agreement with OFAC to resolve apparent violations of U.S. sanctions, which indicates regulatory scrutiny.",
     "ai_validator_warnings": [
       "regulatory_scrutiny needs_human_review was not boolean; normalized to true."
     ],
@@ -1840,7 +1787,7 @@
     "extraction_confidence": 0.8
   },
   {
-    "fact_id": "fact-063",
+    "fact_id": "fact-062",
     "customer_id": "demo-007",
     "document_id": "doc-021",
     "fact_type": "risk_rating_review",
@@ -1861,8 +1808,8 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-021",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
-    "ai_reason": "The settlement with OFAC for apparent sanctions violations could indicate a higher risk profile for the company.",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
+    "ai_reason": "The settlement with OFAC for apparent violations of U.S. sanctions could indicate a higher risk profile.",
     "ai_validator_warnings": [
       "risk_rating_review needs_human_review was not boolean; normalized to true."
     ],
@@ -1872,7 +1819,7 @@
     "extraction_confidence": 0.7
   },
   {
-    "fact_id": "fact-064",
+    "fact_id": "fact-063",
     "customer_id": "demo-007",
     "document_id": "doc-021",
     "fact_type": "business_activity_change",
@@ -1894,29 +1841,28 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-021",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
-    "ai_reason": "The settlement could affect the company's operations and products, especially if there are restrictions or penalties imposed.",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
+    "ai_reason": "The settlement could affect the company's operations and products, potentially leading to changes in business activities.",
     "ai_validator_warnings": [
       "business_activity_change needs_human_review was not boolean; normalized to true."
     ],
     "severity_suggestion": "low",
     "evidence_quote": "Department of the Treasury’s Office of Foreign Assets Control (OFAC) announced a $508 million settlement agreement with London-headquartered British American Tobacco p.l.c. (BAT) to resolve its apparent violations of U.S. sanctions on the Democratic People’s Republic of Korea (DPRK) and proliferators of weapons of mass destruction (WMD).",
     "needs_human_review": true,
-    "extraction_confidence": 0.5
+    "extraction_confidence": 0.6
   },
   {
-    "fact_id": "fact-065",
+    "fact_id": "fact-064",
     "customer_id": "demo-007",
     "document_id": "doc-021",
     "fact_type": "jurisdiction_restriction",
     "subject": "British American Tobacco p.l.c.",
-    "object": "The known jurisdictions and risk rating of British American Tobacco p.l.c. may need to be updated due to the regulatory scrutiny and settlement.",
-    "value": "The known jurisdictions and risk rating of British American Tobacco p.l.c. may need to be updated due to the regulatory scrutiny and settlement.",
+    "object": "The known jurisdictions of British American Tobacco p.l.c. may need to be updated due to the regulatory scrutiny and settlement.",
+    "value": "The known jurisdictions of British American Tobacco p.l.c. may need to be updated due to the regulatory scrutiny and settlement.",
     "jurisdiction": null,
     "effective_date": "2023-04-25",
     "baseline_fields_targeted": [
-      "known_jurisdictions",
-      "risk_rating"
+      "known_jurisdictions"
     ],
     "evidence_excerpt": "Department of the Treasury’s Office of Foreign Assets Control (OFAC) announced a $508 million settlement agreement with London-headquartered British American Tobacco p.l.c. (BAT) to resolve its apparent violations of U.S. sanctions on the Democratic People’s Republic of Korea (DPRK) and proliferators of weapons of mass destruction (WMD).",
     "source_quality": "A",
@@ -1927,18 +1873,18 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-021",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
-    "ai_reason": "The settlement could lead to restrictions on operations in certain jurisdictions or a higher risk rating due to the sanctions violations.",
+    "ai_generated_at": "2026-06-20T22:04:30Z",
+    "ai_reason": "The settlement could lead to restrictions on operations in certain jurisdictions, potentially affecting the known jurisdictions.",
     "ai_validator_warnings": [
       "jurisdiction_restriction needs_human_review was not boolean; normalized to true."
     ],
-    "severity_suggestion": "medium",
+    "severity_suggestion": "low",
     "evidence_quote": "Department of the Treasury’s Office of Foreign Assets Control (OFAC) announced a $508 million settlement agreement with London-headquartered British American Tobacco p.l.c. (BAT) to resolve its apparent violations of U.S. sanctions on the Democratic People’s Republic of Korea (DPRK) and proliferators of weapons of mass destruction (WMD).",
     "needs_human_review": true,
-    "extraction_confidence": 0.6
+    "extraction_confidence": 0.5
   },
   {
-    "fact_id": "fact-066",
+    "fact_id": "fact-065",
     "customer_id": "demo-007",
     "document_id": "doc-021",
     "fact_type": "new_jurisdiction",
@@ -1964,7 +1910,7 @@
     "extraction_confidence": 0.95
   },
   {
-    "fact_id": "fact-067",
+    "fact_id": "fact-066",
     "customer_id": "demo-008",
     "document_id": "doc-022",
     "fact_type": "new_jurisdiction",
@@ -1976,72 +1922,6 @@
     "baseline_fields_targeted": [
       "known_jurisdictions"
     ],
-    "evidence_excerpt": "RDAP for coinbase.au lists registrant name Coinbase, Inc., eligibility type Trademark Owner, eligibility name COINBASE, eligibility id TM 1647712, and last changed 2026-02-09T01:44:15.302Z.",
-    "source_quality": "A",
-    "source_type": "domain_rdap",
-    "source_name": ".au RDAP / auDA",
-    "source_url": "https://rdap.cctld.au/rdap/domain/coinbase.au",
-    "extraction_method": "ai",
-    "detection_method": "ai_validated",
-    "model_name": "swiss-ai/apertus-70b-instruct",
-    "ai_analysis_id": "ai-doc-022",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
-    "ai_reason": "The RDAP record for coinbase.au lists the registrant name as Coinbase, Inc. and the eligibility name as COINBASE, with the inferred country-code jurisdiction as Australia.",
-    "ai_validator_warnings": [
-      "Apertus evidence quote was not exact; replaced with collected source excerpt.",
-      "new_jurisdiction needs_human_review was not boolean; normalized to true."
-    ],
-    "severity_suggestion": "medium",
-    "evidence_quote": "RDAP for coinbase.au lists registrant name Coinbase, Inc., eligibility type Trademark Owner, eligibility name COINBASE, eligibility id TM 1647712, and last changed 2026-02-09T01:44:15.302Z.",
-    "needs_human_review": true,
-    "extraction_confidence": 0.8
-  },
-  {
-    "fact_id": "fact-068",
-    "customer_id": "demo-008",
-    "document_id": "doc-022",
-    "fact_type": "domain_registration",
-    "subject": "Coinbase Global, Inc.",
-    "object": "Coinbase, Inc. has registered a new domain (coinbase.au) as of 2026-02-09.",
-    "value": "Coinbase, Inc. has registered a new domain (coinbase.au) as of 2026-02-09.",
-    "jurisdiction": null,
-    "effective_date": "2026-02-09",
-    "baseline_fields_targeted": [
-      "websites"
-    ],
-    "evidence_excerpt": "RDAP for coinbase.au lists registrant name Coinbase, Inc., eligibility type Trademark Owner, eligibility name COINBASE, eligibility id TM 1647712, and last changed 2026-02-09T01:44:15.302Z.",
-    "source_quality": "A",
-    "source_type": "domain_rdap",
-    "source_name": ".au RDAP / auDA",
-    "source_url": "https://rdap.cctld.au/rdap/domain/coinbase.au",
-    "extraction_method": "ai",
-    "detection_method": "ai_validated",
-    "model_name": "swiss-ai/apertus-70b-instruct",
-    "ai_analysis_id": "ai-doc-022",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
-    "ai_reason": "The RDAP record for coinbase.au lists the registrant name as Coinbase, Inc. and the last changed date as 2026-02-09.",
-    "ai_validator_warnings": [
-      "Apertus evidence quote was not exact; replaced with collected source excerpt.",
-      "domain_registration needs_human_review was not boolean; normalized to true."
-    ],
-    "severity_suggestion": "medium",
-    "evidence_quote": "RDAP for coinbase.au lists registrant name Coinbase, Inc., eligibility type Trademark Owner, eligibility name COINBASE, eligibility id TM 1647712, and last changed 2026-02-09T01:44:15.302Z.",
-    "needs_human_review": true,
-    "extraction_confidence": 0.8
-  },
-  {
-    "fact_id": "fact-069",
-    "customer_id": "demo-008",
-    "document_id": "doc-022",
-    "fact_type": "new_jurisdiction",
-    "subject": "Coinbase Global, Inc.",
-    "object": "Coinbase, Inc. has expanded its operations to Australia as of 2026-02-09.",
-    "value": "Coinbase, Inc. has expanded its operations to Australia as of 2026-02-09.",
-    "jurisdiction": null,
-    "effective_date": "2026-02-09",
-    "baseline_fields_targeted": [
-      "known_jurisdictions"
-    ],
     "evidence_excerpt": "RDAP record for coinbase.au lists registrant name Coinbase, Inc.; eligibility type Trademark Owner; eligibility name COINBASE; eligibility id TM 1647712; inferred country-code jurisdiction Australia; nameservers ns1.markmonitor.com, ns2.markmonitor.com, ns3.markmonitor.com, ns4.markmonitor.com, ns5.markmonitor.com, ns6.markmonitor.com, ns7.markmonitor.com; last changed 2026-02-09T01:44:15.302Z; RDAP database updated 2026-06-20T05:31:12.765Z.",
     "source_quality": "A",
     "source_type": "domain_rdap",
@@ -2051,50 +1931,16 @@
     "detection_method": "ai_validated",
     "model_name": "swiss-ai/apertus-70b-instruct",
     "ai_analysis_id": "ai-doc-022",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
-    "ai_reason": "The RDAP record for coinbase.au lists the inferred country-code jurisdiction as Australia.",
-    "ai_validator_warnings": [
-      "new_jurisdiction needs_human_review was not boolean; normalized to true."
-    ],
+    "ai_generated_at": "2026-06-20T22:04:30Z",
+    "ai_reason": "The RDAP record for coinbase.au lists the domain as a country-code domain with an inferred jurisdiction of Australia.",
+    "ai_validator_warnings": [],
     "severity_suggestion": "medium",
     "evidence_quote": "RDAP record for coinbase.au lists registrant name Coinbase, Inc.; eligibility type Trademark Owner; eligibility name COINBASE; eligibility id TM 1647712; inferred country-code jurisdiction Australia; nameservers ns1.markmonitor.com, ns2.markmonitor.com, ns3.markmonitor.com, ns4.markmonitor.com, ns5.markmonitor.com, ns6.markmonitor.com, ns7.markmonitor.com; last changed 2026-02-09T01:44:15.302Z; RDAP database updated 2026-06-20T05:31:12.765Z.",
     "needs_human_review": true,
     "extraction_confidence": 0.8
   },
   {
-    "fact_id": "fact-070",
-    "customer_id": "demo-008",
-    "document_id": "doc-022",
-    "fact_type": "risk_rating_review",
-    "subject": "Coinbase Global, Inc.",
-    "object": "The registration of a new domain in Australia (coinbase.au) may indicate a change in risk profile for Coinbase, Inc.",
-    "value": "The registration of a new domain in Australia (coinbase.au) may indicate a change in risk profile for Coinbase, Inc.",
-    "jurisdiction": null,
-    "effective_date": "2026-02-09",
-    "baseline_fields_targeted": [
-      "risk_rating"
-    ],
-    "evidence_excerpt": "RDAP record for coinbase.au lists registrant name Coinbase, Inc.; eligibility type Trademark Owner; eligibility name COINBASE; eligibility id TM 1647712; inferred country-code jurisdiction Australia; nameservers ns1.markmonitor.com, ns2.markmonitor.com, ns3.markmonitor.com, ns4.markmonitor.com, ns5.markmonitor.com, ns6.markmonitor.com, ns7.markmonitor.com; last changed 2026-02-09T01:44:15.302Z; RDAP database updated 2026-06-20T05:31:12.765Z.",
-    "source_quality": "A",
-    "source_type": "domain_rdap",
-    "source_name": ".au RDAP / auDA",
-    "source_url": "https://rdap.cctld.au/rdap/domain/coinbase.au",
-    "extraction_method": "ai",
-    "detection_method": "ai_validated",
-    "model_name": "swiss-ai/apertus-70b-instruct",
-    "ai_analysis_id": "ai-doc-022",
-    "ai_generated_at": "2026-06-20T14:21:13Z",
-    "ai_reason": "The registration of a new domain in a new jurisdiction may indicate a change in operational risk or regulatory exposure.",
-    "ai_validator_warnings": [
-      "risk_rating_review needs_human_review was not boolean; normalized to true."
-    ],
-    "severity_suggestion": "medium",
-    "evidence_quote": "RDAP record for coinbase.au lists registrant name Coinbase, Inc.; eligibility type Trademark Owner; eligibility name COINBASE; eligibility id TM 1647712; inferred country-code jurisdiction Australia; nameservers ns1.markmonitor.com, ns2.markmonitor.com, ns3.markmonitor.com, ns4.markmonitor.com, ns5.markmonitor.com, ns6.markmonitor.com, ns7.markmonitor.com; last changed 2026-02-09T01:44:15.302Z; RDAP database updated 2026-06-20T05:31:12.765Z.",
-    "needs_human_review": true,
-    "extraction_confidence": 0.6
-  },
-  {
-    "fact_id": "fact-071",
+    "fact_id": "fact-067",
     "customer_id": "demo-008",
     "document_id": "doc-022",
     "fact_type": "business_activity_change",
@@ -2107,6 +1953,60 @@
       "business_area",
       "known_products",
       "risk_rating"
+    ],
+    "evidence_excerpt": "RDAP for coinbase.au lists registrant name Coinbase, Inc., eligibility type Trademark Owner, eligibility name COINBASE, eligibility id TM 1647712, and last changed 2026-02-09T01:44:15.302Z.",
+    "source_quality": "A",
+    "source_type": "domain_rdap",
+    "source_name": ".au RDAP / auDA",
+    "source_url": "https://rdap.cctld.au/rdap/domain/coinbase.au",
+    "extraction_method": "rule",
+    "detection_method": "rule_fallback",
+    "model_name": null,
+    "evidence_quote": "RDAP for coinbase.au lists registrant name Coinbase, Inc., eligibility type Trademark Owner, eligibility name COINBASE, eligibility id TM 1647712, and last changed 2026-02-09T01:44:15.302Z.",
+    "needs_human_review": false,
+    "extraction_confidence": 0.95
+  },
+  {
+    "fact_id": "fact-068",
+    "customer_id": "demo-008",
+    "document_id": "doc-022",
+    "fact_type": "domain_registration",
+    "subject": "Coinbase Global, Inc.",
+    "object": "https://coinbase.au",
+    "value": "RDAP ties coinbase.au to Coinbase, Inc. through registrant and COINBASE trademark-owner eligibility data.",
+    "jurisdiction": "Australia",
+    "effective_date": "2026-02-09",
+    "baseline_fields_targeted": [
+      "websites",
+      "known_jurisdictions",
+      "risk_rating"
+    ],
+    "evidence_excerpt": "RDAP for coinbase.au lists registrant name Coinbase, Inc., eligibility type Trademark Owner, eligibility name COINBASE, eligibility id TM 1647712, and last changed 2026-02-09T01:44:15.302Z.",
+    "source_quality": "A",
+    "source_type": "domain_rdap",
+    "source_name": ".au RDAP / auDA",
+    "source_url": "https://rdap.cctld.au/rdap/domain/coinbase.au",
+    "extraction_method": "rule",
+    "detection_method": "rule_fallback",
+    "model_name": null,
+    "evidence_quote": "RDAP for coinbase.au lists registrant name Coinbase, Inc., eligibility type Trademark Owner, eligibility name COINBASE, eligibility id TM 1647712, and last changed 2026-02-09T01:44:15.302Z.",
+    "needs_human_review": false,
+    "extraction_confidence": 0.95
+  },
+  {
+    "fact_id": "fact-069",
+    "customer_id": "demo-008",
+    "document_id": "doc-022",
+    "fact_type": "risk_rating_review",
+    "subject": "Coinbase Global, Inc.",
+    "object": "country-code domain expansion review",
+    "value": "The coinbase.au RDAP record should be reviewed to confirm whether the domain is defensive, pre-launch, or active local market evidence.",
+    "jurisdiction": "Australia",
+    "effective_date": "2026-02-09",
+    "baseline_fields_targeted": [
+      "risk_rating",
+      "known_jurisdictions",
+      "business_area"
     ],
     "evidence_excerpt": "RDAP for coinbase.au lists registrant name Coinbase, Inc., eligibility type Trademark Owner, eligibility name COINBASE, eligibility id TM 1647712, and last changed 2026-02-09T01:44:15.302Z.",
     "source_quality": "A",

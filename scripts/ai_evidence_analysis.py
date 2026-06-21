@@ -439,7 +439,7 @@ def request_diagnostics(
 def call_apertus_openai_compatible(
     messages: list[dict[str, str]],
     config: ApertusConfig,
-    timeout: int = 45,
+    timeout: int = 120,
     document_text_length: int | None = None,
 ) -> str:
     request_payload = {
@@ -465,34 +465,58 @@ def call_apertus_openai_compatible(
         },
         method="POST",
     )
-    try:
-        with urlopen(request, timeout=timeout) as response:
-            response_payload = json.loads(response.read().decode("utf-8"))
-    except HTTPError as exc:
-        body = ""
+    
+    max_retries = 3
+    for attempt in range(max_retries):
         try:
-            body = exc.read().decode("utf-8", errors="replace")
-        except OSError:
-            body = "<could not read HTTPError response body>"
-        raise ApertusAPIError(
-            "Apertus API request failed with HTTPError.",
-            {
-                **diagnostics,
-                "http_status_code": exc.code,
-                "http_reason": exc.reason,
-                "response_body_text": body,
-                "response_headers": response_headers_to_dict(exc.headers),
-            },
-        ) from exc
-    except (URLError, TimeoutError, OSError, json.JSONDecodeError) as exc:
-        raise ApertusAPIError(
-            f"Apertus API request failed: {type(exc).__name__}",
-            {
-                **diagnostics,
-                "error_type": type(exc).__name__,
-                "error_message": str(exc),
-            },
-        ) from exc
+            with urlopen(request, timeout=timeout) as response:
+                response_payload = json.loads(response.read().decode("utf-8"))
+            break
+        except HTTPError as exc:
+            if exc.code in {429, 502, 503, 504} and attempt < max_retries - 1:
+                retry_after = exc.headers.get("Retry-After")
+                if retry_after and retry_after.isdigit():
+                    sleep_time = int(retry_after)
+                else:
+                    sleep_time = 2 ** attempt
+                time.sleep(sleep_time)
+                continue
+            body = ""
+            try:
+                body = exc.read().decode("utf-8", errors="replace")
+            except OSError:
+                body = "<could not read HTTPError response body>"
+            raise ApertusAPIError(
+                "Apertus API request failed with HTTPError.",
+                {
+                    **diagnostics,
+                    "http_status_code": exc.code,
+                    "http_reason": exc.reason,
+                    "response_body_text": body,
+                    "response_headers": response_headers_to_dict(exc.headers),
+                },
+            ) from exc
+        except (URLError, TimeoutError, OSError) as exc:
+            if attempt < max_retries - 1:
+                time.sleep(2 ** attempt)
+                continue
+            raise ApertusAPIError(
+                f"Apertus API request failed: {type(exc).__name__}",
+                {
+                    **diagnostics,
+                    "error_type": type(exc).__name__,
+                    "error_message": str(exc),
+                },
+            ) from exc
+        except json.JSONDecodeError as exc:
+            raise ApertusAPIError(
+                f"Apertus API request failed: {type(exc).__name__}",
+                {
+                    **diagnostics,
+                    "error_type": type(exc).__name__,
+                    "error_message": str(exc),
+                },
+            ) from exc
 
     try:
         return response_payload["choices"][0]["message"]["content"]

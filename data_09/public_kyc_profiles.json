@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-20T19:13:22Z",
+  "generated_at": "2026-06-20T22:15:10Z",
   "scope": "Public-source KYC enrichment for all demo customers.",
   "method": [
     "Starts from the existing baseline_snapshots customer set.",
@@ -30,7 +30,7 @@
       "kyc_profile_id": "public-kyc-demo-001",
       "customer_id": "demo-001",
       "legal_name": "Robinhood Markets, Inc.",
-      "generated_at": "2026-06-20T19:13:22Z",
+      "generated_at": "2026-06-20T22:15:10Z",
       "profile_type": "public_source_kyc_enrichment",
       "important_notice": "Public-source KYC enrichment for RM review. It does not replace customer-provided KYC, beneficial ownership documentation, sanctions screening, or compliance approval.",
       "kyc_status": "public_source_enriched",
@@ -302,7 +302,7 @@
       "kyc_profile_id": "public-kyc-demo-002",
       "customer_id": "demo-002",
       "legal_name": "Blockratize, Inc. d/b/a Polymarket",
-      "generated_at": "2026-06-20T19:13:22Z",
+      "generated_at": "2026-06-20T22:15:10Z",
       "profile_type": "public_source_kyc_enrichment",
       "important_notice": "Public-source KYC enrichment for RM review. It does not replace customer-provided KYC, beneficial ownership documentation, sanctions screening, or compliance approval.",
       "kyc_status": "enhanced_due_diligence_required",
@@ -460,14 +460,14 @@
           },
           {
             "alert_id": "alert-008",
-            "title": "Blockratize, Inc. d/b/a Polymarket has jurisdiction restriction signal: Spain has blocked access to Polymarket and Kalshi, indicating a new jurisdiction restriction.",
+            "title": "Blockratize, Inc. d/b/a Polymarket has jurisdiction restriction signal: Spain has blocked access to Polymarket and Kalshi while investigating whether they are violating Spanish law by operating without a gambling licence.",
             "signal_type": "jurisdiction_restriction",
             "severity": "high",
             "material_score": null
           },
           {
             "alert_id": "alert-009",
-            "title": "Blockratize, Inc. d/b/a Polymarket has jurisdiction restriction signal: Polymarket and Kalshi are blocked in Spain due to lack of gaming license",
+            "title": "Blockratize, Inc. d/b/a Polymarket has jurisdiction restriction signal: Polymarket and Kalshi are blocked in Spain due to operating without a gaming license.",
             "signal_type": "jurisdiction_restriction",
             "severity": "high",
             "material_score": null
@@ -583,7 +583,7 @@
       "kyc_profile_id": "public-kyc-demo-003",
       "customer_id": "demo-003",
       "legal_name": "GameStop Corp.",
-      "generated_at": "2026-06-20T19:13:22Z",
+      "generated_at": "2026-06-20T22:15:10Z",
       "profile_type": "public_source_kyc_enrichment",
       "important_notice": "Public-source KYC enrichment for RM review. It does not replace customer-provided KYC, beneficial ownership documentation, sanctions screening, or compliance approval.",
       "kyc_status": "public_source_enriched",
@@ -838,7 +838,7 @@
       "kyc_profile_id": "public-kyc-demo-004",
       "customer_id": "demo-004",
       "legal_name": "Payward, Inc. d/b/a Kraken",
-      "generated_at": "2026-06-20T19:13:22Z",
+      "generated_at": "2026-06-20T22:15:10Z",
       "profile_type": "public_source_kyc_enrichment",
       "important_notice": "Public-source KYC enrichment for RM review. It does not replace customer-provided KYC, beneficial ownership documentation, sanctions screening, or compliance approval.",
       "kyc_status": "enhanced_due_diligence_required",
@@ -983,53 +983,53 @@
         ]
       },
       "alert_context": {
-        "alert_count": 9,
+        "alert_count": 8,
         "category_counts": {
-          "mixed": 5,
+          "mixed": 4,
           "opportunity": 3,
           "ownership_control": 1
         },
         "top_signal_types": [
           "new_product",
-          "digital_asset_activity",
           "new_jurisdiction",
           "business_activity_change",
+          "digital_asset_activity",
           "ownership_change"
         ],
         "top_alerts": [
           {
-            "alert_id": "alert-026",
+            "alert_id": "alert-025",
             "title": "Payward, Inc. d/b/a Kraken has new digital-asset activity: tokenized U.S. stocks and ETFs",
             "signal_type": "digital_asset_activity",
             "severity": "medium",
             "material_score": null
           },
           {
-            "alert_id": "alert-028",
+            "alert_id": "alert-027",
             "title": "Payward, Inc. d/b/a Kraken has new jurisdiction exposure: non-U.S. clients",
             "signal_type": "new_jurisdiction",
             "severity": "medium",
             "material_score": null
           },
           {
-            "alert_id": "alert-027",
+            "alert_id": "alert-024",
+            "title": "Payward, Inc. d/b/a Kraken business activity changed: U.S. futures and multi-asset professional trading",
+            "signal_type": "business_activity_change",
+            "severity": "medium",
+            "material_score": null
+          },
+          {
+            "alert_id": "alert-026",
             "title": "Payward, Inc. d/b/a Kraken has new jurisdiction exposure: Bermuda; Jersey",
             "signal_type": "new_jurisdiction",
             "severity": "high",
             "material_score": null
           },
           {
-            "alert_id": "alert-032",
-            "title": "Payward, Inc. d/b/a Kraken has ownership/control drift involving Kraken is acquiring a new subsidiary, NinjaTrader.",
+            "alert_id": "alert-031",
+            "title": "Payward, Inc. d/b/a Kraken has ownership/control drift involving NinjaTrader",
             "signal_type": "ownership_change",
             "severity": "high",
-            "material_score": null
-          },
-          {
-            "alert_id": "alert-029",
-            "title": "Payward, Inc. d/b/a Kraken product signal: Kraken is acquiring NinjaTrader, a leading U.S. retail futures trading platform, for $1.5 billion.",
-            "signal_type": "new_product",
-            "severity": "medium",
             "material_score": null
           }
         ]
@@ -1126,7 +1126,7 @@
       "kyc_profile_id": "public-kyc-demo-005",
       "customer_id": "demo-005",
       "legal_name": "Circle Internet Group, Inc.",
-      "generated_at": "2026-06-20T19:13:22Z",
+      "generated_at": "2026-06-20T22:15:10Z",
       "profile_type": "public_source_kyc_enrichment",
       "important_notice": "Public-source KYC enrichment for RM review. It does not replace customer-provided KYC, beneficial ownership documentation, sanctions screening, or compliance approval.",
       "kyc_status": "public_source_enriched",
@@ -1285,35 +1285,35 @@
         ],
         "top_alerts": [
           {
-            "alert_id": "alert-038",
+            "alert_id": "alert-037",
             "title": "Circle Internet Group, Inc. has new digital-asset activity: USDC global payments",
             "signal_type": "digital_asset_activity",
             "severity": "medium",
             "material_score": null
           },
           {
-            "alert_id": "alert-039",
+            "alert_id": "alert-038",
             "title": "Circle Internet Group, Inc. has new digital-asset activity: USDC/EURC access and redemption",
             "signal_type": "digital_asset_activity",
             "severity": "medium",
             "material_score": null
           },
           {
-            "alert_id": "alert-034",
+            "alert_id": "alert-033",
             "title": "Circle Internet Group, Inc. commercial opportunity: Circle Payments Network payments opportunity",
             "signal_type": "commercial_opportunity",
             "severity": "medium",
             "material_score": null
           },
           {
-            "alert_id": "alert-035",
+            "alert_id": "alert-034",
             "title": "Circle Internet Group, Inc. commercial opportunity: USDC liquidity and payments opportunity",
             "signal_type": "commercial_opportunity",
             "severity": "medium",
             "material_score": null
           },
           {
-            "alert_id": "alert-036",
+            "alert_id": "alert-035",
             "title": "Circle Internet Group, Inc. commercial opportunity: Circle Mint distribution opportunity",
             "signal_type": "commercial_opportunity",
             "severity": "medium",
@@ -1396,7 +1396,7 @@
       "kyc_profile_id": "public-kyc-demo-006",
       "customer_id": "demo-006",
       "legal_name": "Garantex Europe OU",
-      "generated_at": "2026-06-20T19:13:22Z",
+      "generated_at": "2026-06-20T22:15:10Z",
       "profile_type": "public_source_kyc_enrichment",
       "important_notice": "Public-source KYC enrichment for RM review. It does not replace customer-provided KYC, beneficial ownership documentation, sanctions screening, or compliance approval.",
       "kyc_status": "prohibited_or_exit_review",
@@ -1503,35 +1503,35 @@
         ],
         "top_alerts": [
           {
-            "alert_id": "alert-047",
+            "alert_id": "alert-046",
             "title": "Garantex Europe OU has new digital-asset activity: sanctioned Russia-linked virtual currency exchange",
             "signal_type": "digital_asset_activity",
             "severity": "critical",
             "material_score": null
           },
           {
-            "alert_id": "alert-048",
+            "alert_id": "alert-047",
             "title": "Garantex Europe OU has jurisdiction restriction signal: Russia sanctions and virtual-currency evasion exposure",
             "signal_type": "jurisdiction_restriction",
             "severity": "critical",
             "material_score": null
           },
           {
-            "alert_id": "alert-049",
+            "alert_id": "alert-048",
             "title": "Garantex Europe OU has new jurisdiction exposure: Russia",
             "signal_type": "new_jurisdiction",
             "severity": "high",
             "material_score": null
           },
           {
-            "alert_id": "alert-050",
+            "alert_id": "alert-049",
             "title": "Garantex Europe OU risk rating should be reviewed",
             "signal_type": "risk_rating_review",
             "severity": "high",
             "material_score": null
           },
           {
-            "alert_id": "alert-046",
+            "alert_id": "alert-045",
             "title": "Garantex Europe OU business activity changed: Garantex Europe OU is involved in ransomware-enabling activities",
             "signal_type": "business_activity_change",
             "severity": "critical",
@@ -1599,7 +1599,7 @@
       "kyc_profile_id": "public-kyc-demo-007",
       "customer_id": "demo-007",
       "legal_name": "British American Tobacco p.l.c.",
-      "generated_at": "2026-06-20T19:13:22Z",
+      "generated_at": "2026-06-20T22:15:10Z",
       "profile_type": "public_source_kyc_enrichment",
       "important_notice": "Public-source KYC enrichment for RM review. It does not replace customer-provided KYC, beneficial ownership documentation, sanctions screening, or compliance approval.",
       "kyc_status": "enhanced_due_diligence_required",
@@ -1714,38 +1714,38 @@
         ],
         "top_alerts": [
           {
-            "alert_id": "alert-053",
+            "alert_id": "alert-052",
             "title": "British American Tobacco p.l.c. has new jurisdiction exposure: North Korea",
             "signal_type": "new_jurisdiction",
             "severity": "critical",
             "material_score": null
           },
           {
-            "alert_id": "alert-054",
+            "alert_id": "alert-053",
             "title": "British American Tobacco p.l.c. faces regulatory scrutiny: British American Tobacco p.l.c. is under regulatory scrutiny for apparent violations of U.S. sanctions on the Democratic People’s Republic of Korea (DPRK) and proliferators of weapons of mass destruction (WMD).",
             "signal_type": "regulatory_scrutiny",
             "severity": "critical",
             "material_score": null
           },
           {
-            "alert_id": "alert-055",
+            "alert_id": "alert-054",
             "title": "British American Tobacco p.l.c. risk rating should be reviewed",
             "signal_type": "risk_rating_review",
             "severity": "high",
             "material_score": null
           },
           {
-            "alert_id": "alert-052",
-            "title": "British American Tobacco p.l.c. has jurisdiction restriction signal: The known jurisdictions and risk rating of British American Tobacco p.l.c. may need to be updated due to the regulatory scrutiny and settlement.",
-            "signal_type": "jurisdiction_restriction",
-            "severity": "high",
+            "alert_id": "alert-050",
+            "title": "British American Tobacco p.l.c. business activity changed: The business activities of British American Tobacco p.l.c. may be impacted by the regulatory scrutiny and settlement.",
+            "signal_type": "business_activity_change",
+            "severity": "medium",
             "material_score": null
           },
           {
             "alert_id": "alert-051",
-            "title": "British American Tobacco p.l.c. business activity changed: The business activities of British American Tobacco p.l.c. may be impacted by the regulatory scrutiny and settlement.",
-            "signal_type": "business_activity_change",
-            "severity": "medium",
+            "title": "British American Tobacco p.l.c. has jurisdiction restriction signal: The known jurisdictions of British American Tobacco p.l.c. may need to be updated due to the regulatory scrutiny and settlement.",
+            "signal_type": "jurisdiction_restriction",
+            "severity": "high",
             "material_score": null
           }
         ]
@@ -1808,7 +1808,7 @@
       "kyc_profile_id": "public-kyc-demo-008",
       "customer_id": "demo-008",
       "legal_name": "Coinbase Global, Inc.",
-      "generated_at": "2026-06-20T19:13:22Z",
+      "generated_at": "2026-06-20T22:15:10Z",
       "profile_type": "public_source_kyc_enrichment",
       "important_notice": "Public-source KYC enrichment for RM review. It does not replace customer-provided KYC, beneficial ownership documentation, sanctions screening, or compliance approval.",
       "kyc_status": "public_source_enriched",
@@ -1946,51 +1946,44 @@
         ]
       },
       "alert_context": {
-        "alert_count": 5,
+        "alert_count": 4,
         "category_counts": {
-          "mixed": 4,
+          "mixed": 3,
           "risk": 1
         },
         "top_signal_types": [
-          "new_jurisdiction",
           "business_activity_change",
           "domain_registration",
+          "new_jurisdiction",
           "risk_rating_review"
         ],
         "top_alerts": [
           {
-            "alert_id": "alert-056",
+            "alert_id": "alert-055",
             "title": "Coinbase Global, Inc. business activity changed: Australia country-code domain monitoring signal",
             "signal_type": "business_activity_change",
             "severity": "medium",
             "material_score": null
           },
           {
-            "alert_id": "alert-057",
-            "title": "Coinbase Global, Inc. has country-domain registration signal: Coinbase, Inc. has registered a new domain (coinbase.au) as of 2026-02-09.",
+            "alert_id": "alert-056",
+            "title": "Coinbase Global, Inc. has country-domain registration signal: https://coinbase.au",
             "signal_type": "domain_registration",
             "severity": "medium",
             "material_score": null
           },
           {
             "alert_id": "alert-058",
-            "title": "Coinbase Global, Inc. has new jurisdiction exposure: Coinbase, Inc. has expanded its operations to Australia as of 2026-02-09.",
-            "signal_type": "new_jurisdiction",
-            "severity": "medium",
-            "material_score": null
-          },
-          {
-            "alert_id": "alert-059",
-            "title": "Coinbase Global, Inc. has new jurisdiction exposure: Coinbase, Inc. has registered a domain in Australia (coinbase.au) as of 2026-02-09.",
-            "signal_type": "new_jurisdiction",
-            "severity": "medium",
-            "material_score": null
-          },
-          {
-            "alert_id": "alert-060",
             "title": "Coinbase Global, Inc. risk rating should be reviewed",
             "signal_type": "risk_rating_review",
             "severity": "high",
+            "material_score": null
+          },
+          {
+            "alert_id": "alert-057",
+            "title": "Coinbase Global, Inc. has new jurisdiction exposure: Coinbase, Inc. has registered a domain in Australia (coinbase.au) as of 2026-02-09.",
+            "signal_type": "new_jurisdiction",
+            "severity": "medium",
             "material_score": null
           }
         ]
@@ -2087,7 +2080,7 @@
       "kyc_profile_id": "public-kyc-demo-009",
       "customer_id": "demo-009",
       "legal_name": "Alphabet Inc.",
-      "generated_at": "2026-06-20T19:13:22Z",
+      "generated_at": "2026-06-20T22:15:10Z",
       "profile_type": "public_source_kyc_enrichment",
       "important_notice": "Public-source KYC enrichment for RM review. It does not replace customer-provided KYC, beneficial ownership documentation, sanctions screening, or compliance approval.",
       "kyc_status": "public_source_enriched",
@@ -2254,21 +2247,21 @@
         ],
         "top_alerts": [
           {
-            "alert_id": "alert-063",
+            "alert_id": "alert-061",
             "title": "Alphabet Inc. product signal: Google is building a rival AI chip business",
             "signal_type": "new_product",
             "severity": "medium",
             "material_score": null
           },
           {
-            "alert_id": "alert-061",
+            "alert_id": "alert-059",
             "title": "Alphabet Inc. business activity changed: AI infrastructure and custom silicon expansion",
             "signal_type": "business_activity_change",
             "severity": "medium",
             "material_score": null
           },
           {
-            "alert_id": "alert-062",
+            "alert_id": "alert-060",
             "title": "Alphabet Inc. commercial opportunity: AI infrastructure and cloud banking opportunity",
             "signal_type": "commercial_opportunity",
             "severity": "medium",

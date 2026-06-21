@@ -3,20 +3,20 @@
 ## Run Summary
 
 - Documents processed: 22
-- Facts generated: 71
-- Alerts generated: 63
-- AI-validated facts: 37
-- Rule-fallback facts: 34
+- Facts generated: 69
+- Alerts generated: 61
+- AI-validated facts: 31
+- Rule-fallback facts: 38
 - Risk alerts: 12
 - Opportunity alerts: 15
 - Ownership/control alerts: 4
-- Mixed alerts: 32
+- Mixed alerts: 30
 
 ## Severity Counts
 
 - critical: 5
 - high: 17
-- medium: 41
+- medium: 39
 - low: 0
 
 ## Top Demo Alerts
