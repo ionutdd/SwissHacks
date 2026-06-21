@@ -93,16 +93,25 @@
       </section>
 
       <main id="workspaceView" class="dashboard-grid" hidden>
-        <aside class="portfolio-panel" aria-label="Portfolio queue">
-          <section class="search-panel" aria-label="Customer search">
-            <label class="field-label" for="searchInput">Search</label>
-            <input id="searchInput" class="search-input" type="search" autocomplete="off" placeholder="Customer or alert">
+        <section class="workspace-commandbar" aria-labelledby="workspaceTitle">
+          <div class="workspace-title-block">
+            <p class="eyebrow">Portfolio monitoring</p>
+            <h1 id="workspaceTitle">Company alerts</h1>
+            <p id="customerCountLabel" class="result-count" aria-live="polite">Showing 0 filtered results</p>
+          </div>
+          <section class="global-search" aria-label="Global customer and alert search">
+            <label class="field-label" for="searchInput">Search customers and alerts</label>
+            <div class="search-control">
+              <span class="search-icon" aria-hidden="true"></span>
+              <input id="searchInput" class="search-input" type="search" autocomplete="off" placeholder="Search by company, alert, or signal">
+            </div>
           </section>
+        </section>
 
+        <aside class="portfolio-panel" aria-label="Portfolio queue">
           <section class="customer-section">
             <div class="section-heading">
-              <h2>Portfolio</h2>
-              <span id="customerCountLabel">0 shown</span>
+              <h2>Companies</h2>
             </div>
             <div id="customerList" class="customer-list" role="list"></div>
           </section>
@@ -110,19 +119,28 @@
 
         <button id="leftResizeHandle" class="resize-handle left-resize" type="button" aria-label="Resize company column"></button>
 
-        <section id="alertWorkspace" class="workspace" aria-label="Alert workspace">
-          <div class="workspace-header">
-            <div>
-              <p class="eyebrow">Selected customer</p>
-              <h1 id="selectedCustomerName">Customer</h1>
-              <div id="selectedCustomerMeta" class="customer-meta"></div>
-            </div>
-            <div id="selectedCustomerStats" class="customer-stat-strip"></div>
+        <header id="customerHeader" class="workspace-header" aria-label="Selected customer context">
+          <div>
+            <p class="eyebrow">Customer</p>
+            <h1 id="selectedCustomerName">Customer</h1>
+            <div id="selectedCustomerMeta" class="customer-meta"></div>
           </div>
+          <div id="selectedCustomerStats" class="customer-stat-strip"></div>
+        </header>
 
+        <section id="alertWorkspace" class="workspace" aria-label="Alert workspace">
           <section id="alertDetail" class="detail-panel" aria-label="Alert detail"></section>
 
-          <section class="timeline-panel" aria-label="Customer timeline">
+          <section id="companyExploration" class="company-exploration" aria-label="Company-level exploration">
+            <div class="exploration-heading">
+              <div>
+                <p class="eyebrow">Company exploration</p>
+                <h2>Activity and geographic exposure</h2>
+              </div>
+              <p>Company-wide context shown only when no alert is selected.</p>
+            </div>
+
+            <section class="timeline-panel exploration-panel" aria-label="Customer timeline">
             <div class="timeline-header">
               <div>
                 <p class="eyebrow">Activity log</p>
@@ -144,9 +162,9 @@
               <div id="timelineViewport" class="timeline-viewport" tabindex="0" aria-label="Timeline events"></div>
               <button class="timeline-pan-button right" type="button" data-timeline-pan="1" title="Later" aria-label="Later">&rsaquo;</button>
             </div>
-          </section>
+            </section>
 
-          <section class="geo-panel" aria-label="Geographic footprint">
+            <section class="geo-panel exploration-panel" aria-label="Geographic footprint">
             <div class="geo-header">
               <div>
                 <p class="eyebrow">Geographic footprint</p>
@@ -155,7 +173,7 @@
               <div class="geo-legend" aria-label="Map legend">
                 <span><i class="geo-key domicile"></i>Domicile</span>
                 <span><i class="geo-key known"></i>Known jurisdiction</span>
-                <span><i class="geo-key risk"></i>Risk / sanctioned</span>
+                <span><i class="geo-key risk"></i>Elevated exposure</span>
               </div>
             </div>
             <div class="geo-map-wrap">
@@ -163,6 +181,7 @@
               <div id="geoCountryCard" class="geo-country-card" hidden></div>
             </div>
             <div id="geoCountryChips" class="geo-country-chips" aria-label="Operating country list"></div>
+            </section>
           </section>
         </section>
 
@@ -174,13 +193,6 @@
             <span id="briefCustomerLabel">Customer</span>
           </div>
           <section class="filters alert-filters" aria-label="Alert filters">
-            <div class="segmented-control" role="group" aria-label="Category filter">
-              <button class="segment active" type="button" data-category="all">All</button>
-              <button class="segment" type="button" data-category="risk">Risk</button>
-              <button class="segment" type="button" data-category="opportunity">Opportunity</button>
-              <button class="segment" type="button" data-category="ownership_control">Ownership</button>
-              <button class="segment" type="button" data-category="mixed">Mixed</button>
-            </div>
             <div class="filter-row">
               <label>
                 <span class="field-label">Severity</span>
@@ -218,6 +230,16 @@
             </summary>
             <div id="alertQueue" class="alert-queue" role="list"></div>
           </details>
+          <nav class="category-navigation" aria-label="Filter alerts by category">
+            <span class="field-label">Alert category</span>
+            <div class="segmented-control" role="group" aria-label="Category filter">
+              <button class="segment active" type="button" data-category="all">All</button>
+              <button class="segment" type="button" data-category="risk">Risk</button>
+              <button class="segment" type="button" data-category="opportunity">Opportunity</button>
+              <button class="segment" type="button" data-category="ownership_control">Ownership</button>
+              <button class="segment" type="button" data-category="mixed">Mixed</button>
+            </div>
+          </nav>
           <div id="briefContent" class="brief-content"></div>
         </aside>
       </main>

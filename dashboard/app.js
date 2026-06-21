@@ -38,6 +38,13 @@
       regulator: "Bermuda Monetary Authority",
       url: "https://www.bma.bm/regulatory-framework"
     },
+    "British Virgin Islands": {
+      id: "VG",
+      lat: 18.42,
+      lon: -64.64,
+      regulator: "British Virgin Islands Financial Services Commission",
+      url: "https://www.bvifsc.vg/"
+    },
     "Canada": {
       id: "CA",
       lat: 56.13,
@@ -313,6 +320,8 @@
       "notificationsView",
       "workspaceView",
       "alertWorkspace",
+      "customerHeader",
+      "companyExploration",
       "alertsPanel",
       "notificationWindowLabel",
       "refreshIndicator",
@@ -424,6 +433,7 @@
       const row = event.target.closest("[data-alert-id]");
       if (!row) return;
       state.selectedAlertId = row.dataset.alertId;
+      state.selectedGeoCountry = null;
       render();
     });
 
@@ -443,6 +453,7 @@
       if (!alert) return;
       state.selectedCustomerId = alert.customer_id;
       state.selectedAlertId = alert.alert_id;
+      state.selectedGeoCountry = null;
       state.viewMode = "workspace";
       document.querySelectorAll("[data-view-mode]").forEach((item) => {
         item.classList.toggle("active", item.dataset.viewMode === state.viewMode);
@@ -451,6 +462,13 @@
     });
 
     els.alertDetail.addEventListener("click", (event) => {
+      const overviewButton = event.target.closest("[data-company-overview]");
+      if (overviewButton) {
+        state.selectedAlertId = null;
+        state.selectedGeoCountry = null;
+        render();
+        return;
+      }
       const actionButton = event.target.closest("[data-action]");
       if (!actionButton) return;
       recordAction(actionButton.dataset.action);
@@ -477,6 +495,7 @@
       const row = event.target.closest("[data-timeline-alert-id]");
       if (!row) return;
       state.selectedAlertId = row.dataset.timelineAlertId;
+      state.selectedGeoCountry = null;
       render();
     });
 
@@ -968,7 +987,10 @@
   function renderWorkspaceLayout() {
     els.workspaceView.classList.toggle("has-customer", Boolean(state.selectedCustomerId));
     els.workspaceView.classList.toggle("has-alert", Boolean(state.selectedAlertId));
-    els.alertWorkspace.hidden = !state.selectedAlertId;
+    els.customerHeader.hidden = !state.selectedCustomerId;
+    els.alertWorkspace.hidden = !state.selectedCustomerId;
+    els.alertDetail.hidden = !state.selectedAlertId;
+    els.companyExploration.hidden = !state.selectedCustomerId || Boolean(state.selectedAlertId);
     els.alertsPanel.hidden = !state.selectedCustomerId;
     els.leftResizeHandle.hidden = !state.selectedCustomerId;
     els.rightResizeHandle.hidden = !state.selectedAlertId;
@@ -1067,7 +1089,7 @@
 
   function renderCustomerList() {
     const customers = getVisibleCustomers();
-    els.customerCountLabel.textContent = `${customers.length} shown`;
+    els.customerCountLabel.textContent = `Showing ${customers.length} filtered ${customers.length === 1 ? "result" : "results"}`;
     els.customerList.innerHTML = customers.length
       ? customers.map((customer) => customerRowTemplate(customer)).join("")
       : `<div class="empty-state">No customers match the current filters.</div>`;
@@ -1101,15 +1123,11 @@
     const aggregate = customerAggregate(customer.customer_id);
     els.selectedCustomerName.textContent = customer.legal_name;
     els.selectedCustomerMeta.innerHTML = `
-      <span class="pill">Risk ${escapeHtml(customer.risk_rating)}</span>
-      <span class="pill">Reviewed ${formatDate(customer.last_reviewed_at)}</span>
-      <span class="pill">RM ${escapeHtml(RM_OWNERS[customer.customer_id] || "Demo RM")}</span>
+      <span>RM ${escapeHtml(RM_OWNERS[customer.customer_id] || "Demo RM")} &middot; last reviewed ${formatDate(customer.last_reviewed_at)}</span>
+      <span class="customer-risk-status">Current risk rating: <strong>${escapeHtml(labelize(customer.risk_rating))}</strong></span>
     `;
     els.selectedCustomerStats.innerHTML = `
-      <span class="pill ${aggregate.highestSeverity}">${aggregate.highestSeverity} top severity</span>
-      <span class="pill">${aggregate.alertCount} alerts</span>
-      <span class="pill risk">${aggregate.riskCount} risk</span>
-      <span class="pill opportunity">${aggregate.opportunityCount} opportunity</span>
+      <span><strong>${aggregate.alertCount}</strong> alerts &middot; <strong>${aggregate.riskCount}</strong> risk &middot; <strong>${aggregate.opportunityCount}</strong> ${aggregate.opportunityCount === 1 ? "opportunity" : "opportunities"}</span>
     `;
   }
 
@@ -1124,25 +1142,20 @@
 
   function alertRowTemplate(alert) {
     const active = alert.alert_id === state.selectedAlertId ? "active" : "";
-    const reviewedByAi = aiReviewsForAlert(alert).length > 0;
+    const isNew = currentStatus(alert) === "new";
+    const materialMeta = alert.material_score ? `Material score ${escapeHtml(alert.material_score)} &middot; ` : "";
+    const reviewMeta = alert.needs_human_review ? " &middot; human review required" : "";
     return `
       <article class="alert-row ${active}" role="listitem">
         <button class="alert-row-main" type="button" data-alert-id="${escapeAttr(alert.alert_id)}">
           <div class="alert-topline">
             <span class="alert-title">${escapeHtml(cleanText(alert.title))}</span>
-            <span class="severity-mark ${alert.severity}">${escapeHtml(alert.severity)}</span>
+            <span class="combined-alert-badge ${escapeAttr(alert.category)} ${escapeAttr(alert.severity)}">${escapeHtml(labelize(alert.category))} &middot; ${escapeHtml(labelize(alert.severity))}</span>
           </div>
           <div class="alert-subline">${escapeHtml(cleanText(alert.summary))}</div>
-          <div class="alert-tags">
-            <span class="pill ${alert.category}">${labelize(alert.category)}</span>
-            <span class="pill">${Math.round(alert.confidence * 100)}% confidence</span>
-            ${alert.material_score ? `<span class="pill material">Score ${escapeHtml(alert.material_score)}</span>` : ""}
-            ${alert.review_lane ? `<span class="pill">${escapeHtml(alert.review_lane)}</span>` : ""}
-            ${reviewedByAi ? `<span class="pill mixed">Document reviewed by Apertus</span>` : ""}
-            <span class="pill">Signal extracted by ${escapeHtml(detectionLabel(alert.detection_method))}</span>
-            ${kycProfileForCustomer(alert.customer_id) ? `<span class="pill mixed">Layer 2 KYC</span>` : ""}
-            <span class="pill">${labelize(currentStatus(alert))}</span>
-            <span class="pill">${alert.evidence_document_ids.length} evidence</span>
+          <div class="alert-row-metadata">
+            ${isNew ? `<span class="new-indicator"><i></i>New</span><span aria-hidden="true">&middot;</span>` : ""}
+            <span>${materialMeta}${Math.round(alert.confidence * 100)}% confidence${reviewMeta}</span>
           </div>
         </button>
         <div class="alert-source-strip">
@@ -1160,71 +1173,138 @@
     }
 
     const score = Math.round(alert.confidence * 100);
+    const isNew = currentStatus(alert) === "new";
+    const detectedAt = alert.detected_at || alert.created_at || alert.newest_published_at || alert.evidence?.[0]?.published_at;
+    const humanReviewText = alert.needs_human_review ? "human review required" : "no human review flag";
     els.alertDetail.innerHTML = `
-      <div class="detail-header">
-        <div>
-          <div class="detail-tags">
-            <span class="pill ${alert.category}">${labelize(alert.category)}</span>
-            <span class="pill ${alert.severity}">${labelize(alert.severity)} severity</span>
-            <span class="pill">${labelize(alert.signal_type)}</span>
-            ${alert.material_score ? `<span class="pill material">Material score ${escapeHtml(alert.material_score)}</span>` : ""}
-            ${alert.review_lane ? `<span class="pill">${escapeHtml(alert.review_lane)}</span>` : ""}
-            <span class="pill ${alert.detection_method === "ai_validated" ? "mixed" : ""}">${escapeHtml(detectionLabel(alert.detection_method))}</span>
-            ${alert.needs_human_review ? `<span class="pill risk">Human review required</span>` : ""}
-            <span class="pill">${labelize(currentStatus(alert))}</span>
+      <header class="alert-card-header">
+        <div class="alert-card-toolbar">
+          <div class="alert-card-status">
+            <span class="combined-alert-badge ${escapeAttr(alert.category)} ${escapeAttr(alert.severity)}">${escapeHtml(labelize(alert.category))} &middot; ${escapeHtml(labelize(alert.severity))}</span>
+            ${isNew ? `<span class="new-indicator"><i></i>New</span>` : ""}
           </div>
-          <h2>${escapeHtml(cleanText(alert.title))}</h2>
-          <p class="summary">${escapeHtml(cleanText(alert.summary))}</p>
-          ${materialityTemplate(alert)}
-          ${detectionTemplate(alert)}
-          ${publicKycTemplate(alert)}
-          ${layer2ProfileTemplate(alert)}
-          ${founderInvestorTemplate(alert)}
-          ${internalContextTemplate(alert)}
-          <div class="detail-source-strip">
-            ${sourceLinksTemplate(alert)}
-          </div>
+          <button class="overview-link" type="button" data-company-overview>Back to company overview</button>
         </div>
-        <div class="confidence-ring" style="--score: ${score}%;" aria-label="${score}% confidence">
-          <span>${score}%</span>
-        </div>
-      </div>
+        <h2>${escapeHtml(cleanText(alert.title))}</h2>
+        <p class="alert-metadata">${alert.material_score ? `Material score ${escapeHtml(alert.material_score)} &middot; ` : ""}${score}% confidence &middot; ${humanReviewText}</p>
+        <p class="summary">${escapeHtml(cleanText(alert.summary))}</p>
+      </header>
 
-      <div class="detail-grid">
-        <div class="detail-block">
-          <h3>Recommended action</h3>
-          <div class="recommendation">${escapeHtml(cleanText(alert.recommended_action))}</div>
-
-          <h3>Before / after KYC fields</h3>
-          ${driftTableTemplate(alert)}
-
-          <h3>Evidence</h3>
-          ${evidenceTemplate(alert)}
-        </div>
-
-        <div class="detail-block">
-          <h3>RM actions</h3>
-          <div class="action-stack">
-            <textarea id="actionNote" placeholder="Optional note for audit trail"></textarea>
-            <div class="action-buttons">
-              <button class="secondary-button" type="button" data-action="acknowledged">Acknowledge</button>
-              <button class="primary-button" type="button" data-action="escalated">Escalate</button>
-              <button class="secondary-button" type="button" data-action="customer_update_requested">Request update</button>
-              <button class="secondary-button" type="button" data-action="added_to_call_brief">Add to brief</button>
-              <button class="danger-button" type="button" data-action="dismissed">Dismiss</button>
+      <div class="intelligence-accordions">
+        <details class="intelligence-accordion" open>
+          <summary>What changed?</summary>
+          <div class="accordion-content">
+            <div class="event-facts" aria-label="Event facts">
+              <div class="event-fact event-title-fact"><span>Event title</span><strong>${escapeHtml(cleanText(alert.title))}</strong></div>
+              <div class="event-fact"><span>Severity</span><strong class="${escapeAttr(alert.severity)}-text">${escapeHtml(labelize(alert.severity))}</strong></div>
+              <div class="event-fact"><span>Materiality</span><strong>${escapeHtml(alert.material_score || "Not scored")}</strong></div>
+              <div class="event-fact"><span>Confidence</span><strong>${score}%</strong></div>
+              <div class="event-fact"><span>Detected</span><strong>${escapeHtml(formatDate(detectedAt) || "Date unavailable")}</strong></div>
+            </div>
+            <div class="comparison-section">
+              <div class="content-heading">
+                <span class="eyebrow">Before / After</span>
+                <h3>Changed company information</h3>
+              </div>
+              ${driftTableTemplate(alert)}
             </div>
           </div>
+        </details>
 
-          <h3>Action history</h3>
-          ${actionLogTemplate(alert)}
-
-          <h3>Audit IDs</h3>
-          <div class="fact-id-row">
-            ${alert.fact_ids.map((factId) => `<span class="pill">${escapeHtml(factId)}</span>`).join("")}
-            ${alert.evidence_document_ids.map((documentId) => `<span class="pill">${escapeHtml(documentId)}</span>`).join("")}
+        <details class="intelligence-accordion">
+          <summary>Why does it matter?</summary>
+          <div class="accordion-content">
+            <section class="narrative-block">
+              <span class="eyebrow">Business and risk impact</span>
+              <p>${escapeHtml(cleanText(alert.summary))}</p>
+            </section>
+            ${businessImpactTemplate(alert)}
+            ${internalContextTemplate(alert)}
           </div>
-        </div>
+        </details>
+
+        <details class="intelligence-accordion">
+          <summary>What should I do?</summary>
+          <div class="accordion-content action-layout">
+            <div>
+              <span class="eyebrow">Recommended next step</span>
+              <div class="recommendation">${escapeHtml(cleanText(alert.recommended_action))}</div>
+              ${reviewStepsTemplate(alert)}
+            </div>
+            <div class="rm-action-panel">
+              <h3>Record RM action</h3>
+              <div class="action-stack">
+                <textarea id="actionNote" placeholder="Optional note for the audit trail"></textarea>
+                <div class="action-buttons">
+                  <button class="secondary-button" type="button" data-action="acknowledged">Acknowledge</button>
+                  <button class="primary-button" type="button" data-action="escalated">Escalate</button>
+                  <button class="secondary-button" type="button" data-action="customer_update_requested">Request update</button>
+                  <button class="secondary-button" type="button" data-action="added_to_call_brief">Add to brief</button>
+                  <button class="danger-button" type="button" data-action="dismissed">Dismiss</button>
+                </div>
+              </div>
+              <h3>Action history</h3>
+              ${actionLogTemplate(alert)}
+            </div>
+          </div>
+        </details>
+
+        <details class="intelligence-accordion">
+          <summary>What supports this finding?</summary>
+          <div class="accordion-content">
+            ${detectionTemplate(alert)}
+            <div class="content-heading">
+              <span class="eyebrow">Supporting evidence</span>
+              <h3>Documents and source excerpts</h3>
+            </div>
+            ${evidenceTemplate(alert)}
+            <div class="detail-source-strip">${sourceLinksTemplate(alert)}</div>
+          </div>
+        </details>
+
+        <details class="intelligence-accordion">
+          <summary>What else should I know?</summary>
+          <div class="accordion-content">
+            ${publicKycTemplate(alert)}
+            ${layer2ProfileTemplate(alert)}
+            ${founderInvestorTemplate(alert)}
+            <section class="audit-reference">
+              <span class="eyebrow">Audit references</span>
+              <div class="fact-id-row">
+                ${(alert.fact_ids || []).map((factId) => `<span>${escapeHtml(factId)}</span>`).join("")}
+                ${(alert.evidence_document_ids || []).map((documentId) => `<span>${escapeHtml(documentId)}</span>`).join("")}
+              </div>
+            </section>
+          </div>
+        </details>
       </div>
+    `;
+  }
+
+  function businessImpactTemplate(alert) {
+    const reasons = (alert.material_reasons || []).filter(Boolean);
+    if (!reasons.length) return "";
+    return `
+      <section class="impact-reasons">
+        <span class="eyebrow">Material indicators and potential exposure</span>
+        <ul>${reasons.map((reason) => `<li>${escapeHtml(cleanText(reason))}</li>`).join("")}</ul>
+      </section>
+    `;
+  }
+
+  function reviewStepsTemplate(alert) {
+    const publicKyc = publicKycForCustomer(alert.customer_id);
+    const profile = kycProfileForCustomer(alert.customer_id);
+    const steps = [
+      ...(publicKyc?.open_kyc_questions || []),
+      ...(profile?.layer_2_highlight_flags || []).map((flag) => flag.recommended_action)
+    ].filter(Boolean).slice(0, 5);
+    if (!steps.length) return "";
+    return `
+      <section class="review-steps">
+        <span class="eyebrow">Suggested review steps and missing information</span>
+        <ol>${steps.map((step) => `<li>${escapeHtml(cleanText(step))}</li>`).join("")}</ol>
+      </section>
     `;
   }
 
@@ -1250,18 +1330,23 @@
     const reviewModels = [...new Set(reviews.map((review) => review.model).filter(Boolean))];
     const reviewStatuses = [...new Set(reviews.map((review) => review.status).filter(Boolean))];
     return `
-      <div class="materiality-box detection-box">
-        <div class="materiality-head">
-          <strong>Detection provenance</strong>
-          ${reviews.length ? `<span class="pill mixed">Document reviewed by Apertus</span>` : `<span class="pill">Document not AI reviewed</span>`}
-          <span class="pill ${method === "ai_validated" ? "mixed" : ""}">Signal extracted by ${escapeHtml(detectionLabel(method))}</span>
-          ${reviewModels.length ? `<span class="pill">Review model ${escapeHtml(reviewModels.join(", "))}</span>` : ""}
-          ${reviewStatuses.length ? `<span class="pill">AI status ${escapeHtml(reviewStatuses.join(", "))}</span>` : ""}
-          ${alert.ai_severity_suggestion ? `<span class="pill ${alert.ai_severity_suggestion}">Apertus severity ${escapeHtml(labelize(alert.ai_severity_suggestion))}</span>` : ""}
-          ${alert.needs_human_review ? `<span class="pill risk">Human review required</span>` : ""}
+      <section class="validation-panel">
+        <div class="validation-heading">
+          <div>
+            <span class="eyebrow">Detection provenance</span>
+            <h3>Validation and review status</h3>
+          </div>
+          <span class="validation-status ${method === "ai_validated" ? "validated" : "review"}">${method === "ai_validated" ? "AI validated" : "Rule detected"}</span>
         </div>
+        <p class="validation-metadata">
+          ${reviews.length ? "Document reviewed by Apertus" : "Document not AI reviewed"}
+          &middot; signal extracted by ${escapeHtml(detectionLabel(method))}
+          ${reviewModels.length ? ` &middot; model ${escapeHtml(reviewModels.join(", "))}` : ""}
+          ${reviewStatuses.length ? ` &middot; ${escapeHtml(reviewStatuses.join(", "))}` : ""}
+          ${alert.needs_human_review ? " &middot; human review required" : ""}
+        </p>
         ${quote ? `<p class="evidence-excerpt"><strong>Exact evidence quote:</strong> ${escapeHtml(quote)}</p>` : ""}
-      </div>
+      </section>
     `;
   }
 
@@ -1875,6 +1960,7 @@
   }
 
   function renderTimeline() {
+    if (state.selectedAlertId) return;
     const customer = selectedCustomer();
     if (!customer) {
       els.timelineCustomerLabel.textContent = "Customer activity";
@@ -2087,6 +2173,10 @@
   }
 
   function renderGeographicFootprint() {
+    if (state.selectedAlertId) {
+      disposeGeoChart();
+      return;
+    }
     const customer = selectedCustomer();
     if (!customer) {
       els.geoFootprintTitle.textContent = "Customer geographic footprint";
@@ -2122,68 +2212,152 @@
     const publicKyc = publicKycForCustomer(customerId) || {};
     const identity = publicKyc.identity || {};
     const domicile = normalizeCountry(identity.primary_domicile || customer.domicile);
-    const known = new Set();
-    const risk = new Set();
+    const footprint = new Map();
 
-    [
-      ...(identity.operating_regions || []),
-      ...(customer.known_jurisdictions || [])
-    ].forEach((value) => addCountrySet(known, value));
+    addGeoFootprintEntry(footprint, domicile, "domicile", {
+      reason: "Primary domicile in the stored customer profile.",
+      sourceName: "Customer baseline",
+      sourceUrl: ""
+    });
 
-    const profileText = [
-      ...(publicKyc.sanctions_adverse_media || []),
-      ...(publicKyc.regulatory_and_licensing || []),
-      ...(publicKyc.risk_rationale || []),
-      ...(publicKyc.open_kyc_questions || [])
-    ].join(" ").toLowerCase();
-    Object.keys(GEO_COUNTRIES).forEach((country) => {
-      const lower = country.toLowerCase();
-      if (!profileText.includes(lower)) return;
-      if (/(sanction|blocked|restriction|restricted|dprk|north korea|russia|illicit|prohibited|exit|aml|cft|license loss)/i.test(profileText)) {
-        risk.add(country);
-      } else {
-        known.add(country);
-      }
+    (customer.known_jurisdictions || []).forEach((value) => {
+      addGeoFootprintEntry(footprint, value, value === domicile ? "domicile" : "known", {
+        reason: "Listed as a known jurisdiction in the stored customer baseline.",
+        sourceName: "Customer baseline",
+        sourceUrl: ""
+      });
+    });
+
+    (identity.operating_regions || []).forEach((value) => {
+      addGeoFootprintEntry(footprint, value, value === domicile ? "domicile" : "known", {
+        reason: "Listed as an operating region in the public KYC profile.",
+        sourceName: "Public KYC profile",
+        sourceUrl: ""
+      });
+    });
+
+    const profileSections = [
+      ["sanctions_adverse_media", publicKyc.sanctions_adverse_media || []],
+      ["regulatory_and_licensing", publicKyc.regulatory_and_licensing || []],
+      ["risk_rationale", publicKyc.risk_rationale || []],
+      ["open_kyc_questions", publicKyc.open_kyc_questions || []]
+    ];
+    profileSections.forEach(([section, statements]) => {
+      statements.forEach((statement) => {
+        Object.keys(GEO_COUNTRIES).forEach((country) => {
+          if (!geoTextMentionsCountry(statement, country)) return;
+          const elevated = geoStatementShowsElevatedExposure(statement, country);
+          const source = publicKycSourceForSection(publicKyc, section);
+          addGeoFootprintEntry(footprint, country, elevated ? "risk" : "known", {
+            reason: cleanText(statement),
+            sourceName: source?.source_name || "Public KYC profile",
+            sourceUrl: source?.source_url || "",
+            publishedAt: source?.retrieved_at || ""
+          });
+        });
+      });
     });
 
     state.alerts
       .filter((alert) => alert.customer_id === customerId)
       .forEach((alert) => {
-        const text = [alert.title, alert.summary, alert.recommended_action, ...(alert.material_reasons || [])].join(" ").toLowerCase();
+        const statements = [alert.title, alert.summary, alert.comparison_reason, ...(alert.material_reasons || [])].filter(Boolean);
         Object.keys(GEO_COUNTRIES).forEach((country) => {
-          if (!text.includes(country.toLowerCase())) return;
-          if (/(sanction|blocked|restriction|restricted|illegal|investigation|critical|risk|prohibited|aml|north korea|russia)/i.test(text)) {
-            risk.add(country);
-          } else {
-            known.add(country);
-          }
+          const matchingStatements = statements.filter((statement) => geoTextMentionsCountry(statement, country));
+          if (!matchingStatements.length) return;
+          const elevatedStatement = matchingStatements.find((statement) => geoStatementShowsElevatedExposure(statement, country));
+          const evidence = geoEvidenceForAlert(alert, country);
+          addGeoFootprintEntry(footprint, country, elevatedStatement ? "risk" : "known", {
+            reason: cleanText(elevatedStatement || alert.title || matchingStatements[0]),
+            excerpt: evidence.excerpt,
+            sourceName: evidence.sourceName,
+            sourceUrl: evidence.sourceUrl,
+            publishedAt: evidence.publishedAt,
+            alertId: alert.alert_id
+          });
         });
       });
 
-    if (domicile) {
-      known.add(domicile);
-    }
-
-    const countries = Array.from(new Set([...known, ...risk]))
-      .filter((country) => GEO_COUNTRIES[country])
-      .map((country) => {
-        const type = risk.has(country) ? "risk" : country === domicile ? "domicile" : "known";
+    const countries = Array.from(footprint.values())
+      .filter((entry) => GEO_COUNTRIES[entry.country])
+      .map((entry) => {
+        const country = entry.country;
         return {
           country,
-          type,
+          type: entry.type,
           id: GEO_COUNTRIES[country].id || null,
           allianceType: GEO_COUNTRIES[country].allianceType || null,
           memberIds: GEO_COUNTRIES[country].memberIds || [],
-          regulator: GEO_COUNTRIES[country].regulator,
-          url: GEO_COUNTRIES[country].url,
           lat: GEO_COUNTRIES[country].lat,
           lon: GEO_COUNTRIES[country].lon,
-          note: geoCountryNote(country, type, customer, publicKyc)
+          evidence: entry.evidence,
+          note: geoCountryNote(entry)
         };
       })
       .sort((a, b) => geoTypeRank(a.type) - geoTypeRank(b.type) || a.country.localeCompare(b.country));
 
     return countries;
+  }
+
+  function addGeoFootprintEntry(footprint, value, type, evidence) {
+    const country = normalizeCountry(value);
+    if (!country || !GEO_COUNTRIES[country]) return;
+    const rank = { known: 1, domicile: 2, risk: 3 };
+    const entry = footprint.get(country) || { country, type: "known", evidence: [] };
+    if ((rank[type] || 0) > (rank[entry.type] || 0)) entry.type = type;
+    const key = [evidence.reason, evidence.sourceUrl, evidence.alertId].map((item) => cleanText(item || "")).join("|");
+    if (evidence.reason && !entry.evidence.some((item) => item.key === key)) {
+      entry.evidence.push({ ...evidence, key });
+    }
+    footprint.set(country, entry);
+  }
+
+  function geoTextMentionsCountry(value, country) {
+    const text = cleanText(value).toLowerCase();
+    const aliases = {
+      "British Virgin Islands": ["british virgin islands", "bvi"],
+      "European Union": ["european union", "eu"],
+      "North Korea": ["north korea", "dprk"],
+      "United Kingdom": ["united kingdom", "uk", "britain"],
+      "United States": ["united states", "usa", "u.s.", "us"]
+    }[country] || [country.toLowerCase()];
+    return aliases.some((alias) => {
+      const escaped = alias.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      return new RegExp(`(^|[^a-z])${escaped}([^a-z]|$)`, "i").test(text);
+    });
+  }
+
+  function geoStatementShowsElevatedExposure(value, country) {
+    const text = cleanText(value).toLowerCase();
+    if (!geoTextMentionsCountry(text, country)) return false;
+    if (/\bno\s+(?:current\s+)?sanctions?\s+(?:flag|match|exposure|issue)?\b/i.test(text)) return false;
+    return /\b(?:sanctioned|sanctions?\s+(?:exposure|violation|evasion|settlement|action)|ofac|block(?:ed|ing)?|prohibited|illegal|license\s+(?:revoked|suspended|lost)|operat(?:e|es|ing)\s+without\s+(?:a\s+)?licen[cs]e)\b/i.test(text);
+  }
+
+  function publicKycSourceForSection(publicKyc, section) {
+    const supportedField = {
+      sanctions_adverse_media: "sanctions_adverse_media",
+      regulatory_and_licensing: "regulatory_and_licensing",
+      risk_rationale: "risk_rationale",
+      open_kyc_questions: "open_kyc_questions"
+    }[section];
+    return (publicKyc.source_notes || []).find((source) => (source.fields_supported || []).includes(supportedField)) || null;
+  }
+
+  function geoEvidenceForAlert(alert, country) {
+    const evidenceItems = alert.evidence || [];
+    const evidence = evidenceItems.find((item) => geoTextMentionsCountry([
+      item.title,
+      item.excerpt,
+      item.evidence_quote
+    ].join(" "), country)) || evidenceItems[0] || {};
+    const excerpt = cleanText(evidence.evidence_quote || evidence.excerpt || alert.evidence_quote || "");
+    return {
+      excerpt: excerpt.length > 260 ? `${excerpt.slice(0, 257).trim()}...` : excerpt,
+      sourceName: evidence.source_name || "Alert evidence",
+      sourceUrl: evidence.source_url || alert.primary_source_url || "",
+      publishedAt: evidence.published_at || evidence.collected_at || ""
+    };
   }
 
   function renderAmChartsGeographicMap(countries) {
@@ -2378,18 +2552,12 @@
     return typeWeight + selectedWeight + directCountryWeight;
   }
 
-  function addCountrySet(target, value) {
-    const country = normalizeCountry(value);
-    if (country && GEO_COUNTRIES[country]) {
-      target.add(country);
-    }
-  }
-
   function normalizeCountry(value) {
     const text = cleanText(value || "");
     if (!text) return null;
     const replacements = {
       "Australia review": "Australia",
+      "BVI": "British Virgin Islands",
       "Europe": "European Union",
       "European Union": "European Union",
       "EU": "European Union",
@@ -2397,6 +2565,7 @@
       "USA": "United States",
       "US": "United States",
       "UK": "United Kingdom",
+      "Great Britain": "United Kingdom",
       "DPRK": "North Korea",
       "North Korea": "North Korea",
       "Russia-linked exchange activity": "Russia",
@@ -2424,14 +2593,15 @@
     return 0xb9dfdd;
   }
 
-  function geoCountryNote(country, type, customer, publicKyc) {
-    if (GEO_COUNTRIES[country]?.memberIds?.length) {
-      return "Regional or alliance-level footprint. Member countries are highlighted on the map and link to the regional regulatory source.";
+  function geoCountryNote(entry) {
+    if (entry.type === "risk") {
+      return "Elevated company exposure is supported by the evidence below. This does not classify the jurisdiction itself as sanctioned.";
     }
-    if (type === "domicile") return "Primary domicile from public KYC or baseline profile.";
-    if (type === "risk") return "Risk or sanctioned-country context found in KYC, sanctions, or alert evidence.";
-    const regions = publicKyc.identity?.operating_regions || customer.known_jurisdictions || [];
-    return regions.includes(country) ? "Known operating jurisdiction from public KYC." : "Known jurisdiction from baseline or alert evidence.";
+    if (entry.type === "domicile") return "Primary company domicile.";
+    if (GEO_COUNTRIES[entry.country]?.memberIds?.length) {
+      return "Regional operating footprint; member countries are highlighted for orientation.";
+    }
+    return "Known, operating, or newly observed company jurisdiction.";
   }
 
   function lonToX(lon) {
@@ -2467,6 +2637,7 @@
   }
 
   function geoCountryCardTemplate(item) {
+    const evidence = (item.evidence || []).slice(0, 2);
     return `
       <div class="geo-card-head">
         <strong>${escapeHtml(item.country)}</strong>
@@ -2474,17 +2645,27 @@
       </div>
       <p>${escapeHtml(item.note)}</p>
       ${item.memberIds?.length ? `<p class="geo-member-note">${escapeHtml(item.memberIds.length)} member countries highlighted.</p>` : ""}
-      <a class="source-link" href="${escapeAttr(item.url)}" target="_blank" rel="noreferrer">
-        <span>Open site</span>
-        <strong>${escapeHtml(item.regulator)}</strong>
-        <small>Official regulation / supervision source</small>
-      </a>
+      <div class="geo-evidence-list">
+        ${evidence.map((entry) => `
+          <div class="geo-evidence-item">
+            <span class="field-label">Why this appears</span>
+            <p>${escapeHtml(entry.reason)}</p>
+            ${entry.excerpt ? `<blockquote>${escapeHtml(entry.excerpt)}</blockquote>` : ""}
+            <div class="geo-evidence-source">
+              <span>${escapeHtml(entry.sourceName || "Source unavailable")}${entry.publishedAt ? ` &middot; ${escapeHtml(formatDate(entry.publishedAt))}` : ""}</span>
+              ${entry.sourceUrl
+                ? `<a href="${escapeAttr(entry.sourceUrl)}" target="_blank" rel="noreferrer">Open supporting evidence</a>`
+                : `<em>No external source linked</em>`}
+            </div>
+          </div>
+        `).join("")}
+      </div>
     `;
   }
 
   function geoTypeLabel(type) {
     if (type === "domicile") return "domicile";
-    if (type === "risk") return "risk / sanctioned";
+    if (type === "risk") return "elevated exposure";
     return "known jurisdiction";
   }
 
