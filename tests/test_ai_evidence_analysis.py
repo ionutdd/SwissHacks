@@ -18,6 +18,7 @@ import extract_signals
 from ai_evidence_analysis import (
     ApertusAPIError,
     ApertusConfig,
+    ModelText,
     analyze_document,
     call_apertus_openai_compatible,
     load_validated_candidates_by_document,
@@ -135,6 +136,22 @@ class AiEvidenceAnalysisTests(unittest.TestCase):
         self.assertEqual(record["status"], "validated")
         self.assertEqual(record["detection_method"], "ai_validated")
         self.assertEqual(record["validated_analysis"]["signal_candidates"][0]["signal_type"], "new_product")
+
+    def test_live_model_usage_is_preserved_for_cost_telemetry(self) -> None:
+        output = ModelText(
+            valid_output(),
+            {"prompt_tokens": 1200, "completion_tokens": 300, "total_tokens": 1500},
+        )
+        record = analyze_document(
+            DOCUMENT,
+            BASELINE,
+            mode="live",
+            generated_at="2026-06-20T10:00:00Z",
+            config=CONFIG,
+            client=lambda _messages, _config: output,
+        )
+        self.assertEqual(record["model_usage"]["prompt_tokens"], 1200)
+        self.assertEqual(record["model_usage"]["completion_tokens"], 300)
 
     def test_malformed_json(self) -> None:
         record = analyze_document(

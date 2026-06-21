@@ -3,33 +3,33 @@
 ## Run Summary
 
 - Documents processed: 22
-- Facts generated: 71
-- Alerts generated: 63
-- AI-validated facts: 37
-- Rule-fallback facts: 34
-- Risk alerts: 12
-- Opportunity alerts: 15
-- Ownership/control alerts: 4
-- Mixed alerts: 32
+- Facts generated: 59
+- Alerts generated: 48
+- AI-validated facts: 0
+- Rule-fallback facts: 59
+- Risk alerts: 9
+- Opportunity alerts: 11
+- Ownership/control alerts: 3
+- Mixed alerts: 25
 
 ## Severity Counts
 
-- critical: 5
-- high: 17
-- medium: 41
+- critical: 7
+- high: 12
+- medium: 29
 - low: 0
 
 ## Top Demo Alerts
 
 1. demo-006 - Garantex Europe OU has new digital-asset activity: sanctioned Russia-linked virtual currency exchange - critical severity, 0.94 confidence
 2. demo-006 - Garantex Europe OU has jurisdiction restriction signal: Russia sanctions and virtual-currency evasion exposure - critical severity, 0.94 confidence
-3. demo-007 - British American Tobacco p.l.c. has new jurisdiction exposure: North Korea - critical severity, 0.94 confidence
+3. demo-007 - British American Tobacco p.l.c. business activity changed: North Korea tobacco joint-venture and export exposure - critical severity, 0.94 confidence
 
 ## Suppressed Or Skipped
 
 - Low-confidence facts skipped: 0
 - Pre-baseline context facts not alerted: 2
-- Duplicate facts clustered into shared alerts: 6
+- Duplicate facts clustered into shared alerts: 9
 
 ## Notes For Teammate 4
 

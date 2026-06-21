@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-20T14:37:31Z",
-  "cutoff_at": "2026-06-19T14:37:31Z",
+  "generated_at": "2026-06-21T01:00:27Z",
+  "cutoff_at": "2026-06-20T01:00:27Z",
   "lookback_hours": 24,
   "freshness_policy": "published_at_only",
   "notification_customer_ids": [
@@ -9,27 +9,18 @@
     "demo-008",
     "demo-009"
   ],
-  "total_alerts": 63,
-  "alerts_inside_refresh_window": 3,
-  "material_alerts": 3,
-  "suppressed_alerts": 60,
-  "stale_or_undated_alerts": 60,
-  "material_by_category": {
-    "mixed": 1,
-    "opportunity": 2
-  },
-  "material_by_severity": {
-    "medium": 3
-  },
-  "top_material_alert_ids": [
-    "alert-061",
-    "alert-063",
-    "alert-062"
-  ],
+  "total_alerts": 48,
+  "alerts_inside_refresh_window": 0,
+  "material_alerts": 0,
+  "suppressed_alerts": 48,
+  "stale_or_undated_alerts": 48,
+  "material_by_category": {},
+  "material_by_severity": {},
+  "top_material_alert_ids": [],
   "suppression_reason_counts": {
-    "Customer is outside the TLDR notification watchlist.": 35,
-    "No evidence was published inside the strict 24-hour notification window.": 41,
-    "No dated evidence is attached, so it is not eligible for the strict 24-hour notification feed.": 19,
-    "Generic opportunity or product update is below material threshold.": 4
+    "Customer is outside the TLDR notification watchlist.": 28,
+    "No evidence was published inside the strict 24-hour notification window.": 35,
+    "No dated evidence is attached, so it is not eligible for the strict 24-hour notification feed.": 13,
+    "Generic opportunity or product update is below material threshold.": 8
   }
 }

@@ -1,24 +1,8 @@
 (function () {
   "use strict";
 
-  const DATA_URLS = {
-    customers: "../data_01/baseline_snapshots.json",
-    documents: "../data_02/documents.json",
-    facts: "../data_03/facts.json",
-    alerts: "../data_03/alerts.json",
-    aiAnalysis: "../data_03/ai_evidence_analysis.json",
-    materialAlerts: "../data_06/material_alerts.json",
-    noiseSuppression: "../data_06/noise_suppression.json",
-    refreshSummary: "../data_06/refresh_summary.json",
-    internalSignals: "../data_07/internal_monitoring_signals.json",
-    fusedAlerts: "../data_07/public_internal_fused_alerts.json",
-    expandedKycProfiles: "../data_07/expanded_kyc_profiles.json",
-    layer2SignalPlaybook: "../data_07/layer2_signal_playbook.json",
-    founderInvestor: "../data_08/founder_investor_intelligence.json",
-    publicKyc: "../data_09/public_kyc_profiles.json"
-  };
-
-  const ACTION_STORAGE_KEY = "signalwatch.reviewActions.v1";
+  const CURRENT_RM_STORAGE_KEY = "signalwatch.currentRelationshipManager.v1";
+  const COLUMN_SIZE_STORAGE_KEY = "signalwatch.columnSizes.v1";
   const RM_OWNERS = {
     "demo-001": "Mara Keller",
     "demo-002": "Alex Meier",
@@ -197,6 +181,17 @@
     layer2SignalPlaybook: [],
     founderInvestor: { customers: [] },
     publicKyc: { customers: [] },
+    relationshipManagers: [],
+    currentRelationshipManager: null,
+    preferences: {},
+    jobs: [],
+    activeRefreshJob: null,
+    authenticatedUser: null,
+    csrfToken: "",
+    approvals: [],
+    auditEvents: [],
+    auditVerification: null,
+    costSummary: {},
     customersById: new Map(),
     documentsById: new Map(),
     factsById: new Map(),
@@ -227,65 +222,68 @@
     bindEvents();
 
     try {
-      const [
-        customers,
-        documents,
-        facts,
-        alerts,
-        aiAnalysis,
-        materialAlerts,
-        noiseSuppression,
-        refreshSummary,
-        internalSignals,
-        fusedAlerts,
-        expandedKycProfiles,
-        layer2SignalPlaybook,
-        founderInvestor,
-        publicKyc
-      ] = await Promise.all([
-        fetchJson(DATA_URLS.customers),
-        fetchJson(DATA_URLS.documents),
-        fetchJson(DATA_URLS.facts),
-        fetchJson(DATA_URLS.alerts),
-        fetchJsonOptional(DATA_URLS.aiAnalysis, { analyses: [] }),
-        fetchJsonOptional(DATA_URLS.materialAlerts, []),
-        fetchJsonOptional(DATA_URLS.noiseSuppression, []),
-        fetchJsonOptional(DATA_URLS.refreshSummary, {}),
-        fetchJsonOptional(DATA_URLS.internalSignals, []),
-        fetchJsonOptional(DATA_URLS.fusedAlerts, []),
-        fetchJsonOptional(DATA_URLS.expandedKycProfiles, []),
-        fetchJsonOptional(DATA_URLS.layer2SignalPlaybook, []),
-        fetchJsonOptional(DATA_URLS.founderInvestor, { customers: [] }),
-        fetchJsonOptional(DATA_URLS.publicKyc, { customers: [] })
-      ]);
-
-      state.customers = customers;
-      state.documents = documents;
-      state.facts = facts;
-      const scoredAlertsById = new Map([...materialAlerts, ...noiseSuppression].map((alert) => [alert.alert_id, alert]));
-      state.alerts = alerts.map((alert) => ({ ...alert, ...(scoredAlertsById.get(alert.alert_id) || {}) }));
-      state.aiAnalysesByDocument = new Map((aiAnalysis.analyses || []).map((analysis) => [analysis.document_id, analysis]));
-      state.materialAlerts = materialAlerts;
-      state.noiseSuppression = noiseSuppression;
-      state.refreshSummary = refreshSummary;
-      state.internalSignals = internalSignals;
-      state.fusedAlerts = fusedAlerts;
-      state.expandedKycProfiles = expandedKycProfiles;
-      state.layer2SignalPlaybook = layer2SignalPlaybook;
-      state.founderInvestor = founderInvestor;
-      state.publicKyc = publicKyc;
-      state.customersById = new Map(customers.map((customer) => [customer.customer_id, customer]));
-      state.documentsById = new Map(documents.map((documentItem) => [documentItem.document_id, documentItem]));
-      state.factsById = new Map(facts.map((fact) => [fact.fact_id, fact]));
-      state.founderInvestorByCustomer = new Map((founderInvestor.customers || []).map((item) => [item.customer_id, item]));
-      state.publicKycByCustomer = new Map((publicKyc.customers || []).map((item) => [item.customer_id, item]));
-      state.actions = loadActions();
+      let authentication;
+      try {
+        authentication = await fetchJson("/api/auth/me");
+      } catch (error) {
+        if (error.status === 401) {
+          showLogin();
+          return;
+        }
+        throw error;
+      }
+      state.authenticatedUser = authentication.user;
+      state.csrfToken = authentication.csrf_token;
+      const preferredRm = localStorage.getItem(CURRENT_RM_STORAGE_KEY) || "rm-mara-keller";
+      let bootstrap;
+      try {
+        bootstrap = await fetchJson(`/api/bootstrap?rm_id=${encodeURIComponent(preferredRm)}`);
+      } catch (error) {
+        if (preferredRm === "rm-mara-keller") throw error;
+        localStorage.removeItem(CURRENT_RM_STORAGE_KEY);
+        bootstrap = await fetchJson("/api/bootstrap");
+      }
+      applyBootstrap(bootstrap);
       seedSelection();
+      renderRelationshipManagerSelect();
+      restoreColumnSizes();
       showApp();
       render();
+      window.setInterval(renderDataHealth, 60 * 1000);
     } catch (error) {
       showError(error);
     }
+  }
+
+  function applyBootstrap(data) {
+    state.customers = data.customers || [];
+    state.documents = data.documents || [];
+    state.facts = data.facts || [];
+    const scoredAlertsById = new Map([...(data.materialAlerts || []), ...(data.noiseSuppression || [])].map((alert) => [alert.alert_id, alert]));
+    state.alerts = (data.alerts || []).map((alert) => ({ ...alert, ...(scoredAlertsById.get(alert.alert_id) || {}) }));
+    state.aiAnalysesByDocument = new Map(((data.aiAnalysis || {}).analyses || []).map((analysis) => [analysis.document_id, analysis]));
+    state.materialAlerts = data.materialAlerts || [];
+    state.noiseSuppression = data.noiseSuppression || [];
+    state.refreshSummary = data.refreshSummary || {};
+    state.internalSignals = data.internalSignals || [];
+    state.fusedAlerts = data.fusedAlerts || [];
+    state.expandedKycProfiles = data.expandedKycProfiles || [];
+    state.layer2SignalPlaybook = data.layer2SignalPlaybook || [];
+    state.founderInvestor = data.founderInvestor || { customers: [] };
+    state.publicKyc = data.publicKyc || { customers: [] };
+    state.relationshipManagers = data.relationshipManagers || [];
+    state.currentRelationshipManager = data.currentRelationshipManager || null;
+    state.preferences = data.preferences || {};
+    state.jobs = data.jobs || [];
+    state.actions = data.actions || [];
+    state.authenticatedUser = data.authenticatedUser || state.authenticatedUser;
+    state.approvals = data.approvals || [];
+    state.costSummary = data.costSummary || {};
+    state.customersById = new Map(state.customers.map((customer) => [customer.customer_id, customer]));
+    state.documentsById = new Map(state.documents.map((documentItem) => [documentItem.document_id, documentItem]));
+    state.factsById = new Map(state.facts.map((fact) => [fact.fact_id, fact]));
+    state.founderInvestorByCustomer = new Map((state.founderInvestor.customers || []).map((item) => [item.customer_id, item]));
+    state.publicKycByCustomer = new Map((state.publicKyc.customers || []).map((item) => [item.customer_id, item]));
   }
 
   function cacheElements() {
@@ -293,20 +291,35 @@
       "loading",
       "errorState",
       "errorMessage",
+      "loginState",
+      "loginForm",
+      "loginUsername",
+      "loginPassword",
+      "loginStatus",
       "app",
       "dataHealth",
-      "resetDemoState",
+      "relationshipManagerSelect",
+      "openPreferences",
+      "authenticatedUserLabel",
+      "logoutButton",
+      "governanceTab",
+      "governanceView",
+      "auditVerification",
+      "auditEvents",
+      "approvalCount",
+      "approvalList",
+      "costEventCount",
+      "costSummary",
       "notificationBadge",
       "notificationsView",
       "workspaceView",
+      "alertWorkspace",
+      "alertsPanel",
       "notificationWindowLabel",
+      "refreshIndicator",
       "notificationCountLabel",
       "notificationRiskLabel",
       "notificationList",
-      "metricCustomers",
-      "metricOpen",
-      "metricHigh",
-      "metricRisk",
       "searchInput",
       "severityFilter",
       "statusFilter",
@@ -330,7 +343,24 @@
       "copyBrief",
       "printBrief",
       "briefStatus",
-      "briefContent"
+      "briefContent",
+      "leftResizeHandle",
+      "rightResizeHandle",
+      "preferencesDialog",
+      "preferencesForm",
+      "closePreferences",
+      "cancelPreferences",
+      "runRefreshNow",
+      "preferenceTimezone",
+      "preferenceLookback",
+      "preferenceScore",
+      "preferenceConfidence",
+      "preferenceFreshness",
+      "preferenceRequireSource",
+      "watchlistOptions",
+      "signalTypeOptions",
+      "scheduleDescription",
+      "preferencesStatus"
     ];
     ids.forEach((id) => {
       els[id] = document.getElementById(id);
@@ -338,6 +368,8 @@
   }
 
   function bindEvents() {
+    els.loginForm.addEventListener("submit", login);
+    els.logoutButton.addEventListener("click", logout);
     els.searchInput.addEventListener("input", (event) => {
       state.filters.query = event.target.value.trim().toLowerCase();
       repairSelectionAfterFilter();
@@ -358,9 +390,15 @@
     document.querySelectorAll("[data-view-mode]").forEach((button) => {
       button.addEventListener("click", () => {
         state.viewMode = button.dataset.viewMode;
+        if (state.viewMode === "workspace") {
+          state.selectedCustomerId = null;
+          state.selectedAlertId = null;
+          state.selectedGeoCountry = null;
+        }
         document.querySelectorAll("[data-view-mode]").forEach((item) => {
           item.classList.toggle("active", item === button);
         });
+        if (state.viewMode === "governance") loadGovernance();
         render();
       });
     });
@@ -454,17 +492,31 @@
 
     els.copyBrief.addEventListener("click", copyBrief);
     els.printBrief.addEventListener("click", () => window.print());
-    els.resetDemoState.addEventListener("click", () => {
-      localStorage.removeItem(ACTION_STORAGE_KEY);
-      state.actions = [];
-      render();
+    els.relationshipManagerSelect.addEventListener("change", () => {
+      loadRelationshipManager(els.relationshipManagerSelect.value);
     });
+    els.openPreferences.addEventListener("click", openPreferences);
+    els.closePreferences.addEventListener("click", () => els.preferencesDialog.close());
+    els.cancelPreferences.addEventListener("click", () => els.preferencesDialog.close());
+    els.preferencesForm.addEventListener("submit", savePreferences);
+    els.runRefreshNow.addEventListener("click", runRefreshNow);
+    els.approvalList.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-approval-decision]");
+      if (!button) return;
+      decideApproval(button.dataset.approvalId, button.dataset.approvalDecision);
+    });
+    bindResizeHandle(els.leftResizeHandle, "portfolio");
+    bindResizeHandle(els.rightResizeHandle, "alerts");
+
   }
 
   async function fetchJson(url) {
     const response = await fetch(url, { cache: "no-store" });
     if (!response.ok) {
-      throw new Error(`Could not load ${url}: ${response.status}`);
+      const payload = await response.json().catch(() => ({}));
+      const error = new Error(payload.error || `Could not load ${url}: ${response.status}`);
+      error.status = response.status;
+      throw error;
     }
     return response.json();
   }
@@ -479,49 +531,348 @@
     }
   }
 
+  async function apiRequest(url, options = {}) {
+    const response = await fetch(url, {
+      ...options,
+      headers: {
+        "Content-Type": "application/json",
+        ...(state.csrfToken ? { "X-CSRF-Token": state.csrfToken } : {}),
+        ...(options.headers || {})
+      },
+      cache: "no-store"
+    });
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      const error = new Error(payload.error || `Request failed: ${response.status}`);
+      error.status = response.status;
+      if (response.status === 401) showLogin();
+      throw error;
+    }
+    return payload;
+  }
+
+  async function login(event) {
+    event.preventDefault();
+    els.loginStatus.textContent = "Authenticating...";
+    try {
+      const result = await apiRequest("/api/auth/login", {
+        method: "POST",
+        body: JSON.stringify({
+          username: els.loginUsername.value.trim(),
+          password: els.loginPassword.value
+        })
+      });
+      state.authenticatedUser = result.user;
+      state.csrfToken = result.csrf_token;
+      els.loginPassword.value = "";
+      let bootstrap;
+      const preferredRm = localStorage.getItem(CURRENT_RM_STORAGE_KEY) || result.user.rm_id || "";
+      try {
+        bootstrap = await fetchJson(`/api/bootstrap?rm_id=${encodeURIComponent(preferredRm)}`);
+      } catch (_error) {
+        bootstrap = await fetchJson("/api/bootstrap");
+      }
+      applyBootstrap(bootstrap);
+      seedSelection();
+      renderRelationshipManagerSelect();
+      restoreColumnSizes();
+      showApp();
+      render();
+    } catch (error) {
+      els.loginStatus.textContent = error.message;
+    }
+  }
+
+  async function logout() {
+    try {
+      await apiRequest("/api/auth/logout", { method: "POST", body: "{}" });
+    } catch (_error) {
+      // Local state is cleared even if the server has already expired the session.
+    }
+    state.authenticatedUser = null;
+    state.csrfToken = "";
+    state.relationshipManagers = [];
+    state.actions = [];
+    showLogin();
+  }
+
+  function currentRmId() {
+    return state.currentRelationshipManager?.id || "rm-mara-keller";
+  }
+
+  function renderRelationshipManagerSelect() {
+    els.relationshipManagerSelect.innerHTML = state.relationshipManagers.map((manager) => {
+      return `<option value="${escapeAttr(manager.id)}">${escapeHtml(manager.name)}</option>`;
+    }).join("");
+    els.relationshipManagerSelect.value = currentRmId();
+  }
+
+  async function loadRelationshipManager(rmId) {
+    els.relationshipManagerSelect.disabled = true;
+    try {
+      const data = await fetchJson(`/api/bootstrap?rm_id=${encodeURIComponent(rmId)}`);
+      applyBootstrap(data);
+      localStorage.setItem(CURRENT_RM_STORAGE_KEY, rmId);
+      seedSelection();
+      renderRelationshipManagerSelect();
+      render();
+    } catch (error) {
+      showTransientStatus(error.message);
+    } finally {
+      els.relationshipManagerSelect.disabled = false;
+    }
+  }
+
+  function openPreferences() {
+    const preferences = state.preferences;
+    const manager = state.currentRelationshipManager;
+    els.preferenceTimezone.value = manager?.timezone || "Europe/Zurich";
+    els.preferenceLookback.value = preferences.lookback_hours ?? 24;
+    els.preferenceScore.value = preferences.minimum_material_score ?? 100;
+    els.preferenceConfidence.value = Math.round((preferences.minimum_confidence ?? 0.7) * 100);
+    els.preferenceRequireSource.checked = preferences.require_source_url !== false;
+    els.preferenceFreshness.value = preferences.include_collected_evidence
+      ? "all_collected"
+      : preferences.include_undated_collected ? "undated_collected" : "published";
+    els.watchlistOptions.innerHTML = state.customers.map((customer) => `
+      <label>
+        <input type="checkbox" name="watchlist" value="${escapeAttr(customer.customer_id)}">
+        ${escapeHtml(customer.legal_name)}
+      </label>
+    `).join("");
+    const signalTypes = [...new Set(state.alerts.map((alert) => alert.signal_type).filter(Boolean))].sort();
+    els.signalTypeOptions.innerHTML = signalTypes.map((signalType) => `
+      <label>
+        <input type="checkbox" name="signal_types" value="${escapeAttr(signalType)}">
+        ${escapeHtml(labelize(signalType))}
+      </label>
+    `).join("");
+    setCheckedValues("watchlist", preferences.watchlist_customer_ids || []);
+    setCheckedValues("categories", preferences.categories || []);
+    setCheckedValues("severities", preferences.severities || []);
+    setCheckedValues("signal_types", preferences.signal_types || []);
+    els.scheduleDescription.textContent = manager
+      ? `Current local time: ${formatInTimeZone(new Date(), manager.timezone)}. Automatic retrieval runs at 07:00 and 13:00 ${manager.timezone}. Next run: ${formatInTimeZone(manager.next_run_at, manager.timezone)}.`
+      : "Automatic retrieval runs at 07:00 and 13:00 in the RM timezone.";
+    els.preferencesStatus.textContent = "";
+    els.preferencesDialog.showModal();
+  }
+
+  function setCheckedValues(name, values) {
+    const selected = new Set(values);
+    els.preferencesForm.querySelectorAll(`input[name="${name}"]`).forEach((input) => {
+      input.checked = selected.has(input.value);
+    });
+  }
+
+  function checkedValues(name) {
+    return [...els.preferencesForm.querySelectorAll(`input[name="${name}"]:checked`)].map((input) => input.value);
+  }
+
+  async function savePreferences(event) {
+    event.preventDefault();
+    const freshness = els.preferenceFreshness.value;
+    const payload = {
+      timezone: els.preferenceTimezone.value.trim(),
+      lookback_hours: Number(els.preferenceLookback.value),
+      minimum_material_score: Number(els.preferenceScore.value),
+      minimum_confidence: Number(els.preferenceConfidence.value) / 100,
+      watchlist_customer_ids: checkedValues("watchlist"),
+      categories: checkedValues("categories"),
+      severities: checkedValues("severities"),
+      signal_types: checkedValues("signal_types"),
+      require_source_url: els.preferenceRequireSource.checked,
+      include_undated_collected: freshness === "undated_collected",
+      include_collected_evidence: freshness === "all_collected"
+    };
+    els.preferencesStatus.textContent = "Saving policy...";
+    try {
+      const result = await apiRequest(`/api/relation-managers/${encodeURIComponent(currentRmId())}/preferences`, {
+        method: "PUT",
+        body: JSON.stringify(payload)
+      });
+      state.preferences = result.preferences;
+      state.currentRelationshipManager = result.relationship_manager;
+      state.activeRefreshJob = result.job;
+      state.viewMode = "notifications";
+      els.preferencesDialog.close();
+      render();
+      if (result.job) monitorRefreshJob(result.job.id);
+    } catch (error) {
+      els.preferencesStatus.textContent = error.message;
+    }
+  }
+
+  async function runRefreshNow() {
+    els.preferencesStatus.textContent = "Refresh queued. A worker will retrieve and evaluate the latest data.";
+    try {
+      const result = await apiRequest(`/api/relation-managers/${encodeURIComponent(currentRmId())}/refresh`, {
+        method: "POST",
+        body: "{}"
+      });
+      state.activeRefreshJob = result.job;
+      state.viewMode = "notifications";
+      els.preferencesDialog.close();
+      render();
+      if (result.job) monitorRefreshJob(result.job.id);
+    } catch (error) {
+      els.preferencesStatus.textContent = error.message;
+    }
+  }
+
+  async function waitForJob(jobId) {
+    const deadline = Date.now() + 30 * 60 * 1000;
+    while (Date.now() < deadline) {
+      await new Promise((resolve) => window.setTimeout(resolve, 1000));
+      const result = await fetchJson(`/api/relation-managers/${encodeURIComponent(currentRmId())}/jobs`);
+      const job = result.jobs.find((item) => item.id === jobId);
+      if (!job) continue;
+      state.activeRefreshJob = job;
+      renderRefreshIndicator();
+      if (["queued", "running"].includes(job.status)) continue;
+      if (job.status === "failed") throw new Error(job.error || "Refresh failed.");
+      return job;
+    }
+    throw new Error("The refresh is still running. Its status remains available on the server.");
+  }
+
+  async function monitorRefreshJob(jobId) {
+    try {
+      const job = await waitForJob(jobId);
+      await loadRelationshipManager(currentRmId());
+      state.activeRefreshJob = job;
+      renderRefreshIndicator();
+      window.setTimeout(() => {
+        if (state.activeRefreshJob?.id === jobId) {
+          state.activeRefreshJob = null;
+          renderRefreshIndicator();
+        }
+      }, 6000);
+    } catch (error) {
+      state.activeRefreshJob = { id: jobId, status: "failed", error: error.message };
+      renderRefreshIndicator();
+    }
+  }
+
+  function bindResizeHandle(handle, column) {
+    handle.addEventListener("pointerdown", (event) => {
+      event.preventDefault();
+      const startX = event.clientX;
+      const styles = getComputedStyle(els.workspaceView);
+      const property = column === "portfolio" ? "--portfolio-width" : "--alerts-width";
+      const startWidth = Number.parseFloat(styles.getPropertyValue(property)) || (column === "portfolio" ? 320 : 380);
+      handle.setPointerCapture(event.pointerId);
+      const move = (moveEvent) => {
+        const direction = column === "portfolio" ? 1 : -1;
+        const minimum = column === "portfolio" ? 240 : 300;
+        const maximum = column === "portfolio" ? 520 : 680;
+        const width = Math.min(maximum, Math.max(minimum, startWidth + ((moveEvent.clientX - startX) * direction)));
+        els.workspaceView.style.setProperty(property, `${Math.round(width)}px`);
+      };
+      const finish = () => {
+        handle.removeEventListener("pointermove", move);
+        handle.removeEventListener("pointerup", finish);
+        saveColumnSizes();
+      };
+      handle.addEventListener("pointermove", move);
+      handle.addEventListener("pointerup", finish);
+    });
+  }
+
+  function saveColumnSizes() {
+    const styles = getComputedStyle(els.workspaceView);
+    localStorage.setItem(COLUMN_SIZE_STORAGE_KEY, JSON.stringify({
+      portfolio: styles.getPropertyValue("--portfolio-width").trim(),
+      alerts: styles.getPropertyValue("--alerts-width").trim()
+    }));
+  }
+
+  function restoreColumnSizes() {
+    try {
+      const sizes = JSON.parse(localStorage.getItem(COLUMN_SIZE_STORAGE_KEY) || "{}");
+      if (sizes.portfolio) els.workspaceView.style.setProperty("--portfolio-width", sizes.portfolio);
+      if (sizes.alerts) els.workspaceView.style.setProperty("--alerts-width", sizes.alerts);
+    } catch (_error) {
+      localStorage.removeItem(COLUMN_SIZE_STORAGE_KEY);
+    }
+  }
+
+  function showTransientStatus(message) {
+    els.dataHealth.textContent = message;
+    window.setTimeout(renderDataHealth, 4000);
+  }
+
+  function formatInTimeZone(value, timezoneName) {
+    const date = value instanceof Date ? value : new Date(value);
+    if (Number.isNaN(date.getTime())) return "Unknown";
+    try {
+      return new Intl.DateTimeFormat([], {
+        timeZone: timezoneName,
+        dateStyle: "medium",
+        timeStyle: "short"
+      }).format(date);
+    } catch (_error) {
+      return date.toLocaleString();
+    }
+  }
+
   function showApp() {
     els.loading.hidden = true;
+    els.loginState.hidden = true;
     els.errorState.hidden = true;
     els.app.hidden = false;
+    const user = state.authenticatedUser;
+    els.authenticatedUserLabel.textContent = user ? `${user.display_name} | ${labelize(user.role)}` : "";
+    const readOnly = user?.role === "auditor";
+    els.openPreferences.hidden = readOnly;
+  }
+
+  function showLogin() {
+    els.loading.hidden = true;
+    els.app.hidden = true;
+    els.errorState.hidden = true;
+    els.loginState.hidden = false;
+    els.loginStatus.textContent = "";
+    window.setTimeout(() => els.loginUsername.focus(), 0);
   }
 
   function showError(error) {
     els.loading.hidden = true;
+    els.loginState.hidden = true;
     els.app.hidden = true;
     els.errorState.hidden = false;
     els.errorMessage.textContent = `${error.message}. Start a local server from the repo root and open /dashboard/.`;
   }
 
   function seedSelection() {
-    const orderedAlerts = sortedAlerts(state.alerts);
-    const firstAlert = orderedAlerts[0];
-    state.selectedCustomerId = firstAlert ? firstAlert.customer_id : state.customers[0]?.customer_id;
-    state.selectedAlertId = firstAlert ? firstAlert.alert_id : null;
+    state.selectedCustomerId = null;
+    state.selectedAlertId = null;
   }
 
   function selectCustomer(customerId) {
     state.selectedCustomerId = customerId;
     state.selectedGeoCountry = null;
-    const firstAlert = sortedAlerts(getFilteredAlertsForCustomer(customerId))[0];
-    state.selectedAlertId = firstAlert ? firstAlert.alert_id : null;
+    state.selectedAlertId = null;
     render();
   }
 
   function repairSelectionAfterFilter() {
     const visibleCustomers = getVisibleCustomers();
     if (!visibleCustomers.some((customer) => customer.customer_id === state.selectedCustomerId)) {
-      state.selectedCustomerId = visibleCustomers[0]?.customer_id || state.customers[0]?.customer_id || null;
+      state.selectedCustomerId = null;
+      state.selectedAlertId = null;
     }
     const visibleAlerts = getFilteredAlertsForCustomer(state.selectedCustomerId);
     if (!visibleAlerts.some((alert) => alert.alert_id === state.selectedAlertId)) {
-      state.selectedAlertId = sortedAlerts(visibleAlerts)[0]?.alert_id || null;
+      state.selectedAlertId = null;
     }
   }
 
   function render() {
     renderViewMode();
     renderNotifications();
-    renderMetrics();
+    renderRefreshIndicator();
+    renderWorkspaceLayout();
     renderCustomerList();
     renderWorkspaceHeader();
     renderAlertQueue();
@@ -530,29 +881,136 @@
     renderGeographicFootprint();
     renderBrief();
     renderDataHealth();
+    renderGovernance();
   }
 
   function renderViewMode() {
     els.notificationsView.hidden = state.viewMode !== "notifications";
     els.workspaceView.hidden = state.viewMode !== "workspace";
+    els.governanceView.hidden = state.viewMode !== "governance";
     document.querySelectorAll("[data-view-mode]").forEach((item) => {
       item.classList.toggle("active", item.dataset.viewMode === state.viewMode);
     });
   }
 
-  function renderMetrics() {
-    const visibleCustomers = getVisibleCustomers();
-    const openAlerts = getFilteredAlerts().filter((alert) => currentStatus(alert) !== "dismissed");
-    els.metricCustomers.textContent = visibleCustomers.length;
-    els.metricOpen.textContent = openAlerts.length;
-    els.metricHigh.textContent = openAlerts.filter((alert) => alert.severity === "high").length;
-    els.metricRisk.textContent = openAlerts.filter((alert) => alert.category === "risk").length;
+  async function loadGovernance() {
+    try {
+      const approvalResult = await fetchJson("/api/approvals");
+      state.approvals = approvalResult.approvals || [];
+      if (["admin", "compliance", "auditor"].includes(state.authenticatedUser?.role)) {
+        const [auditResult, costResult] = await Promise.all([
+          fetchJson("/api/audit"),
+          fetchJson("/api/costs")
+        ]);
+        state.auditEvents = auditResult.events || [];
+        state.auditVerification = auditResult.verification || null;
+        state.costSummary = costResult.costs || {};
+      }
+      renderGovernance();
+    } catch (error) {
+      showTransientStatus(error.message);
+    }
+  }
+
+  function renderGovernance() {
+    const pending = state.approvals.filter((item) => item.status === "pending");
+    els.approvalCount.textContent = `${pending.length} pending`;
+    els.approvalList.innerHTML = state.approvals.length
+      ? state.approvals.map(approvalTemplate).join("")
+      : `<div class="empty-state">No approval requests.</div>`;
+    const verification = state.auditVerification;
+    els.auditVerification.textContent = verification
+      ? verification.valid ? `Verified | ${verification.events_checked} events` : `Broken at ${verification.broken_at}`
+      : "Restricted by role";
+    els.auditVerification.classList.toggle("risk-text", Boolean(verification && !verification.valid));
+    els.auditEvents.innerHTML = state.auditEvents.length
+      ? state.auditEvents.slice(0, 30).map((event) => `
+        <article class="governance-item">
+          <strong>${escapeHtml(labelize(event.action))}</strong>
+          <span>${escapeHtml(event.entity_type)} ${escapeHtml(event.entity_id)}</span>
+          <small>${escapeHtml(formatDateTime(event.created_at))} | chain ${escapeHtml(event.event_hash.slice(0, 12))}</small>
+        </article>
+      `).join("")
+      : `<div class="empty-state">Audit details require an auditor, compliance, or admin role.</div>`;
+    const costs = state.costSummary || {};
+    els.costEventCount.textContent = `${costs.event_count || 0} executions`;
+    els.costSummary.innerHTML = `
+      <div class="cost-metric"><strong>${Number(costs.tokens_in || 0).toLocaleString()}</strong><span>Input tokens</span></div>
+      <div class="cost-metric"><strong>${Number(costs.tokens_out || 0).toLocaleString()}</strong><span>Output tokens</span></div>
+      <div class="cost-metric"><strong>$${Number(costs.estimated_cost_usd || 0).toFixed(4)}</strong><span>Estimated cost</span></div>
+      <div class="cost-metric"><strong>${Number(costs.duration_ms || 0).toLocaleString()} ms</strong><span>Measured runtime</span></div>
+      ${(costs.by_stage || []).map((stage) => `
+        <div class="cost-stage"><span>${escapeHtml(labelize(stage.stage))}</span><strong>${stage.executions} run(s) | $${Number(stage.estimated_cost_usd || 0).toFixed(4)}</strong></div>
+      `).join("")}
+    `;
+  }
+
+  function approvalTemplate(approval) {
+    const canDecide = ["admin", "compliance"].includes(state.authenticatedUser?.role)
+      && approval.status === "pending"
+      && approval.maker_user_id !== state.authenticatedUser?.id;
+    return `
+      <article class="governance-item">
+        <strong>${escapeHtml(labelize(approval.requested_action))}</strong>
+        <span>${escapeHtml(approval.alert_id)} | ${escapeHtml(approval.rm_id)}</span>
+        <small>${escapeHtml(labelize(approval.status))} | ${escapeHtml(formatDateTime(approval.created_at))}</small>
+        ${canDecide ? `
+          <div class="approval-actions">
+            <button class="secondary-button" type="button" data-approval-id="${escapeAttr(approval.id)}" data-approval-decision="rejected">Reject</button>
+            <button class="primary-button" type="button" data-approval-id="${escapeAttr(approval.id)}" data-approval-decision="approved">Approve</button>
+          </div>
+        ` : ""}
+      </article>
+    `;
+  }
+
+  async function decideApproval(approvalId, decision) {
+    try {
+      await apiRequest(`/api/approvals/${encodeURIComponent(approvalId)}/decision`, {
+        method: "POST",
+        body: JSON.stringify({ decision, note: "Decision recorded in the RM governance console." })
+      });
+      await loadGovernance();
+      await loadRelationshipManager(currentRmId());
+    } catch (error) {
+      showTransientStatus(error.message);
+    }
+  }
+
+  function renderWorkspaceLayout() {
+    els.workspaceView.classList.toggle("has-customer", Boolean(state.selectedCustomerId));
+    els.workspaceView.classList.toggle("has-alert", Boolean(state.selectedAlertId));
+    els.alertWorkspace.hidden = !state.selectedAlertId;
+    els.alertsPanel.hidden = !state.selectedCustomerId;
+    els.leftResizeHandle.hidden = !state.selectedCustomerId;
+    els.rightResizeHandle.hidden = !state.selectedAlertId;
+  }
+
+  function renderRefreshIndicator() {
+    const job = state.activeRefreshJob;
+    if (!job) {
+      els.refreshIndicator.hidden = true;
+      els.refreshIndicator.textContent = "";
+      return;
+    }
+    els.refreshIndicator.hidden = false;
+    els.refreshIndicator.classList.toggle("failed", job.status === "failed");
+    els.refreshIndicator.classList.toggle("complete", job.status === "completed");
+    if (job.status === "completed") {
+      els.refreshIndicator.textContent = "Refresh complete. Notifications now use the updated policy.";
+    } else if (job.status === "failed") {
+      els.refreshIndicator.textContent = `Refresh failed: ${job.error || "See the worker log."}`;
+    } else {
+      els.refreshIndicator.textContent = `Refresh ${job.status || "queued"}. A worker is retrieving and re-evaluating data now.`;
+    }
   }
 
   function renderDataHealth() {
     const lastScan = maxDate(state.documents.map((documentItem) => documentItem.collected_at));
     const lookback = state.refreshSummary.lookback_hours || 24;
-    els.dataHealth.textContent = `${visibleNotifications().length} open notifications | ${getFilteredAlerts().length} focused alerts | ${lookback}h scan ${formatDateTime(lastScan)}`;
+    const rm = state.currentRelationshipManager;
+    const localTime = rm ? formatInTimeZone(new Date(), rm.timezone) : "";
+    els.dataHealth.textContent = `${visibleNotifications().length} notifications | ${lookback}h scan${localTime ? ` | RM local ${localTime}` : ""}`;
   }
 
   function renderNotifications() {
@@ -1399,26 +1857,33 @@
       customer_id: alert.customer_id,
       action,
       note: noteOverride !== undefined ? noteOverride : (noteElement ? noteElement.value.trim() : ""),
-      created_by: "demo-rm",
+      created_by: state.currentRelationshipManager?.name || currentRmId(),
       created_at: new Date().toISOString()
     };
     state.actions.push(actionRecord);
-    saveActions();
+    saveAction(actionRecord);
     state.selectedCustomerId = alert.customer_id;
     state.selectedAlertId = alert.alert_id;
     render();
   }
 
-  function loadActions() {
+  async function saveAction(actionRecord) {
     try {
-      return JSON.parse(localStorage.getItem(ACTION_STORAGE_KEY) || "[]");
-    } catch (_error) {
-      return [];
+      const result = await apiRequest(`/api/relation-managers/${encodeURIComponent(currentRmId())}/actions`, {
+        method: "POST",
+        body: JSON.stringify(actionRecord)
+      });
+      if (result.approval) {
+        state.actions = state.actions.filter((item) => item.id !== actionRecord.id);
+        state.approvals.unshift(result.approval);
+        showTransientStatus("Maker-checker approval requested. A different compliance user must approve it.");
+        render();
+      }
+    } catch (error) {
+      state.actions = state.actions.filter((item) => item.id !== actionRecord.id);
+      showTransientStatus(`Could not save review action: ${error.message}`);
+      render();
     }
-  }
-
-  function saveActions() {
-    localStorage.setItem(ACTION_STORAGE_KEY, JSON.stringify(state.actions));
   }
 
   function renderTimeline() {
@@ -2140,7 +2605,7 @@
   }
 
   function notificationCustomerScope() {
-    const scope = state.refreshSummary.notification_customer_ids;
+    const scope = state.preferences.watchlist_customer_ids;
     if (!Array.isArray(scope) || !scope.length) {
       return null;
     }
