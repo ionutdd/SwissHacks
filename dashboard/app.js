@@ -1,24 +1,8 @@
 (function () {
   "use strict";
 
-  const DATA_URLS = {
-    customers: "../data_01/baseline_snapshots.json",
-    documents: "../data_02/documents.json",
-    facts: "../data_03/facts.json",
-    alerts: "../data_03/alerts.json",
-    aiAnalysis: "../data_03/ai_evidence_analysis.json",
-    materialAlerts: "../data_06/material_alerts.json",
-    noiseSuppression: "../data_06/noise_suppression.json",
-    refreshSummary: "../data_06/refresh_summary.json",
-    internalSignals: "../data_07/internal_monitoring_signals.json",
-    fusedAlerts: "../data_07/public_internal_fused_alerts.json",
-    expandedKycProfiles: "../data_07/expanded_kyc_profiles.json",
-    layer2SignalPlaybook: "../data_07/layer2_signal_playbook.json",
-    founderInvestor: "../data_08/founder_investor_intelligence.json",
-    publicKyc: "../data_09/public_kyc_profiles.json"
-  };
-
-  const ACTION_STORAGE_KEY = "signalwatch.reviewActions.v1";
+  const CURRENT_RM_STORAGE_KEY = "signalwatch.currentRelationshipManager.v1";
+  const COLUMN_SIZE_STORAGE_KEY = "signalwatch.columnSizes.v1";
   const RM_OWNERS = {
     "demo-001": "Mara Keller",
     "demo-002": "Alex Meier",
@@ -32,7 +16,13 @@
   };
   const SEVERITY_RANK = { critical: 4, high: 3, medium: 2, low: 1 };
   const CATEGORY_RANK = { risk: 4, mixed: 3, ownership_control: 2, opportunity: 1 };
-
+  const TIMELINE_RANGES = {
+    "1d": 24 * 60 * 60 * 1000,
+    "1w": 7 * 24 * 60 * 60 * 1000,
+    "1m": 30 * 24 * 60 * 60 * 1000,
+    "3m": 90 * 24 * 60 * 60 * 1000,
+    "1y": 365 * 24 * 60 * 60 * 1000
+  };
   const GEO_COUNTRIES = {
     "Australia": {
       id: "AU",
@@ -191,6 +181,17 @@
     layer2SignalPlaybook: [],
     founderInvestor: { customers: [] },
     publicKyc: { customers: [] },
+    relationshipManagers: [],
+    currentRelationshipManager: null,
+    preferences: {},
+    jobs: [],
+    activeRefreshJob: null,
+    authenticatedUser: null,
+    csrfToken: "",
+    approvals: [],
+    auditEvents: [],
+    auditVerification: null,
+    costSummary: {},
     customersById: new Map(),
     documentsById: new Map(),
     factsById: new Map(),
@@ -198,6 +199,8 @@
     founderInvestorByCustomer: new Map(),
     publicKycByCustomer: new Map(),
     actions: [],
+    timelineRange: "1y",
+    selectedGeoCountry: null,
     selectedCustomerId: null,
     selectedAlertId: null,
     viewMode: "notifications",
@@ -219,65 +222,68 @@
     bindEvents();
 
     try {
-      const [
-        customers,
-        documents,
-        facts,
-        alerts,
-        aiAnalysis,
-        materialAlerts,
-        noiseSuppression,
-        refreshSummary,
-        internalSignals,
-        fusedAlerts,
-        expandedKycProfiles,
-        layer2SignalPlaybook,
-        founderInvestor,
-        publicKyc
-      ] = await Promise.all([
-        fetchJson(DATA_URLS.customers),
-        fetchJson(DATA_URLS.documents),
-        fetchJson(DATA_URLS.facts),
-        fetchJson(DATA_URLS.alerts),
-        fetchJsonOptional(DATA_URLS.aiAnalysis, { analyses: [] }),
-        fetchJsonOptional(DATA_URLS.materialAlerts, []),
-        fetchJsonOptional(DATA_URLS.noiseSuppression, []),
-        fetchJsonOptional(DATA_URLS.refreshSummary, {}),
-        fetchJsonOptional(DATA_URLS.internalSignals, []),
-        fetchJsonOptional(DATA_URLS.fusedAlerts, []),
-        fetchJsonOptional(DATA_URLS.expandedKycProfiles, []),
-        fetchJsonOptional(DATA_URLS.layer2SignalPlaybook, []),
-        fetchJsonOptional(DATA_URLS.founderInvestor, { customers: [] }),
-        fetchJsonOptional(DATA_URLS.publicKyc, { customers: [] })
-      ]);
-
-      state.customers = customers;
-      state.documents = documents;
-      state.facts = facts;
-      const scoredAlertsById = new Map([...materialAlerts, ...noiseSuppression].map((alert) => [alert.alert_id, alert]));
-      state.alerts = alerts.map((alert) => ({ ...alert, ...(scoredAlertsById.get(alert.alert_id) || {}) }));
-      state.aiAnalysesByDocument = new Map((aiAnalysis.analyses || []).map((analysis) => [analysis.document_id, analysis]));
-      state.materialAlerts = materialAlerts;
-      state.noiseSuppression = noiseSuppression;
-      state.refreshSummary = refreshSummary;
-      state.internalSignals = internalSignals;
-      state.fusedAlerts = fusedAlerts;
-      state.expandedKycProfiles = expandedKycProfiles;
-      state.layer2SignalPlaybook = layer2SignalPlaybook;
-      state.founderInvestor = founderInvestor;
-      state.publicKyc = publicKyc;
-      state.customersById = new Map(customers.map((customer) => [customer.customer_id, customer]));
-      state.documentsById = new Map(documents.map((documentItem) => [documentItem.document_id, documentItem]));
-      state.factsById = new Map(facts.map((fact) => [fact.fact_id, fact]));
-      state.founderInvestorByCustomer = new Map((founderInvestor.customers || []).map((item) => [item.customer_id, item]));
-      state.publicKycByCustomer = new Map((publicKyc.customers || []).map((item) => [item.customer_id, item]));
-      state.actions = loadActions();
+      let authentication;
+      try {
+        authentication = await fetchJson("/api/auth/me");
+      } catch (error) {
+        if (error.status === 401) {
+          showLogin();
+          return;
+        }
+        throw error;
+      }
+      state.authenticatedUser = authentication.user;
+      state.csrfToken = authentication.csrf_token;
+      const preferredRm = localStorage.getItem(CURRENT_RM_STORAGE_KEY) || "rm-mara-keller";
+      let bootstrap;
+      try {
+        bootstrap = await fetchJson(`/api/bootstrap?rm_id=${encodeURIComponent(preferredRm)}`);
+      } catch (error) {
+        if (preferredRm === "rm-mara-keller") throw error;
+        localStorage.removeItem(CURRENT_RM_STORAGE_KEY);
+        bootstrap = await fetchJson("/api/bootstrap");
+      }
+      applyBootstrap(bootstrap);
       seedSelection();
+      renderRelationshipManagerSelect();
+      restoreColumnSizes();
       showApp();
       render();
+      window.setInterval(renderDataHealth, 60 * 1000);
     } catch (error) {
       showError(error);
     }
+  }
+
+  function applyBootstrap(data) {
+    state.customers = data.customers || [];
+    state.documents = data.documents || [];
+    state.facts = data.facts || [];
+    const scoredAlertsById = new Map([...(data.materialAlerts || []), ...(data.noiseSuppression || [])].map((alert) => [alert.alert_id, alert]));
+    state.alerts = (data.alerts || []).map((alert) => ({ ...alert, ...(scoredAlertsById.get(alert.alert_id) || {}) }));
+    state.aiAnalysesByDocument = new Map(((data.aiAnalysis || {}).analyses || []).map((analysis) => [analysis.document_id, analysis]));
+    state.materialAlerts = data.materialAlerts || [];
+    state.noiseSuppression = data.noiseSuppression || [];
+    state.refreshSummary = data.refreshSummary || {};
+    state.internalSignals = data.internalSignals || [];
+    state.fusedAlerts = data.fusedAlerts || [];
+    state.expandedKycProfiles = data.expandedKycProfiles || [];
+    state.layer2SignalPlaybook = data.layer2SignalPlaybook || [];
+    state.founderInvestor = data.founderInvestor || { customers: [] };
+    state.publicKyc = data.publicKyc || { customers: [] };
+    state.relationshipManagers = data.relationshipManagers || [];
+    state.currentRelationshipManager = data.currentRelationshipManager || null;
+    state.preferences = data.preferences || {};
+    state.jobs = data.jobs || [];
+    state.actions = data.actions || [];
+    state.authenticatedUser = data.authenticatedUser || state.authenticatedUser;
+    state.approvals = data.approvals || [];
+    state.costSummary = data.costSummary || {};
+    state.customersById = new Map(state.customers.map((customer) => [customer.customer_id, customer]));
+    state.documentsById = new Map(state.documents.map((documentItem) => [documentItem.document_id, documentItem]));
+    state.factsById = new Map(state.facts.map((fact) => [fact.fact_id, fact]));
+    state.founderInvestorByCustomer = new Map((state.founderInvestor.customers || []).map((item) => [item.customer_id, item]));
+    state.publicKycByCustomer = new Map((state.publicKyc.customers || []).map((item) => [item.customer_id, item]));
   }
 
   function cacheElements() {
@@ -285,20 +291,34 @@
       "loading",
       "errorState",
       "errorMessage",
+      "loginState",
+      "loginForm",
+      "loginUsername",
+      "loginPassword",
+      "loginStatus",
       "app",
       "dataHealth",
-      "resetDemoState",
+      "openPreferences",
+      "authenticatedUserLabel",
+      "logoutButton",
+      "governanceTab",
+      "governanceView",
+      "auditVerification",
+      "auditEvents",
+      "approvalCount",
+      "approvalList",
+      "costEventCount",
+      "costSummary",
       "notificationBadge",
       "notificationsView",
       "workspaceView",
+      "alertWorkspace",
+      "alertsPanel",
       "notificationWindowLabel",
+      "refreshIndicator",
       "notificationCountLabel",
       "notificationRiskLabel",
       "notificationList",
-      "metricCustomers",
-      "metricOpen",
-      "metricHigh",
-      "metricRisk",
       "searchInput",
       "severityFilter",
       "statusFilter",
@@ -311,6 +331,9 @@
       "alertQueueCount",
       "alertQueue",
       "alertDetail",
+      "timelineCustomerLabel",
+      "timelineStatus",
+      "timelineViewport",
       "geoFootprintTitle",
       "geoMap",
       "geoCountryCard",
@@ -319,7 +342,24 @@
       "copyBrief",
       "printBrief",
       "briefStatus",
-      "briefContent"
+      "briefContent",
+      "leftResizeHandle",
+      "rightResizeHandle",
+      "preferencesDialog",
+      "preferencesForm",
+      "closePreferences",
+      "cancelPreferences",
+      "runRefreshNow",
+      "preferenceTimezone",
+      "preferenceLookback",
+      "preferenceScore",
+      "preferenceConfidence",
+      "preferenceFreshness",
+      "preferenceRequireSource",
+      "watchlistOptions",
+      "signalTypeOptions",
+      "scheduleDescription",
+      "preferencesStatus"
     ];
     ids.forEach((id) => {
       els[id] = document.getElementById(id);
@@ -327,6 +367,8 @@
   }
 
   function bindEvents() {
+    els.loginForm.addEventListener("submit", login);
+    els.logoutButton.addEventListener("click", logout);
     els.searchInput.addEventListener("input", (event) => {
       state.filters.query = event.target.value.trim().toLowerCase();
       repairSelectionAfterFilter();
@@ -347,9 +389,15 @@
     document.querySelectorAll("[data-view-mode]").forEach((button) => {
       button.addEventListener("click", () => {
         state.viewMode = button.dataset.viewMode;
+        if (state.viewMode === "workspace") {
+          state.selectedCustomerId = null;
+          state.selectedAlertId = null;
+          state.selectedGeoCountry = null;
+        }
         document.querySelectorAll("[data-view-mode]").forEach((item) => {
           item.classList.toggle("active", item === button);
         });
+        if (state.viewMode === "governance") loadGovernance();
         render();
       });
     });
@@ -408,7 +456,29 @@
       recordAction(actionButton.dataset.action);
     });
 
+    document.querySelectorAll("[data-timeline-range]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.timelineRange = button.dataset.timelineRange;
+        renderTimeline();
+      });
+    });
 
+    document.querySelectorAll("[data-timeline-pan]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const direction = Number(button.dataset.timelinePan || 0);
+        els.timelineViewport.scrollBy({
+          left: direction * Math.max(320, els.timelineViewport.clientWidth * 0.78),
+          behavior: "smooth"
+        });
+      });
+    });
+
+    els.timelineViewport.addEventListener("click", (event) => {
+      const row = event.target.closest("[data-timeline-alert-id]");
+      if (!row) return;
+      state.selectedAlertId = row.dataset.timelineAlertId;
+      render();
+    });
 
     [els.geoMap, els.geoCountryChips].forEach((container) => {
       container.addEventListener("click", (event) => {
@@ -421,44 +491,28 @@
 
     els.copyBrief.addEventListener("click", copyBrief);
     els.printBrief.addEventListener("click", () => window.print());
-    els.resetDemoState.addEventListener("click", () => {
-      localStorage.removeItem(ACTION_STORAGE_KEY);
-      state.actions = [];
-      render();
+    els.openPreferences.addEventListener("click", openPreferences);
+    els.closePreferences.addEventListener("click", () => els.preferencesDialog.close());
+    els.cancelPreferences.addEventListener("click", () => els.preferencesDialog.close());
+    els.preferencesForm.addEventListener("submit", savePreferences);
+    els.runRefreshNow.addEventListener("click", runRefreshNow);
+    els.approvalList.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-approval-decision]");
+      if (!button) return;
+      decideApproval(button.dataset.approvalId, button.dataset.approvalDecision);
     });
+    bindResizeHandle(els.leftResizeHandle, "portfolio");
+    bindResizeHandle(els.rightResizeHandle, "alerts");
 
-    // ── Brief panel collapse toggle ───────────────────────────────────────
-    const briefToggle = document.getElementById("briefPanelToggle");
-    const grid = els.workspaceView;
-
-    function applyBriefCollapse(collapsed) {
-      grid.classList.toggle("brief-collapsed", collapsed);
-      if (briefToggle) {
-        briefToggle.setAttribute(
-          "aria-label",
-          collapsed ? "Expand RM brief panel" : "Collapse RM brief panel"
-        );
-        briefToggle.setAttribute("title", collapsed ? "Expand panel" : "Collapse panel");
-      }
-      sessionStorage.setItem("briefPanelCollapsed", collapsed ? "1" : "0");
-    }
-
-    // Restore previous state
-    if (sessionStorage.getItem("briefPanelCollapsed") === "1") {
-      applyBriefCollapse(true);
-    }
-
-    if (briefToggle) {
-      briefToggle.addEventListener("click", () => {
-        applyBriefCollapse(!grid.classList.contains("brief-collapsed"));
-      });
-    }
   }
 
   async function fetchJson(url) {
     const response = await fetch(url, { cache: "no-store" });
     if (!response.ok) {
-      throw new Error(`Could not load ${url}: ${response.status}`);
+      const payload = await response.json().catch(() => ({}));
+      const error = new Error(payload.error || `Could not load ${url}: ${response.status}`);
+      error.status = response.status;
+      throw error;
     }
     return response.json();
   }
@@ -473,79 +527,478 @@
     }
   }
 
+  async function apiRequest(url, options = {}) {
+    const response = await fetch(url, {
+      ...options,
+      headers: {
+        "Content-Type": "application/json",
+        ...(state.csrfToken ? { "X-CSRF-Token": state.csrfToken } : {}),
+        ...(options.headers || {})
+      },
+      cache: "no-store"
+    });
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      const error = new Error(payload.error || `Request failed: ${response.status}`);
+      error.status = response.status;
+      if (response.status === 401) showLogin();
+      throw error;
+    }
+    return payload;
+  }
+
+  async function login(event) {
+    event.preventDefault();
+    els.loginStatus.textContent = "Authenticating...";
+    try {
+      const result = await apiRequest("/api/auth/login", {
+        method: "POST",
+        body: JSON.stringify({
+          username: els.loginUsername.value.trim(),
+          password: els.loginPassword.value
+        })
+      });
+      state.authenticatedUser = result.user;
+      state.csrfToken = result.csrf_token;
+      els.loginPassword.value = "";
+      let bootstrap;
+      const preferredRm = localStorage.getItem(CURRENT_RM_STORAGE_KEY) || result.user.rm_id || "";
+      try {
+        bootstrap = await fetchJson(`/api/bootstrap?rm_id=${encodeURIComponent(preferredRm)}`);
+      } catch (_error) {
+        bootstrap = await fetchJson("/api/bootstrap");
+      }
+      applyBootstrap(bootstrap);
+      seedSelection();
+      restoreColumnSizes();
+      showApp();
+      render();
+    } catch (error) {
+      els.loginStatus.textContent = error.message;
+    }
+  }
+
+  async function logout() {
+    try {
+      await apiRequest("/api/auth/logout", { method: "POST", body: "{}" });
+    } catch (_error) {
+      // Local state is cleared even if the server has already expired the session.
+    }
+    state.authenticatedUser = null;
+    state.csrfToken = "";
+    state.relationshipManagers = [];
+    state.actions = [];
+    showLogin();
+  }
+
+  function currentRmId() {
+    return state.currentRelationshipManager?.id || "rm-mara-keller";
+  }
+
+  function renderRelationshipManagerSelect() {
+    // RM select removed per request
+  }
+
+  async function loadRelationshipManager(rmId) {
+    try {
+      const data = await fetchJson(`/api/bootstrap?rm_id=${encodeURIComponent(rmId)}`);
+      applyBootstrap(data);
+      localStorage.setItem(CURRENT_RM_STORAGE_KEY, rmId);
+      seedSelection();
+      render();
+    } catch (error) {
+      showTransientStatus(error.message);
+    }
+  }
+
+  function openPreferences() {
+    const preferences = state.preferences;
+    const manager = state.currentRelationshipManager;
+    els.preferenceTimezone.value = manager?.timezone || "Europe/Zurich";
+    els.preferenceLookback.value = preferences.lookback_hours ?? 24;
+    els.preferenceScore.value = preferences.minimum_material_score ?? 100;
+    els.preferenceConfidence.value = Math.round((preferences.minimum_confidence ?? 0.7) * 100);
+    els.preferenceRequireSource.checked = preferences.require_source_url !== false;
+    els.preferenceFreshness.value = preferences.include_collected_evidence
+      ? "all_collected"
+      : preferences.include_undated_collected ? "undated_collected" : "published";
+    els.watchlistOptions.innerHTML = state.customers.map((customer) => `
+      <label>
+        <input type="checkbox" name="watchlist" value="${escapeAttr(customer.customer_id)}">
+        ${escapeHtml(customer.legal_name)}
+      </label>
+    `).join("");
+    const signalTypes = [...new Set(state.alerts.map((alert) => alert.signal_type).filter(Boolean))].sort();
+    els.signalTypeOptions.innerHTML = signalTypes.map((signalType) => `
+      <label>
+        <input type="checkbox" name="signal_types" value="${escapeAttr(signalType)}">
+        ${escapeHtml(labelize(signalType))}
+      </label>
+    `).join("");
+    setCheckedValues("watchlist", preferences.watchlist_customer_ids || []);
+    setCheckedValues("categories", preferences.categories || []);
+    setCheckedValues("severities", preferences.severities || []);
+    setCheckedValues("signal_types", preferences.signal_types || []);
+    els.scheduleDescription.textContent = manager
+      ? `Current local time: ${formatInTimeZone(new Date(), manager.timezone)}. Automatic retrieval runs at 07:00 and 13:00 ${manager.timezone}. Next run: ${formatInTimeZone(manager.next_run_at, manager.timezone)}.`
+      : "Automatic retrieval runs at 07:00 and 13:00 in the RM timezone.";
+    els.preferencesStatus.textContent = "";
+    els.preferencesDialog.showModal();
+  }
+
+  function setCheckedValues(name, values) {
+    const selected = new Set(values);
+    els.preferencesForm.querySelectorAll(`input[name="${name}"]`).forEach((input) => {
+      input.checked = selected.has(input.value);
+    });
+  }
+
+  function checkedValues(name) {
+    return [...els.preferencesForm.querySelectorAll(`input[name="${name}"]:checked`)].map((input) => input.value);
+  }
+
+  async function savePreferences(event) {
+    event.preventDefault();
+    const freshness = els.preferenceFreshness.value;
+    const payload = {
+      timezone: els.preferenceTimezone.value.trim(),
+      lookback_hours: Number(els.preferenceLookback.value),
+      minimum_material_score: Number(els.preferenceScore.value),
+      minimum_confidence: Number(els.preferenceConfidence.value) / 100,
+      watchlist_customer_ids: checkedValues("watchlist"),
+      categories: checkedValues("categories"),
+      severities: checkedValues("severities"),
+      signal_types: checkedValues("signal_types"),
+      require_source_url: els.preferenceRequireSource.checked,
+      include_undated_collected: freshness === "undated_collected",
+      include_collected_evidence: freshness === "all_collected"
+    };
+    els.preferencesStatus.textContent = "Saving policy...";
+    try {
+      const result = await apiRequest(`/api/relation-managers/${encodeURIComponent(currentRmId())}/preferences`, {
+        method: "PUT",
+        body: JSON.stringify(payload)
+      });
+      state.preferences = result.preferences;
+      state.currentRelationshipManager = result.relationship_manager;
+      state.activeRefreshJob = result.job;
+      state.viewMode = "notifications";
+      els.preferencesDialog.close();
+      render();
+      if (result.job) monitorRefreshJob(result.job.id);
+    } catch (error) {
+      els.preferencesStatus.textContent = error.message;
+    }
+  }
+
+  async function runRefreshNow() {
+    els.preferencesStatus.textContent = "Refresh queued. A worker will retrieve and evaluate the latest data.";
+    try {
+      const result = await apiRequest(`/api/relation-managers/${encodeURIComponent(currentRmId())}/refresh`, {
+        method: "POST",
+        body: "{}"
+      });
+      state.activeRefreshJob = result.job;
+      state.viewMode = "notifications";
+      els.preferencesDialog.close();
+      render();
+      if (result.job) monitorRefreshJob(result.job.id);
+    } catch (error) {
+      els.preferencesStatus.textContent = error.message;
+    }
+  }
+
+  async function waitForJob(jobId) {
+    const deadline = Date.now() + 30 * 60 * 1000;
+    while (Date.now() < deadline) {
+      await new Promise((resolve) => window.setTimeout(resolve, 1000));
+      const result = await fetchJson(`/api/relation-managers/${encodeURIComponent(currentRmId())}/jobs`);
+      const job = result.jobs.find((item) => item.id === jobId);
+      if (!job) continue;
+      state.activeRefreshJob = job;
+      renderRefreshIndicator();
+      if (["queued", "running"].includes(job.status)) continue;
+      if (job.status === "failed") throw new Error(job.error || "Refresh failed.");
+      return job;
+    }
+    throw new Error("The refresh is still running. Its status remains available on the server.");
+  }
+
+  async function monitorRefreshJob(jobId) {
+    try {
+      const job = await waitForJob(jobId);
+      await loadRelationshipManager(currentRmId());
+      state.activeRefreshJob = job;
+      renderRefreshIndicator();
+      window.setTimeout(() => {
+        if (state.activeRefreshJob?.id === jobId) {
+          state.activeRefreshJob = null;
+          renderRefreshIndicator();
+        }
+      }, 6000);
+    } catch (error) {
+      state.activeRefreshJob = { id: jobId, status: "failed", error: error.message };
+      renderRefreshIndicator();
+    }
+  }
+
+  function bindResizeHandle(handle, column) {
+    handle.addEventListener("pointerdown", (event) => {
+      event.preventDefault();
+      const startX = event.clientX;
+      const styles = getComputedStyle(els.workspaceView);
+      const property = column === "portfolio" ? "--portfolio-width" : "--alerts-width";
+      const startWidth = Number.parseFloat(styles.getPropertyValue(property)) || (column === "portfolio" ? 320 : 380);
+      handle.setPointerCapture(event.pointerId);
+      const move = (moveEvent) => {
+        const direction = column === "portfolio" ? 1 : -1;
+        const minimum = column === "portfolio" ? 240 : 300;
+        const maximum = column === "portfolio" ? 520 : 680;
+        const width = Math.min(maximum, Math.max(minimum, startWidth + ((moveEvent.clientX - startX) * direction)));
+        els.workspaceView.style.setProperty(property, `${Math.round(width)}px`);
+      };
+      const finish = () => {
+        handle.removeEventListener("pointermove", move);
+        handle.removeEventListener("pointerup", finish);
+        saveColumnSizes();
+      };
+      handle.addEventListener("pointermove", move);
+      handle.addEventListener("pointerup", finish);
+    });
+  }
+
+  function saveColumnSizes() {
+    const styles = getComputedStyle(els.workspaceView);
+    localStorage.setItem(COLUMN_SIZE_STORAGE_KEY, JSON.stringify({
+      portfolio: styles.getPropertyValue("--portfolio-width").trim(),
+      alerts: styles.getPropertyValue("--alerts-width").trim()
+    }));
+  }
+
+  function restoreColumnSizes() {
+    try {
+      const sizes = JSON.parse(localStorage.getItem(COLUMN_SIZE_STORAGE_KEY) || "{}");
+      if (sizes.portfolio) els.workspaceView.style.setProperty("--portfolio-width", sizes.portfolio);
+      if (sizes.alerts) els.workspaceView.style.setProperty("--alerts-width", sizes.alerts);
+    } catch (_error) {
+      localStorage.removeItem(COLUMN_SIZE_STORAGE_KEY);
+    }
+  }
+
+  function showTransientStatus(message) {
+    els.dataHealth.textContent = message;
+    window.setTimeout(renderDataHealth, 4000);
+  }
+
+  function formatInTimeZone(value, timezoneName) {
+    const date = value instanceof Date ? value : new Date(value);
+    if (Number.isNaN(date.getTime())) return "Unknown";
+    try {
+      return new Intl.DateTimeFormat([], {
+        timeZone: timezoneName,
+        dateStyle: "medium",
+        timeStyle: "short"
+      }).format(date);
+    } catch (_error) {
+      return date.toLocaleString();
+    }
+  }
+
   function showApp() {
     els.loading.hidden = true;
+    els.loginState.hidden = true;
     els.errorState.hidden = true;
     els.app.hidden = false;
+    const user = state.authenticatedUser;
+    els.authenticatedUserLabel.textContent = user ? `${user.display_name} | ${labelize(user.role)}` : "";
+    const readOnly = user?.role === "auditor";
+    els.openPreferences.hidden = readOnly;
+  }
+
+  function showLogin() {
+    els.loading.hidden = true;
+    els.app.hidden = true;
+    els.errorState.hidden = true;
+    els.loginState.hidden = false;
+    els.loginStatus.textContent = "";
+    window.setTimeout(() => els.loginUsername.focus(), 0);
   }
 
   function showError(error) {
     els.loading.hidden = true;
+    els.loginState.hidden = true;
     els.app.hidden = true;
     els.errorState.hidden = false;
     els.errorMessage.textContent = `${error.message}. Start a local server from the repo root and open /dashboard/.`;
   }
 
   function seedSelection() {
-    const orderedAlerts = sortedAlerts(state.alerts);
-    const firstAlert = orderedAlerts[0];
-    state.selectedCustomerId = firstAlert ? firstAlert.customer_id : state.customers[0]?.customer_id;
-    state.selectedAlertId = firstAlert ? firstAlert.alert_id : null;
+    state.selectedCustomerId = null;
+    state.selectedAlertId = null;
   }
 
   function selectCustomer(customerId) {
     state.selectedCustomerId = customerId;
     state.selectedGeoCountry = null;
-    const firstAlert = sortedAlerts(getFilteredAlertsForCustomer(customerId))[0];
-    state.selectedAlertId = firstAlert ? firstAlert.alert_id : null;
+    state.selectedAlertId = null;
     render();
   }
 
   function repairSelectionAfterFilter() {
     const visibleCustomers = getVisibleCustomers();
     if (!visibleCustomers.some((customer) => customer.customer_id === state.selectedCustomerId)) {
-      state.selectedCustomerId = visibleCustomers[0]?.customer_id || state.customers[0]?.customer_id || null;
+      state.selectedCustomerId = null;
+      state.selectedAlertId = null;
     }
     const visibleAlerts = getFilteredAlertsForCustomer(state.selectedCustomerId);
     if (!visibleAlerts.some((alert) => alert.alert_id === state.selectedAlertId)) {
-      state.selectedAlertId = sortedAlerts(visibleAlerts)[0]?.alert_id || null;
+      state.selectedAlertId = null;
     }
   }
 
   function render() {
     renderViewMode();
     renderNotifications();
-    renderMetrics();
+    renderRefreshIndicator();
+    renderWorkspaceLayout();
     renderCustomerList();
     renderWorkspaceHeader();
     renderAlertQueue();
     renderAlertDetail();
+    renderTimeline();
     renderGeographicFootprint();
     renderBrief();
     renderDataHealth();
+    renderGovernance();
   }
 
   function renderViewMode() {
     els.notificationsView.hidden = state.viewMode !== "notifications";
     els.workspaceView.hidden = state.viewMode !== "workspace";
+    els.governanceView.hidden = state.viewMode !== "governance";
     document.querySelectorAll("[data-view-mode]").forEach((item) => {
       item.classList.toggle("active", item.dataset.viewMode === state.viewMode);
     });
   }
 
-  function renderMetrics() {
-    const visibleCustomers = getVisibleCustomers();
-    const openAlerts = getFilteredAlerts().filter((alert) => currentStatus(alert) !== "dismissed");
-    if (els.metricCustomers) els.metricCustomers.textContent = visibleCustomers.length;
-    if (els.metricOpen) els.metricOpen.textContent = openAlerts.length;
-    if (els.metricHigh) els.metricHigh.textContent = openAlerts.filter((alert) => alert.severity === "high").length;
-    if (els.metricRisk) els.metricRisk.textContent = openAlerts.filter((alert) => alert.category === "risk").length;
+  async function loadGovernance() {
+    try {
+      const approvalResult = await fetchJson("/api/approvals");
+      state.approvals = approvalResult.approvals || [];
+      if (["admin", "compliance", "auditor"].includes(state.authenticatedUser?.role)) {
+        const [auditResult, costResult] = await Promise.all([
+          fetchJson("/api/audit"),
+          fetchJson("/api/costs")
+        ]);
+        state.auditEvents = auditResult.events || [];
+        state.auditVerification = auditResult.verification || null;
+        state.costSummary = costResult.costs || {};
+      }
+      renderGovernance();
+    } catch (error) {
+      showTransientStatus(error.message);
+    }
+  }
+
+  function renderGovernance() {
+    const pending = state.approvals.filter((item) => item.status === "pending");
+    els.approvalCount.textContent = `${pending.length} pending`;
+    els.approvalList.innerHTML = state.approvals.length
+      ? state.approvals.map(approvalTemplate).join("")
+      : `<div class="empty-state">No approval requests.</div>`;
+    const verification = state.auditVerification;
+    els.auditVerification.textContent = verification
+      ? verification.valid ? `Verified | ${verification.events_checked} events` : `Broken at ${verification.broken_at}`
+      : "Restricted by role";
+    els.auditVerification.classList.toggle("risk-text", Boolean(verification && !verification.valid));
+    els.auditEvents.innerHTML = state.auditEvents.length
+      ? state.auditEvents.slice(0, 30).map((event) => `
+        <article class="governance-item">
+          <strong>${escapeHtml(labelize(event.action))}</strong>
+          <span>${escapeHtml(event.entity_type)} ${escapeHtml(event.entity_id)}</span>
+          <small>${escapeHtml(formatDateTime(event.created_at))} | chain ${escapeHtml(event.event_hash.slice(0, 12))}</small>
+        </article>
+      `).join("")
+      : `<div class="empty-state">Audit details require an auditor, compliance, or admin role.</div>`;
+    const costs = state.costSummary || {};
+    els.costEventCount.textContent = `${costs.event_count || 0} executions`;
+    els.costSummary.innerHTML = `
+      <div class="cost-metric"><strong>${Number(costs.tokens_in || 0).toLocaleString()}</strong><span>Input tokens</span></div>
+      <div class="cost-metric"><strong>${Number(costs.tokens_out || 0).toLocaleString()}</strong><span>Output tokens</span></div>
+      <div class="cost-metric"><strong>$${Number(costs.estimated_cost_usd || 0).toFixed(4)}</strong><span>Estimated cost</span></div>
+      <div class="cost-metric"><strong>${Number(costs.duration_ms || 0).toLocaleString()} ms</strong><span>Measured runtime</span></div>
+      ${(costs.by_stage || []).map((stage) => `
+        <div class="cost-stage"><span>${escapeHtml(labelize(stage.stage))}</span><strong>${stage.executions} run(s) | $${Number(stage.estimated_cost_usd || 0).toFixed(4)}</strong></div>
+      `).join("")}
+    `;
+  }
+
+  function approvalTemplate(approval) {
+    const canDecide = ["admin", "compliance"].includes(state.authenticatedUser?.role)
+      && approval.status === "pending"
+      && approval.maker_user_id !== state.authenticatedUser?.id;
+    return `
+      <article class="governance-item">
+        <strong>${escapeHtml(labelize(approval.requested_action))}</strong>
+        <span>${escapeHtml(approval.alert_id)} | ${escapeHtml(approval.rm_id)}</span>
+        <small>${escapeHtml(labelize(approval.status))} | ${escapeHtml(formatDateTime(approval.created_at))}</small>
+        ${canDecide ? `
+          <div class="approval-actions">
+            <button class="secondary-button" type="button" data-approval-id="${escapeAttr(approval.id)}" data-approval-decision="rejected">Reject</button>
+            <button class="primary-button" type="button" data-approval-id="${escapeAttr(approval.id)}" data-approval-decision="approved">Approve</button>
+          </div>
+        ` : ""}
+      </article>
+    `;
+  }
+
+  async function decideApproval(approvalId, decision) {
+    try {
+      await apiRequest(`/api/approvals/${encodeURIComponent(approvalId)}/decision`, {
+        method: "POST",
+        body: JSON.stringify({ decision, note: "Decision recorded in the RM governance console." })
+      });
+      await loadGovernance();
+      await loadRelationshipManager(currentRmId());
+    } catch (error) {
+      showTransientStatus(error.message);
+    }
+  }
+
+  function renderWorkspaceLayout() {
+    els.workspaceView.classList.toggle("has-customer", Boolean(state.selectedCustomerId));
+    els.workspaceView.classList.toggle("has-alert", Boolean(state.selectedAlertId));
+    els.alertWorkspace.hidden = !state.selectedAlertId;
+    els.alertsPanel.hidden = !state.selectedCustomerId;
+    els.leftResizeHandle.hidden = !state.selectedCustomerId;
+    els.rightResizeHandle.hidden = !state.selectedAlertId;
+  }
+
+  function renderRefreshIndicator() {
+    const job = state.activeRefreshJob;
+    if (!job) {
+      els.refreshIndicator.hidden = true;
+      els.refreshIndicator.textContent = "";
+      return;
+    }
+    els.refreshIndicator.hidden = false;
+    els.refreshIndicator.classList.toggle("failed", job.status === "failed");
+    els.refreshIndicator.classList.toggle("complete", job.status === "completed");
+    if (job.status === "completed") {
+      els.refreshIndicator.textContent = "Refresh complete. Notifications now use the updated policy.";
+    } else if (job.status === "failed") {
+      els.refreshIndicator.textContent = `Refresh failed: ${job.error || "See the worker log."}`;
+    } else {
+      els.refreshIndicator.textContent = `Refresh ${job.status || "queued"}. A worker is retrieving and re-evaluating data now.`;
+    }
   }
 
   function renderDataHealth() {
     const lastScan = maxDate(state.documents.map((documentItem) => documentItem.collected_at));
     const lookback = state.refreshSummary.lookback_hours || 24;
-    els.dataHealth.textContent = `${visibleNotifications().length} open notifications | ${getFilteredAlerts().length} focused alerts | ${lookback}h scan ${formatDateTime(lastScan)}`;
+    const rm = state.currentRelationshipManager;
+    const localTime = rm ? formatInTimeZone(new Date(), rm.timezone) : "";
+    els.dataHealth.textContent = `${visibleNotifications().length} notifications | ${lookback}h scan${localTime ? ` | RM local ${localTime}` : ""}`;
   }
 
   function renderNotifications() {
@@ -614,7 +1067,7 @@
 
   function renderCustomerList() {
     const customers = getVisibleCustomers();
-    els.customerCountLabel.textContent = `Showing ${customers.length} filtered result${customers.length !== 1 ? "s" : ""}`;
+    els.customerCountLabel.textContent = `${customers.length} shown`;
     els.customerList.innerHTML = customers.length
       ? customers.map((customer) => customerRowTemplate(customer)).join("")
       : `<div class="empty-state">No customers match the current filters.</div>`;
@@ -646,26 +1099,17 @@
     const customer = selectedCustomer();
     if (!customer) return;
     const aggregate = customerAggregate(customer.customer_id);
-    const rm = escapeHtml(RM_OWNERS[customer.customer_id] || "Demo RM");
-    const reviewed = formatDate(customer.last_reviewed_at);
-    const riskRating = escapeHtml(customer.risk_rating || "Unknown");
-    const riskClass = riskRating.toLowerCase();
-
     els.selectedCustomerName.textContent = customer.legal_name;
     els.selectedCustomerMeta.innerHTML = `
-      <span class="customer-band-rm">RM ${rm}</span>
-      <span class="customer-band-dot" aria-hidden="true">·</span>
-      <span class="customer-band-reviewed">last reviewed ${reviewed}</span>
-      <span class="customer-band-dot" aria-hidden="true">·</span>
-      <span class="customer-band-risk ${riskClass}">Current risk rating: <strong>${riskRating}</strong></span>
+      <span class="pill">Risk ${escapeHtml(customer.risk_rating)}</span>
+      <span class="pill">Reviewed ${formatDate(customer.last_reviewed_at)}</span>
+      <span class="pill">RM ${escapeHtml(RM_OWNERS[customer.customer_id] || "Demo RM")}</span>
     `;
     els.selectedCustomerStats.innerHTML = `
-      <span class="customer-band-summary">${aggregate.alertCount} alert${aggregate.alertCount !== 1 ? "s" : ""}</span>
-      <span class="customer-band-dot" aria-hidden="true">·</span>
-      <span class="customer-band-summary risk">${aggregate.riskCount} risk</span>
-      <span class="customer-band-dot" aria-hidden="true">·</span>
-      <span class="customer-band-summary opportunity">${aggregate.opportunityCount} opportunity</span>
-      ${aggregate.ownershipCount > 0 ? `<span class="customer-band-dot" aria-hidden="true">·</span><span class="customer-band-summary ownership_control">${aggregate.ownershipCount} ownership</span>` : ""}
+      <span class="pill ${aggregate.highestSeverity}">${aggregate.highestSeverity} top severity</span>
+      <span class="pill">${aggregate.alertCount} alerts</span>
+      <span class="pill risk">${aggregate.riskCount} risk</span>
+      <span class="pill opportunity">${aggregate.opportunityCount} opportunity</span>
     `;
   }
 
@@ -680,20 +1124,26 @@
 
   function alertRowTemplate(alert) {
     const active = alert.alert_id === state.selectedAlertId ? "active" : "";
-    const status = currentStatus(alert);
-    const isNew = status === "new";
-    const combinedBadge = `${labelize(alert.category)} · ${labelize(alert.severity)}`;
+    const reviewedByAi = aiReviewsForAlert(alert).length > 0;
     return `
       <article class="alert-row ${active}" role="listitem">
         <button class="alert-row-main" type="button" data-alert-id="${escapeAttr(alert.alert_id)}">
           <div class="alert-topline">
             <span class="alert-title">${escapeHtml(cleanText(alert.title))}</span>
-            <div class="alert-topline-right">
-              ${isNew ? `<span class="new-dot" title="New" aria-label="New"></span>` : ""}
-              <span class="combined-badge ${alert.category} ${alert.severity}">${escapeHtml(combinedBadge)}</span>
-            </div>
+            <span class="severity-mark ${alert.severity}">${escapeHtml(alert.severity)}</span>
           </div>
           <div class="alert-subline">${escapeHtml(cleanText(alert.summary))}</div>
+          <div class="alert-tags">
+            <span class="pill ${alert.category}">${labelize(alert.category)}</span>
+            <span class="pill">${Math.round(alert.confidence * 100)}% confidence</span>
+            ${alert.material_score ? `<span class="pill material">Score ${escapeHtml(alert.material_score)}</span>` : ""}
+            ${alert.review_lane ? `<span class="pill">${escapeHtml(alert.review_lane)}</span>` : ""}
+            ${reviewedByAi ? `<span class="pill mixed">Document reviewed by Apertus</span>` : ""}
+            <span class="pill">Signal extracted by ${escapeHtml(detectionLabel(alert.detection_method))}</span>
+            ${kycProfileForCustomer(alert.customer_id) ? `<span class="pill mixed">Layer 2 KYC</span>` : ""}
+            <span class="pill">${labelize(currentStatus(alert))}</span>
+            <span class="pill">${alert.evidence_document_ids.length} evidence</span>
+          </div>
         </button>
         <div class="alert-source-strip">
           ${sourceLinksTemplate(alert, 2)}
@@ -709,212 +1159,74 @@
       return;
     }
 
-    const score        = Math.round(alert.confidence * 100);
-    const status       = currentStatus(alert);
-    const isNew        = status === "new";
-    const combinedBadge = `${labelize(alert.category)} \u00b7 ${labelize(alert.severity)}`;
-    const hasDrift     = alert.changed_fields && alert.changed_fields.length > 0;
-
-    // ── Accordion 1: What changed? ───────────────────────────────────────────
-    const acc1 = `
-      <details class="intel-accordion" open>
-        <summary class="intel-accordion-summary">
-          <span class="intel-accordion-num">1</span>
-          <span class="intel-accordion-title">What changed?</span>
-          <div class="intel-accordion-badges">
-            <span class="combined-badge ${alert.category} ${alert.severity}">${escapeHtml(combinedBadge)}</span>
-            ${isNew ? `<span class="pill new-badge">New</span>` : `<span class="pill">${escapeHtml(labelize(status))}</span>`}
+    const score = Math.round(alert.confidence * 100);
+    els.alertDetail.innerHTML = `
+      <div class="detail-header">
+        <div>
+          <div class="detail-tags">
+            <span class="pill ${alert.category}">${labelize(alert.category)}</span>
+            <span class="pill ${alert.severity}">${labelize(alert.severity)} severity</span>
+            <span class="pill">${labelize(alert.signal_type)}</span>
+            ${alert.material_score ? `<span class="pill material">Material score ${escapeHtml(alert.material_score)}</span>` : ""}
+            ${alert.review_lane ? `<span class="pill">${escapeHtml(alert.review_lane)}</span>` : ""}
+            <span class="pill ${alert.detection_method === "ai_validated" ? "mixed" : ""}">${escapeHtml(detectionLabel(alert.detection_method))}</span>
+            ${alert.needs_human_review ? `<span class="pill risk">Human review required</span>` : ""}
+            <span class="pill">${labelize(currentStatus(alert))}</span>
           </div>
-          <span class="intel-accordion-chevron" aria-hidden="true"></span>
-        </summary>
-        <div class="intel-accordion-body">
-          <h3 class="intel-event-title">${escapeHtml(cleanText(alert.title))}</h3>
-          <div class="intel-fact-row">
-            <div class="intel-fact">
-              <span class="intel-fact-label">Detected</span>
-              <span class="intel-fact-value">${formatDate(alert.detected_at) || "Unknown"}</span>
-            </div>
-            <div class="intel-fact">
-              <span class="intel-fact-label">Confidence</span>
-              <span class="intel-fact-value">${score}%</span>
-            </div>
-            ${alert.material_score ? `
-            <div class="intel-fact">
-              <span class="intel-fact-label">Materiality score</span>
-              <span class="intel-fact-value intel-fact-material">${escapeHtml(alert.material_score)}</span>
-            </div>` : ""}
-            ${alert.review_lane ? `
-            <div class="intel-fact">
-              <span class="intel-fact-label">Review lane</span>
-              <span class="intel-fact-value">${escapeHtml(alert.review_lane)}</span>
-            </div>` : ""}
-          </div>
-          ${hasDrift ? `
-          <div class="intel-subsection">
-            <p class="intel-subsection-label">Before / After comparison</p>
-            ${driftTableTemplate(alert)}
-          </div>` : ""}
-        </div>
-      </details>
-    `;
-
-    // ── Accordion 2: Why does it matter? ────────────────────────────────────
-    const publicKyc    = publicKycForCustomer(alert.customer_id);
-    const riskRationale = (publicKyc?.risk_rationale || []).slice(0, 4);
-    const sanctions     = [...(publicKyc?.regulatory_and_licensing || []).slice(0, 3),
-                            ...(publicKyc?.sanctions_adverse_media || []).slice(0, 3)];
-    const matReasons    = (alert.material_reasons || []).slice(0, 4);
-    const fusion        = fusedForAlert(alert.alert_id);
-
-    const acc2 = `
-      <details class="intel-accordion">
-        <summary class="intel-accordion-summary">
-          <span class="intel-accordion-num">2</span>
-          <span class="intel-accordion-title">Why does it matter?</span>
-          <span class="intel-accordion-chevron" aria-hidden="true"></span>
-        </summary>
-        <div class="intel-accordion-body">
-          <p class="intel-narrative">${escapeHtml(cleanText(alert.summary))}</p>
-          ${matReasons.length ? `
-          <div class="intel-subsection">
-            <p class="intel-subsection-label">Materiality signals</p>
-            <ul class="intel-list">${matReasons.map(r => `<li>${escapeHtml(r)}</li>`).join("")}</ul>
-          </div>` : ""}
-          ${riskRationale.length ? `
-          <div class="intel-subsection">
-            <p class="intel-subsection-label">Risk rationale</p>
-            <ul class="intel-list">${riskRationale.map(r => `<li>${escapeHtml(cleanText(r))}</li>`).join("")}</ul>
-          </div>` : ""}
-          ${sanctions.length ? `
-          <div class="intel-subsection">
-            <p class="intel-subsection-label">Regulatory &amp; sanctions context</p>
-            <ul class="intel-list">${sanctions.map(s => `<li>${escapeHtml(cleanText(s))}</li>`).join("")}</ul>
-          </div>` : ""}
-          ${fusion ? `
-          <div class="intel-subsection">
-            <p class="intel-subsection-label">Internal bank context</p>
-            <p class="intel-narrative">${escapeHtml(fusion.fusion_rationale)}</p>
-          </div>` : ""}
-        </div>
-      </details>
-    `;
-
-    // ── Accordion 3: What should I do? ──────────────────────────────────────
-    const kycQuestions = (publicKyc?.open_kyc_questions || []).slice(0, 4);
-    const founderIntel = founderInvestorForCustomer(alert.customer_id);
-    const capQuestions = (founderIntel?.summary?.top_rm_questions || []).slice(0, 3);
-    const allGaps      = [...kycQuestions, ...capQuestions].filter(Boolean);
-
-    const acc3 = `
-      <details class="intel-accordion">
-        <summary class="intel-accordion-summary">
-          <span class="intel-accordion-num">3</span>
-          <span class="intel-accordion-title">What should I do?</span>
-          <span class="intel-accordion-chevron" aria-hidden="true"></span>
-        </summary>
-        <div class="intel-accordion-body">
-          <div class="intel-subsection">
-            <p class="intel-subsection-label">Recommended action</p>
-            <p class="intel-narrative">${escapeHtml(cleanText(alert.recommended_action))}</p>
-          </div>
-          ${allGaps.length ? `
-          <div class="intel-subsection">
-            <p class="intel-subsection-label">Missing information &amp; open questions</p>
-            <ul class="intel-list intel-list-gaps">
-              ${allGaps.map(q => `<li>${escapeHtml(cleanText(q))}</li>`).join("")}
-            </ul>
-          </div>` : ""}
-          <div class="intel-subsection">
-            <p class="intel-subsection-label">RM action</p>
-            <div class="action-stack">
-              <textarea id="actionNote" placeholder="Optional note for audit trail \u2014 will appear in action history"></textarea>
-              <div class="action-buttons">
-                <button class="secondary-button" type="button" data-action="acknowledged">Acknowledge</button>
-                <button class="primary-button" type="button" data-action="escalated">Escalate</button>
-                <button class="secondary-button" type="button" data-action="customer_update_requested">Request update</button>
-                <button class="secondary-button" type="button" data-action="added_to_call_brief">Add to brief</button>
-                <button class="danger-button" type="button" data-action="dismissed">Dismiss</button>
-              </div>
-            </div>
-          </div>
-          <div class="intel-subsection">
-            <p class="intel-subsection-label">Action history</p>
-            ${actionLogTemplate(alert)}
-          </div>
-        </div>
-      </details>
-    `;
-
-    // ── Accordion 4: What supports this finding? ────────────────────────────
-    const reviews      = aiReviewsForAlert(alert);
-    const reviewModels = [...new Set(reviews.map(r => r.model).filter(Boolean))];
-    const quote        = alert.evidence_quote || primaryEvidenceQuote(alert);
-    const method       = alert.detection_method || "rule_fallback";
-
-    const acc4 = `
-      <details class="intel-accordion">
-        <summary class="intel-accordion-summary">
-          <span class="intel-accordion-num">4</span>
-          <span class="intel-accordion-title">What supports this finding?</span>
-          <span class="intel-accordion-chevron" aria-hidden="true"></span>
-        </summary>
-        <div class="intel-accordion-body">
-          <div class="intel-provenance-row">
-            <span class="intel-provenance-item">Signal extracted by <strong>${escapeHtml(detectionLabel(method))}</strong></span>
-            ${reviews.length
-              ? `<span class="intel-provenance-item intel-provenance-ai">Document reviewed by Apertus AI${reviewModels.length ? ` (${escapeHtml(reviewModels.join(", "))})` : ""}</span>`
-              : `<span class="intel-provenance-item intel-provenance-muted">Document not AI-reviewed</span>`}
-            ${alert.needs_human_review ? `<span class="intel-provenance-item intel-provenance-warn">Human review required</span>` : ""}
-            ${alert.ai_severity_suggestion ? `<span class="intel-provenance-item">Apertus severity: <strong>${escapeHtml(labelize(alert.ai_severity_suggestion))}</strong></span>` : ""}
-          </div>
-          ${quote ? `
-          <div class="intel-subsection">
-            <p class="intel-subsection-label">Key evidence quote</p>
-            <blockquote class="intel-quote">${escapeHtml(quote)}</blockquote>
-          </div>` : ""}
-          <div class="intel-subsection">
-            <p class="intel-subsection-label">Supporting documents (${(alert.evidence || []).length})</p>
-            ${evidenceTemplate(alert)}
-          </div>
-          <div class="intel-subsection">
-            <p class="intel-subsection-label">Audit IDs</p>
-            <div class="fact-id-row">
-              ${alert.fact_ids.map(id => `<span class="pill">${escapeHtml(id)}</span>`).join("")}
-              ${alert.evidence_document_ids.map(id => `<span class="pill">${escapeHtml(id)}</span>`).join("")}
-            </div>
-          </div>
-        </div>
-      </details>
-    `;
-
-    // ── Accordion 5: What else should I know? ───────────────────────────────
-    const acc5 = `
-      <details class="intel-accordion">
-        <summary class="intel-accordion-summary">
-          <span class="intel-accordion-num">5</span>
-          <span class="intel-accordion-title">What else should I know?</span>
-          <span class="intel-accordion-chevron" aria-hidden="true"></span>
-        </summary>
-        <div class="intel-accordion-body">
+          <h2>${escapeHtml(cleanText(alert.title))}</h2>
+          <p class="summary">${escapeHtml(cleanText(alert.summary))}</p>
+          ${materialityTemplate(alert)}
+          ${detectionTemplate(alert)}
           ${publicKycTemplate(alert)}
           ${layer2ProfileTemplate(alert)}
           ${founderInvestorTemplate(alert)}
           ${internalContextTemplate(alert)}
-          <div class="intel-subsection">
-            <p class="intel-subsection-label">Source links</p>
-            <div class="detail-source-strip">${sourceLinksTemplate(alert)}</div>
+          <div class="detail-source-strip">
+            ${sourceLinksTemplate(alert)}
           </div>
         </div>
-      </details>
-    `;
+        <div class="confidence-ring" style="--score: ${score}%;" aria-label="${score}% confidence">
+          <span>${score}%</span>
+        </div>
+      </div>
 
-    els.alertDetail.innerHTML = `
-      <div class="intel-accordion-stack">
-        ${acc1}${acc2}${acc3}${acc4}${acc5}
+      <div class="detail-grid">
+        <div class="detail-block">
+          <h3>Recommended action</h3>
+          <div class="recommendation">${escapeHtml(cleanText(alert.recommended_action))}</div>
+
+          <h3>Before / after KYC fields</h3>
+          ${driftTableTemplate(alert)}
+
+          <h3>Evidence</h3>
+          ${evidenceTemplate(alert)}
+        </div>
+
+        <div class="detail-block">
+          <h3>RM actions</h3>
+          <div class="action-stack">
+            <textarea id="actionNote" placeholder="Optional note for audit trail"></textarea>
+            <div class="action-buttons">
+              <button class="secondary-button" type="button" data-action="acknowledged">Acknowledge</button>
+              <button class="primary-button" type="button" data-action="escalated">Escalate</button>
+              <button class="secondary-button" type="button" data-action="customer_update_requested">Request update</button>
+              <button class="secondary-button" type="button" data-action="added_to_call_brief">Add to brief</button>
+              <button class="danger-button" type="button" data-action="dismissed">Dismiss</button>
+            </div>
+          </div>
+
+          <h3>Action history</h3>
+          ${actionLogTemplate(alert)}
+
+          <h3>Audit IDs</h3>
+          <div class="fact-id-row">
+            ${alert.fact_ids.map((factId) => `<span class="pill">${escapeHtml(factId)}</span>`).join("")}
+            ${alert.evidence_document_ids.map((documentId) => `<span class="pill">${escapeHtml(documentId)}</span>`).join("")}
+          </div>
+        </div>
       </div>
     `;
   }
-
 
   function materialityTemplate(alert) {
     if (!alert.material_score && !(alert.material_reasons || []).length) return "";
@@ -1353,74 +1665,34 @@
     };
   }
 
-  function getBriefIcon(title) {
-    if (title.includes("Material changes")) {
-      // Warning triangle
-      return `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>`;
-    }
-    if (title.includes("risk questions")) {
-      // Shield
-      return `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>`;
-    }
-    if (title.includes("opportunities")) {
-      // Lightbulb
-      return `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="11" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
-    }
-    if (title.includes("questions")) {
-      // Message bubble
-      return `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>`;
-    }
-    if (title.includes("intelligence")) {
-      // Users
-      return `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>`;
-    }
-    // Default file / evidence
-    return `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>`;
-  }
-
   function briefHtmlTemplate(brief) {
     return `
-      ${briefSectionTemplate("Material changes", brief.materialChanges, alertBriefItem, true)}
-      ${briefSectionTemplate("Open risk questions", brief.riskQuestions, alertBriefItem, false)}
-      ${briefSectionTemplate("Commercial opportunities", brief.opportunities, alertBriefItem, false)}
-      ${briefSectionTemplate("Suggested customer questions", brief.suggestedQuestions, questionBriefItem, false)}
-      ${briefSectionTemplate("Public KYC questions", brief.publicKycQuestions, questionBriefItem, false)}
-      ${briefSectionTemplate("Founder/investor intelligence", brief.founderInvestorRecords, investorBriefItem, false)}
-      ${briefSectionTemplate("Evidence references", brief.evidenceReferences, evidenceBriefItem, false)}
+      ${briefSectionTemplate("Material changes", brief.materialChanges, alertBriefItem)}
+      ${briefSectionTemplate("Open risk questions", brief.riskQuestions, alertBriefItem)}
+      ${briefSectionTemplate("Commercial opportunities", brief.opportunities, alertBriefItem)}
+      ${briefSectionTemplate("Suggested customer questions", brief.suggestedQuestions, questionBriefItem)}
+      ${briefSectionTemplate("Public KYC questions", brief.publicKycQuestions, questionBriefItem)}
+      ${briefSectionTemplate("Founder/investor intelligence", brief.founderInvestorRecords, investorBriefItem)}
+      ${briefSectionTemplate("Evidence references", brief.evidenceReferences, evidenceBriefItem)}
     `;
   }
 
-  function briefSectionTemplate(title, items, renderer, isOpen) {
-    const openAttr = isOpen ? "open" : "";
-    const icon = getBriefIcon(title);
-    
+  function briefSectionTemplate(title, items, renderer) {
     if (!items.length) {
       return `
-        <details class="brief-accordion" ${openAttr}>
-          <summary class="brief-accordion-summary">
-            <span class="brief-accordion-icon">${icon}</span>
-            <span class="brief-accordion-title">${escapeHtml(title)}</span>
-            <span class="brief-accordion-chevron"></span>
-          </summary>
-          <div class="brief-accordion-body">
-            <div class="empty-state">No current items.</div>
-          </div>
-        </details>
+        <section class="brief-section">
+          <h3>${escapeHtml(title)}</h3>
+          <div class="empty-state">No current items.</div>
+        </section>
       `;
     }
     return `
-      <details class="brief-accordion" ${openAttr}>
-        <summary class="brief-accordion-summary">
-          <span class="brief-accordion-icon">${icon}</span>
-          <span class="brief-accordion-title">${escapeHtml(title)}</span>
-          <span class="brief-accordion-chevron"></span>
-        </summary>
-        <div class="brief-accordion-body">
-          <ul class="brief-list">
-            ${items.map(renderer).join("")}
-          </ul>
-        </div>
-      </details>
+      <section class="brief-section">
+        <h3>${escapeHtml(title)}</h3>
+        <ul class="brief-list">
+          ${items.map(renderer).join("")}
+        </ul>
+      </section>
     `;
   }
 
@@ -1573,28 +1845,246 @@
       customer_id: alert.customer_id,
       action,
       note: noteOverride !== undefined ? noteOverride : (noteElement ? noteElement.value.trim() : ""),
-      created_by: "demo-rm",
+      created_by: state.currentRelationshipManager?.name || currentRmId(),
       created_at: new Date().toISOString()
     };
     state.actions.push(actionRecord);
-    saveActions();
+    saveAction(actionRecord);
     state.selectedCustomerId = alert.customer_id;
     state.selectedAlertId = alert.alert_id;
     render();
   }
 
-  function loadActions() {
+  async function saveAction(actionRecord) {
     try {
-      return JSON.parse(localStorage.getItem(ACTION_STORAGE_KEY) || "[]");
-    } catch (_error) {
-      return [];
+      const result = await apiRequest(`/api/relation-managers/${encodeURIComponent(currentRmId())}/actions`, {
+        method: "POST",
+        body: JSON.stringify(actionRecord)
+      });
+      if (result.approval) {
+        state.actions = state.actions.filter((item) => item.id !== actionRecord.id);
+        state.approvals.unshift(result.approval);
+        showTransientStatus("Maker-checker approval requested. A different compliance user must approve it.");
+        render();
+      }
+    } catch (error) {
+      state.actions = state.actions.filter((item) => item.id !== actionRecord.id);
+      showTransientStatus(`Could not save review action: ${error.message}`);
+      render();
     }
   }
 
-  function saveActions() {
-    localStorage.setItem(ACTION_STORAGE_KEY, JSON.stringify(state.actions));
+  function renderTimeline() {
+    const customer = selectedCustomer();
+    if (!customer) {
+      els.timelineCustomerLabel.textContent = "Customer activity";
+      els.timelineViewport.innerHTML = `<div class="empty-state">No customer selected.</div>`;
+      return;
+    }
+
+    document.querySelectorAll("[data-timeline-range]").forEach((button) => {
+      button.classList.toggle("active", button.dataset.timelineRange === state.timelineRange);
+    });
+
+    els.timelineCustomerLabel.textContent = `${customer.legal_name} activity log`;
+    const allEvents = buildTimelineEvents(customer.customer_id);
+    const windowState = timelineWindow(allEvents);
+    const events = eventsInTimelineWindow(allEvents, windowState);
+    const ticks = buildTimelineTicks(windowState);
+    const chartWidth = timelineChartWidth();
+
+    els.timelineViewport.innerHTML = `
+      <div class="timeline-chart" style="width: ${chartWidth}px;">
+        ${timelineGridTemplate(ticks)}
+        ${timelineTodayTemplate(windowState)}
+        ${events.map((event) => timelineMarkerTemplate(event, windowState)).join("")}
+        ${events.length ? "" : `<div class="timeline-empty-note">No events in this range.</div>`}
+      </div>
+    `;
+
+    window.requestAnimationFrame(() => {
+      els.timelineViewport.scrollLeft = els.timelineViewport.scrollWidth;
+    });
   }
 
+  function buildTimelineEvents(customerId) {
+    const events = [];
+    state.alerts
+      .filter((alert) => alert.customer_id === customerId)
+      .forEach((alert) => {
+        const time = alertTimelineDate(alert);
+        if (!time) return;
+        events.push({
+          id: `signal-${alert.alert_id}`,
+          type: "signal",
+          time,
+          alert_id: alert.alert_id,
+          title: cleanText(alert.title),
+          detail: cleanText(alert.recommended_action || alert.summary || ""),
+          meta: `${labelize(alert.signal_type)} | ${labelize(alert.severity)} | ${detectionLabel(alert.detection_method)}`,
+          severity: alert.severity
+        });
+      });
+
+    state.actions
+      .filter((action) => action.customer_id === customerId)
+      .forEach((action) => {
+        const alert = state.alerts.find((item) => item.alert_id === action.alert_id);
+        const time = parseTimelineDate(action.created_at);
+        if (!time) return;
+        events.push({
+          id: action.id,
+          type: "action",
+          time,
+          alert_id: action.alert_id,
+          title: `RM ${labelize(action.action)}`,
+          detail: cleanText(action.note || alert?.recommended_action || alert?.title || "Status updated"),
+          meta: `${formatDateTime(action.created_at)} | ${action.created_by || "demo-rm"}`,
+          severity: alert?.severity || "medium"
+        });
+      });
+
+    return events.sort((a, b) => a.time - b.time || a.title.localeCompare(b.title));
+  }
+
+  function timelineWindow(events) {
+    const rangeMs = TIMELINE_RANGES[state.timelineRange] || TIMELINE_RANGES["1y"];
+    const now = Date.now();
+    const latestEvent = events.length ? Math.max(...events.map((event) => event.time.getTime())) : now;
+    const latest = latestEvent < now - rangeMs ? latestEvent : Math.max(now, latestEvent);
+    return {
+      start: new Date(latest - rangeMs),
+      end: new Date(latest),
+      rangeMs
+    };
+  }
+
+  function eventsInTimelineWindow(events, windowState) {
+    const start = windowState.start.getTime();
+    const end = windowState.end.getTime();
+    return events.filter((event) => {
+      const time = event.time.getTime();
+      return time >= start && time <= end;
+    });
+  }
+
+  function buildTimelineTicks(windowState) {
+    const count = state.timelineRange === "1d" ? 7 : 6;
+    return Array.from({ length: count }, (_item, index) => {
+      const ratio = count === 1 ? 0 : index / (count - 1);
+      const time = new Date(windowState.start.getTime() + windowState.rangeMs * ratio);
+      return {
+        label: formatTimelineTick(time),
+        position: ratio * 100
+      };
+    });
+  }
+
+  function timelineGridTemplate(ticks) {
+    return ticks.map((tick) => `
+      <div class="timeline-grid-line" style="left: ${tick.position}%;">
+        <span>${escapeHtml(tick.label)}</span>
+      </div>
+    `).join("");
+  }
+
+  function timelineTodayTemplate(windowState) {
+    const now = new Date();
+    const nowMs = now.getTime();
+    if (nowMs < windowState.start.getTime() || nowMs > windowState.end.getTime()) return "";
+    const position = eventPercent(now, windowState);
+    return `
+      <div class="timeline-today" style="left: ${position}%;">
+        <span>Today</span>
+      </div>
+    `;
+  }
+
+  function timelineMarkerTemplate(event, windowState) {
+    const selected = event.alert_id && event.alert_id === state.selectedAlertId ? "active" : "";
+    const alertAttr = event.alert_id ? ` data-timeline-alert-id="${escapeAttr(event.alert_id)}"` : "";
+    const left = eventPercent(event.time, windowState);
+    const top = 68 + (stableIndex(event.id, 4) * 34);
+    const edgeClass = left > 78 ? "near-right" : left < 12 ? "near-left" : "";
+    const body = `
+      <span class="timeline-dot ${escapeAttr(event.type)}"></span>
+      <span class="timeline-marker-label">
+        <strong>${escapeHtml(event.title)}</strong>
+        <small>${escapeHtml(formatDateTime(event.time))}</small>
+        <em>${escapeHtml(event.detail)}</em>
+        <small>${escapeHtml(event.meta || labelize(event.type))}</small>
+      </span>
+    `;
+    return event.alert_id
+      ? `<button class="timeline-marker ${escapeAttr(event.type)} ${selected} ${edgeClass}" type="button" style="left: ${left}%; top: ${top}px;" aria-label="${escapeAttr(`${event.title}: ${event.detail}`)}"${alertAttr}>${body}</button>`
+      : `<article class="timeline-marker ${escapeAttr(event.type)} ${selected} ${edgeClass}" style="left: ${left}%; top: ${top}px;" aria-label="${escapeAttr(`${event.title}: ${event.detail}`)}">${body}</article>`;
+  }
+
+  function eventPercent(time, windowState) {
+    const elapsed = time.getTime() - windowState.start.getTime();
+    return Math.max(0, Math.min(100, (elapsed / windowState.rangeMs) * 100));
+  }
+
+  function timelineChartWidth() {
+    const widths = {
+      "1d": 940,
+      "1w": 980,
+      "1m": 1120,
+      "3m": 1260,
+      "1y": 1360
+    };
+    return widths[state.timelineRange] || 1120;
+  }
+
+  function stableIndex(value, modulo) {
+    const text = String(value || "");
+    let hash = 0;
+    for (let index = 0; index < text.length; index += 1) {
+      hash = ((hash << 5) - hash) + text.charCodeAt(index);
+      hash |= 0;
+    }
+    return Math.abs(hash) % modulo;
+  }
+
+  function formatTimelineTick(value) {
+    if (state.timelineRange === "1d") {
+      return new Intl.DateTimeFormat("en-GB", {
+        hour: "2-digit",
+        minute: "2-digit"
+      }).format(value).toUpperCase();
+    }
+    if (state.timelineRange === "1y") {
+      return new Intl.DateTimeFormat("en-GB", {
+        month: "short",
+        year: "2-digit"
+      }).format(value).toUpperCase();
+    }
+    return new Intl.DateTimeFormat("en-GB", {
+      month: "short",
+      day: "2-digit"
+    }).format(value).toUpperCase();
+  }
+
+  function alertTimelineDate(alert) {
+    const evidenceDates = (alert.evidence || []).flatMap((item) => [
+      item.published_at,
+      item.collected_at
+    ]);
+    const dates = [
+      alert.newest_published_at,
+      alert.created_at,
+      ...(alert.evidence || []).map((item) => item.published_at),
+      ...evidenceDates
+    ].map(parseTimelineDate).filter(Boolean);
+    if (!dates.length) return null;
+    return new Date(Math.max(...dates.map((date) => date.getTime())));
+  }
+
+  function parseTimelineDate(value) {
+    if (!value) return null;
+    const date = new Date(value);
+    return Number.isNaN(date.getTime()) ? null : date;
+  }
 
   function renderGeographicFootprint() {
     const customer = selectedCustomer();
@@ -2103,7 +2593,7 @@
   }
 
   function notificationCustomerScope() {
-    const scope = state.refreshSummary.notification_customer_ids;
+    const scope = state.preferences.watchlist_customer_ids;
     if (!Array.isArray(scope) || !scope.length) {
       return null;
     }

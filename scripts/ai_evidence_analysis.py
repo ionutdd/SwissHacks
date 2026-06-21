@@ -436,6 +436,13 @@ def request_diagnostics(
     }
 
 
+class ModelText(str):
+    def __new__(cls, value: str, usage: dict[str, Any] | None = None):
+        instance = super().__new__(cls, value)
+        instance.usage = usage or {}
+        return instance
+
+
 def call_apertus_openai_compatible(
     messages: list[dict[str, str]],
     config: ApertusConfig,
@@ -519,7 +526,10 @@ def call_apertus_openai_compatible(
             ) from exc
 
     try:
-        return response_payload["choices"][0]["message"]["content"]
+        return ModelText(
+            response_payload["choices"][0]["message"]["content"],
+            response_payload.get("usage") if isinstance(response_payload.get("usage"), dict) else {},
+        )
     except (KeyError, IndexError, TypeError) as exc:
         raise ApertusAPIError(
             "Apertus API response did not match OpenAI-compatible chat format.",
@@ -782,6 +792,13 @@ def analyze_document(
             return record
 
     record["raw_model_output"] = raw_output
+    usage = getattr(raw_output, "usage", None)
+    if usage:
+        record["model_usage"] = {
+            "prompt_tokens": int(usage.get("prompt_tokens") or usage.get("input_tokens") or 0),
+            "completion_tokens": int(usage.get("completion_tokens") or usage.get("output_tokens") or 0),
+            "total_tokens": int(usage.get("total_tokens") or 0),
+        }
     try:
         validated, validation_warnings = validate_model_output(raw_output, document)
     except ModelValidationError as exc:

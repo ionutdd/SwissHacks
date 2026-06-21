@@ -1,5 +1,7 @@
 logs/*.log
 scripts/__pycache__/
+runtime/
+storage/*.lock
 *.pyc
 .env
 .env.local
